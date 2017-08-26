@@ -1,7 +1,7 @@
 local Animation = {}
 
 
-function Animation:New( filename, imagecount, fps, x, y, quadX, quadY, quadW, quadH )
+function Animation:New( filename, imagecount, fps, x, y, w, h, quadX, quadY, quadW, quadH, flipX, flipY )
     local newAnimation = {}
     setmetatable( newAnimation, self )
     self.__index = self
@@ -9,6 +9,15 @@ function Animation:New( filename, imagecount, fps, x, y, quadX, quadY, quadW, qu
     newAnimation.image = love.graphics.newImage( filename )
     newAnimation.x = x
     newAnimation.y = y
+    newAnimation.w = w
+    if flipX then
+        newAnimation.w = -w
+    end
+    if flipY then
+        newAnimation.h = -h
+    end
+
+    newAnimation.h = h
     newAnimation.quadw = quadW
     newAnimation.quadh = quadH
     newAnimation.rotation = 0 -- in rad
@@ -67,6 +76,8 @@ end
 
 function Animation:Draw()
     if self.display then
-        love.graphics.draw( self.image, self.quads[self.currentquad], self.x, self.y, self.rotation )
+        love.graphics.draw( self.image, self.quads[self.currentquad], self.x, self.y, self.rotation, self.w/self.quadw, self.h/self.quadh )
     end
 end
+
+return Animation
