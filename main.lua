@@ -1,17 +1,20 @@
 MainMenu    = require( "src/MainMenu/MainMenu" )
 Game        = require( "src/Game/Game" )
+TestScreen    = require( "src/TestScreen/TestScreen" ) 
 
 -- States:
     -- kMainMenu
     -- kGaming
 local kMainMenu = 0
 local kGaming = 1
+local kTestScreen = 2
 
-local sgGameState = kMainMenu
+local sgGameState = kTestScreen
 
 -- First setup of my game, called at launch
 function love.load( args )
-    MainMenu:Initialize()
+    TestScreen:Initialize()
+    --MainMenu:Initialize()
     -- Game:Initialize()
     image = love.graphics.newImage( "resources/Images/Backgrounds/TERRAIN_MOCUP.png" )
 end
@@ -19,7 +22,9 @@ end
 -- Updates the values of my game before drawing at screen
 -- Called at each tick of the game before drawing
 function love.update( dt )
-    if sgGameState == kMainMenu then
+    if sgGameState == kTestScreen then
+        sgGameState = TestScreen:Update( dt )
+    elseif sgGameState == kMainMenu then
         sgGameState = MainMenu:Update( dt )
         if sgGameState == kGaming then
             Game:Initialize()
@@ -32,7 +37,12 @@ end
 
 -- The drawing function to draw the full game
 function love.draw()
-    if sgGameState == kMainMenu then
+    --love.graphics.setColor( 255, 255, 255, 255 )
+    --love.graphics.draw( image, 0, 0 )
+
+    if sgGameState == kTestScreen then
+        TestScreen:Draw()
+    elseif sgGameState == kMainMenu then
         MainMenu:Draw()
     elseif sgGameState == kGaming then
         Game:Draw()
@@ -40,7 +50,9 @@ function love.draw()
 end
 
 function love.keypressed( key, scancode, isrepeat )
-    if sgGameState == kMainMenu then
+    if sgGameState == kTestScreen then
+        TestScreen:KeyPressed( key, scancode, isrepeat )
+    elseif sgGameState == kMainMenu then
         MainMenu:KeyPressed( key, scancode, isrepeat )
     elseif sgGameState == kGaming then
         Game:KeyPressed( key, scancode, isrepeat )
@@ -48,7 +60,9 @@ function love.keypressed( key, scancode, isrepeat )
 end
 
 function love.keyreleased( key, scancode )
-    if sgGameState == kMainMenu then
+    if sgGameState == kTestScreen then
+        TestScreen:KeyReleased( key, scancode )
+    elseif sgGameState == kMainMenu then
         MainMenu:KeyReleased( key, scancode )
     elseif sgGameState == kGaming then
         Game:KeyReleased( key, scancode )
@@ -56,7 +70,9 @@ function love.keyreleased( key, scancode )
 end
 
 function  love.mousepressed( iX, iY, iButton, iIsTouch )
-    if sgGameState == kMainMenu then
+    if sgGameState == kTestScreen then
+        TestScreen:mousepressed( iX, iY, iButton, iIsTouch )
+    elseif sgGameState == kMainMenu then
         MainMenu:mousepressed( iX, iY, iButton, iIsTouch )
     elseif sgGameState == kGaming then
         Game:mousepressed( iX, iY, iButton, iIsTouch )
