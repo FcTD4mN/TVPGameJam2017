@@ -21,6 +21,10 @@ end
 function love.update( dt )
     if sgGameState == kMainMenu then
         sgGameState = MainMenu:Update( dt )
+        if sgGameState == kGaming then
+            Game:Initialize()
+            sgGameState = Game:Update( dt )
+        end
     elseif sgGameState == kGaming then
         sgGameState = Game:Update( dt )
     end

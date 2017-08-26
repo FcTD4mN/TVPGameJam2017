@@ -20,10 +20,12 @@ function Hero:New( world, x, y, type )
     newHero.currentAnimation = 0
     
     --Hero values
-    newHero:AddAnimation( "runsprite.png", 5, 3, 0, 0, 120, 150 )
-    newHero:AddAnimation( "runsprite.png", 5, 3, 0, 150, 120, 150 )
-    newHero:AddAnimation( "runsprite.png", 1, 3, 0, 0, 120, 150 )
-    newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
+    newHero:AddAnimation( "resources/Animation/Characters/singe-course.png", 14, 24, 0, 0, 529, 694, false, false )
+    newHero:AddAnimation( "resources/Animation/Characters/singe-course.png", 14, 24, 0, 0, 529, 694, true, false )
+    --newHero:AddAnimation( "runsprite.png", 5, 3, 0, 150, 120, 150 )
+    newHero:AddAnimation( "resources/Animation/Characters/singe-course.png", 1, 24, 0, 0, 529, 694, false, false )
+    newHero:AddAnimation( "resources/Animation/Characters/singe-course.png", 1, 24, 0, 0, 529, 694, true, false )
+    --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
     newHero:SetCurrentAnimation( 1 )
 
     return newHero

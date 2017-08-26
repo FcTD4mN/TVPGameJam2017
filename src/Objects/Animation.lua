@@ -10,14 +10,16 @@ function Animation:New( filename, imagecount, fps, x, y, w, h, quadX, quadY, qua
     newAnimation.x = x
     newAnimation.y = y
     newAnimation.w = w
+    newAnimation.h = h
     if flipX then
+        newAnimation.x = x + w
         newAnimation.w = -w
     end
     if flipY then
+        newAnimation.y = y + h
         newAnimation.h = -h
     end
 
-    newAnimation.h = h
     newAnimation.quadw = quadW
     newAnimation.quadh = quadH
     newAnimation.rotation = 0 -- in rad
@@ -71,11 +73,20 @@ function Animation:Update( dt, x, y )
     end
     self.x = x
     self.y = y
+
+    if self.w < 0 then --flipX
+        self.x = self.x - self.w
+    end
+    if self.h < 0 then --flipY
+        self.y = self.y - self.h
+    end
 end
 
 
 function Animation:Draw()
     if self.display then
+        love.graphics.setColor( 255, 255, 255, 255 )
+        --print( self.currentquad )
         love.graphics.draw( self.image, self.quads[self.currentquad], self.x, self.y, self.rotation, self.w/self.quadw, self.h/self.quadh )
     end
 end

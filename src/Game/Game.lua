@@ -27,6 +27,7 @@ function Game:Update( dt )
     hero1:Update( dt )
     --hero2:Update( dt )
     world:update( dt )
+    return 1
 end
 
 function Game:KeyPressed( key, scancode, isrepeat )
