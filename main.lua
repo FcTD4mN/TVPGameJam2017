@@ -37,7 +37,7 @@ end
 
 function love.keyreleased( key, scancode )
     if sgGameState == kMainMenu then
-        MainMenu:KeyReleased( key, scancode, isrepeat )
+        MainMenu:KeyReleased( key, scancode )
     elseif sgGameState == kGaming then
-        Game:KeyReleased( key, scancode, isrepeat )
+        Game:KeyReleased( key, scancode )
 end
