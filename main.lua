@@ -1,4 +1,5 @@
 MainMenu    = require( "MainMenu/MainMenu" )
+Game    = require( "Game/Game" )
 
 -- States:
     -- kMainMenu
@@ -13,19 +14,30 @@ end
 -- Updates the values of my game before drawing at screen
 -- Called at each tick of the game before drawing
 function love.update( dt )
+    if sgGameState == kMainMenu then
+        MainMenu:Update( dt )
+    elseif sgGameState == kGaming then
+        Game:Update( dt )
 end
 
 -- The drawing function to draw the full game
 function love.draw()
-    MainMenu:Draw()
-end
-
--- The function to launch a random particle
-function launchParticle()
+    if sgGameState == kMainMenu then
+        MainMenu:Draw()
+    elseif sgGameState == kGaming then
+        Game:Draw()
 end
 
 function love.keypressed( key, scancode, isrepeat )
+    if sgGameState == kMainMenu then
+        MainMenu:KeyPressed( key, scancode, isrepeat )
+    elseif sgGameState == kGaming then
+        Game:KeyPressed( key, scancode, isrepeat )
 end
 
 function love.keyreleased( key, scancode )
+    if sgGameState == kMainMenu then
+        MainMenu:KeyReleased( key, scancode, isrepeat )
+    elseif sgGameState == kGaming then
+        Game:KeyReleased( key, scancode, isrepeat )
 end
