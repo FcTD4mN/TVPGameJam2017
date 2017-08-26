@@ -1,5 +1,5 @@
 MainMenu    = require( "src/MainMenu/MainMenu" )
-Game    = require( "src/Game/Game" )
+Game        = require( "src/Game/Game" )
 
 -- States:
     -- kMainMenu
@@ -9,6 +9,7 @@ local sgGameState = kMainMenu
 
 -- First setup of my game, called at launch
 function love.load( args )
+    MainMenu:Initialize()
 end
 
 -- Updates the values of my game before drawing at screen
@@ -18,6 +19,7 @@ function love.update( dt )
         MainMenu:Update( dt )
     elseif sgGameState == kGaming then
         Game:Update( dt )
+    end
 end
 
 -- The drawing function to draw the full game
@@ -26,6 +28,7 @@ function love.draw()
         MainMenu:Draw()
     elseif sgGameState == kGaming then
         Game:Draw()
+    end
 end
 
 function love.keypressed( key, scancode, isrepeat )
@@ -33,6 +36,7 @@ function love.keypressed( key, scancode, isrepeat )
         MainMenu:KeyPressed( key, scancode, isrepeat )
     elseif sgGameState == kGaming then
         Game:KeyPressed( key, scancode, isrepeat )
+    end
 end
 
 function love.keyreleased( key, scancode )
@@ -40,4 +44,5 @@ function love.keyreleased( key, scancode )
         MainMenu:KeyReleased( key, scancode )
     elseif sgGameState == kGaming then
         Game:KeyReleased( key, scancode )
+    end
 end
