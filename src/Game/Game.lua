@@ -45,4 +45,9 @@ function Game:KeyReleased( key, scancode )
     --hero2:KeyPressed( key, scancode )
 end
 
+function  Game:mousepressed( iX, iY, iButton, iIsTouch )
+    --
+end
+
+
 return Game
