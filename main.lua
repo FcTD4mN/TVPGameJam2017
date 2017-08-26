@@ -1,5 +1,5 @@
-MainMenu    = require( "MainMenu/MainMenu" )
-Game    = require( "Game/Game" )
+MainMenu    = require( "src/MainMenu/MainMenu" )
+Game    = require( "src/Game/Game" )
 
 -- States:
     -- kMainMenu
