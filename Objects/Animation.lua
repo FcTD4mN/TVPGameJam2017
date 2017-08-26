@@ -1,7 +1,7 @@
-Animation = {}
+local Animation = {}
 
 
-function Animation:new( filename, imagecount, fps, x, y, quadX, quadY, quadW, quadH )
+function Animation:New( filename, imagecount, fps, x, y, quadX, quadY, quadW, quadH )
     local newAnimation = {}
     setmetatable( newAnimation, self )
     self.__index = self
@@ -11,6 +11,8 @@ function Animation:new( filename, imagecount, fps, x, y, quadX, quadY, quadW, qu
     newAnimation.y = y
     newAnimation.quadw = quadW
     newAnimation.quadh = quadH
+    newAnimation.rotation = 0 -- in rad
+
     newAnimation.fps = fps
     newAnimation.currentquad = 0
     newAnimation.time = -1
@@ -19,32 +21,41 @@ function Animation:new( filename, imagecount, fps, x, y, quadX, quadY, quadW, qu
     newAnimation.display = false
 
     newAnimation.quads = {}
-    for i=1,imagecount,1 do 
+    for i=1,imagecount,1 do
         newAnimation.quads[i] = love.graphics.newQuad( quadX + quadW * ( i - 1 ), quadY, quadW, quadH, newAnimation.image:getDimensions() )
     end
 
     return newAnimation
 end
 
-function Animation:togglepause()
+
+function  Animation:Type()
+    return  "Animation"
+end
+
+
+function Animation:TogglePause()
     if self.display then
         self.playing = not self.playing
     end
 end
 
-function Animation:stop()
+
+function Animation:Stop()
     self.playing = false
     self.currentquad = 0
     self.time = 0
     self.display = false
 end
 
-function Animation:play()
+
+function Animation:Play()
     self.playing = true
     self.display = true
 end
 
-function Animation:update( dt, x, y )
+
+function Animation:Update( dt, x, y )
     if self.playing then
         self.time = self.time + dt
         self.currentquad = math.floor( 1 + ( self.time * self.fps ) % ( self.imagecount ) )
@@ -53,8 +64,9 @@ function Animation:update( dt, x, y )
     self.y = y
 end
 
-function Animation:draw()
+
+function Animation:Draw()
     if self.display then
-        love.graphics.draw( self.image, self.quads[self.currentquad], self.x, self.y )
+        love.graphics.draw( self.image, self.quads[self.currentquad], self.x, self.y, self.rotation )
     end
 end
