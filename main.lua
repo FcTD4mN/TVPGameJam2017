@@ -5,11 +5,15 @@ Game        = require( "src/Game/Game" )
     -- kMainMenu
     -- kGaming
 
-local sgGameState = kMainMenu
+local kMainMenu = 0
+local kGaming = 1
+
+local sgGameState = kGaming
 
 -- First setup of my game, called at launch
 function love.load( args )
     MainMenu:Initialize()
+    Game:Initialize()
 end
 
 -- Updates the values of my game before drawing at screen
