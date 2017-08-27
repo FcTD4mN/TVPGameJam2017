@@ -8,8 +8,6 @@ function Fireball:New( world, x, y, iVelocity )
     setmetatable( newFireball, self )
     self.__index = self
 
-    w = 1075
-    h = 629
     newFireball.x = x
     newFireball.y = y
 
@@ -33,7 +31,7 @@ function Fireball:New( world, x, y, iVelocity )
 end
 
 function Fireball:AddAnimation( iImage )
-    table.insert( self.animations, Animation:New( iImage, 5, 24, self.x, self.y, 90, 90, 0, 0, 1075, 629, self.flipNeeded, false ) )
+    table.insert( self.animations, Animation:New( iImage, 5, 24, self.x, self.y, 90, 90, 0, 0, 185, 120, self.flipNeeded, false ) )
 end
 
 function Fireball:Update( dt )

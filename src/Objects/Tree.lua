@@ -27,7 +27,10 @@ function Tree:New( world, x, y )
     newTree.currentAnimation = 0
 
     local tree = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
-    newTree:AddAnimation( tree, 11, 24, 0, 0, w, h, false, false )
+    local treeFix = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
+    newTree:AddAnimation( tree, 11, 12, 0, 0, w, h, false, false )
+    newTree:AddAnimation( treeFix, 1, 1, 0, 0, w, h, false, false )
+    newTree:SetCurrentAnimation( 2 )
     return newTree
 
 end

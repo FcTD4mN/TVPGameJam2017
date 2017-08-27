@@ -8,8 +8,6 @@ function Waterball:New( world, x, y, iVelocity )
     setmetatable( newWaterball, self )
     self.__index = self
 
-    w = 1075
-    h = 629
     newWaterball.x = x
     newWaterball.y = y
 
@@ -33,7 +31,7 @@ function Waterball:New( world, x, y, iVelocity )
 end
 
 function Waterball:AddAnimation( iImage )
-    table.insert( self.animations, Animation:New( iImage, 5, 24, self.x, self.y, 90, 90, 0, 0, 1338, 784, self.flipNeeded, false ) )
+    table.insert( self.animations, Animation:New( iImage, 5, 24, self.x, self.y, 90, 90, 0, 0, 181, 111, self.flipNeeded, false ) )
 end
 
 function Waterball:Update( dt )

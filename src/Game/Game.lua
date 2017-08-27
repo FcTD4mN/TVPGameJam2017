@@ -15,6 +15,7 @@ function Game:Initialize()
 
     hero1 =  Hero:New( world, 50, love.graphics.getHeight() - 100, 0 )
     hero2 = Hero:New( world, 50, 50, 1 )
+    tree  = Tree:New( world, 500, 250 )
 
     imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     Game:BuildTerrainShape()
@@ -38,6 +39,7 @@ function Game:Draw()
 
     hero1:Draw()
     hero2:Draw()
+    tree:Draw()
     -- local x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
     -- x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
     -- x, y = Camera.MapToScreen( x, y )
@@ -103,6 +105,7 @@ function Game:Update( dt )
 
     hero1:Update( dt )
     hero2:Update( dt )
+    tree:Update( dt )
     world:update( dt )
 
     for k,v in pairs( foregrounds ) do

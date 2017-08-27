@@ -7,11 +7,11 @@ function AttackGenerator:Initialize( world )
 
     AttackGenerator.world = world;
     AttackGenerator.images = {};
-    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_debut.png" ) )
+    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_2.png" ) )
     table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_suite.png" ) )
     table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_debut.png" ) )
     table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_suite.png" ) )
-    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau.png" ) )
+    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_eau_2.png" ) )
 end
 
 function AttackGenerator:GenerateAttack( x, y, type, iVel )

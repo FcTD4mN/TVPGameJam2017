@@ -94,7 +94,7 @@ function Animation:Draw()
         love.graphics.setColor( 255, 255, 255, 255 )
         --print( self.currentquad )
         x, y = Camera.MapToScreen( self.x, self.y )
-        currentQuad = self.quads[self.currentquad]
+        currentQuad = self.quads[ self.currentquad ]
         -- love.graphics.draw( self.bigImage:Image( currentQuad ), currentQuad, x, y, self.rotation, self.w/self.quadw, self.h/self.quadh )
         love.graphics.draw( self.image, currentQuad, x, y, self.rotation, self.w/self.quadw, self.h/self.quadh )
     end
