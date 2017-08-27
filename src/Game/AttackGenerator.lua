@@ -11,6 +11,7 @@ function AttackGenerator:Initialize( world )
     table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_suite.png" ) )
     table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_debut.png" ) )
     table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_suite.png" ) )
+    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau.png" ) )
 end
 
 function AttackGenerator:GenerateAttack( x, y, type, iVel )
@@ -21,7 +22,7 @@ function AttackGenerator:GenerateAttack( x, y, type, iVel )
         return  fire
     elseif type == "waterball" then
         water =  Waterball:New( world, x, y , iVel )
-        water:AddAnimation( love.graphics.newImage( "resources/Animation/FX/jet_eau.png" ) )
+        water:AddAnimation( AttackGenerator.images[ 5 ] )
         water:SetCurrentAnimation( 1 )
         return  water
     end
