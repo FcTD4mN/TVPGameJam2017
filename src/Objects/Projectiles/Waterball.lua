@@ -24,6 +24,7 @@ function Waterball:New( world, x, y, iVelocity )
     newWaterball.shape = love.physics.newRectangleShape( newWaterball.w, newWaterball.h )
     newWaterball.fixture = love.physics.newFixture( newWaterball.body, newWaterball.shape )
     newWaterball.fixture:setFriction( 1.0 )
+    newWaterball.fixture:setUserData( "Waterball" )
     newWaterball.animations = {}
     newWaterball.currentAnimation = 0
 
@@ -42,6 +43,10 @@ function Waterball:Draw()
     -- love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
 
     self:DrawObject()
+end
+
+function Waterball:Type()
+    return "Waterball"
 end
 
 return Waterball

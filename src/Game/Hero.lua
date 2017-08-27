@@ -21,6 +21,8 @@ function Hero:New( world, x, y, type )
     newHero.shape = love.physics.newRectangleShape( w - 20, h )
     newHero.fixture = love.physics.newFixture( newHero.body, newHero.shape )
     newHero.fixture:setFriction( 0.33 )
+    newHero.fixture:setUserData( "Hero" )
+    
     newHero.animations = {}
     newHero.currentAnimation = 0
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )

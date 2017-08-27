@@ -4,14 +4,41 @@ local Hero          = require "src/Game/Hero"
 local BigImage      = require "src/Image/BigImage"
 local AttackGenerator    = require "src/Game/AttackGenerator"
 local ImageShapeComputer = require "src/Image/ImageShapeComputer"
+local GrowingTree = require "src/Game/GrowingTree"
 
 local Game = {}
+
+function beginContact(a, b, coll)
+    if not coll:isTouching() then
+        return
+    end
+
+    if a:getUserData() == "GrowingTree" and b:getUserData() == "Fireball" then
+        a:Grow()
+    end
+    if b:getUserData() == "GrowingTree" and a:getUserData() == "Fireball" then
+        b:Grow()
+    end
+end
+ 
+function endContact(a, b, coll)
+    
+end
+ 
+function preSolve(a, b, coll)
+ 
+end
+ 
+function postSolve(a, b, coll, normalimpulse, tangentimpulse)
+ 
+end
 
 function Game:Initialize()
     AttackGenerator:Initialize()
 
     love.physics.setMeter( 100 )
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
+    world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
     hero1 =  Hero:New( world, 50, love.graphics.getHeight() - 100, 0 )
     hero2 = Hero:New( world, 50, 50, 1 )
@@ -26,6 +53,8 @@ function Game:Initialize()
     table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", 0, 0, 0 ) )
     terrain = Background:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 0, 0, 0 )
     table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
+
+    growingtree = GrowingTree:New( world, 800, love.graphics.getHeight() - 150 )
 end
 
 function Game:Draw()
@@ -42,13 +71,12 @@ function Game:Draw()
     tree:Draw()
     -- local x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
     -- x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
+    growingtree:Draw()
     -- x, y = Camera.MapToScreen( x, y )
     -- x2, y2 = Camera.MapToScreen( x2, y2 )
 
     -- love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
 
-    -- x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
-    -- x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
     -- x, y = Camera.MapToScreen( x, y )
     -- x2, y2 = Camera.MapToScreen( x2, y2 )
 
@@ -106,6 +134,7 @@ function Game:Update( dt )
     hero1:Update( dt )
     hero2:Update( dt )
     tree:Update( dt )
+    growingtree:Update( dt )
     world:update( dt )
 
     for k,v in pairs( foregrounds ) do
@@ -148,6 +177,7 @@ function  Game:BuildTerrainShape()
                                                             imageShapeComputer.pointsMiddleTop[i+1].y )
         edgesMiddle[i].fixture = love.physics.newFixture( edgesMiddle[i].body, edgesMiddle[i].shape )
         edgesMiddle[i].fixture:setFriction( 0.3 )
+        edgesMiddle[i].fixture:setUserData( "edge" )
 
         edgesFloor[i] = {}
         edgesFloor[i].body = love.physics.newBody( world, 0 , 0, "static" )
@@ -161,6 +191,7 @@ function  Game:BuildTerrainShape()
                                                             imageShapeComputer.pointsFloor[i+1].y )
         edgesFloor[i].fixture = love.physics.newFixture( edgesFloor[i].body, edgesFloor[i].shape )
         edgesFloor[i].fixture:setFriction( 0.3 )
+        edgesFloor[i].fixture:setUserData( "edge" )
 
         edgesCeiling[i] = {}
         edgesCeiling[i].body = love.physics.newBody( world, 0 , 0, "static" )
@@ -174,6 +205,7 @@ function  Game:BuildTerrainShape()
                                                             imageShapeComputer.pointsCeiling[i+1].y )
         edgesCeiling[i].fixture = love.physics.newFixture( edgesCeiling[i].body, edgesCeiling[i].shape )
         edgesCeiling[i].fixture:setFriction( 0.3 )
+        edgesCeiling[i].fixture:setUserData( "edge" )
     end
 end
 

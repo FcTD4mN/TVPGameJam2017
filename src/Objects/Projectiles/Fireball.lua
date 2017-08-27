@@ -24,6 +24,7 @@ function Fireball:New( world, x, y, iVelocity )
     newFireball.shape = love.physics.newRectangleShape( newFireball.w, newFireball.h )
     newFireball.fixture = love.physics.newFixture( newFireball.body, newFireball.shape )
     newFireball.fixture:setFriction( 1.0 )
+    newFireball.fixture:setUserData( "Fireball" )
     newFireball.animations = {}
     newFireball.currentAnimation = 0
 
@@ -42,6 +43,10 @@ function Fireball:Draw()
     -- love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
 
     self:DrawObject()
+end
+
+function Fireball:Type()
+    return "Fireball"
 end
 
 return Fireball
