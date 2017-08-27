@@ -86,7 +86,7 @@ function Game:Draw()
         v:Draw()
     end
 
-    self:DrawTerrainShape()
+    --self:DrawTerrainShape()
 end
 
 function Game:DrawTerrainShape()
@@ -140,6 +140,18 @@ function Game:Update( dt )
     for k,v in pairs( foregrounds ) do
         v:Update( dt )
     end
+
+    x, y, x2, y2 = hero1.shape:computeAABB( 0, 0, 0 )
+    x, y, x2, y2 = hero1.body:getWorldPoints( x, y, x2, y2 )
+    
+    uerx, uery, uerx2, uery2 = hero2.shape:computeAABB( 0, 0, 0 )
+    uerx, uery, uerx2, uery2 = hero2.body:getWorldPoints( uerx, uery, uerx2, uery2 )
+    
+    xza = ( x + uerx ) / 2
+    
+    Camera.x = xza - love.graphics.getWidth() / 2
+    Camera.y = 0 --love.graphics.getHeight() / 2
+
     return 1
 end
 

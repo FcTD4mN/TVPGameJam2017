@@ -15,7 +15,7 @@ local sgGameState = kMainMenu
 function love.load( args )
     MainMenu:Initialize()
     -- Game:Initialize()
-    image = love.graphics.newImage( "resources/Images/Backgrounds/TERRAIN_MOCUP.png" )
+    --image = love.graphics.newImage( "resources/Images/Backgrounds/TERRAIN_MOCUP.png" )
 end
 
 -- Updates the values of my game before drawing at screen

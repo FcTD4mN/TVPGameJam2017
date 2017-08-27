@@ -18,8 +18,10 @@ function Hero:New( world, x, y, type )
     --inherited values
     newHero.body = love.physics.newBody( world, x, y, "dynamic" )
     newHero.body:setFixedRotation( true )
-    newHero.shape = love.physics.newRectangleShape( w - 20, h )
+    newHero.shape = love.physics.newCircleShape( 50 )
+    newHero.shape2 = love.physics.newRectangleShape( w - 30, h-10 )
     newHero.fixture = love.physics.newFixture( newHero.body, newHero.shape )
+    newHero.fixture = love.physics.newFixture( newHero.body, newHero.shape2 )
     newHero.fixture:setFriction( 0.33 )
     newHero.fixture:setUserData( "Hero" )
     
@@ -180,11 +182,6 @@ function Hero:Update( dt )
     if( self.fireBall ~= 0 ) then
         self.fireBall:Update( dt )
     end
-
-    x, y, x2, y2 = self.shape:computeAABB( 0, 0, 0 )
-    x, y, x2, y2 = self.body:getWorldPoints( x, y, x2, y2 )
-    Camera.x = x - love.graphics.getWidth() / 2
-    Camera.y = 0 --love.graphics.getHeight() / 2
 end
 
 function  Hero:Attack( iVel )

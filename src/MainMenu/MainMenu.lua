@@ -16,12 +16,19 @@ function  MainMenu:Initialize()
     music:setLooping( true )
 
     -- ============================ MAIN MAIN ===============================
-    y = 100
+    y = 250
+    dz = 0
     newGame = MenuItem:New( "NewGame", love.graphics.getWidth() / 2, y )
     y = y + spaceBetItems
+    newGame.rectangle.x = dz+ love.graphics.getWidth() / 2 - newGame.rectangle.w /2
+
+    
     options = MenuItem:New( "Options", love.graphics.getWidth() / 2, y )
     y = y + spaceBetItems
+    options.rectangle.x = dz+ love.graphics.getWidth() / 2 - options.rectangle.w /2
+
     quit    = MenuItem:New( "Quit", love.graphics.getWidth() / 2, y )
+    quit.rectangle.x = dz+ love.graphics.getWidth() / 2 - quit.rectangle.w /2    
 
     -- Callbacks
     newGame:SetCallback(    function() MainMenu.returnValue = 1 end )
@@ -42,15 +49,20 @@ function  MainMenu:Initialize()
 
 
     -- ========================== MAIN OPTIONS =============================
-    y = 100
+    y = 250
+    dz = 0
     video = MenuItem:New( "Video", love.graphics.getWidth() / 2, y )
     y = y + spaceBetItems
+    video.rectangle.x = dz+ love.graphics.getWidth() / 2 - video.rectangle.w /2
     sound = MenuItem:New( "Sound", love.graphics.getWidth() / 2, y )
     y = y + spaceBetItems
+    sound.rectangle.x = dz+ love.graphics.getWidth() / 2 - sound.rectangle.w /2
     controls = MenuItem:New( "Controls", love.graphics.getWidth() / 2, y )
     y = y + spaceBetItems
+    controls.rectangle.x = dz+ love.graphics.getWidth() / 2 - controls.rectangle.w /2
     back    = MenuItem:New( "Back", love.graphics.getWidth() / 2, y )
-
+    back.rectangle.x = dz+ love.graphics.getWidth() / 2 - back.rectangle.w /2
+    
     -- Callbacks
     back:SetCallback( function() MainMenu.currentPage = 1 end )
 
@@ -67,6 +79,11 @@ function  MainMenu:Initialize()
     self:AddPage( optionPage )
 
     love.audio.play( music )
+
+    --Menu Images
+    imageBG = love.graphics.newImage( "resources/Images/Backgrounds/Final/MenuBG.png" )
+    imageLOGO = love.graphics.newImage( "resources/Images/Backgrounds/Final/MenuLOGO.png" )
+
 end
 
 function  MainMenu:AddPage( iPage )
@@ -89,7 +106,9 @@ end
 
 function MainMenu:Draw()
     love.graphics.setColor( 255, 255, 255, 255 )
-    love.graphics.draw( image, 0, 0 )
+    love.graphics.draw( imageBG, love.graphics.getWidth() / 2 - imageBG:getWidth() /2, 0 )
+    love.graphics.draw( imageLOGO, love.graphics.getWidth() / 2 - imageLOGO:getWidth()/2 , 0 )
+
 
     self.menuPages[ self.currentPage ]:Draw()
 end

@@ -26,9 +26,9 @@ end
 function MenuItem:Draw()
     love.graphics.setFont( self.font )
     if( self.isCurrent ) then
-        love.graphics.setColor( 255, 100, 50 )
+        love.graphics.setColor( 200, 200, 200 )
     else
-        love.graphics.setColor( 10, 150, 10 )
+        love.graphics.setColor( 255, 255, 255 )
     end
 
     love.graphics.print( self.text, self.rectangle.x, self.rectangle.y )
