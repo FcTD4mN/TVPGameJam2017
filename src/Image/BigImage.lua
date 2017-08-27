@@ -62,7 +62,7 @@ end
 
 function  BigImage:Draw( dx, dy )
 
-    --x,y = Camera.MapToScreen( 0, 0)
+    love.graphics.setColor( 255, 255, 255, 255 )
 
     windowW = love.graphics.getWidth()
     tileW = self.tileWidth
