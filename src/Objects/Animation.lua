@@ -3,12 +3,12 @@ Camera = require("src/Camera/Camera")
 local Animation = {}
 
 
-function Animation:New( filename, imagecount, fps, x, y, w, h, quadX, quadY, quadW, quadH, flipX, flipY )
+function Animation:New( file, imagecount, fps, x, y, w, h, quadX, quadY, quadW, quadH, flipX, flipY )
     local newAnimation = {}
     setmetatable( newAnimation, self )
     self.__index = self
 
-    newAnimation.image = love.graphics.newImage( filename )
+    newAnimation.image = file
     newAnimation.x = x
     newAnimation.y = y
     newAnimation.w = w

@@ -37,6 +37,9 @@ function Game:Draw()
     end
 
     hero1:Draw()
+    hero2:Draw()
+    local x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
+    x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
     x, y = Camera.MapToScreen( x, y )
     x2, y2 = Camera.MapToScreen( x2, y2 )
 
