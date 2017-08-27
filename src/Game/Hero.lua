@@ -23,8 +23,8 @@ function Hero:New( world, x, y, type )
     newHero.fixture = love.physics.newFixture( newHero.body, newHero.shape )
     newHero.fixture = love.physics.newFixture( newHero.body, newHero.shape2 )
     newHero.fixture:setFriction( 0.33 )
-    newHero.fixture:setUserData( "Hero" )
-    
+    newHero.fixture:setUserData( nil )
+
     newHero.animations = {}
     newHero.currentAnimation = 0
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
@@ -36,7 +36,7 @@ function Hero:New( world, x, y, type )
     newHero.moving = false
     newHero.attacking = false
 
-    newHero.fireBall = 0
+    newHero.attack = nil
     newHero.sounds = {}
     newHero.sounds.step = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
     newHero.sounds.step:setLooping( true )
@@ -179,8 +179,8 @@ function Hero:Update( dt )
 
     self:UpdateObject( dt )
 
-    if( self.fireBall ~= 0 ) then
-        self.fireBall:Update( dt )
+    if( self.attack ) then
+        self.attack:Update( dt )
     end
 end
 
@@ -196,9 +196,9 @@ function  Hero:Attack( iVel )
     x = self.body:getX() + shift
     y = self.body:getY() - self.h / 2
     if( self.type == 0 ) then
-        self.fireBall = AttackGenerator:GenerateAttack( x + xShift, y, "fireball", iVel )
+        self.attack = AttackGenerator:GenerateAttack( x + xShift, y, "fireball", iVel )
     elseif( self.type == 1 ) then
-        self.fireBall = AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel )
+        self.attack = AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel )
     end
 end
 
@@ -206,8 +206,8 @@ function Hero:Draw()
     --love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
     self:DrawObject()
 
-    if( self.fireBall ~= 0 ) then
-        self.fireBall:Draw()
+    if( self.attack ) then
+        self.attack:Draw()
     end
 end
 

@@ -24,7 +24,7 @@ function Waterball:New( world, x, y, iVelocity )
     newWaterball.shape = love.physics.newRectangleShape( newWaterball.w, newWaterball.h )
     newWaterball.fixture = love.physics.newFixture( newWaterball.body, newWaterball.shape )
     newWaterball.fixture:setFriction( 1.0 )
-    newWaterball.fixture:setUserData( "Waterball" )
+    newWaterball.fixture:setUserData( newWaterball )
     newWaterball.animations = {}
     newWaterball.currentAnimation = 0
 

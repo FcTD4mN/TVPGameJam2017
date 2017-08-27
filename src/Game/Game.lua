@@ -13,24 +13,45 @@ function beginContact(a, b, coll)
         return
     end
 
+    if a:getUserData() == nil or b:getUserData() == nil then
+        return
+    end
+
     if a:getUserData() == "GrowingTree" and b:getUserData() == "Fireball" then
         a:Grow()
     end
     if b:getUserData() == "GrowingTree" and a:getUserData() == "Fireball" then
         b:Grow()
     end
+
+    if a:getUserData():Type() == "Tree" and b:getUserData():Type() == "Fireball" then
+        a:getUserData():Burn()
+        -- hero1.attack:Destroy()
+        hero1.attack = nil
+    end
+    if a:getUserData():Type() == "Fireball" and b:getUserData():Type() == "Tree" then
+        b:getUserData():Burn()
+        -- hero1.attack:Destroy()
+        hero1.attack = nil
+    end
+    if a:getUserData():Type() == "Tree" and b:getUserData():Type() == "Waterball" then
+        print("wateryo")
+    end
+    if b:getUserData():Type() == "Tree" and a:getUserData():Type() == "Waterball" then
+        print("wateryo")
+    end
 end
- 
+
 function endContact(a, b, coll)
-    
+
 end
- 
+
 function preSolve(a, b, coll)
- 
+
 end
- 
+
 function postSolve(a, b, coll, normalimpulse, tangentimpulse)
- 
+
 end
 
 function Game:Initialize()
@@ -44,7 +65,7 @@ function Game:Initialize()
     hero2 = Hero:New( world, 50, 50, 1 )
     tree  = Tree:New( world, 500, 250 )
 
-    imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
+    imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 2000 )
     Game:BuildTerrainShape()
 
     colorBackground = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
@@ -55,6 +76,13 @@ function Game:Initialize()
     table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
 
     growingtree = GrowingTree:New( world, 800, love.graphics.getHeight() - 150 )
+
+    floor = {}
+    floor.body = love.physics.newBody( world, 0, 0, "static" )
+    floor.shape = love.physics.newRectangleShape( 10, 3000 )
+    floor.fixture = love.physics.newFixture( floor.body, floor.shape )
+    floor.fixture:setFriction( 1.0 )
+
 end
 
 function Game:Draw()
@@ -143,12 +171,12 @@ function Game:Update( dt )
 
     x, y, x2, y2 = hero1.shape:computeAABB( 0, 0, 0 )
     x, y, x2, y2 = hero1.body:getWorldPoints( x, y, x2, y2 )
-    
+
     uerx, uery, uerx2, uery2 = hero2.shape:computeAABB( 0, 0, 0 )
     uerx, uery, uerx2, uery2 = hero2.body:getWorldPoints( uerx, uery, uerx2, uery2 )
-    
+
     xza = ( x + uerx ) / 2
-    
+
     Camera.x = xza - love.graphics.getWidth() / 2
     Camera.y = 0 --love.graphics.getHeight() / 2
 
@@ -189,7 +217,7 @@ function  Game:BuildTerrainShape()
                                                             imageShapeComputer.pointsMiddleTop[i+1].y )
         edgesMiddle[i].fixture = love.physics.newFixture( edgesMiddle[i].body, edgesMiddle[i].shape )
         edgesMiddle[i].fixture:setFriction( 0.3 )
-        edgesMiddle[i].fixture:setUserData( "edge" )
+        edgesMiddle[i].fixture:setUserData( nil )
 
         edgesFloor[i] = {}
         edgesFloor[i].body = love.physics.newBody( world, 0 , 0, "static" )
@@ -203,7 +231,7 @@ function  Game:BuildTerrainShape()
                                                             imageShapeComputer.pointsFloor[i+1].y )
         edgesFloor[i].fixture = love.physics.newFixture( edgesFloor[i].body, edgesFloor[i].shape )
         edgesFloor[i].fixture:setFriction( 0.3 )
-        edgesFloor[i].fixture:setUserData( "edge" )
+        edgesFloor[i].fixture:setUserData( nil )
 
         edgesCeiling[i] = {}
         edgesCeiling[i].body = love.physics.newBody( world, 0 , 0, "static" )
@@ -217,7 +245,7 @@ function  Game:BuildTerrainShape()
                                                             imageShapeComputer.pointsCeiling[i+1].y )
         edgesCeiling[i].fixture = love.physics.newFixture( edgesCeiling[i].body, edgesCeiling[i].shape )
         edgesCeiling[i].fixture:setFriction( 0.3 )
-        edgesCeiling[i].fixture:setUserData( "edge" )
+        edgesCeiling[i].fixture:setUserData( nil )
     end
 end
 

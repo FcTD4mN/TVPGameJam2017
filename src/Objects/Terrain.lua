@@ -13,7 +13,7 @@ function Terrain:New( world )
     newObject.shape = love.physics.newRectangleShape( w, h )
     newObject.fixture = 0--love.physics.newFixture( newObject.body, newObject.shape )
     newObject.fixture:setFriction( 1 )
-    newObject.fixture:setUserData( "Terrain" )
+    newObject.fixture:setUserData( nil )
     newObject.EdgeShapesCeiling1 = {} -- top
     newObject.EdgeShapesFloor1 = {} -- middle part floor
     newObject.EdgeShapesCeiling2 = {} -- middle part ceiling

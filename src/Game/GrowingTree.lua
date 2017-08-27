@@ -21,10 +21,10 @@ function GrowingTree:New( world, x, y )
     newGrowingTree.shape = love.physics.newRectangleShape( w, h )
     newGrowingTree.fixture = love.physics.newFixture( newGrowingTree.body, newGrowingTree.shape )
     newGrowingTree.fixture:setFriction( 1.0 )
-    newGrowingTree.fixture:setUserData( "GrowingTree" )
+    newGrowingTree.fixture:setUserData( newGrowingTree )
     newGrowingTree.animations = {}
     newGrowingTree.currentAnimation = 0
-    
+
     local img = love.graphics.newImage( "resources/Animation/FX/Petite-plante.png" )
     local img1 = love.graphics.newImage( "resources/Animation/FX/Grande-plante.png" )
     newGrowingTree:AddAnimation( img, 8, 8, 0, 0, 64, 104, false, false )
@@ -44,7 +44,7 @@ function GrowingTree:Draw()
 end
 
 function GrowingTree:Type()
-    return GrowingTree
+    return  "GrowingTree"
 end
 
 return GrowingTree

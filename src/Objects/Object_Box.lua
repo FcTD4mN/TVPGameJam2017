@@ -19,7 +19,7 @@ function Object_Box:New( world, x, y, type )
     newObject_Box.shape = love.physics.newRectangleShape( w, h )
     newObject_Box.fixture = love.physics.newFixture( newObject_Box.body, newObject_Box.shape )
     newObject_Box.fixture:setFriction( 0.7 )
-    newObject_Box.fixture:setUserData( "box" )
+    newObject_Box.fixture:setUserData( nil )
     newObject_Box.animations = {}
     newObject_Box.currentAnimation = 0
 

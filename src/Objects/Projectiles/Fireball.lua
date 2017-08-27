@@ -24,11 +24,17 @@ function Fireball:New( world, x, y, iVelocity )
     newFireball.shape = love.physics.newRectangleShape( newFireball.w, newFireball.h )
     newFireball.fixture = love.physics.newFixture( newFireball.body, newFireball.shape )
     newFireball.fixture:setFriction( 1.0 )
-    newFireball.fixture:setUserData( "Fireball" )
+    newFireball.fixture:setUserData( newFireball )
     newFireball.animations = {}
     newFireball.currentAnimation = 0
 
     return newFireball
+end
+
+function  Fireball:Destroy()
+    self.body       = nil
+    self.shape      = nil
+    self.fixture    = nil
 end
 
 function Fireball:AddAnimation( iImage )
