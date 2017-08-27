@@ -1,3 +1,5 @@
+Camera = require("src/Camera/Camera")
+
 local Animation = {}
 
 
@@ -87,7 +89,8 @@ function Animation:Draw()
     if self.display then
         love.graphics.setColor( 255, 255, 255, 255 )
         --print( self.currentquad )
-        love.graphics.draw( self.image, self.quads[self.currentquad], self.x, self.y, self.rotation, self.w/self.quadw, self.h/self.quadh )
+        x, y = Camera.MapToScreen( self.x, self.y )
+        love.graphics.draw( self.image, self.quads[self.currentquad], x, y, self.rotation, self.w/self.quadw, self.h/self.quadh )
     end
 end
 

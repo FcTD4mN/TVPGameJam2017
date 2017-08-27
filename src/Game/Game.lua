@@ -23,7 +23,16 @@ function Game:Draw()
     object_box2:Draw()
     hero1:Draw()
     --hero2:Draw()
+<<<<<<< HEAD
     love.graphics.polygon( "fill", floor.body:getWorldPoints( floor.shape:getPoints() ) )
+=======
+    x, y, x2, y2 = floor.shape:computeAABB( 0, 0, 0 )
+    x, y, x2, y2 = floor.body:getWorldPoints( x, y, x2, y2 )
+    x, y = Camera.MapToScreen( x, y )
+    x2, y2 = Camera.MapToScreen( x2, y2 )
+
+    love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
+>>>>>>> Lol
 end
 
 function Game:Update( dt )

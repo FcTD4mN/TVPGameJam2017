@@ -1,3 +1,4 @@
+local Camera = require "src/Camera/Camera"
 local Object = require "src/Objects/Object"
 
 local Hero = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
@@ -7,18 +8,23 @@ function Hero:New( world, x, y, type )
     setmetatable( newHero, self )
     self.__index = self
 
-    w = 100
-    h = 100
+    w = 90
+    h = 120
+
+    xShift = 20
+    newHero.w = 90
+    newHero.h = 120
+
 
     --inherited values
     newHero.body = love.physics.newBody( world, x, y, "dynamic" )
     newHero.body:setFixedRotation( true )
-    newHero.shape = love.physics.newRectangleShape( w, h )
+    newHero.shape = love.physics.newRectangleShape( 5, h )
     newHero.fixture = love.physics.newFixture( newHero.body, newHero.shape )
     newHero.fixture:setFriction( 1.0 )
     newHero.animations = {}
     newHero.currentAnimation = 0
-    
+
     --Hero values
     newHero:AddAnimation( "resources/Animation/Characters/singe-course.png", 14, 24, 0, 0, 529, 694, false, false )
     newHero:AddAnimation( "resources/Animation/Characters/singe-course.png", 14, 24, 0, 0, 529, 694, true, false )
@@ -59,15 +65,19 @@ function Hero:StopRunning()
 end
 
 function Hero:Update( dt )
-
     -- Key holding detection
     if love.keyboard.isDown( "left" ) then
         self:runLeft()
     elseif love.keyboard.isDown( "right" ) then
         self:runRight()
     end
-    
+
     self:UpdateObject( dt )
+
+    x, y, x2, y2 = self.shape:computeAABB( 0, 0, 0 )
+    x, y, x2, y2 = self.body:getWorldPoints( x, y, x2, y2 )
+    Camera.x = x - love.graphics.getWidth() / 2
+    Camera.y = y - love.graphics.getHeight() / 2
 end
 
 function Hero:Draw()
