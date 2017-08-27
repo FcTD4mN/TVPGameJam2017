@@ -1,3 +1,5 @@
+io.stdout:setvbuf('no')
+
 MainMenu    = require( "src/MainMenu/MainMenu" )
 Game        = require( "src/Game/Game" )
 

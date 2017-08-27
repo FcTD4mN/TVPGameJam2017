@@ -1,6 +1,8 @@
 local Background    = require "src/Objects/Background"
 local Hero          = require "src/Game/Hero"
 
+local BigImage = require "src/Image/BigImage"
+
 local Game = {}
 
 function Game:Initialize()
@@ -15,6 +17,10 @@ function Game:Initialize()
     table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", -100, 0, 3000, 720, 0 ) )
     table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Terrain3000x720.png", -100, 0, 3000, 720, 0 ) )
     table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", -100, 0, 3000, 720, -1 ) )
+    hero1 = Hero:New( world, love.graphics.getWidth() / 2, love.graphics.getHeight() / 2, 0 )
+    object_box1 = Object_Box:New( world, 200, 50, 0 )
+    
+    bigimage = BigImage:New( "resources/Images/Backgrounds/a.png" )
 
     floor = {}
     floor.body = love.physics.newBody( world, love.graphics.getWidth() / 2, love.graphics.getHeight() - 10, "static" )
@@ -35,6 +41,7 @@ function Game:Draw()
         v:Draw()
     end
 
+    object_box1:Draw()
     hero1:Draw()
     hero2:Draw()
     x, y, x2, y2 = floor.shape:computeAABB( 0, 0, 0 )
@@ -55,18 +62,15 @@ function Game:Draw()
     for k,v in pairs( foregrounds ) do
         v:Draw()
     end
+    bigimage:Draw()
 end
 
 function Game:Update( dt )
 
-    for k,v in pairs( backgrounds ) do
         v:Update( dt )
     end
 
     hero1:Update( dt )
-    hero2:Update( dt )
-    world:update( dt )
-
     for k,v in pairs( foregrounds ) do
         v:Update( dt )
     end

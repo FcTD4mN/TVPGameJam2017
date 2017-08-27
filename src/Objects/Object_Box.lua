@@ -1,5 +1,5 @@
-local Object = require "src/Objects/Object"
 
+local Object = require "src/Objects/Object"
 local Object_Box = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
 function Object_Box:New( world, x, y, type )
