@@ -104,7 +104,7 @@ function Hero:StopRunning()
     vx, vy = self.body:getLinearVelocity()
     self.body:setLinearVelocity( 0, vy )
     self.moving = false
-    
+
     love.audio.stop( self.sounds.step )
 end
 

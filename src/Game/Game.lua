@@ -1,4 +1,5 @@
 local Background    = require "src/Objects/Background"
+local Tree          = require "src/Objects/Tree"
 local Hero          = require "src/Game/Hero"
 local BigImage      = require "src/Image/BigImage"
 local AttackGenerator    = require "src/Game/AttackGenerator"
@@ -15,7 +16,7 @@ function Game:Initialize()
     hero1 =  Hero:New( world, 50, love.graphics.getHeight() - 100, 0 )
     hero2 = Hero:New( world, 50, 50, 1 )
 
-    imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 10 )
+    imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     Game:BuildTerrainShape()
 
     colorBackground = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
@@ -59,36 +60,36 @@ function Game:Draw()
 end
 
 function Game:DrawTerrainShape()
-    
+
     love.graphics.setColor( 255, 0, 0, 255 )
     count = imageShapeComputer.pointCount
     for i = 0, count-1, 1 do
         love.graphics.polygon(  "line",
-                                -Camera.x + imageShapeComputer.pointsMiddleTop[i].x, 
-                                -Camera.y + imageShapeComputer.pointsMiddleTop[i].y, 
-                                -Camera.x + imageShapeComputer.pointsMiddleTop[i+1].x, 
+                                -Camera.x + imageShapeComputer.pointsMiddleTop[i].x,
+                                -Camera.y + imageShapeComputer.pointsMiddleTop[i].y,
+                                -Camera.x + imageShapeComputer.pointsMiddleTop[i+1].x,
                                 -Camera.y + imageShapeComputer.pointsMiddleTop[i+1].y,
-                                -Camera.x + imageShapeComputer.pointsMiddleBot[i+1].x, 
-                                -Camera.y + imageShapeComputer.pointsMiddleBot[i+1].y, 
-                                -Camera.x + imageShapeComputer.pointsMiddleBot[i].x, 
+                                -Camera.x + imageShapeComputer.pointsMiddleBot[i+1].x,
+                                -Camera.y + imageShapeComputer.pointsMiddleBot[i+1].y,
+                                -Camera.x + imageShapeComputer.pointsMiddleBot[i].x,
                                 -Camera.y + imageShapeComputer.pointsMiddleBot[i].y )
         love.graphics.polygon(  "line",
-                                -Camera.x + imageShapeComputer.pointsFloor[i].x, 
-                                -Camera.y + imageShapeComputer.pointsFloor[i].y, 
-                                -Camera.x + imageShapeComputer.pointsFloor[i].x, 
+                                -Camera.x + imageShapeComputer.pointsFloor[i].x,
+                                -Camera.y + imageShapeComputer.pointsFloor[i].y,
+                                -Camera.x + imageShapeComputer.pointsFloor[i].x,
                                 -Camera.y + 720,
-                                -Camera.x + imageShapeComputer.pointsFloor[i+1].x, 
-                                -Camera.y + 720, 
-                                -Camera.x + imageShapeComputer.pointsFloor[i+1].x, 
-                                -Camera.y + imageShapeComputer.pointsFloor[i+1].y ) 
+                                -Camera.x + imageShapeComputer.pointsFloor[i+1].x,
+                                -Camera.y + 720,
+                                -Camera.x + imageShapeComputer.pointsFloor[i+1].x,
+                                -Camera.y + imageShapeComputer.pointsFloor[i+1].y )
         love.graphics.polygon(  "line",
-                                -Camera.x + imageShapeComputer.pointsCeiling[i].x, 
-                                -Camera.y + imageShapeComputer.pointsCeiling[i].y, 
-                                -Camera.x + imageShapeComputer.pointsCeiling[i].x, 
+                                -Camera.x + imageShapeComputer.pointsCeiling[i].x,
+                                -Camera.y + imageShapeComputer.pointsCeiling[i].y,
+                                -Camera.x + imageShapeComputer.pointsCeiling[i].x,
                                 -Camera.y + 0,
-                                -Camera.x + imageShapeComputer.pointsCeiling[i+1].x, 
-                                -Camera.y + 0, 
-                                -Camera.x + imageShapeComputer.pointsCeiling[i+1].x, 
+                                -Camera.x + imageShapeComputer.pointsCeiling[i+1].x,
+                                -Camera.y + 0,
+                                -Camera.x + imageShapeComputer.pointsCeiling[i+1].x,
                                 -Camera.y + imageShapeComputer.pointsCeiling[i+1].y )
     end
 end
@@ -134,40 +135,40 @@ function  Game:BuildTerrainShape()
     for i = 0, count-1, 1 do
         edgesMiddle[i] = {}
         edgesMiddle[i].body = love.physics.newBody( world, 0 , 0, "static" )
-        edgesMiddle[i].shape = love.physics.newPolygonShape( imageShapeComputer.pointsMiddleTop[i].x, 
-                                                            imageShapeComputer.pointsMiddleTop[i].y, 
-                                                            imageShapeComputer.pointsMiddleBot[i].x, 
+        edgesMiddle[i].shape = love.physics.newPolygonShape( imageShapeComputer.pointsMiddleTop[i].x,
+                                                            imageShapeComputer.pointsMiddleTop[i].y,
+                                                            imageShapeComputer.pointsMiddleBot[i].x,
                                                             imageShapeComputer.pointsMiddleBot[i].y,
-                                                            imageShapeComputer.pointsMiddleBot[i+1].x, 
-                                                            imageShapeComputer.pointsMiddleBot[i+1].y, 
-                                                            imageShapeComputer.pointsMiddleTop[i+1].x, 
-                                                            imageShapeComputer.pointsMiddleTop[i+1].y ) 
+                                                            imageShapeComputer.pointsMiddleBot[i+1].x,
+                                                            imageShapeComputer.pointsMiddleBot[i+1].y,
+                                                            imageShapeComputer.pointsMiddleTop[i+1].x,
+                                                            imageShapeComputer.pointsMiddleTop[i+1].y )
         edgesMiddle[i].fixture = love.physics.newFixture( edgesMiddle[i].body, edgesMiddle[i].shape )
         edgesMiddle[i].fixture:setFriction( 0.3 )
 
         edgesFloor[i] = {}
         edgesFloor[i].body = love.physics.newBody( world, 0 , 0, "static" )
-        edgesFloor[i].shape = love.physics.newPolygonShape( imageShapeComputer.pointsFloor[i].x, 
-                                                            imageShapeComputer.pointsFloor[i].y, 
-                                                            imageShapeComputer.pointsFloor[i].x, 
+        edgesFloor[i].shape = love.physics.newPolygonShape( imageShapeComputer.pointsFloor[i].x,
+                                                            imageShapeComputer.pointsFloor[i].y,
+                                                            imageShapeComputer.pointsFloor[i].x,
                                                             720,
-                                                            imageShapeComputer.pointsFloor[i+1].x, 
-                                                            720, 
-                                                            imageShapeComputer.pointsFloor[i+1].x, 
-                                                            imageShapeComputer.pointsFloor[i+1].y ) 
+                                                            imageShapeComputer.pointsFloor[i+1].x,
+                                                            720,
+                                                            imageShapeComputer.pointsFloor[i+1].x,
+                                                            imageShapeComputer.pointsFloor[i+1].y )
         edgesFloor[i].fixture = love.physics.newFixture( edgesFloor[i].body, edgesFloor[i].shape )
         edgesFloor[i].fixture:setFriction( 0.3 )
 
         edgesCeiling[i] = {}
         edgesCeiling[i].body = love.physics.newBody( world, 0 , 0, "static" )
-        edgesCeiling[i].shape = love.physics.newPolygonShape( imageShapeComputer.pointsCeiling[i].x, 
-                                                            imageShapeComputer.pointsCeiling[i].y, 
-                                                            imageShapeComputer.pointsCeiling[i].x, 
+        edgesCeiling[i].shape = love.physics.newPolygonShape( imageShapeComputer.pointsCeiling[i].x,
+                                                            imageShapeComputer.pointsCeiling[i].y,
+                                                            imageShapeComputer.pointsCeiling[i].x,
                                                             0,
-                                                            imageShapeComputer.pointsCeiling[i+1].x, 
-                                                            0, 
-                                                            imageShapeComputer.pointsCeiling[i+1].x, 
-                                                            imageShapeComputer.pointsCeiling[i+1].y ) 
+                                                            imageShapeComputer.pointsCeiling[i+1].x,
+                                                            0,
+                                                            imageShapeComputer.pointsCeiling[i+1].x,
+                                                            imageShapeComputer.pointsCeiling[i+1].y )
         edgesCeiling[i].fixture = love.physics.newFixture( edgesCeiling[i].body, edgesCeiling[i].shape )
         edgesCeiling[i].fixture:setFriction( 0.3 )
     end
