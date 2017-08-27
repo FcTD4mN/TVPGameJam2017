@@ -11,6 +11,9 @@ local MainMenu = {
 function  MainMenu:Initialize()
 
     local spaceBetItems = 50
+    local music = love.audio.newSource( "resources/Audio/Music/theme.mp3", "stream" )
+    music:setLooping( true )
+
     -- ============================ MAIN MAIN ===============================
     y = 100
     newGame = MenuItem:New( "NewGame", love.graphics.getWidth() / 2, y )
@@ -23,6 +26,10 @@ function  MainMenu:Initialize()
     newGame:SetCallback( function() MainMenu.returnValue = 1 end )
     options:SetCallback( function() MainMenu.currentPage = 2 end )
     quit:SetCallback( function() love.event.quit() end )
+
+    -- Sounds
+    newGame:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
+    options:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
 
 
     -- Item building
@@ -47,6 +54,9 @@ function  MainMenu:Initialize()
     -- Callbacks
     back:SetCallback( function() MainMenu.currentPage = 1 end )
 
+    -- Sounds
+    back:SetSound( love.audio.newSource( "resources/Audio/FXSound/Retour.mp3", "static" ) )
+
     -- Item building
     optionPage = MenuPage:New()
     optionPage:AddItem( video )
@@ -55,6 +65,8 @@ function  MainMenu:Initialize()
     optionPage:AddItem( back )
 
     self:AddPage( optionPage )
+
+    love.audio.play( music )
 end
 
 function  MainMenu:AddPage( iPage )
@@ -63,6 +75,11 @@ end
 
 function MainMenu:Update( iDT )
     self:HighlightItemUnderMouse()
+
+    if( self.returnValue == 1 ) then
+        love.audio.stop( music )
+    end
+
     return  self.returnValue
 end
 

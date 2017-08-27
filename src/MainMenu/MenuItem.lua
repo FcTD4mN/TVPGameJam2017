@@ -17,6 +17,7 @@ function  MenuItem:New( iText, iX, iY )
     newMenuItem.isCurrent = false
     newMenuItem.rectangle = Rectangle:New( iX, iY, newMenuItem.font:getWidth( iText ), newMenuItem.font:getHeight() )
     newMenuItem.actionCB = 0
+    newMenuItem.sound = 0
 
     return  newMenuItem
 end
@@ -36,11 +37,19 @@ end
 
 function  MenuItem:Click()
     self.actionCB()
+    if( self.sound ~= 0 ) then
+        love.audio.play( self.sound )
+    end
 end
 
 
 function MenuItem:SetCallback( iFunction )
     self.actionCB = iFunction
+end
+
+
+function MenuItem:SetSound( iSound )
+    self.sound = iSound
 end
 
 
