@@ -3,14 +3,22 @@ local Rectangle = require "src/Math/Rectangle"
 
 local Background = {}
 
-function Background:New( iFile, iX, iY, iW, iH )
+function Background:New( iFile, iX, iY, iW, iH, iDepth )
     local newBackground = {}
     setmetatable( newBackground, self )
     self.__index = self
 
+
+    newBackground.originX = iX
+    newBackground.originY = iY
+    newBackground.x = iX
+    newBackground.y = iY
+    newBackground.w = iW
+    newBackground.h = iH
+
     newBackground.rectangle = Rectangle:New( iX, iY, iW, iH )
-    newBackground.image = love.image.newImageData( iFile, iW, iH )
-    newBackground.depth = 0 -- Doesn't move
+    newBackground.image = love.graphics.newImage( iFile )
+    newBackground.depth = iDepth
 
     return newBackground
 end
@@ -21,7 +29,7 @@ function  Background:Type()
 end
 
 function  Background:Update( iDT )
-    self.x = self.x + self.depth * Camera.x
+    self.x = self.originX + self.depth * Camera.x
 end
 
 function  Background:Draw()
