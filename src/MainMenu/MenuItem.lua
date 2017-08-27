@@ -3,7 +3,8 @@ Rectangle   = require( "src/Math/Rectangle" )
 
 local MenuItem = {}
 
-local sgHeight = 10
+local sgHeight = 20
+
 
 function  MenuItem:New( iText, iX, iY )
     newMenuItem = {}
@@ -19,19 +20,22 @@ function  MenuItem:New( iText, iX, iY )
     return  newMenuItem
 end
 
+
 function MenuItem:Draw()
     if( self.isCurrent ) then
-        love.graphics.setColor( 255, 0, 0 )
+        love.graphics.setColor( 255, 100, 50 )
     else
-        love.graphics.setColor( 0, 255, 0 )
+        love.graphics.setColor( 10, 150, 10 )
     end
 
-    love.graphics.print( self.text, self.rectangle.x, self.rectangle.y - sgHeight / 2 )
+    love.graphics.print( self.text, self.rectangle.x, self.rectangle.y )
 end
+
 
 function  MenuItem:Click()
     self.actionCB()
 end
+
 
 function MenuItem:SetCallback( iFunction )
     self.actionCB = iFunction
