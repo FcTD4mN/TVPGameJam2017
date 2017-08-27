@@ -16,7 +16,7 @@ function Game:Initialize()
     foregrounds = {}
     table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", -100, 0, 3000, 720, 0 ) )
     table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Terrain3000x720.png", -100, 0, 3000, 720, 0 ) )
-    table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", -100, 0, 3000, 720, -2 ) )
+    table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", -100, 0, 3000, 720, -1 ) )
 
     floor = {}
     floor.body = love.physics.newBody( world, love.graphics.getWidth() / 2, love.graphics.getHeight() - 10, "static" )
@@ -63,6 +63,10 @@ function Game:Update( dt )
     hero1:Update( dt )
     --hero2:Update( dt )
     world:update( dt )
+
+    for k,v in pairs( foregrounds ) do
+        v:Update( dt )
+    end
     return 1
 end
 
