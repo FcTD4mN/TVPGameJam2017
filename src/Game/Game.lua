@@ -60,6 +60,9 @@ function Game:Initialize()
     love.physics.setMeter( 100 )
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+    
+    music = love.audio.newSource( "resources/Audio/Music/Enjeuloop.mp3", "stream" )
+    music:setLooping( true )
 
     hero1 =  Hero:New( world, 800, love.graphics.getHeight() - 100, 0 )
     hero2 = Hero:New( world, 800, 50, 1 )
@@ -83,6 +86,7 @@ function Game:Initialize()
     floor.fixture = love.physics.newFixture( floor.body, floor.shape )
     floor.fixture:setFriction( 1.0 )
 
+    love.audio.play( music )
 end
 
 function Game:Draw()
