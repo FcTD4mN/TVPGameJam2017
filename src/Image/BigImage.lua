@@ -8,7 +8,7 @@ function BigImage:New( iFile, iTileWidth )
     setmetatable( newBigImage, self )
     self.__index = self
 
-    
+
     newBigImage.imageData = love.image.newImageData( iFile )
     newBigImage.w = newBigImage.imageData:getWidth()
     newBigImage.h = newBigImage.imageData:getHeight()
@@ -23,12 +23,13 @@ function BigImage:New( iFile, iTileWidth )
 end
 
 function  BigImage:Image( iQuad )
-    imageIndex = floor( iQuad.x / self.tileWidth )
+    x, y, w, h = iQuad:getViewport( )
+    imageIndex = math.floor( x / self.tileWidth )
     return self.images[ imageIndex ]
 end
 
 function  BigImage:Split( iTileWidth )
-     
+
     imageWidth = iTileWidth
     imageHeight = self.h
     steps = math.ceil( self.w / iTileWidth -1 )
@@ -46,7 +47,7 @@ function  BigImage:Split( iTileWidth )
                 imageData:setPixel( j, k, r, g, b, a )
             end
         end
-        
+
         image = love.graphics.newImage( imageData )
 
         self.images[i] = image
@@ -56,7 +57,7 @@ function  BigImage:Split( iTileWidth )
 end
 
 function  BigImage:Update( iDT )
-   
+
 end
 
 function  BigImage:Draw( dx, dy )
@@ -77,12 +78,12 @@ function  BigImage:Draw( dx, dy )
     if lastTile > #self.images then
         lastTile = #self.images
     end
- 
+
     for i = firstTile, lastTile, 1 do
 
         tx = dx + self.rectangles[i].x
         ty = dy + self.rectangles[i].y
-    
+
         love.graphics.draw( self.images[i], tx,  ty )
     end
 

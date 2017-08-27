@@ -1,6 +1,8 @@
 
 local Camera = require "src/Camera/Camera"
 local Object = require "src/Objects/Object"
+local Fireball  = require "src/Objects/Projectiles/Fireball"
+
 local AttackGenerator    = require "src/Game/AttackGenerator"
 
 local Hero = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
@@ -13,9 +15,7 @@ function Hero:New( world, x, y, type )
     w = 90
     h = 120
 
-    xShift = 20
     newHero.h = 120
-
 
     --inherited values
     newHero.body = love.physics.newBody( world, x, y, "dynamic" )
@@ -26,14 +26,19 @@ function Hero:New( world, x, y, type )
     newHero.animations = {}
     newHero.currentAnimation = 0
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
-    
+
     --Hero values
     newHero.canJump = false
     newHero.type = type
     newHero.direction = 0
     newHero.moving = false
     newHero.attacking = false
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+
+    newHero.fireBallTMP = 0
+>>>>>>> scecsec
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
 
     --Hero values
@@ -132,9 +137,11 @@ function Hero:Update( dt )
     if self.attacking then
         if self.direction == 0 then
             self:SetCurrentAnimation( 7 )
+            self:Attack( 100 )
         end
         if self.direction == 1 then
             self:SetCurrentAnimation( 8 )
+            self:Attack( -100 )
         end
     elseif self.canJump then
         if self.moving then
@@ -163,15 +170,35 @@ function Hero:Update( dt )
 
     self:UpdateObject( dt )
 
+    if( self.fireBallTMP ~= 0 ) then
+        self.fireBallTMP:Update( dt )
+    end
+
     x, y, x2, y2 = self.shape:computeAABB( 0, 0, 0 )
     x, y, x2, y2 = self.body:getWorldPoints( x, y, x2, y2 )
     Camera.x = x - love.graphics.getWidth() / 2
     Camera.y = 0 --love.graphics.getHeight() / 2
 end
 
+function  Hero:Attack( iVel )
+    shift = self.w / 2
+
+    if iVel < 0 then
+        shift = -shift - 90
+    end
+
+    x = self.body:getX() + shift
+    y = self.body:getY() - self.h / 2
+    self.fireBallTMP = Fireball:New( world, x, y , iVel )
+end
+
 function Hero:Draw()
     --love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
     self:DrawObject()
+
+    if( self.fireBallTMP ~= 0 ) then
+        self.fireBallTMP:Draw()
+    end
 end
 
 function Hero:KeyPressed( key, scancode, isrepeat )

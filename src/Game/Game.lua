@@ -47,19 +47,19 @@ function Game:Draw()
 
     hero1:Draw()
     hero2:Draw()
-    local x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
-    x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
-    x, y = Camera.MapToScreen( x, y )
-    x2, y2 = Camera.MapToScreen( x2, y2 )
-    
-    love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
+    -- local x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
+    -- x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
+    -- x, y = Camera.MapToScreen( x, y )
+    -- x2, y2 = Camera.MapToScreen( x2, y2 )
 
-    x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
-    x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
-    x, y = Camera.MapToScreen( x, y )
-    x2, y2 = Camera.MapToScreen( x2, y2 )
+    -- love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
 
-    love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
+    -- x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
+    -- x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
+    -- x, y = Camera.MapToScreen( x, y )
+    -- x2, y2 = Camera.MapToScreen( x2, y2 )
+
+    -- love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
 
     for k,v in pairs( foregrounds ) do
         v:Draw()
