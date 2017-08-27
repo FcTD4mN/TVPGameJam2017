@@ -4,16 +4,15 @@ Game        = require( "src/Game/Game" )
 -- States:
     -- kMainMenu
     -- kGaming
-
 local kMainMenu = 0
 local kGaming = 1
 
-local sgGameState = kGaming
+local sgGameState = kMainMenu
 
 -- First setup of my game, called at launch
 function love.load( args )
     MainMenu:Initialize()
-    Game:Initialize()
+    -- Game:Initialize()
     image = love.graphics.newImage( "resources/Images/Backgrounds/TERRAIN_MOCUP.png" )
 end
 
@@ -21,9 +20,9 @@ end
 -- Called at each tick of the game before drawing
 function love.update( dt )
     if sgGameState == kMainMenu then
-        MainMenu:Update( dt )
+        sgGameState = MainMenu:Update( dt )
     elseif sgGameState == kGaming then
-        Game:Update( dt )
+        sgGameState = Game:Update( dt )
     end
 end
 

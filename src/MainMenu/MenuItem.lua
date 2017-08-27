@@ -13,8 +13,9 @@ function  MenuItem:New( iText, iX, iY )
 
     -- Attributes
     newMenuItem.text = iText
+    newMenuItem.font = love.graphics.newFont("resources/Fonts/Oswald/Oswald-Bold.ttf", 30 )
     newMenuItem.isCurrent = false
-    newMenuItem.rectangle = Rectangle:New( iX, iY, 50, sgHeight )
+    newMenuItem.rectangle = Rectangle:New( iX, iY, newMenuItem.font:getWidth( iText ), newMenuItem.font:getHeight() )
     newMenuItem.actionCB = 0
 
     return  newMenuItem
@@ -22,6 +23,7 @@ end
 
 
 function MenuItem:Draw()
+    love.graphics.setFont( self.font )
     if( self.isCurrent ) then
         love.graphics.setColor( 255, 100, 50 )
     else

@@ -10,12 +10,13 @@ local MainMenu = {
 
 function  MainMenu:Initialize()
 
+    local spaceBetItems = 50
     -- ============================ MAIN MAIN ===============================
     y = 100
     newGame = MenuItem:New( "NewGame", love.graphics.getWidth() / 2, y )
-    y = y + 30
+    y = y + spaceBetItems
     options = MenuItem:New( "Options", love.graphics.getWidth() / 2, y )
-    y = y + 30
+    y = y + spaceBetItems
     quit    = MenuItem:New( "Quit", love.graphics.getWidth() / 2, y )
 
     -- Callbacks
@@ -36,11 +37,11 @@ function  MainMenu:Initialize()
     -- ========================== MAIN OPTIONS =============================
     y = 100
     video = MenuItem:New( "Video", love.graphics.getWidth() / 2, y )
-    y = y + 30
+    y = y + spaceBetItems
     sound = MenuItem:New( "Sound", love.graphics.getWidth() / 2, y )
-    y = y + 30
+    y = y + spaceBetItems
     controls = MenuItem:New( "Controls", love.graphics.getWidth() / 2, y )
-    y = y + 30
+    y = y + spaceBetItems
     back    = MenuItem:New( "Back", love.graphics.getWidth() / 2, y )
 
     -- Callbacks
