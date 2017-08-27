@@ -61,11 +61,11 @@ function Game:Initialize()
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
-    hero1 =  Hero:New( world, 50, love.graphics.getHeight() - 100, 0 )
-    hero2 = Hero:New( world, 50, 50, 1 )
+    hero1 =  Hero:New( world, 800, love.graphics.getHeight() - 100, 0 )
+    hero2 = Hero:New( world, 800, 50, 1 )
     tree  = Tree:New( world, 3000, 250 )
 
-    imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 2000 )
+    imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     Game:BuildTerrainShape()
 
     colorBackground = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
