@@ -88,13 +88,25 @@ function MainMenu:HighlightItemUnderMouse()
 end
 
 function MainMenu:Draw()
+    love.graphics.setColor( 255, 255, 255, 255 )
+    love.graphics.draw( image, 0, 0 )
+
     self.menuPages[ self.currentPage ]:Draw()
+end
+
+
+function MainMenu:KeyPressed( key, scancode, isrepeat )
+    return
+end
+
+function MainMenu:KeyReleased( key, scancode )
+    return
 end
 
 
 function MainMenu:mousepressed( iX, iY, iButton, iIsTouch )
     itemUM = self.menuPages[ self.currentPage ]:GetItemUnderMouse()
-    if( itemUM ~= 0 ) then
+    if( itemUM ~= "none" ) then
         itemUM:Click();
     end
 end

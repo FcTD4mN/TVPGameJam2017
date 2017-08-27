@@ -28,9 +28,6 @@ end
 
 -- The drawing function to draw the full game
 function love.draw()
-    love.graphics.setColor( 255, 255, 255, 255 )
-    love.graphics.draw( image, 0, 0 )
-
     if sgGameState == kMainMenu then
         MainMenu:Draw()
     elseif sgGameState == kGaming then
