@@ -46,3 +46,11 @@ function love.keyreleased( key, scancode )
         Game:KeyReleased( key, scancode )
     end
 end
+
+function  love.mousepressed( iX, iY, iButton, iIsTouch )
+    if sgGameState == kMainMenu then
+        MainMenu:mousepressed( iX, iY, iButton, iIsTouch )
+    elseif sgGameState == kGaming then
+        Game:mousepressed( iX, iY, iButton, iIsTouch )
+    end
+end

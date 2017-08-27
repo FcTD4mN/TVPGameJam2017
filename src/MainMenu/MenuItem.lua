@@ -3,6 +3,8 @@ Rectangle   = require( "src/Math/Rectangle" )
 
 local MenuItem = {}
 
+local sgHeight = 10
+
 function  MenuItem:New( iText, iX, iY )
     newMenuItem = {}
     setmetatable( newMenuItem, self )
@@ -11,7 +13,8 @@ function  MenuItem:New( iText, iX, iY )
     -- Attributes
     newMenuItem.text = iText
     newMenuItem.isCurrent = false
-    newMenuItem.rectangle = Rectangle:New( iX, iY, 50, 10 )
+    newMenuItem.rectangle = Rectangle:New( iX, iY, 50, sgHeight )
+    newMenuItem.actionCB = 0
 
     return  newMenuItem
 end
@@ -22,8 +25,16 @@ function MenuItem:Draw()
     else
         love.graphics.setColor( 0, 255, 0 )
     end
-    print( self.rectangle.x )
-    love.graphics.print( self.text, self.rectangle.x, self.rectangle.y )
+
+    love.graphics.print( self.text, self.rectangle.x, self.rectangle.y - sgHeight / 2 )
+end
+
+function  MenuItem:Click()
+    self.actionCB()
+end
+
+function MenuItem:SetCallback( iFunction )
+    self.actionCB = iFunction
 end
 
 
