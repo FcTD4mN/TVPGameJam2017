@@ -26,19 +26,11 @@ function Hero:New( world, x, y, type )
     newHero.currentAnimation = 0
     newHero.canJump = false
     newHero.type = type
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     newHero.direction = 0
     newHero.moving = false
     newHero.attacking = false
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
-    
-=======
 
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
     --Hero values
     if type == 0 then
         newHero.w = 90
