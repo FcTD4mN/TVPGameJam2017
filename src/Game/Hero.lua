@@ -19,11 +19,7 @@ function Hero:New( world, x, y, type )
     --inherited values
     newHero.body = love.physics.newBody( world, x, y, "dynamic" )
     newHero.body:setFixedRotation( true )
-<<<<<<< HEAD
     newHero.shape = love.physics.newRectangleShape( w - 20, h )
-=======
-    newHero.shape = love.physics.newRectangleShape( w-xShift, h )
->>>>>>> Big Image
     newHero.fixture = love.physics.newFixture( newHero.body, newHero.shape )
     newHero.fixture:setFriction( 1.0 )
     newHero.animations = {}
