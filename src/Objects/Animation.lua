@@ -51,9 +51,7 @@ end
 
 
 function Animation:TogglePause()
-    if self.display then
-        self.playing = not self.playing
-    end
+    self.playing = false
 end
 
 

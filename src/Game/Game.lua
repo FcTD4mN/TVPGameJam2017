@@ -17,11 +17,11 @@ function beginContact(a, b, coll)
         return
     end
 
-    if a:getUserData() == "GrowingTree" and b:getUserData() == "Fireball" then
-        a:Grow()
+    if a:getUserData():Type() == "GrowingTree" and b:getUserData():Type() == "Fireball" then
+        a:getUserData().needGrow = true
     end
-    if b:getUserData() == "GrowingTree" and a:getUserData() == "Fireball" then
-        b:Grow()
+    if b:getUserData():Type() == "GrowingTree" and a:getUserData():Type() == "Fireball" then
+        b:getUserData().needGrow = true
     end
 
     if a:getUserData():Type() == "Tree" and b:getUserData():Type() == "Fireball" then
@@ -63,7 +63,7 @@ function Game:Initialize()
 
     hero1 =  Hero:New( world, 50, love.graphics.getHeight() - 100, 0 )
     hero2 = Hero:New( world, 50, 50, 1 )
-    tree  = Tree:New( world, 500, 250 )
+    tree  = Tree:New( world, 3000, 250 )
 
     imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 2000 )
     Game:BuildTerrainShape()
