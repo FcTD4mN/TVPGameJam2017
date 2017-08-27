@@ -32,6 +32,7 @@ function Animation:New( file, imagecount, fps, x, y, w, h, quadX, quadY, quadW, 
     newAnimation.imagecount = imagecount
     newAnimation.playing = false
     newAnimation.display = false
+    newAnimation.playCount = 0
 
     newAnimation.quads = {}
     for i=1,imagecount,1 do
@@ -72,6 +73,7 @@ function Animation:Update( dt, x, y )
     if self.playing then
         self.time = self.time + dt
         self.currentquad = math.floor( 1 + ( self.time * self.fps ) % ( self.imagecount ) )
+        self.playCount = math.floor( self.time * self.fps / self.imagecount )
     end
     self.x = x
     self.y = y

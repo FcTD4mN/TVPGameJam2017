@@ -1,14 +1,22 @@
 local Background    = require "src/Objects/Background"
 local Hero          = require "src/Game/Hero"
+<<<<<<< Updated upstream
 local BigImage      = require "src/Image/BigImage"
+=======
+local AttackGenerator    = require "src/Game/AttackGenerator"
+
+local BigImage = require "src/Image/BigImage"
+>>>>>>> Stashed changes
 
 local Game = {}
 
 function Game:Initialize()
+    AttackGenerator:Initialize()
+
     love.physics.setMeter( 100 )
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
 
-    hero1 =  Hero:New( world, 50, love.graphics.getHeight() - 300, 0 )
+    hero1 =  Hero:New( world, 50, love.graphics.getHeight() - 100, 0 )
     hero2 = Hero:New( world, 50, 50, 1 )
 
     backgrounds = {}

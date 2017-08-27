@@ -1,6 +1,7 @@
 
 local Camera = require "src/Camera/Camera"
 local Object = require "src/Objects/Object"
+local AttackGenerator    = require "src/Game/AttackGenerator"
 
 local Hero = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -24,14 +25,21 @@ function Hero:New( world, x, y, type )
     newHero.fixture:setFriction( 1.0 )
     newHero.animations = {}
     newHero.currentAnimation = 0
+    --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
+    
+    --Hero values
     newHero.canJump = false
     newHero.type = type
     newHero.direction = 0
     newHero.moving = false
     newHero.attacking = false
+<<<<<<< Updated upstream
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
 
     --Hero values
+=======
+
+>>>>>>> Stashed changes
     if type == 0 then
         newHero.w = 90
         local animCourse = love.graphics.newImage( "resources/Animation/Characters/singe-course.png" )
@@ -92,19 +100,19 @@ end
 
 function Hero:Update( dt )
     -- Key holding detection
-    if self.type == 0 then
-        if love.keyboard.isDown( "left" ) then
-            self:runLeft()
-        elseif love.keyboard.isDown( "right" ) then
-            self:runRight()
-        end
-    elseif self.type == 1 then
-        if love.keyboard.isDown( "space" ) then
-            self.attacking = true
-        elseif love.keyboard.isDown( "q" ) then
-            self:runLeft()
-        elseif love.keyboard.isDown( "d" ) then
-            self:runRight()
+    if not self.attacking then
+        if self.type == 0 then
+            if love.keyboard.isDown( "left" ) then
+                self:runLeft()
+            elseif love.keyboard.isDown( "right" ) then
+                self:runRight()
+            end
+        elseif self.type == 1 then
+            if love.keyboard.isDown( "q" ) then
+                self:runLeft()
+            elseif love.keyboard.isDown( "d" ) then
+                self:runRight()
+            end
         end
     end
 
@@ -168,14 +176,26 @@ end
 
 function Hero:KeyPressed( key, scancode, isrepeat )
     if self.type == 0 then
-        if key == "rctrl" and not isrepeat then
+        if key == "rctrl" then
             self.attacking = true
+            if direction == 0 then
+                AttackGenerator:GenerateAttack( x, y, 0, 1000 )
+            elseif direction == 1 then
+                AttackGenerator:GenerateAttack( x, y, 0, -1000 )
+            end
+            self:StopRunning()
         elseif key == "up" and not isrepeat and self.canJump then
             self:jump()
         end
     elseif self.type == 1 then
-        if key == "space" and not isrepeat then
+        if key == "space" then
             self.attacking = true
+            if direction == 0 then
+                AttackGenerator:GenerateAttack( x, y, 1, 1000 )
+            elseif direction == 1 then
+                AttackGenerator:GenerateAttack( x, y, 1, -1000 )
+            end
+            self:StopRunning()
         elseif key == "z" and not isrepeat and self.canJump then
             self:jump()
         end
