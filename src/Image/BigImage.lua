@@ -22,6 +22,10 @@ function BigImage:New( iFile, iTileWidth )
     return newBigImage
 end
 
+function  BigImage:Image( iQuad )
+    imageIndex = floor( iQuad.x / self.tileWidth )
+    return self.images[ imageIndex ]
+end
 
 function  BigImage:Split( iTileWidth )
      
