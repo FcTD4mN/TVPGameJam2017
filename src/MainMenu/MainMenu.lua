@@ -8,10 +8,11 @@ local MainMenu = {
     returnValue = 0
 }
 
+local music = love.audio.newSource( "resources/Audio/Music/theme.mp3", "stream" )
+
 function  MainMenu:Initialize()
 
     local spaceBetItems = 50
-    local music = love.audio.newSource( "resources/Audio/Music/theme.mp3", "stream" )
     music:setLooping( true )
 
     -- ============================ MAIN MAIN ===============================
@@ -23,14 +24,13 @@ function  MainMenu:Initialize()
     quit    = MenuItem:New( "Quit", love.graphics.getWidth() / 2, y )
 
     -- Callbacks
-    newGame:SetCallback( function() MainMenu.returnValue = 1 end )
-    options:SetCallback( function() MainMenu.currentPage = 2 end )
-    quit:SetCallback( function() love.event.quit() end )
+    newGame:SetCallback(    function() MainMenu.returnValue = 1 end )
+    options:SetCallback(    function() MainMenu.currentPage = 2 end )
+    quit:SetCallback(       function() love.event.quit() end )
 
     -- Sounds
     newGame:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
     options:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
-
 
     -- Item building
     mainPage = MenuPage:New()
