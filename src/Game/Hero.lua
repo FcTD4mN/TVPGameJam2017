@@ -33,6 +33,11 @@ function Hero:New( world, x, y, type )
     newHero.attacking = false
 
     newHero.fireBall = 0
+    newHero.sounds = {}
+    newHero.sounds.step = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
+    newHero.sounds.step:setLooping( true )
+    newHero.sounds.jump = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
+    newHero.sounds.jump:setVolume(0.4)
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
 
     --Hero values
@@ -72,6 +77,7 @@ function Hero:jump()
     vx, vy = self.body:getLinearVelocity()
     self.body:setLinearVelocity( vx, -400 )
     self.canJump = false
+    love.audio.play( self.sounds.jump )
 end
 
 function Hero:runRight()
@@ -79,6 +85,9 @@ function Hero:runRight()
     self.body:setLinearVelocity( 300, vy )
     self.direction = 0
     self.moving = true
+    if self.canJump then
+        love.audio.play( self.sounds.step )
+    end
 end
 
 function Hero:runLeft()
@@ -86,12 +95,17 @@ function Hero:runLeft()
     self.body:setLinearVelocity( -300, vy )
     self.direction = 1
     self.moving = true
+    if self.canJump then
+        love.audio.play( self.sounds.step )
+    end
 end
 
 function Hero:StopRunning()
     vx, vy = self.body:getLinearVelocity()
     self.body:setLinearVelocity( 0, vy )
     self.moving = false
+    
+    love.audio.stop( self.sounds.step )
 end
 
 function Hero:Update( dt )
