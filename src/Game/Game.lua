@@ -1,7 +1,6 @@
 local Background    = require "src/Objects/Background"
 local Hero          = require "src/Game/Hero"
-
-local BigImage = require "src/Image/BigImage"
+local BigImage      = require "src/Image/BigImage"
 
 local Game = {}
 
@@ -14,9 +13,9 @@ function Game:Initialize()
 
     backgrounds = {}
     foregrounds = {}
-    table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", -100, 0, 3000, 720, 0 ) )
-    table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Terrain3000x720.png", -100, 0, 3000, 720, 0 ) )
-    table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", -100, 0, 3000, 720, -1 ) )
+    table.insert( backgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", 0, 0, 0 ) )
+    terrain = Background:New( "resources/Images/Backgrounds/Terrain3000x720.png", 0, 0, 0 )
+    table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
 
     floor = {}
     floor.body = love.physics.newBody( world, love.graphics.getWidth() / 2, love.graphics.getHeight() - 10, "static" )
@@ -36,13 +35,15 @@ function Game:Draw()
         v:Draw()
     end
 
+    terrain:Draw()
+
     hero1:Draw()
     hero2:Draw()
     local x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
     x, y, x2, y2 = floor2.body:getWorldPoints( x, y, x2, y2 )
     x, y = Camera.MapToScreen( x, y )
     x2, y2 = Camera.MapToScreen( x2, y2 )
-
+    
     love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
 
     x, y, x2, y2 = floor2.shape:computeAABB( 0, 0, 0 )
@@ -52,10 +53,10 @@ function Game:Draw()
 
     love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
 
-
     for k,v in pairs( foregrounds ) do
         v:Draw()
     end
+
 end
 
 function Game:Update( dt )
@@ -63,6 +64,7 @@ function Game:Update( dt )
     for k,v in pairs( backgrounds ) do
         v:Update( dt )
     end
+    terrain:Update()
 
     hero1:Update( dt )
     hero2:Update( dt )

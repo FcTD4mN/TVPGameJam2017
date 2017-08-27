@@ -108,7 +108,6 @@ function Hero:Update( dt )
     end
 
     local contacts = self.body:getContactList()
-    print(#contacts)
     if #contacts > 0 then
         self.canJump = false
         for k, v in pairs(contacts) do

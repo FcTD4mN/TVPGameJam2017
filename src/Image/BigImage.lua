@@ -3,40 +3,42 @@ local Rectangle = require "src/Math/Rectangle"
 
 local BigImage = {}
 
-function BigImage:New( iFile )
+function BigImage:New( iFile, iTileWidth )
     local newBigImage = {}
     setmetatable( newBigImage, self )
     self.__index = self
 
     
-    self.image = love.image.newImageData( iFile )
-    self.w = newBigImage.image:getWidth()
-    self.h = newBigImage.image:getHeight()
-    self.images = {}
-    self.rectangles = {}
+    newBigImage.imageData = love.image.newImageData( iFile )
+    newBigImage.w = newBigImage.imageData:getWidth()
+    newBigImage.h = newBigImage.imageData:getHeight()
+    newBigImage.images = {}
+    newBigImage.rectangles = {}
 
-    self:Split( 20, 720 )
-    
+    newBigImage.tileWidth = iTileWidth
+
+    newBigImage:Split( iTileWidth )
 
     return newBigImage
 end
 
 
-function  BigImage:Split( iWidth, iHeight )
+function  BigImage:Split( iTileWidth )
      
-    imageWidth = iWidth
-    steps = math.ceil( self.w / iWidth -1 )
+    imageWidth = iTileWidth
+    imageHeight = self.h
+    steps = math.ceil( self.w / iTileWidth -1 )
     for i = 0, steps, 1 do
 
-        if i * iWidth > self.w - iWidth then
-            imageWidth = self.w - i * iWidth
+        if i * iTileWidth > self.w - iTileWidth then
+            imageWidth = self.w - i * iTileWidth
         end
 
-        imageData = love.image.newImageData( imageWidth, iHeight )
+        imageData = love.image.newImageData( imageWidth, imageHeight )
 
         for j = 0, imageWidth - 1, 1 do
-            for k = 0, iHeight - 1, 1 do
-                r, g, b, a = self.image:getPixel( i * iWidth + j, k )
+            for k = 0, imageHeight - 1, 1 do
+                r, g, b, a = self.imageData:getPixel( i * iTileWidth + j, k )
                 imageData:setPixel( j, k, r, g, b, a )
             end
         end
@@ -44,9 +46,7 @@ function  BigImage:Split( iWidth, iHeight )
         image = love.graphics.newImage( imageData )
 
         self.images[i] = image
-        self.rectangles[i] = Rectangle:New( i*iWidth, 0, imageWidth, iHeight )
-        -- table.insert( self.images, image )
-        --table.insert( self.rectangles, Rectangle:New( i, 0, iWidth, iHeight ) )
+        self.rectangles[i] = Rectangle:New( i*iTileWidth, 0, imageWidth, imageHeight )
     end
 
 end
@@ -55,26 +55,31 @@ function  BigImage:Update( iDT )
    
 end
 
-function  BigImage:Draw()
+function  BigImage:Draw( dx, dy )
 
-    x,y = Camera.MapToScreen( 0, 0)
-    print( x )
+    --x,y = Camera.MapToScreen( 0, 0)
+
     windowW = love.graphics.getWidth()
-    tileW = self.rectangles[0].w
+    tileW = self.tileWidth
 
-    numberTiles = math.floor( windowW / tileW )
-    firstTile = math.floor( -x / tileW )
+    numberTiles = math.ceil( windowW / tileW )
+    firstTile = math.floor( -dx / tileW )
     if firstTile < 0 then
         firstTile = 0
     end
-    
+
     lastTile = firstTile + numberTiles
+
+    if lastTile > #self.images then
+        lastTile = #self.images
+    end
+ 
     for i = firstTile, lastTile, 1 do
 
-        tx = x + self.rectangles[i].x
-        ty = y + self.rectangles[i].y
+        tx = dx + self.rectangles[i].x
+        ty = dy + self.rectangles[i].y
     
-        love.graphics.draw( self.images[i], tx, ty )
+        love.graphics.draw( self.images[i], tx,  ty )
     end
 
 end
