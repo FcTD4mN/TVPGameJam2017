@@ -8,7 +8,7 @@ local MainMenu = {
     returnValue = 0
 }
 
-local music = love.audio.newSource( "resources/Audio/Music/theme.mp3", "stream" )
+local music = love.audio.newSource( "resources/Audio/Music/DaRealMenu.mp3", "stream" )
 
 function  MainMenu:Initialize()
 
