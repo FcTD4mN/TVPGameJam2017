@@ -1,12 +1,8 @@
 local Background    = require "src/Objects/Background"
 local Hero          = require "src/Game/Hero"
-<<<<<<< Updated upstream
-local BigImage      = require "src/Image/BigImage"
-=======
 local AttackGenerator    = require "src/Game/AttackGenerator"
 
 local BigImage = require "src/Image/BigImage"
->>>>>>> Stashed changes
 
 local Game = {}
 

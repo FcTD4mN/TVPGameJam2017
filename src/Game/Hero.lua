@@ -1,8 +1,6 @@
 
 local Camera = require "src/Camera/Camera"
 local Object = require "src/Objects/Object"
-local Fireball  = require "src/Objects/Projectiles/Fireball"
-
 local AttackGenerator    = require "src/Game/AttackGenerator"
 
 local Hero = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
@@ -33,18 +31,11 @@ function Hero:New( world, x, y, type )
     newHero.direction = 0
     newHero.moving = false
     newHero.attacking = false
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 
-    newHero.fireBallTMP = 0
->>>>>>> scecsec
+    newHero.fireBall = 0
     --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
 
     --Hero values
-=======
-
->>>>>>> Stashed changes
     if type == 0 then
         newHero.w = 90
         local animCourse = love.graphics.newImage( "resources/Animation/Characters/singe-course.png" )
@@ -170,8 +161,8 @@ function Hero:Update( dt )
 
     self:UpdateObject( dt )
 
-    if( self.fireBallTMP ~= 0 ) then
-        self.fireBallTMP:Update( dt )
+    if( self.fireBall ~= 0 ) then
+        self.fireBall:Update( dt )
     end
 
     x, y, x2, y2 = self.shape:computeAABB( 0, 0, 0 )
@@ -189,15 +180,19 @@ function  Hero:Attack( iVel )
 
     x = self.body:getX() + shift
     y = self.body:getY() - self.h / 2
-    self.fireBallTMP = Fireball:New( world, x, y , iVel )
+    if( self.type == 0 ) then
+        self.fireBall = AttackGenerator:GenerateAttack( x, y, "fireball", iVel )
+    elseif( self.type == 1 ) then
+        self.fireBall = AttackGenerator:GenerateAttack( x, y, "waterball", iVel )
+    end
 end
 
 function Hero:Draw()
     --love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
     self:DrawObject()
 
-    if( self.fireBallTMP ~= 0 ) then
-        self.fireBallTMP:Draw()
+    if( self.fireBall ~= 0 ) then
+        self.fireBall:Draw()
     end
 end
 

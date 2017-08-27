@@ -1,23 +1,29 @@
+local Fireball  = require "src/Objects/Projectiles/Fireball"
+local Waterball  = require "src/Objects/Projectiles/Waterball"
+
 local AttackGenerator = {}
 
 function AttackGenerator:Initialize( world )
-    local newAttackGenerator = {}
-    setmetatable( newAttackGenerator, self )
-    self.__index = self
 
-    newAttackGenerator.world = world;
-    newAttackGenerator.images = {};
-    table.insert( newAttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_debut.png" ) )
-    table.insert( newAttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_suite.png" ) )
-    table.insert( newAttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_debut.png" ) )
-    table.insert( newAttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_suite.png" ) )
+    AttackGenerator.world = world;
+    AttackGenerator.images = {};
+    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_debut.png" ) )
+    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/boule_feu_suite.png" ) )
+    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_debut.png" ) )
+    table.insert( AttackGenerator.images, love.graphics.newImage( "resources/Animation/FX/jet_eau_suite.png" ) )
 end
 
-function AttackGenerator:GenerateAttack( x, y, type )
-    if type == 0 then --fireball
-        --todo : insert fire ball
-    elseif type == 1 then --waterball
-        --todo : insert water ball
+function AttackGenerator:GenerateAttack( x, y, type, iVel )
+    if type == "fireball" then
+        fire =  Fireball:New( world, x, y , iVel )
+        fire:AddAnimation( AttackGenerator.images[ 1 ] )
+        fire:SetCurrentAnimation( 1 )
+        return  fire
+    elseif type == "waterball" then
+        water =  Waterball:New( world, x, y , iVel )
+        water:AddAnimation( love.graphics.newImage( "resources/Animation/FX/jet_eau.png" ) )
+        water:SetCurrentAnimation( 1 )
+        return  water
     end
 end
 

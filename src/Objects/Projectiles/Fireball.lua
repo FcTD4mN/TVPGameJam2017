@@ -29,11 +29,6 @@ function Fireball:New( world, x, y, iVelocity )
     newFireball.animations = {}
     newFireball.currentAnimation = 0
 
-    --Fireball values
-    -- newFireball:AddAnimation( love.graphics.newImage( "resources/Animation/FX/boule_feu_debut.png" ), 5, 24, 0, 0, w, h, false, false )
-    newFireball:AddAnimation( love.graphics.newImage( "resources/Animation/FX/boule_feu_debut.png" ) )
-    newFireball:SetCurrentAnimation( 1 )
-
     return newFireball
 end
 
