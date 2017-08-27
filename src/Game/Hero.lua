@@ -173,17 +173,19 @@ end
 
 function  Hero:Attack( iVel )
     shift = self.w / 2
+    xShift = 10
 
     if iVel < 0 then
         shift = -shift - 90
+        xShift =- xShift
     end
 
     x = self.body:getX() + shift
     y = self.body:getY() - self.h / 2
     if( self.type == 0 ) then
-        self.fireBall = AttackGenerator:GenerateAttack( x, y, "fireball", iVel )
+        self.fireBall = AttackGenerator:GenerateAttack( x + xShift, y, "fireball", iVel )
     elseif( self.type == 1 ) then
-        self.fireBall = AttackGenerator:GenerateAttack( x, y, "waterball", iVel )
+        self.fireBall = AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel )
     end
 end
 
