@@ -5,14 +5,12 @@ local AttackGenerator    = require "src/Game/AttackGenerator"
 
 local Hero = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
-function Hero:New( world, x, y, type )
+function Hero:New( iWorld, iX, iY, iPhysicType )
     local newHero = {}
     setmetatable( newHero, self )
     self.__index = self
 
-    w = 90
-    h = 120
-
+    newHero.w = 90
     newHero.h = 120
 
     --inherited values
@@ -27,7 +25,6 @@ function Hero:New( world, x, y, type )
 
     newHero.animations = {}
     newHero.currentAnimation = 0
-    --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
 
     --Hero values
     newHero.canJump = false

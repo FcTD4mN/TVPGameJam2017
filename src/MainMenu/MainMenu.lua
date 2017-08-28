@@ -8,12 +8,12 @@ local MainMenu = {
     returnValue = 0
 }
 
-local music = love.audio.newSource( "resources/Audio/Music/DaRealMenu.mp3", "stream" )
+-- local music = love.audio.newSource( "resources/Audio/Music/DaRealMenu.mp3", "stream" )
 
 function  MainMenu:Initialize()
 
     local spaceBetItems = 50
-    music:setLooping( true )
+    -- music:setLooping( true )
 
     -- ============================ MAIN MAIN ===============================
     y = 250
@@ -22,13 +22,13 @@ function  MainMenu:Initialize()
     y = y + spaceBetItems
     newGame.rectangle.x = dz+ love.graphics.getWidth() / 2 - newGame.rectangle.w /2
 
-    
+
     options = MenuItem:New( "Options", love.graphics.getWidth() / 2, y )
     y = y + spaceBetItems
     options.rectangle.x = dz+ love.graphics.getWidth() / 2 - options.rectangle.w /2
 
     quit    = MenuItem:New( "Quit", love.graphics.getWidth() / 2, y )
-    quit.rectangle.x = dz+ love.graphics.getWidth() / 2 - quit.rectangle.w /2    
+    quit.rectangle.x = dz+ love.graphics.getWidth() / 2 - quit.rectangle.w /2
 
     -- Callbacks
     newGame:SetCallback(    function() MainMenu.returnValue = 1 end )
@@ -62,7 +62,7 @@ function  MainMenu:Initialize()
     controls.rectangle.x = dz+ love.graphics.getWidth() / 2 - controls.rectangle.w /2
     back    = MenuItem:New( "Back", love.graphics.getWidth() / 2, y )
     back.rectangle.x = dz+ love.graphics.getWidth() / 2 - back.rectangle.w /2
-    
+
     -- Callbacks
     back:SetCallback( function() MainMenu.currentPage = 1 end )
 
@@ -78,7 +78,7 @@ function  MainMenu:Initialize()
 
     self:AddPage( optionPage )
 
-    love.audio.play( music )
+    -- love.audio.play( music )
 
     --Menu Images
     imageBG = love.graphics.newImage( "resources/Images/Backgrounds/Final/MenuBG.png" )
@@ -93,9 +93,9 @@ end
 function MainMenu:Update( iDT )
     self:HighlightItemUnderMouse()
 
-    if( self.returnValue == 1 ) then
-        love.audio.stop( music )
-    end
+    -- if( self.returnValue == 1 ) then
+    --     love.audio.stop( music )
+    -- end
 
     return  self.returnValue
 end

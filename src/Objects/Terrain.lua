@@ -1,3 +1,6 @@
+Ce truc ne marchera jamais LOL
+
+
 local Camera = require "src/Camera/Camera"
 local Rectangle = require "src/Math/Rectangle"
 

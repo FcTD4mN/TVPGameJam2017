@@ -1,17 +1,20 @@
-local Background    = require "src/Objects/Background"
-local Tree          = require "src/Objects/Tree"
-local Hero          = require "src/Game/Hero"
-local BigImage      = require "src/Image/BigImage"
-local AttackGenerator    = require "src/Game/AttackGenerator"
-local ImageShapeComputer = require "src/Image/ImageShapeComputer"
-local GrowingTree = require "src/Game/GrowingTree"
+local Background            = require "src/Image/Background"
+local Tree                  = require "src/Objects/Tree"
+local Singe                 = require "src/Objects/Heros/Singe"
+local Lapin                 = require "src/Objects/Heros/Lapin"
+local BigImage              = require "src/Image/BigImage"
+local AttackGenerator       = require "src/Game/AttackGenerator"
+local ImageShapeComputer    = require "src/Image/ImageShapeComputer"
+local GrowingTree           = require "src/Game/GrowingTree"
 
 local Game = {}
 
-function beginContact(a, b, coll)
+function beginContact( a, b, coll )
     if not coll:isTouching() then
         return
     end
+
+    -- TODO: a:getUserData():Collision( b:getUserData() )    so that we can have behaviours defined in each classes instead of everything here
 
     if a:getUserData() == nil or b:getUserData() == nil then
         return
@@ -61,13 +64,13 @@ function Game:Initialize()
     love.physics.setMeter( 100 )
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
     world:setCallbacks(beginContact, endContact, preSolve, postSolve)
-    
+
     music = love.audio.newSource( "resources/Audio/Music/Enjeuloop.mp3", "stream" )
     music:setLooping( true )
 
-    hero1 =  Hero:New( world, 800, love.graphics.getHeight() - 100, 0 )
-    hero2 = Hero:New( world, 800, 50, 1 )
-    tree  = Tree:New( world, 1200, 250 )
+    hero1 =  Singe:New( world, 800, 400 )
+    hero2 =  Lapin:New( world, 800, 200 )
+    tree  =  Tree:New( world, 1200, 250 )
 
     imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     Game:BuildTerrainShape()
@@ -88,7 +91,7 @@ function Game:Initialize()
     floor.fixture = love.physics.newFixture( floor.body, floor.shape )
     floor.fixture:setFriction( 1.0 )
 
-    love.audio.play( music )
+    -- love.audio.play( music )
 end
 
 function Game:Draw()
