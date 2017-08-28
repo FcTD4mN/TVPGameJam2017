@@ -196,8 +196,14 @@ function  Hero:Attack( iVel )
     x = self.body:getX() + shift
     y = self.body:getY() - self.h / 2
     if( self.type == 0 ) then
+        if self.attack then
+            self.attack:Destroy()
+        end
         self.attack = AttackGenerator:GenerateAttack( x + xShift, y, "fireball", iVel )
     elseif( self.type == 1 ) then
+        if self.attack then
+            self.attack:Destroy()
+        end
         self.attack = AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel )
     end
 end
@@ -215,11 +221,6 @@ function Hero:KeyPressed( key, scancode, isrepeat )
     if self.type == 0 then
         if key == "rctrl" then
             self.attacking = true
-            if direction == 0 then
-                AttackGenerator:GenerateAttack( x, y, 0, 1000 )
-            elseif direction == 1 then
-                AttackGenerator:GenerateAttack( x, y, 0, -1000 )
-            end
             self:StopRunning()
         elseif key == "up" and not isrepeat and self.canJump then
             self:jump()
@@ -227,11 +228,6 @@ function Hero:KeyPressed( key, scancode, isrepeat )
     elseif self.type == 1 then
         if key == "space" then
             self.attacking = true
-            if direction == 0 then
-                AttackGenerator:GenerateAttack( x, y, 1, 1000 )
-            elseif direction == 1 then
-                AttackGenerator:GenerateAttack( x, y, 1, -1000 )
-            end
             self:StopRunning()
         elseif key == "z" and not isrepeat and self.canJump then
             self:jump()

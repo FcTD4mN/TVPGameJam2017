@@ -2,15 +2,22 @@ local Animation = require "src/Objects/Animation"
 
 local Object = {}
 
+function Object:Destroy()
+    self.body:destroy()
+    self.body = nil
+    self.shape = nil
+    self.fixture = nil
+end
+
 function Object:New( world, x, y, w, h, physicType, fixedRotation, friction )
     local newObject = {}
     setmetatable( newObject, self )
     self.__index = self
 
-    newObject.body = 0--love.physics.newBody( world, x, y, physicType )
+    newObject.body = nil--love.physics.newBody( world, x, y, physicType )
     --newObject.body:setFixedRotation( fixedRotation )
-    newObject.shape = 0--love.physics.newRectangleShape( w, h )
-    newObject.fixture = 0--love.physics.newFixture( newObject.body, newObject.shape )
+    newObject.shape = nil--love.physics.newRectangleShape( w, h )
+    newObject.fixture = nil--love.physics.newFixture( newObject.body, newObject.shape )
     --newObject.fixture:setFriction( friction )
     newObject.animations = {}
     newObject.currentAnimation = 0
@@ -18,6 +25,10 @@ function Object:New( world, x, y, w, h, physicType, fixedRotation, friction )
 end
 
 function Object:UpdateObject( dt )
+    if not self.body then
+        return
+    end
+
     if self.currentAnimation > 0 then
         x = self.body:getX() - self.w / 2
         y = self.body:getY() - self.h / 2
@@ -26,6 +37,10 @@ function Object:UpdateObject( dt )
 end
 
 function Object:AddAnimation( spriteFile, imagecount, fps, quadX, quadY, quadW, quadH, flipX, flipY )
+    if not self.body then
+        return
+    end
+    
     x = self.body:getX() - self.w / 2
     y = self.body:getY() - self.h / 2
     table.insert( self.animations, Animation:New( spriteFile, imagecount, fps, x, y, self.w, self.h, quadX, quadY, quadW, quadH, flipX, flipY ) )
@@ -47,6 +62,9 @@ function Object:SetCurrentAnimation( current )
 end
 
 function Object:DrawObject()
+    if not self.body then
+        return
+    end
     --love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
     if self.currentAnimation > 0 then
         self.animations[self.currentAnimation]:Draw()

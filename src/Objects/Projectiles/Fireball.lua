@@ -13,7 +13,7 @@ function Fireball:New( world, x, y, iVelocity )
 
     newFireball.w = 90
     newFireball.h = 90
-
+ 
     newFireball.flipNeeded = iVelocity < 0
 
     --inherited values
@@ -29,12 +29,6 @@ function Fireball:New( world, x, y, iVelocity )
     newFireball.currentAnimation = 0
 
     return newFireball
-end
-
-function  Fireball:Destroy()
-    self.body       = nil
-    self.shape      = nil
-    self.fixture    = nil
 end
 
 function Fireball:AddAnimation( iImage )

@@ -26,12 +26,13 @@ function beginContact(a, b, coll)
 
     if a:getUserData():Type() == "Tree" and b:getUserData():Type() == "Fireball" then
         a:getUserData():Burn()
-        -- hero1.attack:Destroy()
+        --b:Destroy()
+        hero1.attack:Destroy()
         hero1.attack = nil
     end
     if a:getUserData():Type() == "Fireball" and b:getUserData():Type() == "Tree" then
         b:getUserData():Burn()
-        -- hero1.attack:Destroy()
+        hero1.attack:Destroy()
         hero1.attack = nil
     end
     if a:getUserData():Type() == "Tree" and b:getUserData():Type() == "Waterball" then
@@ -66,7 +67,7 @@ function Game:Initialize()
 
     hero1 =  Hero:New( world, 800, love.graphics.getHeight() - 100, 0 )
     hero2 = Hero:New( world, 800, 50, 1 )
-    tree  = Tree:New( world, 3000, 250 )
+    tree  = Tree:New( world, 1200, 250 )
 
     imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     Game:BuildTerrainShape()
@@ -80,6 +81,7 @@ function Game:Initialize()
 
     growingtree = GrowingTree:New( world, 800, love.graphics.getHeight() - 150 )
 
+    --The wall to not fall in infinity
     floor = {}
     floor.body = love.physics.newBody( world, 0, 0, "static" )
     floor.shape = love.physics.newRectangleShape( 10, 3000 )
