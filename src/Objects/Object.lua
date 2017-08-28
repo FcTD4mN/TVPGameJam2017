@@ -1,7 +1,7 @@
 local Animation = require "src/Objects/Animation"
+local Camera    = require "src/Camera/Camera"
 
 local Object = {}
-
 
 -- ==========================================Constructor/Destructor
 
@@ -91,7 +91,12 @@ end
 
 function Object:DEBUGDrawHitBox()
     love.graphics.setColor( 255, 0, 0, 125 )
-    love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
+    x, y, x2, y2 = self.shape:computeAABB( self:GetX(), self:GetY(), 0 )
+    x, y = Camera.MapToScreen( x, y )
+    x2, y2 = Camera.MapToScreen( x2, y2 )
+
+    love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
+    -- love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
 end
 
 

@@ -21,8 +21,8 @@ function Lapin:New( iWorld, iX, iY )
     newLapin.body     = love.physics.newBody( iWorld, iX + newLapin.w/2, iY + newLapin.h/2, "dynamic" )
     newLapin.body:setFixedRotation( true )
 
-    newLapin.shape    = love.physics.newCircleShape( 50 )
-    newLapin.shape2   = love.physics.newRectangleShape( newLapin.w - 30, newLapin.h )
+    newLapin.shape    = love.physics.newRectangleShape( newLapin.w - 30, newLapin.h )
+    newLapin.shape2   = love.physics.newCircleShape( 50 )
     newLapin.fixture  = love.physics.newFixture( newLapin.body, newLapin.shape )
     newLapin.fixture  = love.physics.newFixture( newLapin.body, newLapin.shape2 )
     newLapin.fixture:setFriction( 0.33 )
@@ -141,6 +141,7 @@ end
 
 function Lapin:Draw()
     self:DrawObject()
+    self:DEBUGDrawHitBox()
 
     if( self.attack ) then
         self.attack:Draw()
