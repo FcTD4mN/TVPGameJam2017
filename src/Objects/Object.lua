@@ -1,4 +1,4 @@
-local Animation = require "src/Objects/Animation"
+local Animation = require "src/Image/Animation"
 local Camera    = require "src/Camera/Camera"
 
 local Object = {}

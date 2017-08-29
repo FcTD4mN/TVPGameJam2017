@@ -1,4 +1,4 @@
-local Animation = require "src/Objects/Animation"
+local Animation = require "src/Image/Animation"
 local Object    = require "src/Objects/Object"
 
 local Tree = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
