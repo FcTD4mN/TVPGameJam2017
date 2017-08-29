@@ -1,11 +1,11 @@
 local Background            = require "src/Image/Background"
-local Tree                  = require "src/Objects/Tree"
+local Tree                  = require "src/Objects/Environnement/Tree"
 local Singe                 = require "src/Objects/Heros/Singe"
 local Lapin                 = require "src/Objects/Heros/Lapin"
 local BigImage              = require "src/Image/BigImage"
 local AttackGenerator       = require "src/Game/AttackGenerator"
 local ImageShapeComputer    = require "src/Image/ImageShapeComputer"
-local GrowingTree           = require "src/Game/GrowingTree"
+local GrowingTree           = require "src/Objects/Environnement/GrowingTree"
 
 local Game = {}
 

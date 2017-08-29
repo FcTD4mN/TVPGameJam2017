@@ -44,18 +44,19 @@ function Singe:New( iWorld, iX, iY )
 
     --Singe values
     local animCourse        = love.graphics.newImage( "resources/Animation/Characters/singe-course.png" )
+    local animSaut          = love.graphics.newImage( "resources/Animation/Characters/singe-saut.png" )
     local animInactif       = love.graphics.newImage( "resources/Animation/Characters/singe-inactif-tout.png" )
     local animInvocation    = love.graphics.newImage( "resources/Animation/Characters/singe-invocation.png" )
-    newSinge:AddAnimation( animCourse, 14, 24, 0, 0, 529, 694, false, false )--1
-    newSinge:AddAnimation( animCourse, 14, 24, 0, 0, 529, 694, true, false )--2
-    newSinge:AddAnimation( animCourse, 1, 24, 0, 0, 529, 694, false, false )--3
-    newSinge:AddAnimation( animCourse, 1, 24, 0, 0, 529, 694, true, false )--4
-    newSinge:AddAnimation( animInactif, 18, 24, 0, 0, 583, 667, false, false )--5
-    newSinge:AddAnimation( animInactif, 18, 24, 0, 0, 583, 667, true, false )--6
-    newSinge:AddAnimation( animInvocation, 7, 24, 0, 0, 540, 608, false, false )--7
-    newSinge:AddAnimation( animInvocation, 7, 24, 0, 0, 540, 608, true, false )--8
+    newSinge:AddAnimation( animCourse, 14, 24, false, false )   --1
+    newSinge:AddAnimation( animCourse, 14, 24, true, false )    --2
+    newSinge:AddAnimation( animSaut, 1, 24, false, false )      --3
+    newSinge:AddAnimation( animSaut, 1, 24, true, false )       --4
+    newSinge:AddAnimation( animInactif, 18, 24, false, false )  --5
+    newSinge:AddAnimation( animInactif, 18, 24, true, false )   --6
+    newSinge:AddAnimation( animInvocation, 7, 24, false, false )--7
+    newSinge:AddAnimation( animInvocation, 7, 24, true, false ) --8
 
-    newSinge:SetCurrentAnimation( 5 )
+    newSinge:PlayAnimation( 5, 0 )
 
     return newSinge
 end
@@ -97,35 +98,35 @@ function Singe:Update( dt )
 
     if self.attacking then
         if self.direction == 0 then
-            self:SetCurrentAnimation( 7 )
+            self:PlayAnimation( 7, 0 )
             self:Attack( 100 )
         end
         if self.direction == 1 then
-            self:SetCurrentAnimation( 8 )
+            self:PlayAnimation( 8, 0 )
             self:Attack( -100 )
         end
     elseif self.canJump then
         if self.moving then
             if self.direction == 0 then
-                self:SetCurrentAnimation( 1 )
+                self:PlayAnimation( 1, 0 )
             end
             if self.direction == 1 then
-                self:SetCurrentAnimation( 2 )
+                self:PlayAnimation( 2, 0 )
             end
         else
             if self.direction == 0 then
-                self:SetCurrentAnimation( 5 )
+                self:PlayAnimation( 5, 0 )
             end
             if self.direction == 1 then
-                self:SetCurrentAnimation( 6 )
+                self:PlayAnimation( 6, 0 )
             end
         end
     else
         if self.direction == 0 then
-            self:SetCurrentAnimation( 3 )
+            self:PlayAnimation( 3, 0 )
         end
         if self.direction == 1 then
-            self:SetCurrentAnimation( 4 )
+            self:PlayAnimation( 4, 0 )
         end
     end
 

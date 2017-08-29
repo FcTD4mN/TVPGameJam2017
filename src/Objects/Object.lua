@@ -77,7 +77,6 @@ function Object:UpdateObject( dt )
     end
 end
 
-<<<<<<< Updated upstream
 
 function Object:DrawObject()
     if not self.body then
@@ -107,18 +106,16 @@ end
 -- ==========================================Animations stuff
 
 
-function Object:AddAnimation( spriteFile, imagecount, fps, quadX, quadY, quadW, quadH, flipX, flipY )
-=======
-function Object:AddAnimation( spriteFile, imagecount, fps, flipX, flipY )
->>>>>>> Stashed changes
+function Object:AddAnimation( iSpriteFile, iImagecount, iFps, iFlipX, iFlipY )
     if not self.body then
         return
     end
 
     x = self.body:getX() - self.w / 2
     y = self.body:getY() - self.h / 2
-    table.insert( self.animations, Animation:New( spriteFile, x, y, self.w, self.h, self.body:getAngle(), imagecount, fps, flipX, flipY ) )
+    table.insert( self.animations, Animation:New( iSpriteFile, x, y, self.w, self.h, self.body:getAngle(), iImagecount, iFps, iFlipX, iFlipY ) )
 end
+
 
 function Object:PlayAnimation( current, iNumberOfPlays, iPlayEndCB )
     if self.currentAnimation == current then
