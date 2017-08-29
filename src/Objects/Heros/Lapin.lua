@@ -22,9 +22,7 @@ function Lapin:New( iWorld, iX, iY )
     newLapin.body:setFixedRotation( true )
 
     newLapin.shape    = love.physics.newRectangleShape( newLapin.w - 30, newLapin.h )
-    newLapin.shape2   = love.physics.newCircleShape( 50 )
     newLapin.fixture  = love.physics.newFixture( newLapin.body, newLapin.shape )
-    newLapin.fixture  = love.physics.newFixture( newLapin.body, newLapin.shape2 )
     newLapin.fixture:setFriction( 0.33 )
     newLapin.fixture:setUserData( newLapin )
 

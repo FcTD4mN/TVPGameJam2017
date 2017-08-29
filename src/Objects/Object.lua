@@ -91,7 +91,10 @@ end
 
 function Object:DEBUGDrawHitBox()
     love.graphics.setColor( 255, 0, 0, 125 )
-    x, y, x2, y2 = self.shape:computeAABB( self:GetX(), self:GetY(), 0 )
+
+    -- AABB box will have centered coord ...
+    -- So we need to translate back from TL ( topleft ) to C ( centered )
+    x, y, x2, y2 = self.shape:computeAABB( self:GetX() + self.w/2, self:GetY() + self.h/2, 0 )
     x, y = Camera.MapToScreen( x, y )
     x2, y2 = Camera.MapToScreen( x2, y2 )
 

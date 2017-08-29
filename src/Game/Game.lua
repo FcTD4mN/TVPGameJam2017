@@ -68,9 +68,9 @@ function Game:Initialize()
     music = love.audio.newSource( "resources/Audio/Music/Enjeuloop.mp3", "stream" )
     music:setLooping( true )
 
-    hero1 =  Singe:New( world, 800, 400 )
+    hero1 =  Singe:New( world, 1000, 200 )
     hero2 =  Lapin:New( world, 800, 200 )
-    tree  =  Tree:New( world, 1200, 250 )
+    tree  =  Tree:New( world, 1200, 50 )
 
     imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     Game:BuildTerrainShape()

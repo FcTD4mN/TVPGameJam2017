@@ -1,7 +1,7 @@
 
-local Camera = require "src/Camera/Camera"
-local Object = require "src/Objects/Object"
-local AttackGenerator    = require "src/Game/AttackGenerator"
+local Camera            = require "src/Camera/Camera"
+local Object            = require "src/Objects/Object"
+local AttackGenerator   = require "src/Game/AttackGenerator"
 
 local Singe = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -22,9 +22,7 @@ function Singe:New( iWorld, iX, iY )
     newSinge.body:setFixedRotation( true )
 
     newSinge.shape    = love.physics.newRectangleShape( newSinge.w - 30, newSinge.h )
-    newSinge.shape2   = love.physics.newCircleShape( 50 )
     newSinge.fixture  = love.physics.newFixture( newSinge.body, newSinge.shape )
-    newSinge.fixture  = love.physics.newFixture( newSinge.body, newSinge.shape2 )
     newSinge.fixture:setFriction( 0.33 )
     newSinge.fixture:setUserData( newSinge )
 
@@ -141,6 +139,7 @@ end
 
 function Singe:Draw()
     self:DrawObject()
+    self:DEBUGDrawHitBox()
 
     if( self.attack ) then
         self.attack:Draw()
