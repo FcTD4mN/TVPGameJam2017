@@ -33,8 +33,13 @@ function Tree:New( iWorld, iX, iY )
     newTree.currentAnimation = 0
     newTree.burn = false
 
+<<<<<<< HEAD:src/Objects/Environnement/Tree.lua
     local tree      = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
     local treeFix   = love.graphics.newImage( "resources/Animation/FX/arbre_fixe.png" )
+=======
+    local tree = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
+    local treeFix = love.graphics.newImage( "resources/Animation/FX/arbre_fixe.png" )
+>>>>>>> fix weird commit:src/Objects/Tree.lua
     newTree:AddAnimation( tree, 11, 12, false, false )
     newTree:AddAnimation( treeFix, 1, 1, false, false )
     newTree:PlayAnimation( 2, 0 )

@@ -106,7 +106,11 @@ end
 -- ==========================================Animations stuff
 
 
+<<<<<<< HEAD
 function Object:AddAnimation( iSpriteFile, iImagecount, iFps, iFlipX, iFlipY )
+=======
+function Object:AddAnimation( spriteFile, imagecount, fps, flipX, flipY )
+>>>>>>> fix weird commit
     if not self.body then
         return
     end
