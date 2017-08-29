@@ -92,6 +92,23 @@ end
 function Object:DEBUGDrawHitBox()
     love.graphics.setColor( 255, 0, 0, 125 )
 
+    fixtures = self.body:getFixtureList()
+    for k,v in pairs( fixtures ) do
+
+        if( v:getShape():getType() == "polygon" ) then
+            -- Need a x1, y1, x2, y2 ... = Camera.MapToScreen( x1, y1, x2, y2 ... )
+
+            -- love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
+        elseif ( v:getShape():getType() == "circle" ) then
+            --do smth
+        elseif ( v:getShape():getType() == "edge" ) then
+            --do smth
+        elseif ( v:getShape():getType() == "chain" ) then
+            --do smth
+        end
+
+    end
+
     -- AABB box will have centered coord ...
     -- So we need to translate back from TL ( topleft ) to C ( centered )
     x, y, x2, y2 = self.shape:computeAABB( self:GetX() + self.w/2, self:GetY() + self.h/2, 0 )
@@ -99,7 +116,6 @@ function Object:DEBUGDrawHitBox()
     x2, y2 = Camera.MapToScreen( x2, y2 )
 
     love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
-    -- love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
 end
 
 

@@ -63,7 +63,7 @@ end
 
 function Tree:Draw()
     self:DrawObject()
-    self:DEBUGDrawHitBox()
+    -- self:DEBUGDrawHitBox()
 end
 
 
