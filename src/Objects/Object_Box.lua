@@ -24,8 +24,9 @@ function Object_Box:New( world, x, y, type )
     newObject_Box.currentAnimation = 0
 
     --Object_Box values
-    newObject_Box:AddAnimation( "resources/Images/Objects/Object_Box.png", 1, 24, 0, 0, w, h, false, false )
-    newObject_Box:SetCurrentAnimation( 1 )
+    local image = love.graphics.newImage( "resources/Images/Objects/Object_Box.png" )
+    newObject_Box:AddAnimation( image, 1, 24, false, false )
+    newObject_Box:PlayAnimation( 1, 0 ) --please replace by image only
 
     return newObject_Box
 end

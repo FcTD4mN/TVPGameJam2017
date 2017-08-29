@@ -27,37 +27,34 @@ function GrowingTree:New( world, x, y )
     newGrowingTree.fixture:setUserData( newGrowingTree )
     newGrowingTree.animations = {}
     newGrowingTree.currentAnimation = 0
+    newGrowingTree.growed = false
     newGrowingTree.needGrow = false
 
     local img = love.graphics.newImage( "resources/Animation/FX/Petite-plante.png" )
     local img1 = love.graphics.newImage( "resources/Animation/FX/Grande-plante.png" )
-    newGrowingTree:AddAnimation( img, 8, 8, 0, 0, 64, 104, false, false )
+    newGrowingTree:AddAnimation( img, 8, 8, false, false )
 
     
     newGrowingTree.w = 912
     newGrowingTree.h = 468
-    newGrowingTree:AddAnimation( img1, 16, 24, 0, 0, 912, 468, false, false )
+    newGrowingTree:AddAnimation( img1, 16, 24, false, false )
 
     newGrowingTree.w = w
     newGrowingTree.h = h
 
-    newGrowingTree:SetCurrentAnimation( 1 )
+    newGrowingTree:PlayAnimation( 1, 0 ) -- play animation n°1 infinitely
 
     return newGrowingTree
 end
 
 function GrowingTree:Update( dt )
-    if self.needGrow then
+    if self.needGrow and not self.growed then
         self:Grow()
         self.needGrow = false
+        self.growed = true
     end
 
     self:UpdateObject( dt )
-    if self.currentAnimation == 2 and self.animations[ 2 ].playCount >= 1 then
-        self.animations[ 2 ].currentquad = self.animations[ 2 ].imagecount
-        self.animations[ 2 ]:TogglePause()
-        self.animations[ 2 ].playCount = 0
-    end
 end
 
 function GrowingTree:Draw()
@@ -79,7 +76,7 @@ function GrowingTree:Grow()
     self.fixture:setFriction( 1.0 )
     self.fixture:setUserData( nil )
     
-    self:SetCurrentAnimation( 2 )
+    self:PlayAnimation( 2, 1 ) -- play animation n°2 once
 end
 
 return GrowingTree

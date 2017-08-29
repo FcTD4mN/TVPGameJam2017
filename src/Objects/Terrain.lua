@@ -33,27 +33,6 @@ function Object:UpdateObject( dt )
     end
 end
 
-function Object:AddAnimation( spriteFile, imagecount, fps, quadX, quadY, quadW, quadH, flipX, flipY )
-    x = self.body:getX() - self.w / 2
-    y = self.body:getY() - self.h / 2
-    table.insert( self.animations, Animation:New( spriteFile, imagecount, fps, x, y, self.w, self.h, quadX, quadY, quadW, quadH, flipX, flipY ) )
-end
-
-function Object:SetCurrentAnimation( current )
-    if self.currentAnimation == current then
-        return
-    end
-    if self.currentAnimation > 0 then
-        self.animations[self.currentAnimation]:Stop()
-    end
-
-    self.currentAnimation = current
-    if current == 0 then
-        return
-    end
-    self.animations[self.currentAnimation]:Play()
-end
-
 function Object:DrawObject()
     --love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
     if self.currentAnimation > 0 then

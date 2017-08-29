@@ -32,7 +32,7 @@ function Waterball:New( world, x, y, iVelocity )
 end
 
 function Waterball:AddAnimation( iImage )
-    table.insert( self.animations, Animation:New( iImage, 5, 24, self.x, self.y, 90, 90, 0, 0, 181, 111, self.flipNeeded, false ) )
+    table.insert( self.animations, Animation:New( iImage, self.x, self.y, 90, 90, 0, 16, 24, self.flipNeeded, false ) )
 end
 
 function Waterball:Update( dt )

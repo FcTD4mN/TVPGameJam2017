@@ -34,10 +34,17 @@ function Tree:New( iWorld, iX, iY )
     newTree.burn = false
 
     local tree = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
+<<<<<<< Updated upstream
     local treeFix = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
     newTree:AddAnimation( tree, 11, 12, 0, 0, newTree.w, newTree.h, false, false )
     newTree:AddAnimation( treeFix, 1, 1, 0, 0, newTree.w, newTree.h, false, false )
     newTree:SetCurrentAnimation( 2 )
+=======
+    local treeFix = love.graphics.newImage( "resources/Animation/FX/arbre_fixe.png" )
+    newTree:AddAnimation( tree, 11, 12, false, false )
+    newTree:AddAnimation( treeFix, 1, 1, false, false )
+    newTree:PlayAnimation( 2, 0 )
+>>>>>>> Stashed changes
     return newTree
 end
 
@@ -55,7 +62,7 @@ end
 
 function Tree:Update( dt )
     if( self.burn == true ) then
-        self:SetCurrentAnimation( 1 )
+        self:PlayAnimation( 1, 0 )
     end
     self:UpdateObject( dt )
 end

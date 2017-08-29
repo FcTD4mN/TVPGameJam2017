@@ -32,7 +32,7 @@ function Fireball:New( world, x, y, iVelocity )
 end
 
 function Fireball:AddAnimation( iImage )
-    table.insert( self.animations, Animation:New( iImage, 5, 24, self.x, self.y, 90, 90, 0, 0, 185, 120, self.flipNeeded, false ) )
+    table.insert( self.animations, Animation:New( iImage, self.x, self.y, 90, 90, 0, 14, 24, self.flipNeeded, false ) )
 end
 
 function Fireball:Update( dt )

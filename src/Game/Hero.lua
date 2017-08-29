@@ -39,37 +39,38 @@ function Hero:New( iWorld, iX, iY, iPhysicType )
     newHero.sounds.step:setLooping( true )
     newHero.sounds.jump = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
     newHero.sounds.jump:setVolume(0.4)
-    --newHero:AddAnimation( "runsprite.png", 1, 3, 0, 150, 120, 150 )
 
     --Hero values
     if type == 0 then
         newHero.w = 90
         local animCourse = love.graphics.newImage( "resources/Animation/Characters/singe-course.png" )
+        local animSaut = love.graphics.newImage( "resources/Animation/Characters/singe-saut.png" )
         local animInactif = love.graphics.newImage( "resources/Animation/Characters/singe-inactif-tout.png" )
         local animInvocation = love.graphics.newImage( "resources/Animation/Characters/singe-invocation.png" )
-        newHero:AddAnimation( animCourse, 14, 24, 0, 0, 529, 694, false, false )--1
-        newHero:AddAnimation( animCourse, 14, 24, 0, 0, 529, 694, true, false )--2
-        newHero:AddAnimation( animCourse, 1, 24, 0, 0, 529, 694, false, false )--3
-        newHero:AddAnimation( animCourse, 1, 24, 0, 0, 529, 694, true, false )--4
-        newHero:AddAnimation( animInactif, 18, 24, 0, 0, 583, 667, false, false )--5
-        newHero:AddAnimation( animInactif, 18, 24, 0, 0, 583, 667, true, false )--6
-        newHero:AddAnimation( animInvocation, 7, 24, 0, 0, 540, 608, false, false )--7
-        newHero:AddAnimation( animInvocation, 7, 24, 0, 0, 540, 608, true, false )--8
+        newHero:AddAnimation( animCourse, 14, 24, false, false )--1
+        newHero:AddAnimation( animCourse, 14, 24, true, false )--2
+        newHero:AddAnimation( animSaut, 1, 24, false, false )--3
+        newHero:AddAnimation( animSaut, 1, 24, true, false )--4
+        newHero:AddAnimation( animInactif, 18, 24, false, false )--5
+        newHero:AddAnimation( animInactif, 18, 24, true, false )--6
+        newHero:AddAnimation( animInvocation, 7, 24, false, false )--7
+        newHero:AddAnimation( animInvocation, 7, 24, true, false )--8
     elseif type == 1 then
         newHero.w = 90
         local animCourse = love.graphics.newImage( "resources/Animation/Characters/lapin-course.png" )
+        local animSaut = love.graphics.newImage( "resources/Animation/Characters/lapin-saut.png" )
         local animInactif = love.graphics.newImage( "resources/Animation/Characters/lapin-inactif-tout.png" )
         local animInvocation = love.graphics.newImage( "resources/Animation/Characters/lapin-invocation.png" )
-        newHero:AddAnimation( animCourse, 14, 24, 0, 0, 548, 826, false, false )
-        newHero:AddAnimation( animCourse, 14, 24, 0, 0, 548, 826, true, false )
-        newHero:AddAnimation( animCourse, 1, 24, 0, 0, 548, 826, false, false )
-        newHero:AddAnimation( animCourse, 1, 24, 0, 0, 548, 826, true, false )
-        newHero:AddAnimation( animInactif, 17, 24, 0, 0, 526, 843, true, false )--5
-        newHero:AddAnimation( animInactif, 17, 24, 0, 0, 526, 843, false, false )--6
-        newHero:AddAnimation( animInvocation, 5, 24, 0, 0, 548, 722, false, false )--7
-        newHero:AddAnimation( animInvocation, 5, 24, 0, 0, 548, 722, true, false )--8
+        newHero:AddAnimation( animCourse, 14, 24, false, false )
+        newHero:AddAnimation( animCourse, 14, 24, true, false )
+        newHero:AddAnimation( animSaut, 1, 24, false, false )
+        newHero:AddAnimation( animSaut, 1, 24, true, false )
+        newHero:AddAnimation( animInactif, 17, 24, true, false )--5
+        newHero:AddAnimation( animInactif, 17, 24, false, false )--6
+        newHero:AddAnimation( animInvocation, 5, 24, false, false )--7
+        newHero:AddAnimation( animInvocation, 5, 24, true, false )--8
     end
-    newHero:SetCurrentAnimation( 5 )
+    newHero:PlayAnimation( 5, 0 )
 
     return newHero
 end
@@ -142,35 +143,35 @@ function Hero:Update( dt )
 
     if self.attacking then
         if self.direction == 0 then
-            self:SetCurrentAnimation( 7 )
+            self:PlayAnimation( 7, 0 )
             self:Attack( 100 )
         end
         if self.direction == 1 then
-            self:SetCurrentAnimation( 8 )
+            self:PlayAnimation( 8, 0 )
             self:Attack( -100 )
         end
     elseif self.canJump then
         if self.moving then
             if self.direction == 0 then
-                self:SetCurrentAnimation( 1 )
+                self:PlayAnimation( 1, 0 )
             end
             if self.direction == 1 then
-                self:SetCurrentAnimation( 2 )
+                self:PlayAnimation( 2, 0 )
             end
         else
             if self.direction == 0 then
-                self:SetCurrentAnimation( 5 )
+                self:PlayAnimation( 5, 0 )
             end
             if self.direction == 1 then
-                self:SetCurrentAnimation( 6 )
+                self:PlayAnimation( 6, 0 )
             end
         end
     else
         if self.direction == 0 then
-            self:SetCurrentAnimation( 3 )
+            self:PlayAnimation( 3, 0 )
         end
         if self.direction == 1 then
-            self:SetCurrentAnimation( 4 )
+            self:PlayAnimation( 4, 0 )
         end
     end
 

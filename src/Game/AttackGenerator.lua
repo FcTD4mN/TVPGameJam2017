@@ -18,12 +18,12 @@ function AttackGenerator:GenerateAttack( x, y, type, iVel )
     if type == "fireball" then
         local fire =  Fireball:New( world, x, y , iVel )
         fire:AddAnimation( AttackGenerator.images[ 1 ] )
-        fire:SetCurrentAnimation( 1 )
+        fire:PlayAnimation( 1, 0 )
         return  fire
     elseif type == "waterball" then
         local water =  Waterball:New( world, x, y , iVel )
         water:AddAnimation( AttackGenerator.images[ 5 ] )
-        water:SetCurrentAnimation( 1 )
+        water:PlayAnimation( 1, 0 )
         return  water
     end
 end
