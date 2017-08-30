@@ -60,6 +60,7 @@ function Animation:Stop()
 end
 
 function Animation:Play( iNumberOfPlays, iPlayEndCB ) -- 0 is not infinite --Can be called without playEndCB
+    self.currentquad = 1
     self.playCountToReach = iNumberOfPlays --to avoid playing a unwanted frame at end
     self.playing = true
     self.display = true

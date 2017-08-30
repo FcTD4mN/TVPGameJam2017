@@ -99,11 +99,11 @@ function Lapin:Update( dt )
     if self.attacking then
         if self.direction == 0 then
             self:PlayAnimation( 7, 0 )
-            self:Attack( 100 )
+            self:Attack( 500 )
         end
         if self.direction == 1 then
             self:PlayAnimation( 8, 0 )
-            self:Attack( -100 )
+            self:Attack( -500 )
         end
     elseif self.canJump then
         if self.moving then
@@ -131,20 +131,12 @@ function Lapin:Update( dt )
     end
 
     self:UpdateObject( dt )
-
-    if( self.attack ) then
-        self.attack:Update( dt )
-    end
 end
 
 
 function Lapin:Draw()
     self:DrawObject()
     -- self:DEBUGDrawHitBox()
-
-    if( self.attack ) then
-        self.attack:Draw()
-    end
 end
 
 

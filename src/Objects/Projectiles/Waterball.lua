@@ -23,7 +23,7 @@ function Waterball:New( iWorld, iX, iY, iVelocity )
     newWaterball.body        = love.physics.newBody( iWorld, iX + newWaterball.w/2, iY + newWaterball.h/2, "dynamic" )
     newWaterball.body:setFixedRotation( true )
     newWaterball.body:setLinearVelocity( iVelocity, 0 )
-    newWaterball.body:setGravityScale( 0.0 )
+    newWaterball.body:setGravityScale( 1.0 )
 
     newWaterball.shape       = love.physics.newRectangleShape( newWaterball.w, newWaterball.h )
     newWaterball.fixture     = love.physics.newFixture( newWaterball.body, newWaterball.shape )
