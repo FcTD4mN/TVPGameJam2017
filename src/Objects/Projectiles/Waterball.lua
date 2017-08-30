@@ -1,5 +1,6 @@
 local Animation = require "src/Image/Animation"
 local Object = require "src/Objects/Object"
+local ObjectPool = require "src/Objects/ObjectPool"
 
 local Waterball = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -32,6 +33,8 @@ function Waterball:New( iWorld, iX, iY, iVelocity )
     newWaterball.animations = {}
     newWaterball.currentAnimation = 0
     newWaterball.flipNeeded = iVelocity < 0
+
+    ObjectPool.AddObject( newWaterball )
 
     return newWaterball
 end

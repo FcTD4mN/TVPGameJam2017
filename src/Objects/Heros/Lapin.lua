@@ -191,15 +191,15 @@ end
 
 
 function  Lapin:Attack( iVel )
-    shift = self.w / 2
+    shift = self.w
     xShift = 5
 
     if iVel < 0 then
-        shift = -shift - 90
-        xShift =- xShift
+        shift  = - shift
+        xShift = - xShift
     end
 
-    x = self:GetX()
+    x = self:GetX() + shift
     y = self:GetY()
     if self.attack then
         self.attack:Destroy()

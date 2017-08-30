@@ -46,15 +46,15 @@ function beginContact( a, b, coll )
     -- end
 end
 
-function endContact(a, b, coll)
+function endContact( a, b, coll )
 
 end
 
-function preSolve(a, b, coll)
+function preSolve( a, b, coll )
 
 end
 
-function postSolve(a, b, coll, normalimpulse, tangentimpulse)
+function postSolve( a, b, coll, normalimpulse, tangentimpulse )
 
 end
 

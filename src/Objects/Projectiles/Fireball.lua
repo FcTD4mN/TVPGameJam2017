@@ -1,5 +1,6 @@
 local Animation = require "src/Image/Animation"
 local Object = require "src/Objects/Object"
+local ObjectPool = require "src/Objects/ObjectPool"
 
 local Fireball = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -32,6 +33,8 @@ function Fireball:New( iWorld, iX, iY, iVelocity )
     newFireball.animations = {}
     newFireball.currentAnimation = 0
     newFireball.flipNeeded = iVelocity < 0
+
+    ObjectPool.AddObject( newFireball )
 
     return newFireball
 end
