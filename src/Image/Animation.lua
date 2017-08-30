@@ -67,7 +67,7 @@ function Animation:Play( iNumberOfPlays, iPlayEndCB, ... ) -- 0 is not infinite 
     self.playing = true
     self.display = true
     self.playEndCB = iPlayEndCB
-    self.playEndCBArguments = ...
+    self.playEndCBArguments = ... --unpack( arg )
 end
 
 function Animation:Update( dt, x, y, w, h, angleInRad )
@@ -84,7 +84,7 @@ function Animation:Update( dt, x, y, w, h, angleInRad )
         if self.playCountToReach > 0 and playCount >= self.playCountToReach then
             self.currentquad = math.max( 1, math.floor( 1 + ( self.time * self.fps - 1 ) % ( self.imagecount ) ) )
             self.playing = false
-            if playEndCB then
+            if self.playEndCB then
                 self.playEndCB( self.playEndCBArguments )
                 self.playEndCB = nil
                 self.playEndCBArguments = nil

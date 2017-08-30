@@ -67,7 +67,7 @@ end
 -- ==========================================Tree actions
 
 function  HasBurnedCB( iTree )
-    iTree.Destroy()
+    iTree:Destroy()
 end
 
 function  Tree:Burn() --Arguments are 
