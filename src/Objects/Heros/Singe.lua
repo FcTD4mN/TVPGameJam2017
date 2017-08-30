@@ -35,7 +35,6 @@ function Singe:New( iWorld, iX, iY )
     newSinge.moving     = false
     newSinge.attacking  = false
 
-    newSinge.attack         = nil
     newSinge.sounds         = {}
     newSinge.sounds.step    = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
     newSinge.sounds.jump    = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
@@ -193,10 +192,7 @@ function  Singe:Attack( iVel )
 
     x = self:GetX() + shift
     y = self:GetY()
-    if self.attack then
-        self.attack:Destroy()
-    end
-    self.attack = AttackGenerator:GenerateAttack( x + xShift, y, "fireball", iVel )
+    AttackGenerator:GenerateAttack( x + xShift, y, "fireball", iVel )
 end
 
 

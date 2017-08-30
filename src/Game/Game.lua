@@ -18,38 +18,36 @@ function beginContact( a, b, coll )
         return
     end
 
-    -- TODO: a:getUserData():Collision( b:getUserData() )    so that we can have behaviours defined in each classes instead of everything here
-
     if a:getUserData() == nil or b:getUserData() == nil then
         return
     end
 
-    if a:getUserData():Type() == "BabyTree" and b:getUserData():Type() == "Fireball" then
-        local baseTree = a:getUserData()
-        baseTree:Destroy()
-    end
-    if b:getUserData():Type() == "BabyTree" and a:getUserData():Type() == "Fireball" then
-        local baseTree = b:getUserData()
-        baseTree:Destroy()
-    end
+    --if a:getUserData():Type() == "BabyTree" and b:getUserData():Type() == "Fireball" then
+        --local baseTree = a:getUserData()
+        --baseTree:Destroy()
+    --end
+    --if b:getUserData():Type() == "BabyTree" and a:getUserData():Type() == "Fireball" then
+        --local baseTree = b:getUserData()
+        --baseTree:Destroy()
+    --end
 
-    if a:getUserData():Type() == "Fireball" then
-        local fireball = a:getUserData()
-        fireball:Destroy()
-    end
-    if b:getUserData():Type() == "Fireball" then
-        local fireball = b:getUserData()
-        fireball:Destroy()
-    end
-
-    if a:getUserData():Type() == "Waterball" then
-        local waterball = a:getUserData()
-        waterball:Destroy()
-    end
-    if b:getUserData():Type() == "Waterball" then
-        local waterball = b:getUserData()
-        waterball:Destroy()
-    end
+--    if a:getUserData():Type() == "Fireball" then
+--        local fireball = a:getUserData()
+--        fireball:Destroy()
+--    end
+--    if b:getUserData():Type() == "Fireball" then
+--        local fireball = b:getUserData()
+--        fireball:Destroy()
+--    end
+--
+--    if a:getUserData():Type() == "Waterball" then
+--        local waterball = a:getUserData()
+--        waterball:Destroy()
+--    end
+--    if b:getUserData():Type() == "Waterball" then
+--        local waterball = b:getUserData()
+--        waterball:Destroy()
+--    end
 
     -- if a:getUserData():Type() == "Tree" and b:getUserData():Type() == "Fireball" then
     --     a:getUserData():Burn()
@@ -62,6 +60,13 @@ function beginContact( a, b, coll )
     --     hero1.attack:Destroy()
     --     hero1.attack = nil
     -- end
+    
+    if a:getUserData().needDestroy or b:getUserData().needDestroy then
+        return
+    end
+
+    a:getUserData():Collide( b:getUserData() )
+    b:getUserData():Collide( a:getUserData() )
 end
 
 function endContact( a, b, coll )

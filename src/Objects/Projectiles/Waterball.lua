@@ -34,6 +34,11 @@ function Waterball:New( iWorld, iX, iY, iVelocity )
     newWaterball.currentAnimation = 0
     newWaterball.flipNeeded = iVelocity < 0
 
+    if currentWaterball then
+        currentWaterball:Destroy()
+    end
+    currentWaterball = newWaterball
+
     ObjectPool.AddObject( newWaterball )
 
     return newWaterball
@@ -66,6 +71,14 @@ end
 
 function Waterball:AddAnimation( iImage )
     table.insert( self.animations, Animation:New( iImage, self.x, self.y, self.w, self.h, 0, 16, 24, self.flipNeeded, false ) )
+end
+
+
+-- ==========================================Collision stuff
+
+function Waterball:Collide( iObject )
+    self:Destroy()
+    currentWaterball = nil
 end
 
 

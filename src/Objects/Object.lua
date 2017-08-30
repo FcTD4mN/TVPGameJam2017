@@ -140,7 +140,7 @@ function Object:AddAnimation( iSpriteFile, iImagecount, iFps, iFlipX, iFlipY )
 end
 
 
-function Object:PlayAnimation( current, iNumberOfPlays, iPlayEndCB )
+function Object:PlayAnimation( current, iNumberOfPlays, iPlayEndCB, iPlayEndCBArguments )
     if self.currentAnimation == current then
         return
     end
@@ -152,7 +152,14 @@ function Object:PlayAnimation( current, iNumberOfPlays, iPlayEndCB )
     if current == 0 then
         return
     end
-    self.animations[self.currentAnimation]:Play( iNumberOfPlays, iPlayEndCB )
+    self.animations[self.currentAnimation]:Play( iNumberOfPlays, iPlayEndCB, iPlayEndCBArguments )
+end
+
+
+-- ==========================================Collision stuff
+
+function Object:Collide( iObject )
+    --does nothing
 end
 
 return Object

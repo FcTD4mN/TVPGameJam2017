@@ -24,7 +24,7 @@ function Animation:New( image, x, y, w, h, angleInRadians, imagecount, fps, flip
     newAnimation.flipX = flipX
     newAnimation.flipY = flipY
     newAnimation.fps = fps
-    newAnimation.currentquad = 0
+    newAnimation.currentquad = 1
     newAnimation.time = 0
     newAnimation.imagecount = imagecount
     newAnimation.playing = false
@@ -32,6 +32,7 @@ function Animation:New( image, x, y, w, h, angleInRadians, imagecount, fps, flip
     newAnimation.display = false
     newAnimation.playCountToReach = 0
     newAnimation.playEndCB = nil
+    newAnimation.playEndCBArguments = nil
 
     newAnimation.quads = {}
     for i=0,imagecount-1,1 do
@@ -54,17 +55,19 @@ end
 function Animation:Stop()
     self.playing = false
     self.display = false
-    self.currentquad = 0
+    self.currentquad = 1
     self.time = 0
     self.playEndCB = nil
+    self.playEndCBArguments = nil
 end
 
-function Animation:Play( iNumberOfPlays, iPlayEndCB ) -- 0 is not infinite --Can be called without playEndCB
+function Animation:Play( iNumberOfPlays, iPlayEndCB, ... ) -- 0 is not infinite --Can be called without playEndCB
     self.currentquad = 1
     self.playCountToReach = iNumberOfPlays --to avoid playing a unwanted frame at end
     self.playing = true
     self.display = true
     self.playEndCB = iPlayEndCB
+    self.playEndCBArguments = ...
 end
 
 function Animation:Update( dt, x, y, w, h, angleInRad )
@@ -82,7 +85,9 @@ function Animation:Update( dt, x, y, w, h, angleInRad )
             self.currentquad = math.max( 1, math.floor( 1 + ( self.time * self.fps - 1 ) % ( self.imagecount ) ) )
             self.playing = false
             if playEndCB then
-                self.playEndCB()
+                self.playEndCB( self.playEndCBArguments )
+                self.playEndCB = nil
+                self.playEndCBArguments = nil
             end
         else
             self.currentquad = math.floor( 1 + ( self.time * self.fps ) % ( self.imagecount ) )

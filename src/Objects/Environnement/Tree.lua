@@ -54,9 +54,6 @@ end
 
 
 function Tree:Update( dt )
-    if( self.burn == true ) then
-        self:PlayAnimation( 1, 0 )
-    end
     self:UpdateObject( dt )
 end
 
@@ -69,9 +66,20 @@ end
 
 -- ==========================================Tree actions
 
+function  HasBurnedCB( iTree )
+    iTree.Destroy()
+end
 
-function  Tree:Burn()
-    self.burn = true
+function  Tree:Burn() --Arguments are 
+    self:PlayAnimation( 1, 1, HasBurnedCB, self )
+end
+
+-- ==========================================Collision stuff
+
+function Tree:Collide( iObject )
+    if iObject:Type() == "Fireball" then
+        self:Burn()
+    end
 end
 
 return Tree

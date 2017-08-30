@@ -34,6 +34,11 @@ function Fireball:New( iWorld, iX, iY, iVelocity )
     newFireball.currentAnimation = 0
     newFireball.flipNeeded = iVelocity < 0
 
+    if currentFireball then
+        currentFireball:Destroy()
+    end
+    currentFireball = newFireball
+
     ObjectPool.AddObject( newFireball )
 
     return newFireball
@@ -65,5 +70,12 @@ function Fireball:AddAnimation( iImage )
     table.insert( self.animations, Animation:New( iImage, self.x, self.y, self.w, self.h, 0, 14, 24, self.flipNeeded, false ) )
 end
 
+
+-- ==========================================Collision stuff
+
+function Fireball:Collide( iObject )
+    self:Destroy()
+    currentFireball = nil
+end
 
 return Fireball

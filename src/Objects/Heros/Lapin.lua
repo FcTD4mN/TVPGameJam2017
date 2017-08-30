@@ -35,7 +35,6 @@ function Lapin:New( iWorld, iX, iY )
     newLapin.moving     = false
     newLapin.attacking  = false
 
-    newLapin.attack         = nil
     newLapin.sounds         = {}
     newLapin.sounds.step    = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
     newLapin.sounds.jump    = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
@@ -193,10 +192,7 @@ function  Lapin:Attack( iVel )
 
     x = self:GetX() + shift
     y = self:GetY()
-    if self.attack then
-        self.attack:Destroy()
-    end
-    self.attack = AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel )
+    AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel )
 end
 
 
