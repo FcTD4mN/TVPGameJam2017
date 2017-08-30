@@ -21,45 +21,6 @@ function beginContact( a, b, coll )
     if a:getUserData() == nil or b:getUserData() == nil then
         return
     end
-
-    --if a:getUserData():Type() == "BabyTree" and b:getUserData():Type() == "Fireball" then
-        --local baseTree = a:getUserData()
-        --baseTree:Destroy()
-    --end
-    --if b:getUserData():Type() == "BabyTree" and a:getUserData():Type() == "Fireball" then
-        --local baseTree = b:getUserData()
-        --baseTree:Destroy()
-    --end
-
---    if a:getUserData():Type() == "Fireball" then
---        local fireball = a:getUserData()
---        fireball:Destroy()
---    end
---    if b:getUserData():Type() == "Fireball" then
---        local fireball = b:getUserData()
---        fireball:Destroy()
---    end
---
---    if a:getUserData():Type() == "Waterball" then
---        local waterball = a:getUserData()
---        waterball:Destroy()
---    end
---    if b:getUserData():Type() == "Waterball" then
---        local waterball = b:getUserData()
---        waterball:Destroy()
---    end
-
-    -- if a:getUserData():Type() == "Tree" and b:getUserData():Type() == "Fireball" then
-    --     a:getUserData():Burn()
-    --     --b:Destroy()
-    --     hero1.attack:Destroy()
-    --     hero1.attack = nil
-    -- end
-    -- if a:getUserData():Type() == "Fireball" and b:getUserData():Type() == "Tree" then
-    --     b:getUserData():Burn()
-    --     hero1.attack:Destroy()
-    --     hero1.attack = nil
-    -- end
     
     if a:getUserData().needDestroy or b:getUserData().needDestroy then
         return
