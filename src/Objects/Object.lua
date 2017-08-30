@@ -100,22 +100,21 @@ function Object:DEBUGDrawHitBox()
         if( v:getShape():getType() == "polygon" ) then
             love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.body:getWorldPoints( self.shape:getPoints() ) ) )
         elseif ( v:getShape():getType() == "circle" ) then
-            --do smth
+            radius  = v:getShape():getRadius()
+            x, y    = v:getShape():getPoint()
+
+            -- x, y are coordinates from the center of body, so we offset to match center in screen coordinates
+            x = x + self:GetX() + self.w/2
+            y = y + self:GetY() + self.h/2
+            x, y = Camera.MapToScreen( x, y )
+            love.graphics.circle( "fill", x, y, radius )
         elseif ( v:getShape():getType() == "edge" ) then
-            --do smth
+            --TODO
         elseif ( v:getShape():getType() == "chain" ) then
-            --do smth
+            --TODO
         end
 
     end
-
-    -- AABB box will have centered coord ...
-    -- So we need to translate back from TL ( topleft ) to C ( centered )
-    -- x, y, x2, y2 = self.shape:computeAABB( self:GetX() + self.w/2, self:GetY() + self.h/2, 0 )
-    -- x, y = Camera.MapToScreen( x, y )
-    -- x2, y2 = Camera.MapToScreen( x2, y2 )
-
-    -- love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
 end
 
 
