@@ -86,6 +86,8 @@ function Object:DrawObject()
     if self.currentAnimation > 0 then
         self.animations[ self.currentAnimation ]:Draw()
     end
+
+    self:DEBUGDrawHitBox()
 end
 
 
@@ -96,9 +98,7 @@ function Object:DEBUGDrawHitBox()
     for k,v in pairs( fixtures ) do
 
         if( v:getShape():getType() == "polygon" ) then
-            -- Need a x1, y1, x2, y2 ... = Camera.MapToScreen( x1, y1, x2, y2 ... )
-
-            -- love.graphics.polygon( "fill", self.body:getWorldPoints( self.shape:getPoints() ) )
+            love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.body:getWorldPoints( self.shape:getPoints() ) ) )
         elseif ( v:getShape():getType() == "circle" ) then
             --do smth
         elseif ( v:getShape():getType() == "edge" ) then
@@ -111,11 +111,11 @@ function Object:DEBUGDrawHitBox()
 
     -- AABB box will have centered coord ...
     -- So we need to translate back from TL ( topleft ) to C ( centered )
-    x, y, x2, y2 = self.shape:computeAABB( self:GetX() + self.w/2, self:GetY() + self.h/2, 0 )
-    x, y = Camera.MapToScreen( x, y )
-    x2, y2 = Camera.MapToScreen( x2, y2 )
+    -- x, y, x2, y2 = self.shape:computeAABB( self:GetX() + self.w/2, self:GetY() + self.h/2, 0 )
+    -- x, y = Camera.MapToScreen( x, y )
+    -- x2, y2 = Camera.MapToScreen( x2, y2 )
 
-    love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
+    -- love.graphics.rectangle( "fill", x, y, x2-x, y2-y )
 end
 
 

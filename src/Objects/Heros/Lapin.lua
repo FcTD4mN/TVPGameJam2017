@@ -140,7 +140,7 @@ end
 
 function Lapin:Draw()
     self:DrawObject()
-    self:DEBUGDrawHitBox()
+    -- self:DEBUGDrawHitBox()
 
     if( self.attack ) then
         self.attack:Draw()
