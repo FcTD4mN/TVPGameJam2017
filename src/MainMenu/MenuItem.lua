@@ -38,7 +38,7 @@ end
 function  MenuItem:Click()
     self.actionCB()
     if( self.sound ~= 0 ) then
-        love.audio.play( self.sound )
+        -- love.audio.play( self.sound )
     end
 end
 

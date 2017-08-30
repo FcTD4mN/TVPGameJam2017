@@ -6,7 +6,7 @@ local Object = {}
 -- ==========================================Constructor/Destructor
 
 
-function Object:Destroy()
+function Object:Finalize()
     self.body:destroy()
     self.body = nil
     self.shape = nil
@@ -30,6 +30,9 @@ function Object:New( iWorld, iX, iY, iW, iH, iPhysicType )
 
     newObject.animations = {}
     newObject.currentAnimation = 0
+
+    newObject.needDestroy = false
+
     return newObject
 end
 
@@ -64,6 +67,11 @@ function Object:SetY( iY )
 end
 
 
+function Object:Destroy()
+    self.needDestroy = true
+end
+
+
 -- ==========================================Update/Draw
 
 
@@ -87,7 +95,7 @@ function Object:DrawObject()
         self.animations[ self.currentAnimation ]:Draw()
     end
 
-    self:DEBUGDrawHitBox()
+    -- self:DEBUGDrawHitBox()
 end
 
 
