@@ -9,6 +9,7 @@ local BabyTree              = require "src/Objects/Environnement/BabyTree"
 local GrownTree             = require "src/Objects/Environnement/GrownTree"
 local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 local ObjectPool            = require "src/Objects/ObjectPool"
+local CollidePool           = require "src/Objects/CollidePool"
 
 
 
@@ -27,8 +28,8 @@ function beginContact( a, b, coll )
         return
     end
 
-    a:getUserData():Collide( b:getUserData() )
-    b:getUserData():Collide( a:getUserData() )
+    CollidePool.AddCollision( a:getUserData(), b:getUserData() )
+    CollidePool.AddCollision( b:getUserData(), a:getUserData() )
 end
 
 function endContact( a, b, coll )
@@ -85,6 +86,37 @@ function Game:Initialize()
     -- love.audio.play( music )
 end
 
+
+function Game:Update( dt )
+
+    for k,v in pairs( backgrounds ) do
+        v:Update( dt )
+    end
+    terrain:Update()
+
+    ObjectPool.Update( dt )
+    world:update( dt )
+    CollidePool.Update( dt )
+
+    for k,v in pairs( foregrounds ) do
+        v:Update( dt )
+    end
+
+    x, y, x2, y2 = hero1.shape:computeAABB( 0, 0, 0 )
+    x, y, x2, y2 = hero1.body:getWorldPoints( x, y, x2, y2 )
+
+    uerx, uery, uerx2, uery2 = hero2.shape:computeAABB( 0, 0, 0 )
+    uerx, uery, uerx2, uery2 = hero2.body:getWorldPoints( uerx, uery, uerx2, uery2 )
+
+    xza = ( x + uerx ) / 2
+
+    Camera.x = xza - love.graphics.getWidth() / 2
+    Camera.y = 0 --love.graphics.getHeight() / 2
+
+    return 1
+end
+
+
 function Game:Draw()
     colorBackground:Draw( 0, 0 )
 
@@ -138,34 +170,6 @@ function Game:DrawTerrainShape()
                                 -Camera.x + imageShapeComputer.pointsCeiling[i+1].x,
                                 -Camera.y + imageShapeComputer.pointsCeiling[i+1].y )
     end
-end
-
-function Game:Update( dt )
-
-    for k,v in pairs( backgrounds ) do
-        v:Update( dt )
-    end
-    terrain:Update()
-
-    ObjectPool.Update( dt )
-    world:update( dt )
-
-    for k,v in pairs( foregrounds ) do
-        v:Update( dt )
-    end
-
-    x, y, x2, y2 = hero1.shape:computeAABB( 0, 0, 0 )
-    x, y, x2, y2 = hero1.body:getWorldPoints( x, y, x2, y2 )
-
-    uerx, uery, uerx2, uery2 = hero2.shape:computeAABB( 0, 0, 0 )
-    uerx, uery, uerx2, uery2 = hero2.body:getWorldPoints( uerx, uery, uerx2, uery2 )
-
-    xza = ( x + uerx ) / 2
-
-    Camera.x = xza - love.graphics.getWidth() / 2
-    Camera.y = 0 --love.graphics.getHeight() / 2
-
-    return 1
 end
 
 function Game:KeyPressed( key, scancode, isrepeat )
