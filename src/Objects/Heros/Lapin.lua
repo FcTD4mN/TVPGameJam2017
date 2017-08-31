@@ -192,7 +192,7 @@ function  Lapin:Attack( iVel )
 
     x = self:GetX() + shift
     y = self:GetY()
-    AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel )
+    AttackGenerator:GenerateAttack( x + xShift, y, "waterball", iVel, "horizontal" )
 end
 
 

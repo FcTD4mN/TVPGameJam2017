@@ -23,7 +23,8 @@ function Tree:New( iWorld, iX, iY )
     newTree.body:setFixedRotation( true )
     newTree.body:setGravityScale( 0.0 )
 
-    newTree.shape       = love.physics.newRectangleShape( 50, newTree.h )
+    hitboxWidth = 80
+    newTree.shape       = love.physics.newRectangleShape( 0, -50 , hitboxWidth, 500 )
     newTree.fixture     = love.physics.newFixture( newTree.body, newTree.shape )
     newTree.fixture:setFriction( 1.0 )
     newTree.fixture:setUserData( newTree )
@@ -66,15 +67,17 @@ end
 
 -- ==========================================Tree actions
 
+
 function  HasBurnedCB( iTree )
     iTree:Destroy()
 end
 
-function  Tree:Burn() --Arguments are 
+function  Tree:Burn() --Arguments are
     self:PlayAnimation( 1, 1, HasBurnedCB, self )
 end
 
 -- ==========================================Collision stuff
+
 
 function Tree:Collide( iObject )
     if iObject:Type() == "Fireball" then

@@ -7,6 +7,7 @@ local AttackGenerator       = require "src/Game/AttackGenerator"
 local ImageShapeComputer    = require "src/Image/ImageShapeComputer"
 local BabyTree              = require "src/Objects/Environnement/BabyTree"
 local GrownTree             = require "src/Objects/Environnement/GrownTree"
+local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 local ObjectPool            = require "src/Objects/ObjectPool"
 
 
@@ -21,7 +22,7 @@ function beginContact( a, b, coll )
     if a:getUserData() == nil or b:getUserData() == nil then
         return
     end
-    
+
     if a:getUserData().needDestroy or b:getUserData().needDestroy then
         return
     end
@@ -54,8 +55,9 @@ function Game:Initialize()
 
     hero1               =  Singe:New( world, 1000, 200 )
     hero2               =  Lapin:New( world, 800, 50 )
-    local tree          =  Tree:New( world, 1200, 50 )
-    local growingTree   =  BabyTree:New( world, 600, 500 )
+    local tree          =  Tree:New( world, 2400, 0 )
+    local growingTree   =  BabyTree:New( world, 3700, 550 )
+    local waterPipe     =  WaterPipe:New( world, 3600, 130 )
 
     ObjectPool.AddObject( hero1 )
     ObjectPool.AddObject( hero2 )

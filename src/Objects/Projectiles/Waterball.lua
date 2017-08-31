@@ -8,7 +8,7 @@ local Waterball = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 -- ==========================================Constructor/Destructor
 
 
-function Waterball:New( iWorld, iX, iY, iVelocity )
+function Waterball:New( iWorld, iX, iY, iVelocity, iDirection )
     local newWaterball = {}
     setmetatable( newWaterball, self )
     self.__index = self
@@ -22,8 +22,12 @@ function Waterball:New( iWorld, iX, iY, iVelocity )
     --inherited values
     newWaterball.body        = love.physics.newBody( iWorld, iX + newWaterball.w/2, iY + newWaterball.h/2, "dynamic" )
     newWaterball.body:setFixedRotation( true )
-    newWaterball.body:setLinearVelocity( iVelocity, 0 )
     newWaterball.body:setGravityScale( 1.0 )
+    if( iDirection == "horizontal" ) then
+        newWaterball.body:setLinearVelocity( iVelocity, 0 )
+    elseif( iDirection == "vertical" ) then
+        newWaterball.body:setLinearVelocity( 0, iVelocity )
+    end
 
     newWaterball.shape       = love.physics.newRectangleShape( newWaterball.w, newWaterball.h )
     newWaterball.fixture     = love.physics.newFixture( newWaterball.body, newWaterball.shape )
@@ -77,6 +81,10 @@ end
 -- ==========================================Collision stuff
 
 function Waterball:Collide( iObject )
+    if( iObject:Type() == "WaterPipe" ) then
+        iObject:ShootOut()
+    end
+
     self:Destroy()
     currentWaterball = nil
 end

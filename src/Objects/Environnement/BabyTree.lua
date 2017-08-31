@@ -74,10 +74,12 @@ function BabyTree:Draw()
     self:DrawObject()
 end
 
+
 -- ==========================================Collision stuff
 
+
 function BabyTree:Collide( iObject )
-    if iObject:Type() == "Fireball" then --TODO: Replace With a Waterball
+    if iObject:Type() == "Waterball" then --TODO: Replace With a Waterball
         self:Destroy()
     end
 end
