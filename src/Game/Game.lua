@@ -75,14 +75,6 @@ function Game:Initialize()
     terrain = Background:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 0, 0, 0 )
     table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
 
-
-    --The wall to not fall in infinity
-    floor = {}
-    floor.body = love.physics.newBody( world, 0, 0, "static" )
-    floor.shape = love.physics.newRectangleShape( 10, 3000 )
-    floor.fixture = love.physics.newFixture( floor.body, floor.shape )
-    floor.fixture:setFriction( 1.0 )
-
     -- love.audio.play( music )
 end
 
@@ -102,16 +94,7 @@ function Game:Update( dt )
         v:Update( dt )
     end
 
-    x, y, x2, y2 = hero1.shape:computeAABB( 0, 0, 0 )
-    x, y, x2, y2 = hero1.body:getWorldPoints( x, y, x2, y2 )
-
-    uerx, uery, uerx2, uery2 = hero2.shape:computeAABB( 0, 0, 0 )
-    uerx, uery, uerx2, uery2 = hero2.body:getWorldPoints( uerx, uery, uerx2, uery2 )
-
-    xza = ( x + uerx ) / 2
-
-    Camera.x = xza - love.graphics.getWidth() / 2
-    Camera.y = 0 --love.graphics.getHeight() / 2
+    self:UpdateCamera()
 
     return 1
 end
@@ -135,6 +118,19 @@ function Game:Draw()
     self:DEBUGWorldHITBOXESDraw()
 
     --self:DrawTerrainShape()
+end
+
+function  Game:UpdateCamera()
+    x, y, x2, y2 = hero1.shape:computeAABB( 0, 0, 0 )
+    x, y, x2, y2 = hero1.body:getWorldPoints( x, y, x2, y2 )
+
+    uerx, uery, uerx2, uery2 = hero2.shape:computeAABB( 0, 0, 0 )
+    uerx, uery, uerx2, uery2 = hero2.body:getWorldPoints( uerx, uery, uerx2, uery2 )
+
+    xza = ( x + uerx ) / 2
+
+    Camera.x = xza - love.graphics.getWidth() / 2
+    Camera.y = 0 --love.graphics.getHeight() / 2
 end
 
 function Game:DrawTerrainShape()
