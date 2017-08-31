@@ -79,7 +79,7 @@ end
 
 
 function BabyTree:Collide( iObject )
-    if iObject:Type() == "Waterball" then --TODO: Replace With a Waterball
+    if iObject:Type() == "Waterball" then
         self:Destroy()
     end
 end

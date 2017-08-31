@@ -33,7 +33,6 @@ function WaterPipe:New( iWorld, iX, iY )
 
     newWaterPipe.animations = {}
     newWaterPipe.currentAnimation = 0
-    newWaterPipe.shouldFire = false
 
     local WaterPipe      = love.graphics.newImage( "resources/Images/Backgrounds/pipeline.png" )
     newWaterPipe:AddAnimation( WaterPipe, 1, 1, false, false )
@@ -57,13 +56,6 @@ end
 
 
 function WaterPipe:Update( dt )
-    if( self.shouldFire ) then
-        x = self:GetX() + self.w / 2
-        y = self:GetY() + self.h + 5
-        AttackGenerator:GenerateAttack( x, y, "waterball", 100, "vertical" )
-        self.shouldFire = false
-    end
-
     self:UpdateObject( dt )
 end
 
@@ -78,7 +70,9 @@ end
 
 
 function  WaterPipe:ShootOut()
-    self.shouldFire = true
+    x = self:GetX() + self.w / 2
+    y = self:GetY() + self.h + 5
+    AttackGenerator:GenerateAttack( x, y, "waterball", 100, "vertical" )
 end
 
 return WaterPipe

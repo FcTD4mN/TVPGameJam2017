@@ -21,12 +21,13 @@ function Waterball:New( iWorld, iX, iY, iVelocity, iDirection )
 
     --inherited values
     newWaterball.body        = love.physics.newBody( iWorld, iX + newWaterball.w/2, iY + newWaterball.h/2, "dynamic" )
-    newWaterball.body:setFixedRotation( true )
+    newWaterball.body:setFixedRotation( false )
     newWaterball.body:setGravityScale( 1.0 )
     if( iDirection == "horizontal" ) then
         newWaterball.body:setLinearVelocity( iVelocity, 0 )
     elseif( iDirection == "vertical" ) then
         newWaterball.body:setLinearVelocity( 0, iVelocity )
+        newWaterball.body:setAngle( 90 )
     end
 
     newWaterball.shape       = love.physics.newRectangleShape( newWaterball.w, newWaterball.h )
