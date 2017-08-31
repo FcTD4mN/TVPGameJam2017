@@ -50,8 +50,8 @@ function Lapin:New( iWorld, iX, iY )
     newLapin:AddAnimation( animCourse, 14, 24, true, false )    --2
     newLapin:AddAnimation( animSaut, 1, 24, false, false )      --3
     newLapin:AddAnimation( animSaut, 1, 24, true, false )       --4
-    newLapin:AddAnimation( animInactif, 17, 24, false, false )  --5
     newLapin:AddAnimation( animInactif, 17, 24, true, false )   --6
+    newLapin:AddAnimation( animInactif, 17, 24, false, false )  --5
     newLapin:AddAnimation( animInvocation, 5, 24, false, false )--7
     newLapin:AddAnimation( animInvocation, 5, 24, true, false ) --8
 
