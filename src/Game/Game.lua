@@ -11,6 +11,8 @@ local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 local ObjectPool            = require "src/Objects/ObjectPool"
 local CollidePool           = require "src/Objects/CollidePool"
 
+local Terrain               = require "src/Objects/Terrain"
+
 
 
 local Game = {}
@@ -49,7 +51,7 @@ function Game:Initialize()
 
     love.physics.setMeter( 100 )
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
-    world:setCallbacks(beginContact, endContact, preSolve, postSolve)
+    world:setCallbacks( beginContact, endContact, preSolve, postSolve )
 
     music = love.audio.newSource( "resources/Audio/Music/Enjeuloop.mp3", "stream" )
     music:setLooping( true )
@@ -65,9 +67,15 @@ function Game:Initialize()
     ObjectPool.AddObject( tree )
     ObjectPool.AddObject( growingTree )
 
+
+    -- TERRAIN
     imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     Game:BuildTerrainShape()
+    Game:BuildTerrain()
 
+
+
+    -- BACKGROUNDS
     colorBackground = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
     backgrounds = {}
     foregrounds = {}
@@ -76,6 +84,13 @@ function Game:Initialize()
     table.insert( foregrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
 
     -- love.audio.play( music )
+end
+
+
+function  Game:BuildTerrain()
+    Terrain.Initialize( world )
+
+    Terrain.AddEdge( 0, 0, 1000, 1000 )
 end
 
 
@@ -115,9 +130,7 @@ function Game:Draw()
         v:Draw()
     end
 
-    self:DEBUGWorldHITBOXESDraw()
-
-    --self:DrawTerrainShape()
+    self:DEBUGWorldHITBOXESDraw( "edge" )
 end
 
 function  Game:UpdateCamera()
@@ -236,7 +249,7 @@ end
 
 
 
-function Game:DEBUGWorldHITBOXESDraw()
+function Game:DEBUGWorldHITBOXESDraw( iWhatToDraw )
     love.graphics.setColor( 255, 0, 0, 125 )
 
     allBodies = world:getBodyList()
@@ -246,9 +259,9 @@ function Game:DEBUGWorldHITBOXESDraw()
         fixtures = b:getFixtureList()
         for k,v in pairs( fixtures ) do
 
-            if( v:getShape():getType() == "polygon" ) then
+            if( v:getShape():getType() == "polygon" ) and ( iWhatToDraw == "all" or iWhatToDraw == "polygon"  ) then
                 love.graphics.polygon( "fill", Camera.MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
-            elseif ( v:getShape():getType() == "circle" ) then
+            elseif ( v:getShape():getType() == "circle" ) and ( iWhatToDraw == "all" or iWhatToDraw == "circle"  ) then
                 radius  = v:getShape():getRadius()
                 x, y    = v:getShape():getPoint()
                 xBody, yBody = b:getPosition()
@@ -258,9 +271,9 @@ function Game:DEBUGWorldHITBOXESDraw()
                 y = y + yBody
                 x, y = Camera.MapToScreen( x, y )
                 love.graphics.circle( "fill", x, y, radius )
-            elseif ( v:getShape():getType() == "edge" ) then
-                --TODO
-            elseif ( v:getShape():getType() == "chain" ) then
+            elseif ( v:getShape():getType() == "edge" ) and ( iWhatToDraw == "all" or iWhatToDraw == "edge"  ) then
+                love.graphics.line( Camera.MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
+            elseif ( v:getShape():getType() == "chain" ) and ( iWhatToDraw == "all" or iWhatToDraw == "chain"  ) then
                 --TODO
             end
 
