@@ -1,7 +1,8 @@
 
-local Camera = require "src/Camera/Camera"
-local Object = require "src/Objects/Object"
-local AttackGenerator    = require "src/Game/AttackGenerator"
+local AttackGenerator   = require "src/Game/AttackGenerator"
+local Camera            = require "src/Camera/Camera"
+local Object            = require "src/Objects/Object"
+local RabbitSpells      = require "src/Interface/RabbitSpells"
 
 local Lapin = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -46,7 +47,7 @@ function Lapin:New( iWorld, iX, iY )
     newLapin.sounds.step:setLooping( true )
     newLapin.sounds.jump:setVolume(0.4)
 
-    --Lapin values
+    -- Animations
     local animCourse        = love.graphics.newImage( "resources/Animation/Characters/lapin-course.png" )
     local animSaut          = love.graphics.newImage( "resources/Animation/Characters/lapin-saut.png" )
     local animInactif       = love.graphics.newImage( "resources/Animation/Characters/lapin-inactif-tout.png" )
@@ -61,6 +62,9 @@ function Lapin:New( iWorld, iX, iY )
     newLapin:AddAnimation( animInvocation, 5, 24, true, false ) --8
 
     newLapin:PlayAnimation( 5, 0 )
+
+    -- Images
+    RabbitSpells.Initialize()
 
     return newLapin
 end
@@ -139,8 +143,8 @@ end
 
 
 function Lapin:Draw()
+    RabbitSpells.Draw()
     self:DrawObject()
-    -- self:DEBUGDrawHitBox()
 end
 
 

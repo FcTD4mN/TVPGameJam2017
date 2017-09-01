@@ -62,10 +62,10 @@ function Game:Initialize()
     local growingTree   =  BabyTree:New( world, 3700, 600 )
     local waterPipe     =  WaterPipe:New( world, 3600, 130 )
 
-    ObjectPool.AddObject( hero1 )
-    ObjectPool.AddObject( hero2 )
     ObjectPool.AddObject( tree )
     ObjectPool.AddObject( growingTree )
+    ObjectPool.AddObject( hero1 )
+    ObjectPool.AddObject( hero2 )
 
 
     -- TERRAIN

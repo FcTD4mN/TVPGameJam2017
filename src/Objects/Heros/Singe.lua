@@ -1,7 +1,9 @@
 
+local AttackGenerator   = require "src/Game/AttackGenerator"
 local Camera            = require "src/Camera/Camera"
 local Object            = require "src/Objects/Object"
-local AttackGenerator   = require "src/Game/AttackGenerator"
+local MonkeySpells      = require "src/Interface/MonkeySpells"
+
 
 local Singe = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -46,7 +48,7 @@ function Singe:New( iWorld, iX, iY )
     newSinge.sounds.step:setLooping( true )
     newSinge.sounds.jump:setVolume(0.4)
 
-    --Singe values
+    --Animations
     local animCourse        = love.graphics.newImage( "resources/Animation/Characters/singe-course.png" )
     local animSaut          = love.graphics.newImage( "resources/Animation/Characters/singe-saut.png" )
     local animInactif       = love.graphics.newImage( "resources/Animation/Characters/singe-inactif-tout.png" )
@@ -61,6 +63,9 @@ function Singe:New( iWorld, iX, iY )
     newSinge:AddAnimation( animInvocation, 7, 24, true, false ) --8
 
     newSinge:PlayAnimation( 5, 0 )
+
+    -- Images
+    MonkeySpells.Initialize()
 
     return newSinge
 end
@@ -139,8 +144,8 @@ end
 
 
 function Singe:Draw()
+    MonkeySpells.Draw()
     self:DrawObject()
-    -- self:DEBUGDrawHitBox()
 end
 
 
