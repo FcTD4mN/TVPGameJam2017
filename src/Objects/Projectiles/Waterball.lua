@@ -82,10 +82,6 @@ end
 -- ==========================================Collision stuff
 
 function Waterball:Collide( iObject )
-    if( iObject:Type() == "WaterPipe" ) then
-        iObject:ShootOut()
-    end
-
     self:Destroy()
     currentWaterball = nil
 end

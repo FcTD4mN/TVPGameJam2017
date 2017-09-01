@@ -75,4 +75,15 @@ function  WaterPipe:ShootOut()
     AttackGenerator:GenerateAttack( x, y, "waterball", 100, "vertical" )
 end
 
+
+function  WaterPipe:Collide( iObject )
+    if( iObject:Type() == "Fireball" ) then
+        self:Destroy()
+    end
+    if( iObject:Type() == "Waterball" ) then
+        self:ShootOut()
+    end
+end
+
+
 return WaterPipe
