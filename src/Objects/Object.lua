@@ -9,8 +9,6 @@ local Object = {}
 function Object:Finalize()
     self.body:destroy()
     self.body = nil
-    self.shape = nil
-    self.fixture = nil
 end
 
 
@@ -22,11 +20,11 @@ function Object:New( iWorld, iX, iY, iW, iH, iPhysicType )
     newObject.w = iW
     newObject.h = iH
 
-    newObject.body      = 0         --love.physics.newBody( iWorld, iX + iW/2, iY + iH/2, iType )
-    newObject.shape     = 0        --love.physics.newRectangleShape( iW, iH )
-    newObject.fixture   = 0      --love.physics.newFixture( newObject.body, newObject.shape, 1 )
-                            --newObject.fixture:setUserData( newObject )
-                            --newObject.fixture:setFriction( friction )
+    newObject.body  = 0         --love.physics.newBody( iWorld, iX + iW/2, iY + iH/2, iType )
+    shape           = 0        --love.physics.newRectangleShape( iW, iH )
+    fixture         = 0      --love.physics.newFixture( newObject.body, shape, 1 )
+                            --fixture:setUserData( newObject )
+                            --fixture:setFriction( friction )
 
     newObject.animations = {}
     newObject.currentAnimation = 0

@@ -2,24 +2,27 @@
 local Object = require "src/Objects/Object"
 local Object_Box = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
-function Object_Box:New( world, x, y, type )
+function Object_Box:New( iWorld, iX, iY, iType )
     local newObject_Box = {}
     setmetatable( newObject_Box, self )
     self.__index = self
 
-    w = 109
-    h = 95
 
-    newObject_Box.w = w
-    newObject_Box.h = h
+    newObject_Box.x = iX
+    newObject_Box.y = iY
+    newObject_Box.w = 109
+    newObject_Box.h = 95
 
     --inherited values
-    newObject_Box.body = love.physics.newBody( world, x, y, "dynamic" )
+    newObject_Box.body  = love.physics.newBody( iWorld, newObject_Box.x, newObject_Box.y, "dynamic" )
     newObject_Box.body:setFixedRotation( false )
-    newObject_Box.shape = love.physics.newRectangleShape( w, h )
-    newObject_Box.fixture = love.physics.newFixture( newObject_Box.body, newObject_Box.shape )
-    newObject_Box.fixture:setFriction( 0.7 )
-    newObject_Box.fixture:setUserData( nil )
+
+    shape               = love.physics.newRectangleShape( newObject_Box.w, newObject_Box.h )
+    fixture             = love.physics.newFixture( newObject_Box.body, shape )
+    fixture:setFriction( 0.7 )
+    fixture:setUserData( newObject_Box )
+
+
     newObject_Box.animations = {}
     newObject_Box.currentAnimation = 0
 

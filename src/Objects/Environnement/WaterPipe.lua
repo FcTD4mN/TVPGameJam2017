@@ -25,10 +25,10 @@ function WaterPipe:New( iWorld, iX, iY )
     newWaterPipe.body:setFixedRotation( true )
     newWaterPipe.body:setGravityScale( 0.0 )
 
-    newWaterPipe.shape       = love.physics.newRectangleShape( 200, newWaterPipe.h - 100 )
-    newWaterPipe.fixture     = love.physics.newFixture( newWaterPipe.body, newWaterPipe.shape )
-    newWaterPipe.fixture:setFriction( 1.0 )
-    newWaterPipe.fixture:setUserData( newWaterPipe )
+    shape       = love.physics.newRectangleShape( 200, newWaterPipe.h - 100 )
+    fixture     = love.physics.newFixture( newWaterPipe.body, shape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( newWaterPipe )
 
 
     newWaterPipe.animations = {}

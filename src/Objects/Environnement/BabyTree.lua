@@ -37,10 +37,10 @@ function BabyTree:New( iWorld, iX, iY )
     newBabyTree.body:setFixedRotation( true )
     newBabyTree.body:setGravityScale( 0.0 )
 
-    newBabyTree.shape    = love.physics.newRectangleShape( newBabyTree.w, newBabyTree.h )
-    newBabyTree.fixture  = love.physics.newFixture( newBabyTree.body, newBabyTree.shape )
-    newBabyTree.fixture:setFriction( 1.0 )
-    newBabyTree.fixture:setUserData( newBabyTree )
+    shape    = love.physics.newRectangleShape( newBabyTree.w, newBabyTree.h )
+    fixture  = love.physics.newFixture( newBabyTree.body, shape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( newBabyTree )
 
     newBabyTree.animations       = {}
     newBabyTree.currentAnimation = 0

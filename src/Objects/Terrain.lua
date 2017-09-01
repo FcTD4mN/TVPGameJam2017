@@ -32,7 +32,7 @@ end
 function Terrain.AddEdge( iX, iY, iX2, iY2 )
     newShape = love.physics.newEdgeShape( iX, iY, iX2, iY2 )
     fixture  = love.physics.newFixture( Terrain.body, newShape )
-    fixture:setFriction( 0.33 )
+    fixture:setFriction( 1.0 )
     fixture:setUserData( Terrain )
 end
 

@@ -25,10 +25,10 @@ function Fireball:New( iWorld, iX, iY, iVelocity )
     newFireball.body:setLinearVelocity( iVelocity, 0 )
     newFireball.body:setGravityScale( 0.0 )
 
-    newFireball.shape       = love.physics.newRectangleShape( newFireball.w, newFireball.h )
-    newFireball.fixture     = love.physics.newFixture( newFireball.body, newFireball.shape )
-    newFireball.fixture:setFriction( 1.0 )
-    newFireball.fixture:setUserData( newFireball )
+    shape       = love.physics.newRectangleShape( newFireball.w, newFireball.h )
+    fixture     = love.physics.newFixture( newFireball.body, shape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( newFireball )
 
     newFireball.animations = {}
     newFireball.currentAnimation = 0

@@ -24,10 +24,10 @@ function Tree:New( iWorld, iX, iY )
     newTree.body:setGravityScale( 0.0 )
 
     hitboxWidth = 80
-    newTree.shape       = love.physics.newRectangleShape( 0, -50 , hitboxWidth, 500 )
-    newTree.fixture     = love.physics.newFixture( newTree.body, newTree.shape )
-    newTree.fixture:setFriction( 1.0 )
-    newTree.fixture:setUserData( newTree )
+    shape       = love.physics.newRectangleShape( 0, 0 , hitboxWidth, 600 )
+    fixture     = love.physics.newFixture( newTree.body, shape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( newTree )
 
 
     newTree.animations = {}

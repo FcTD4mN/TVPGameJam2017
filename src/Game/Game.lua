@@ -56,10 +56,10 @@ function Game:Initialize()
     music = love.audio.newSource( "resources/Audio/Music/Enjeuloop.mp3", "stream" )
     music:setLooping( true )
 
-    hero1               =  Singe:New( world, 1000, 200 )
+    hero1               =  Singe:New( world, 1000, 500 )
     hero2               =  Lapin:New( world, 800, 50 )
     local tree          =  Tree:New( world, 2400, 0 )
-    local growingTree   =  BabyTree:New( world, 3700, 550 )
+    local growingTree   =  BabyTree:New( world, 3700, 600 )
     local waterPipe     =  WaterPipe:New( world, 3600, 130 )
 
     ObjectPool.AddObject( hero1 )
@@ -69,8 +69,8 @@ function Game:Initialize()
 
 
     -- TERRAIN
-    imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
-    Game:BuildTerrainShape()
+    -- imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
+    -- Game:BuildTerrainShape()
     Game:BuildTerrain()
 
 
@@ -90,7 +90,25 @@ end
 function  Game:BuildTerrain()
     Terrain.Initialize( world )
 
-    Terrain.AddEdge( 0, 0, 1000, 1000 )
+    -- Upper ground
+    Terrain.AddEdge( 0, 325, 600, 325 )
+    Terrain.AddEdge( 600, 325, 1000, 300 )
+    Terrain.AddEdge( 1000, 300, 1250, 300 )
+    Terrain.AddEdge( 1250, 300, 1640, 375 )
+    Terrain.AddEdge( 1640, 375, 1790, 320 )
+    Terrain.AddEdge( 1790, 320, 1980, 320 )
+    Terrain.AddEdge( 1980, 320, 2180, 365 )
+    Terrain.AddEdge( 2180, 365, 2900, 365 )
+    Terrain.AddEdge( 2900, 365, 3370, 330 )
+    Terrain.AddEdge( 3370, 330, 5100, 330 )
+    Terrain.AddEdge( 5100, 330, 4715, 310 )
+
+    -- Lower ground
+    Terrain.AddEdge( 0, 675, 500, 675 )
+    Terrain.AddEdge( 500, 675, 730, 650 )
+    Terrain.AddEdge( 730, 650, 1460, 700 )
+    Terrain.AddEdge( 1460, 700, 2030, 700 )
+    Terrain.AddEdge( 2030, 700, 4000, 700 )
 end
 
 
@@ -130,19 +148,16 @@ function Game:Draw()
         v:Draw()
     end
 
-    self:DEBUGWorldHITBOXESDraw( "edge" )
+    self:DEBUGWorldHITBOXESDraw( "all" )
 end
 
 function  Game:UpdateCamera()
-    x, y, x2, y2 = hero1.shape:computeAABB( 0, 0, 0 )
-    x, y, x2, y2 = hero1.body:getWorldPoints( x, y, x2, y2 )
+    x = hero1:GetX();
+    x2 = hero2:GetX();
 
-    uerx, uery, uerx2, uery2 = hero2.shape:computeAABB( 0, 0, 0 )
-    uerx, uery, uerx2, uery2 = hero2.body:getWorldPoints( uerx, uery, uerx2, uery2 )
+    xAverage = ( x + x2 ) / 2
 
-    xza = ( x + uerx ) / 2
-
-    Camera.x = xza - love.graphics.getWidth() / 2
+    Camera.x = xAverage - love.graphics.getWidth() / 2
     Camera.y = 0 --love.graphics.getHeight() / 2
 end
 
