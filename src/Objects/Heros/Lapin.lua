@@ -21,8 +21,13 @@ function Lapin:New( iWorld, iX, iY )
     newLapin.body     = love.physics.newBody( iWorld, iX + newLapin.w/2, iY + newLapin.h/2, "dynamic" )
     newLapin.body:setFixedRotation( true )
 
-    shape    = love.physics.newRectangleShape( newLapin.w - 30, newLapin.h )
-    fixture  = love.physics.newFixture( newLapin.body, shape )
+    stickyShape    = love.physics.newRectangleShape( newLapin.w - 30, newLapin.h )
+    fixture  = love.physics.newFixture( newLapin.body, stickyShape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( newLapin )
+
+    slipperyShape    = love.physics.newRectangleShape( newLapin.w - 25, newLapin.h - 5 )
+    fixture  = love.physics.newFixture( newLapin.body, slipperyShape )
     fixture:setFriction( 0.0 )
     fixture:setUserData( newLapin )
 

@@ -24,10 +24,10 @@ function GrownTree:New( iWorld, iX, iY )
     newGrownTree.body:setFixedRotation( true )
     newGrownTree.body:setGravityScale( 0.0 )
 
-    shape    = love.physics.newPolygonShape(   -newGrownTree.w/2 + 20, newGrownTree.h/2,
-                                                            -newGrownTree.w/2 + 20, newGrownTree.h/2-150,
-                                                            20, -newGrownTree.h/2 + 50,
-                                                            newGrownTree.w/2 - 100, -newGrownTree.h/2 + 50 )
+    shape    = love.physics.newPolygonShape(  -newGrownTree.w/2 + 20, newGrownTree.h/2,
+                                              -newGrownTree.w/2 + 20, newGrownTree.h/2-120,
+                                              0, -newGrownTree.h/2 + 50,
+                                              newGrownTree.w/2 - 100, -newGrownTree.h/2 + 50 )
 
     fixture  = love.physics.newFixture( newGrownTree.body, shape )
     fixture:setFriction( 1.0 )

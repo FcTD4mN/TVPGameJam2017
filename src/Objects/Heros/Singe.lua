@@ -21,8 +21,13 @@ function Singe:New( iWorld, iX, iY )
     newSinge.body     = love.physics.newBody( iWorld, iX + newSinge.w/2, iY + newSinge.h/2, "dynamic" )
     newSinge.body:setFixedRotation( true )
 
-    shape    = love.physics.newRectangleShape( newSinge.w - 30, newSinge.h )
-    fixture  = love.physics.newFixture( newSinge.body, shape )
+    stickyShape     = love.physics.newRectangleShape( newSinge.w - 30, newSinge.h )
+    fixture         = love.physics.newFixture( newSinge.body, stickyShape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( newSinge )
+
+    slipperyShape   = love.physics.newRectangleShape( newSinge.w - 25, newSinge.h - 5 )
+    fixture         = love.physics.newFixture( newSinge.body, slipperyShape )
     fixture:setFriction( 0.0 )
     fixture:setUserData( newSinge )
 
