@@ -5,33 +5,32 @@ local CollidePool           = require "src/Objects/CollidePool"
 local LevelBase = {}
 
 
-
 -- ==========================================Build/Destroy
 
 
 function LevelBase:New( iWorld )
 
     newLevelBase = {}
-    setmetatable( newLevelBase, self )
-    self.__index = self
+    setmetatable( newLevelBase, LevelBase )
+    LevelBase.__index = LevelBase
 
-    LevelBase.BuildLevelBase( newLevelBase )
+    newLevelBase:BuildLevelBase( iWorld )
 
     return  newLevelBase
 end
 
 
-function  LevelBase:BuildLevelBase( iLevelBase )
+function  LevelBase:BuildLevelBase( iWorld )
 
-    iLevelBase.world                  = iWorld
-    iLevelBase.terrain                = nil
+    self.mWorld                  = iWorld
+    self.mTerrain                = nil
 
-    iLevelBase.fixedBackground        = nil
-    iLevelBase.backgrounds            = {}
-    iLevelBase.foregrounds            = {}
+    self.mFixedBackground        = nil
+    self.mBackgrounds            = {}
+    self.mForegrounds            = {}
 
-    iLevelBase.heros                  = {}
-    iLevelBase.environnementObjects   = {}
+    self.mHeros                  = {}
+    self.mEnvironnementObjects   = {}
 
 end
 
@@ -48,18 +47,16 @@ end
 
 function  LevelBase:Update( iDT )
 
-    self.terrain:Update( iDT )
-
-    for k,v in pairs( self.backgrounds ) do
+    for k,v in pairs( self.mBackgrounds ) do
         v:Update( iDT )
     end
 
-    ObjectPool.Update( dt )
-    self.world:update( dt )
-    CollidePool.Update( dt )
+    ObjectPool.Update( iDT )
+    self.mWorld:update( iDT )
+    CollidePool.Update( iDT )
 
-    for k,v in pairs( foregrounds ) do
-        v:Update( dt )
+    for k,v in pairs( self.mForegrounds ) do
+        v:Update( iDT )
     end
 
     self:UpdateCamera()
@@ -68,24 +65,16 @@ end
 
 function  LevelBase:Draw()
 
-    self.fixedBackground:Draw()
+    self.mFixedBackground:Draw( 0, 0 )
 
-    for k,v in pairs( self.backgrounds ) do
-        v:Update( iDT )
+    for k,v in pairs( self.mBackgrounds ) do
+        v:Draw()
     end
 
+    ObjectPool.Draw()
 
-    for k,v in pairs( self.environnementObjects ) do
-        v:Update( iDT )
-    end
-
-    for k,v in pairs( self.heros ) do
-        v:Update( iDT )
-    end
-
-
-    for k,v in pairs( self.foregrounds ) do
-        v:Update( iDT )
+    for k,v in pairs( self.mForegrounds ) do
+        v:Draw()
     end
 
 end
@@ -98,11 +87,11 @@ function  LevelBase:UpdateCamera()
 
     xAverage = 0
 
-    for k,v in pairs( self.heros ) do
+    for k,v in pairs( self.mHeros ) do
         x = v:GetX()
         xAverage = ( xAverage + x )
     end
-    xAverage = xAverage / #self.heros
+    xAverage = xAverage / #self.mHeros
 
     Camera.x = xAverage - love.graphics.getWidth() / 2
     Camera.y = 0 --love.graphics.getHeight() / 2
@@ -116,6 +105,33 @@ end
 function  LevelBase.Collide( iCollider )
     -- do nothing
 end
+
+
+-- ==========================================Events
+
+
+function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
+
+    for k,v in pairs( self.mHeros ) do
+        v:KeyPressed( iKey, iScancode, iIsRepeat )
+    end
+
+end
+
+
+function LevelBase:KeyReleased( iKey, iScancode )
+
+    for k,v in pairs( self.mHeros ) do
+        v:KeyReleased( iKey, iScancode )
+    end
+
+end
+
+
+function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
+    --
+end
+
 
 
 return  LevelBase

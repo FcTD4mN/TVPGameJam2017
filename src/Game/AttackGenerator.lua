@@ -1,7 +1,8 @@
 local Fireball  = require "src/Objects/Projectiles/Fireball"
 local Waterball  = require "src/Objects/Projectiles/Waterball"
 
-local AttackGenerator = {}
+-- Not local, this one is shared through the whole application
+AttackGenerator = {}
 
 function AttackGenerator:Initialize( world )
 
