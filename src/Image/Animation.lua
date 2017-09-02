@@ -10,8 +10,7 @@ function Animation:New( image, x, y, w, h, angleInRadians, imagecount, fps, flip
     setmetatable( newAnimation, self )
     self.__index = self
 
-    newAnimation.image = image
-    -- newAnimation.bigImage = BigImage:New( image, quadW )
+    --newAnimation.image = image
     newAnimation.x = x
     newAnimation.y = y
 
@@ -33,6 +32,8 @@ function Animation:New( image, x, y, w, h, angleInRadians, imagecount, fps, flip
     newAnimation.playCountToReach = 0
     newAnimation.playEndCB = nil
     newAnimation.playEndCBArguments = nil
+
+    newAnimation.bigImage = BigImage:NewFromImage( image, imageW / imagecount )
 
     newAnimation.quads = {}
     for i=0,imagecount-1,1 do
@@ -117,9 +118,14 @@ function Animation:Draw()
         end
         x, y = Camera.MapToScreen( x, y )
         currentQuad = self.quads[ self.currentquad ]
-        -- love.graphics.draw( self.bigImage:Image( currentQuad ), currentQuad, x, y, self.rotation, self.w/self.quadw, self.h/self.quadh )
 
-        love.graphics.draw( self.image, currentQuad, x, y, self.angleInRad, scaleX, scaleY )
+        --love.graphics.draw( self.image, currentQuad, x, y, self.angleInRad, scaleX, scaleY )
+        
+        local quadInBigImage = self.bigImage:Image( currentQuad )
+        local defaultQuad = love.graphics.newQuad( 0, 0, self.quadW, self.quadH, self.quadW, self.quadH )
+        love.graphics.draw( quadInBigImage, defaultQuad, x, y, self.angleInRad, scaleX, scaleY )
+
+    
     end
 end
 

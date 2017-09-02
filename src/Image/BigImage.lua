@@ -22,6 +22,25 @@ function BigImage:New( iFile, iTileWidth )
     return newBigImage
 end
 
+function BigImage:NewFromImage( iImage, iTileWidth )
+    local newBigImage = {}
+    setmetatable( newBigImage, self )
+    self.__index = self
+
+
+    newBigImage.imageData = iImage:getData()
+    newBigImage.w = newBigImage.imageData:getWidth()
+    newBigImage.h = newBigImage.imageData:getHeight()
+    newBigImage.images = {}
+    newBigImage.rectangles = {}
+
+    newBigImage.tileWidth = iTileWidth
+
+    newBigImage:Split( iTileWidth )
+
+    return newBigImage
+end
+
 function  BigImage:Image( iQuad )
     x, y, w, h = iQuad:getViewport( )
     imageIndex = math.floor( x / self.tileWidth )
