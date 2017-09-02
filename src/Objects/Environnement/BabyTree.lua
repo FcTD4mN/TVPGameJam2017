@@ -12,7 +12,6 @@ local BabyTree = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
 function BabyTree:Finalize()
     local grownTree = GrownTree:New( self.body:getWorld(), self.x, self.y - 300 )
-    ObjectPool.AddObject( grownTree )
 
     self.body:destroy()
     self.body = nil

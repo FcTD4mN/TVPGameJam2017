@@ -38,8 +38,7 @@ function GrownTree:New( iWorld, iX, iY )
     newGrownTree.currentAnimation = 0
 
     local img = love.graphics.newImage( "resources/Animation/FX/Grande-plante.png" )
-    newGrownTree:AddAnimation( img, 16, 24, false, false )
-
+    newGrownTree:AddAnimation( img, 16, 12, false, false )
     newGrownTree:PlayAnimation( 1, 1 )
 
     ObjectPool.AddObject( newGrownTree )
