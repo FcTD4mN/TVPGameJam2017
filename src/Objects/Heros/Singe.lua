@@ -2,6 +2,7 @@
 local AttackGenerator   = require "src/Game/AttackGenerator"
 local Camera            = require "src/Camera/Camera"
 local Object            = require "src/Objects/Object"
+local ObjectPool        = require "src/Objects/ObjectPool"
 local MonkeySpells      = require "src/Interface/MonkeySpells"
 
 
@@ -63,6 +64,8 @@ function Singe:New( iWorld, iX, iY )
     newSinge:AddAnimation( animInvocation, 7, 24, true, false ) --8
 
     newSinge:PlayAnimation( 5, 0 )
+
+    ObjectPool.AddObject( newSinge )
 
     -- Images
     MonkeySpells.Initialize()

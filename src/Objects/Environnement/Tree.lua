@@ -1,5 +1,6 @@
 local Animation = require "src/Image/Animation"
 local Object    = require "src/Objects/Object"
+local ObjectPool        = require "src/Objects/ObjectPool"
 
 local Tree = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -39,6 +40,9 @@ function Tree:New( iWorld, iX, iY )
     newTree:AddAnimation( tree, 11, 12, false, false )
     newTree:AddAnimation( treeFix, 1, 1, false, false )
     newTree:PlayAnimation( 2, 0 )
+
+    ObjectPool.AddObject( newTree )
+
     return newTree
 end
 

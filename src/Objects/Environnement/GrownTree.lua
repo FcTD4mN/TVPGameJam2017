@@ -1,6 +1,7 @@
 
 local Camera = require "src/Camera/Camera"
 local Object = require "src/Objects/Object"
+local ObjectPool        = require "src/Objects/ObjectPool"
 
 local GrownTree = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -40,6 +41,8 @@ function GrownTree:New( iWorld, iX, iY )
     newGrownTree:AddAnimation( img, 16, 24, false, false )
 
     newGrownTree:PlayAnimation( 1, 1 )
+
+    ObjectPool.AddObject( newGrownTree )
 
     return newGrownTree
 end

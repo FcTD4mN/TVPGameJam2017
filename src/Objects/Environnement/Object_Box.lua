@@ -1,5 +1,8 @@
 
 local Object = require "src/Objects/Object"
+local ObjectPool        = require "src/Objects/ObjectPool"
+
+
 local Object_Box = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
 function Object_Box:New( iWorld, iX, iY, iType )
@@ -30,6 +33,8 @@ function Object_Box:New( iWorld, iX, iY, iType )
     local image = love.graphics.newImage( "resources/Images/Objects/Object_Box.png" )
     newObject_Box:AddAnimation( image, 1, 24, false, false )
     newObject_Box:PlayAnimation( 1, 0 ) --please replace by image only
+
+    ObjectPool.AddObject( newObject_Box )
 
     return newObject_Box
 end

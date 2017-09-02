@@ -46,6 +46,7 @@ function postSolve( a, b, coll, normalimpulse, tangentimpulse )
 
 end
 
+
 function Game:Initialize()
     AttackGenerator:Initialize()
 
@@ -62,18 +63,10 @@ function Game:Initialize()
     local growingTree   =  BabyTree:New( world, 3700, 600 )
     local waterPipe     =  WaterPipe:New( world, 3600, 130 )
 
-    ObjectPool.AddObject( tree )
-    ObjectPool.AddObject( growingTree )
-    ObjectPool.AddObject( hero1 )
-    ObjectPool.AddObject( hero2 )
-
-
     -- TERRAIN
     -- imageShapeComputer = ImageShapeComputer:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 20 )
     -- Game:BuildTerrainShape()
     Game:BuildTerrain()
-
-
 
     -- BACKGROUNDS
     colorBackground = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )

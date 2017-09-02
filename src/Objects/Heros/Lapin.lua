@@ -2,6 +2,7 @@
 local AttackGenerator   = require "src/Game/AttackGenerator"
 local Camera            = require "src/Camera/Camera"
 local Object            = require "src/Objects/Object"
+local ObjectPool        = require "src/Objects/ObjectPool"
 local RabbitSpells      = require "src/Interface/RabbitSpells"
 
 local Lapin = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
@@ -62,6 +63,8 @@ function Lapin:New( iWorld, iX, iY )
     newLapin:AddAnimation( animInvocation, 5, 24, true, false ) --8
 
     newLapin:PlayAnimation( 5, 0 )
+
+    ObjectPool.AddObject( newLapin )
 
     -- Images
     RabbitSpells.Initialize()

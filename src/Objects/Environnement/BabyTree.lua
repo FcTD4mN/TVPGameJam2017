@@ -1,8 +1,8 @@
 
 local Camera        = require "src/Camera/Camera"
 local Object        = require "src/Objects/Object"
-local GrownTree     = require "src/Objects/Environnement/GrownTree"
 local ObjectPool    = require "src/Objects/ObjectPool"
+local GrownTree     = require "src/Objects/Environnement/GrownTree"
 
 local BabyTree = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
@@ -49,6 +49,8 @@ function BabyTree:New( iWorld, iX, iY )
     newBabyTree:AddAnimation( img, 8, 8, false, false )
 
     newBabyTree:PlayAnimation( 1, 0 ) -- play animation n°1 infinitely
+
+    ObjectPool.AddObject( newBabyTree )
 
     return newBabyTree
 end
