@@ -1,6 +1,6 @@
-require "math"
-BigImage = require("src/Image/BigImage")
-Camera = require("src/Camera/Camera")
+BigImage        = require("src/Image/BigImage")
+AnimationLoader = require("src/Image/AnimationLoader") --TODO: use it here
+Camera          = require("src/Camera/Camera")
 
 local Animation = {}
 
@@ -120,12 +120,12 @@ function Animation:Draw()
         currentQuad = self.quads[ self.currentquad ]
 
         --love.graphics.draw( self.image, currentQuad, x, y, self.angleInRad, scaleX, scaleY )
-        
+
         local quadInBigImage = self.bigImage:Image( currentQuad )
         local defaultQuad = love.graphics.newQuad( 0, 0, self.quadW, self.quadH, self.quadW, self.quadH )
         love.graphics.draw( quadInBigImage, defaultQuad, x, y, self.angleInRad, scaleX, scaleY )
 
-    
+
     end
 end
 
