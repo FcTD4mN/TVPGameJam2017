@@ -28,12 +28,18 @@ function  MainMenu:Initialize()
     options.rectangle.x = dz+ love.graphics.getWidth() / 2 - options.rectangle.w /2
 
     quit    = MenuItem:New( "Quit", love.graphics.getWidth() / 2, y )
+    y = y + spaceBetItems
     quit.rectangle.x = dz+ love.graphics.getWidth() / 2 - quit.rectangle.w /2
+
+    newSandBox    = MenuItem:New( "SandBox", love.graphics.getWidth() / 2, y )
+    y = y + spaceBetItems
+    newSandBox.rectangle.x = dz+ love.graphics.getWidth() / 2 - newSandBox.rectangle.w /2
 
     -- Callbacks
     newGame:SetCallback(    function() MainMenu.returnValue = 1 end )
     options:SetCallback(    function() MainMenu.currentPage = 2 end )
     quit:SetCallback(       function() love.event.quit() end )
+    newSandBox:SetCallback( function() MainMenu.returnValue = 2 end )
 
     -- Sounds
     newGame:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
@@ -44,6 +50,7 @@ function  MainMenu:Initialize()
     mainPage:AddItem( newGame )
     mainPage:AddItem( options )
     mainPage:AddItem( quit )
+    mainPage:AddItem( newSandBox )
 
     self:AddPage( mainPage )
 
