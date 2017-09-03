@@ -60,6 +60,22 @@ end
 
 
 
+function AlphaBlend( iColorA, iColorB )
+    local alpha_A = iColorA:Alpha() / 255;
+    local alpha_B = iColorB:Alpha() / 255;
+    local factor_B = alpha_B * ( 1 - alpha_A );
+    local factor_A = alpha_A + factor_B;
+
+    local R_out = ( iColorA:Red()   * alpha_A + iColorB:Red()    * factor_B ) / factor_A;
+    local G_out = ( iColorA:Green() * alpha_A + iColorB:Green()  * factor_B ) / factor_A;
+    local B_out = ( iColorA:Blue()  * alpha_A + iColorB:Blue()   * factor_B ) / factor_A;
+    local A_out = factor_A * 255;
+
+    return ColorRGBA:New( R_out, G_out, B_out, A_out );
+
+end
+
+
 function DrawLine( iImageData, iX1, iY1, iX2, iY2, iColor )
 
     local dx = iX2 - iX1;
@@ -109,12 +125,16 @@ function DrawLineAA( iImageData, iX1, iY1, iX2, iY2, iColor )
             if( delta == 0 ) then
                 iImageData:setPixel( i, yR, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() );
             else
+                local ir, ig, ib, ia = iImageData:getPixel( i, yI )
+                local ir1, ig1, ib1, ia1 = iImageData:getPixel( i, yI + 1 )
 
-                r, g, b, a = iImageData:getPixel( i, yI )
-                r1, g1, b1, a1 = iImageData:getPixel( i, yI + 1 )
+                local computedColor = ColorRGBA:New( iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta2 );       
+                local computedColor1 = ColorRGBA:New( iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta );
+                local blended = AlphaBlend( computedColor, ColorRGBA:New( ir, ig, ib, ia ) );
+                local blended1 = AlphaBlend( computedColor1, ColorRGBA:New( ir1, ig1, ib1, ia1 ) );
 
-                iImageData:setPixel( i, yI+1, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta );
-                iImageData:setPixel( i, yI, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta2 );
+                iImageData:setPixel( i, yI, blended:Red(), blended:Green(), blended:Blue(), blended:Alpha() );
+                iImageData:setPixel( i, yI+1, blended1:Red(), blended1:Green(), blended1:Blue(), blended1:Alpha() );
             end
         end
     else
@@ -128,11 +148,16 @@ function DrawLineAA( iImageData, iX1, iY1, iX2, iY2, iColor )
                 iImageData:setPixel( xR, i, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() );
             else
 
-                r, g, b, a = iImageData:getPixel( xI, i )
-                r1, g1, b1, a1 = iImageData:getPixel( xI + 1, i )
-
-                iImageData:setPixel( xI+1, i, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta );
-                iImageData:setPixel( xI, i, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta2 );
+                local ir, ig, ib, ia = iImageData:getPixel( xI, i )
+                local ir1, ig1, ib1, ia1 = iImageData:getPixel( xI + 1, i )
+                
+                local computedColor = ColorRGBA:New( iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta2 );       
+                local computedColor1 = ColorRGBA:New( iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * delta );
+                local blended = AlphaBlend( computedColor, ColorRGBA:New( ir, ig, ib, ia ) );
+                local blended1 = AlphaBlend( computedColor1, ColorRGBA:New( ir1, ig1, ib1, ia1 ) );
+                
+                iImageData:setPixel( xI, i, blended:Red(), blended:Green(), blended:Blue(), blended:Alpha() );
+                iImageData:setPixel( xI+1, i, blended1:Red(), blended1:Green(), blended1:Blue(), blended1:Alpha() );
             end
         end
     end
