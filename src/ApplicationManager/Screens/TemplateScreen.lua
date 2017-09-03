@@ -1,5 +1,5 @@
 --[[ 
-    Do not use this File / Object / Class / Whatever it is.
+    Do not use this File / Object / Class.
     It's just a template for making new screens quickly.
 --]]
 

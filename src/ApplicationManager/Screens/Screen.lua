@@ -1,3 +1,8 @@
+--[[ 
+    Do not use this File / Object / Class.
+    Base class for all screens quickly.
+--]]
+
 local Screen = {};
 
 function Screen:New()
