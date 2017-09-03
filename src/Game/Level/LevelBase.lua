@@ -51,9 +51,9 @@ function  LevelBase:Update( iDT )
         v:Update( iDT )
     end
 
-    ObjectPool.Update( iDT )
     self.mWorld:update( iDT )
     CollidePool.Update( iDT )
+    ObjectPool.Update( iDT )
 
     for k,v in pairs( self.mForegrounds ) do
         v:Update( iDT )

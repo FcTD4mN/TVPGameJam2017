@@ -13,6 +13,9 @@ local Terrain               = require "src/Objects/Terrain"
 local Tree                  = require "src/Objects/Environnement/Tree"
 local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 
+--TESTS
+local Ray             = require "src/Objects/Rays/Ray"
+
 
 local Level1 = {}
 setmetatable( Level1, LevelBase )
@@ -61,6 +64,10 @@ function Level1:Initialize()
     table.insert( self.mBackgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", 0, 0, 0 ) )
     table.insert( self.mBackgrounds, Background:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 0, 0, 0 ) )
     table.insert( self.mForegrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
+
+
+    --TESTS
+    Ray:New( world, 500, 150, 10, 1000 )
 
     -- love.audio.play( music )
 end
