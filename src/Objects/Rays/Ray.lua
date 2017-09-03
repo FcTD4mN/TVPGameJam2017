@@ -10,28 +10,24 @@ local Ray = {}
 -- ==========================================Build/Destroy
 
 
-function Ray:New( iWorld, iX, iY, iWidth, iLength )
+function Ray:New( iX, iY, iWidth, iLength )
 
     newRay = {}
     setmetatable( newRay, Ray )
     Ray.__index = Ray
 
-    newRay:BuildRay( iWorld, iX, iY, iWidth, iLength )
+    newRay:BuildRay( iX, iY, iWidth, iLength )
 
     return  newRay
 end
 
 
-function  Ray:BuildRay( iWorld, iX, iY, iWidth, iLength )
+function  Ray:BuildRay( iX, iY, iWidth, iLength )
 
     self.x = iX
     self.y = iY
-    self.w = 0  -- This is inherited width, which is width of the object in the world
-    self.h = 0  -- This is inherited height, which is height of the object in the world
-
-
-    self.width = iWidth -- This is how wide the ray is
-    self.length = iLength -- This is how long the ray is
+    self.width = iWidth     -- This is how wide the ray is
+    self.length = iLength   -- This is how long the ray is
 
     -- Start of the top and bottom part of the ray
     self.topYStart      = self.y - self.width / 2

@@ -71,7 +71,7 @@ function Level1:Initialize()
 
 
     --TESTS
-    ray = Ray:New( world, 500, 150, 10, 1500 )
+    ray = Ray:New( 500, 150, 10, 1500 )
 
     -- love.audio.play( music )
 end
