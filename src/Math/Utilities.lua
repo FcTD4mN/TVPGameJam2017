@@ -1,9 +1,5 @@
 function IsANumber( iValue )
-    if( type( iValue ) == "number" ) then
-        return true;
-    else
-        return false;
-    end
+    return type( iValue ) == "number"
 end
 
 function Clamp( iValue, iMin, iMax)

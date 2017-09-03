@@ -12,12 +12,13 @@ function EditorScreen:New()
     self.__index = self
 
     self:Initialize()
-
+    myTestWidget = Widget:New( nil, 5, 5, 10, 10, 6);
     return newEditorScreen
 
 end
 
 function EditorScreen:Initialize()
+    
 end
 
 function EditorScreen:Update( dt )

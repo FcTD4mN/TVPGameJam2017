@@ -1,5 +1,6 @@
 ColorRGBA = require("src/Image/ColorRGBA")
 require("src/Math/Utilities");
+require("src/Base/Utilities")
 
 local Widget = {};
 
@@ -9,36 +10,13 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     self.__index = self;
     self:Initialize();
 
-    -- Check Values / Default Values
-    if( iParent ) then
-        if( iParent:Type() == "Widget" ) then
-            newWidget.parent = iParent;
-        else
-            print("Error: given argument iParent in Widget:New is not a Widget !")
-            newWidget.parent = nil;
-        end
-    else
-        print("Error: given argument iParent in Widget:New is invalid ( nil ) !")
-        newWidget.parent = nil
-    end
-
-    if( iX ) then
-        if( IsANumber( iX ) ) then
-            newWidget.x = iX;
-        else
-            print("Error: given argument iX in Widget:New is not a Number !")
-            newWidget.x = 0;
-        end
-        print("Error: given argument iX in Widget:New is invalid ( nil )!")
-        newWidget.x = 0;
-    else
-
-    end
-    newWidget.x         = iX or 0;
-    newWidget.y         = iY or 0;
-    newWidget.w         = iW or 1;
-    newWidget.h         = iH or 1;
-
+    newWidget.parent    = ValidParameter( iParent, "Widget", nil );
+    newWidget.x         = ValidParameter( iX, "number", 0 );
+    newWidget.y         = ValidParameter( iY, "number", 0 );
+    newWidget.w         = ValidParameter( iW, "number", 0 );
+    newWidget.h         = ValidParameter( iH, "number", 0 );
+    newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New() );
+    print ( newWidget.iBGColor:Type() );
     return  newWidget;
 
 end
