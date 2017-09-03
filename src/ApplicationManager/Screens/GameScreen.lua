@@ -1,7 +1,9 @@
 local Screen = require "src/ApplicationManager/Screens/Screen"
 
 
-local GameScreen = Screen:New()
+local GameScreen = {}
+setmetatable( GameScreen, Screen )
+Screen.__index = Screen
 
 
 function GameScreen:New()

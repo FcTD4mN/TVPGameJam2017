@@ -5,8 +5,9 @@
 
 local Screen = require "src/ApplicationManager/Screens/Screen"
 
-
-local TemplateScreen = Screen:New()
+local TemplateScreen = {}
+setmetatable( TemplateScreen, Screen )
+Screen.__index = Screen
 
 
 function TemplateScreen:New()
