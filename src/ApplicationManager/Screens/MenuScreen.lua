@@ -20,7 +20,7 @@ end
 function MenuScreen:Initialize()
 end
 
-function MenuScreen:Update( dt )    
+function MenuScreen:Update( dt )   
 end
 
 function MenuScreen:Draw()

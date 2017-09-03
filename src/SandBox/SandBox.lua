@@ -2,7 +2,7 @@ ApplicationManager  = require("src/ApplicationManager/ApplicationManager")
 
 GameScreen          = require("src/ApplicationManager/Screens/GameScreen")
 MenuScreen          = require("src/ApplicationManager/Screens/MenuScreen")
-
+EditorScreen        = require("src/ApplicationManager/Screens/EditorScreen")
 
 local SandBox = {}
 
@@ -10,12 +10,14 @@ function SandBox:Initialize()
 
     manager = ApplicationManager:New();
 
-    local gameScreen = GameScreen:New();
-    local menuScreen = MenuScreen:New();
+    local gameScreen    = GameScreen:New();
+    local menuScreen    = MenuScreen:New();
+    local editorScreen  = EditorScreen:New();
 
     manager:PushScreen( gameScreen );
     manager:PushScreen( menuScreen );
-    manager:SetScreen( 2 ); -- Starts at 1 
+    manager:PushScreen( editorScreen );
+    manager:SetScreen( 3 ); -- Starts at 1 
 
 end
 
