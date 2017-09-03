@@ -1,6 +1,7 @@
-ColorRGBA = require("src/Image/ColorRGBA")
+ColorRGBA = require("src/Image/ColorRGBA");
 require("src/Math/Utilities");
-require("src/Base/Utilities")
+require("src/Base/Utilities");
+require("src/Image/Utilities");
 
 local Widget = {};
 
@@ -15,7 +16,21 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.y         = ValidParameter( iY, "number", 0 );
     newWidget.w         = ValidParameter( iW, "number", 0 );
     newWidget.h         = ValidParameter( iH, "number", 0 );
-    newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New() );
+    newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New( 255, 255, 255 ) );
+
+    local red = ColorRGBA:New( 255, 0, 0 );
+    newWidget.imageData = love.image.newImageData( newWidget.w, newWidget.h )
+    newWidget.imageData = Fill( newWidget.imageData, newWidget.iBGColor );
+    newWidget.imageData = DrawHorizontalLine( newWidget.imageData, 0 , red );
+    newWidget.imageData = DrawHorizontalLine( newWidget.imageData, newWidget.h -1  , red );
+    newWidget.imageData = DrawVerticalLine( newWidget.imageData, 0 , red );
+    newWidget.imageData = DrawVerticalLine( newWidget.imageData, newWidget.w -1  , red );
+    newWidget.imageData = DrawLineAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h-1, ColorRGBA:New( 255, 0, 0 ) );
+    newWidget.imageData = DrawLineAA( newWidget.imageData, 0, newWidget.h - 1, newWidget.w - 1, 0, ColorRGBA:New( 255, 0, 0 ) );
+
+
+    newWidget.image = love.graphics.newImage( newWidget.imageData )
+
 
     return  newWidget;
 
@@ -32,8 +47,8 @@ function Widget:Update( dt )
 end
 
 function Widget:Draw()
-    love.graphics.clear( 200, 200, 200, 255 )
-
+    love.graphics.setColor(255,255,255,255);
+    love.graphics.draw( self.image, self.x, self.y )
 end
 
 function Widget:KeyPressed( key, scancode, isrepeat )

@@ -34,9 +34,9 @@ function ApplicationManager:UpdateScreen( dt )
 end
 
 function ApplicationManager:DrawScreen()
+    love.graphics.setColor(255,255,255,255);
     love.graphics.clear( 200, 200, 200, 255 )
     self.screens[ self.currentScreen ]:Draw();
-
 end
 
 function ApplicationManager:KeyPressed( key, scancode, isrepeat )

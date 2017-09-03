@@ -32,8 +32,6 @@ end
 
 
 function SandBox:Draw()
-    love.graphics.clear( 200, 200, 200, 255 )
-
     manager:DrawScreen();
 
 end

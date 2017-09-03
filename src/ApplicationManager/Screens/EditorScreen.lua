@@ -11,22 +11,24 @@ function EditorScreen:New()
     setmetatable( newEditorScreen, self )
     self.__index = self
 
-    self:Initialize()
-    myTestWidget = Widget:New( nil, 5, 5, 10, 10, 6);
     return newEditorScreen
 
 end
 
 function EditorScreen:Initialize()
-    
+    testWidget1 = Widget:New( nil, 50, 50, 400, 600, nil); 
+    testWidget2 = Widget:New( nil, 120, 180, 800, 100, nil); 
 end
 
 function EditorScreen:Update( dt )
 end
 
 function EditorScreen:Draw()
+    love.graphics.setColor(255,255,255,255);
     love.graphics.clear( 200, 200, 200, 255 )
 
+    testWidget1:Draw()
+    testWidget2:Draw()
 end
 
 function EditorScreen:KeyPressed( key, scancode, isrepeat )

@@ -9,8 +9,7 @@ function Screen:New()
     newScreen = {}
     setmetatable( newScreen, self );
     self.__index = self;
-    self:Initialize();
-
+    
     return  newScreen;
 
 end

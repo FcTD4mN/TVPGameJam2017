@@ -15,8 +15,6 @@ function TemplateScreen:New()
     setmetatable( newTemplateScreen, self )
     self.__index = self
 
-    self:Initialize()
-
     return newTemplateScreen
 
 end

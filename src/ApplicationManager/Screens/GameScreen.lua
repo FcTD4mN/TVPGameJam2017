@@ -10,9 +10,7 @@ function GameScreen:New()
     local newGameScreen = {}
     setmetatable( newGameScreen, self )
     self.__index = self
-
-    self:Initialize()
-
+    
     return newGameScreen
 
 end
