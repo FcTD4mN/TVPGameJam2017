@@ -1,4 +1,5 @@
 require("src/Math/Utilities");
+require("src/Base/Utilities");
 
 local ColorRGBA = {};
 
@@ -9,10 +10,10 @@ function ColorRGBA:New( iR, iG, iB, iA )
     self.__index = self;
 
     -- Default Values
-    newColorRGBA.R         = Clamp( iR, 0, 255 ) or 0;
-    newColorRGBA.G         = Clamp( iG, 0, 255 ) or 0;
-    newColorRGBA.B         = Clamp( iB, 0, 255 ) or 0;
-    newColorRGBA.A         = Clamp( iA, 0, 255 ) or 255;
+    newColorRGBA.R         = Clamp( ValidParameter( iR, "number", 0 ), 0, 255 );
+    newColorRGBA.G         = Clamp( ValidParameter( iG, "number", 0 ), 0, 255 );
+    newColorRGBA.B         = Clamp( ValidParameter( iB, "number", 0 ), 0, 255 );
+    newColorRGBA.A         = Clamp( ValidParameter( iA, "number", 255 ), 0, 255 );
 
     return  newColorRGBA;
 

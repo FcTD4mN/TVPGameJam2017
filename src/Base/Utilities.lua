@@ -42,7 +42,7 @@ end
 
 
 
--- necessary condition check, optionnal message
+-- necessary condition check, optional message
 function xAssert( iCondition, iMessage )
     if( iCondition == false ) then
         if( iMessage ) then _log( iMessage ); end
@@ -60,7 +60,7 @@ end
 
 
 
--- is type of iParameter is one of these... objects are typically tables
+-- is type of iParameter one of these... objects are typically tables
 function IsBasicType( iParameter )
     local basicTypes = "boolean number string table";
     return  string.find(basicTypes, type( iParameter ) );
@@ -98,7 +98,7 @@ end
 
 -- Make sure your input parameters are valid
 function ValidParameter( iParameter, iType, iDefaultValue)
-    local paramType     = SmartType( iParameter );
+    local paramType = SmartType( iParameter );
     if( iType == paramType ) then
         return iParameter;
     else

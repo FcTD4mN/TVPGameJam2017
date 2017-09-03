@@ -16,7 +16,7 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.w         = ValidParameter( iW, "number", 0 );
     newWidget.h         = ValidParameter( iH, "number", 0 );
     newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New() );
-    print ( newWidget.iBGColor:Type() );
+
     return  newWidget;
 
 end
