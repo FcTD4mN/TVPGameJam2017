@@ -39,9 +39,9 @@ function  Ray:BuildRay( iWorld, iX, iY, iWidth, iLength )
 
     --                                                                                                      Start          End
     -- Thses are the two points that represent the end contact points of the ray against a surface :   Hero-> O=============/ <-Wall
-    self.topEndX    = self.x + 1
+    self.topEndX    = self.x + self.length
     self.topEndY    = self.topYStart
-    self.bottomEndX = self.x + 1
+    self.bottomEndX = self.x + self.length
     self.bottomEndY = self.bottomYStart
 
     self.animations = {}
@@ -62,7 +62,7 @@ end
 
 function  Ray:Update( iDT )
 
-    doBreak = { false, false }
+    foundContact = { false, false }
     for i = 1, ObjectPool.Count() do
 
         local fixtures = ObjectPool.ObjectAtIndex( i ).body:getFixtureList()
@@ -75,25 +75,28 @@ function  Ray:Update( iDT )
             if( topFraction ) then
                 self.topEndX = self.x + self.length * topFraction
                 self.topEndY = self.topYStart
-                doBreak[ 1 ] = true
+                foundContact[ 1 ] = true
             end
             if( bottomFraction ) then
                 self.bottomEndX = self.x + self.length * bottomFraction
                 self.bottomEndY = self.bottomYStart
-                doBreak[ 2 ] = true
+                foundContact[ 2 ] = true
             end
 
         end
 
-        if( doBreak[ 1 ] and doBreak[ 2 ] ) then
+        if( foundContact[ 1 ] and foundContact[ 2 ] ) then
             break
         end
 
-        -- Here, we didn't hit anything, so the ray gets its max size
-        self.topEndX = self.x + self.length
-        self.topEndY = self.topYStart
-        self.bottomEndX = self.x + self.length
-        self.bottomEndY = self.bottomYStart
+        if( foundContact[ 1 ] == false ) then
+            self.topEndX = self.x + self.length
+            self.topEndY = self.topYStart
+        end
+        if( foundContact[ 2 ] == false ) then
+            self.bottomEndX = self.x + self.length
+            self.bottomEndY = self.bottomYStart
+        end
 
     end
 
