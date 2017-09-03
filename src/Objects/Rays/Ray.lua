@@ -1,13 +1,10 @@
+local   Camera      = require( "src/Camera/Camera" )
 local   Object      = require( "src/Objects/Object" )
-        ObjectPool  = require "src/Objects/ObjectPool"
-local   Probe       = require( "src/Objects/Projectiles/Probe" )
+        ObjectPool  = require( "src/Objects/ObjectPool" )
 local   Vector      = require( "src/Math/Vector" )
 
 
-
 local Ray = {}
-setmetatable( Ray, Object )
-Ray.__index = Ray
 
 
 -- ==========================================Build/Destroy
@@ -36,31 +33,19 @@ function  Ray:BuildRay( iWorld, iX, iY, iWidth, iLength )
     self.width = iWidth -- This is how wide the ray is
     self.length = iLength -- This is how long the ray is
 
+    -- Start of the top and bottom part of the ray
+    self.topYStart      = self.y - self.width / 2
+    self.bottomYStart   = self.y  + self.width / 2
+
     --                                                                                                      Start          End
     -- Thses are the two points that represent the end contact points of the ray against a surface :   Hero-> O=============/ <-Wall
-
-    self.topEndX = 1
-    self.topEndY = self.width/2 + 1
-    self.bottomEndX = 1
-    self.bottomEndY = -self.width/2 + 1
-
-
-    self.body        = love.physics.newBody( iWorld, iX, iY, "static" )
-    self.body:setFixedRotation( true )
-    self.body:setLinearVelocity( 0, 0 )
-    self.body:setGravityScale( 0.0 )
-
-    shape           = love.physics.newEdgeShape( 0, -iWidth/2, 0, iWidth/2 )
-    self.fixture    = love.physics.newFixture( self.body, shape )
-    self.fixture:setFriction( 1.0 )
-    self.fixture:setCategory( 2 )
-    self.fixture:setMask( 10 )
-    self.fixture:setUserData( self )
+    self.topEndX    = self.x + 1
+    self.topEndY    = self.topYStart
+    self.bottomEndX = self.x + 1
+    self.bottomEndY = self.bottomYStart
 
     self.animations = {}
     self.currentAnimation = 0
-
-    ObjectPool.AddObject( self )
 
 end
 
@@ -77,54 +62,53 @@ end
 
 function  Ray:Update( iDT )
 
-    --Send probes
-    probesDirection = Vector:New( 300000, 0 )
+    doBreak = { false, false }
+    for i = 1, ObjectPool.Count() do
 
-    local topProbe    = Probe:New( self.body:getWorld(), self.x, self.y - self.width/2, probesDirection, TopProbeCallback, self )
-    local bottomProbe = Probe:New( self.body:getWorld(), self.x, self.y + self.width/2, probesDirection, BottomProbeCallback, self )
+        local fixtures = ObjectPool.ObjectAtIndex( i ).body:getFixtureList()
+        for k,v in pairs( fixtures ) do
 
+            -- 5th parameter is the max fraction as a scale of line length, so, we want its length to be 1.0 of the line length
+            local topHitVectorX, topHitVectorY, topFraction           = v:rayCast( self.x, self.topYStart,       self.x + self.length, self.topYStart, 1.0 )
+            local bottomHitVectorX, bottomHitVectorY, bottomFraction  = v:rayCast( self.x, self.bottomYStart,    self.x + self.length, self.bottomYStart, 1.0 )
 
-    self.fixture:destroy()
-    self:ProcessShape()
+            if( topFraction ) then
+                self.topEndX = self.x + self.length * topFraction
+                self.topEndY = self.topYStart
+                doBreak[ 1 ] = true
+            end
+            if( bottomFraction ) then
+                self.bottomEndX = self.x + self.length * bottomFraction
+                self.bottomEndY = self.bottomYStart
+                doBreak[ 2 ] = true
+            end
+
+        end
+
+        if( doBreak[ 1 ] and doBreak[ 2 ] ) then
+            break
+        end
+
+        -- Here, we didn't hit anything, so the ray gets its max size
+        self.topEndX = self.x + self.length
+        self.topEndY = self.topYStart
+        self.bottomEndX = self.x + self.length
+        self.bottomEndY = self.bottomYStart
+
+    end
 
 end
 
 
 function  Ray:Draw()
+
+    love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.x, self.bottomYStart, self.x, self.topYStart, self.topEndX, self.topYStart, self.bottomEndX, self.bottomYStart ) )
+
 end
 
 
 -- ==========================================Ray functions
 
-
-function  TopProbeCallback( iRay, iX, iY )
-
-    -- Coordinates of polygon are relative to body, so 0, 0 = self.x, self.y we need to adjust end points
-    iRay.topEndX = iX - iRay.x
-    iRay.topEndY = iY - iRay.y
-
-end
-
-
-function  BottomProbeCallback( iRay, iX, iY )
-
-    -- Coordinates of polygon are relative to body, so 0, 0 = self.x, self.y we need to adjust end points
-    iRay.bottomEndX = iX - iRay.x
-    iRay.bottomEndY = iY - iRay.y
-
-end
-
-
-function  Ray:ProcessShape()
-
-    shape           = love.physics.newPolygonShape( 0, self.width/2, 0, -self.width/2 , self.topEndX, self.topEndY, self.bottomEndX, self.bottomEndY )
-    self.fixture    = love.physics.newFixture( self.body, shape )
-    self.fixture:setFriction( 1.0 )
-    self.fixture:setCategory( 2 )
-    self.fixture:setMask( 1, 10 )
-    self.fixture:setUserData( self )
-
-end
 
 
 

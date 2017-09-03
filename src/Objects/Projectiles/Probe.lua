@@ -1,3 +1,7 @@
+-- Could be interesting to improve probe
+-- https://stackoverflow.com/questions/11062252/how-to-detect-collision-but-do-not-collide-in-box2d
+
+
 local   Object      = require( "src/Objects/Object" )
         ObjectPool  = require "src/Objects/ObjectPool"
 

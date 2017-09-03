@@ -35,7 +35,21 @@ function ObjectPool.Draw()
 end
 
 
+-- ==========================================Get/Set
+
+
+function ObjectPool.Count()
+    return #ObjectPool.objects
+end
+
+
+function ObjectPool.ObjectAtIndex( iIndex )
+    return  ObjectPool.objects[ iIndex ]
+end
+
+
 -- ==========================================Pool actions
+
 
 function  ObjectPool.AddObject( iObject )
     table.insert( ObjectPool.objects, iObject )

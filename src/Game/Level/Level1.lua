@@ -13,8 +13,11 @@ local Terrain               = require "src/Objects/Terrain"
 local Tree                  = require "src/Objects/Environnement/Tree"
 local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 
+
 --TESTS
 local Ray             = require "src/Objects/Rays/Ray"
+local CollidePool     = require "src/Objects/CollidePool"
+local ObjectPool      = require "src/Objects/ObjectPool"
 
 
 local Level1 = {}
@@ -50,6 +53,7 @@ function Level1:Initialize()
     music = love.audio.newSource( "resources/Audio/Music/Enjeuloop.mp3", "stream" )
     music:setLooping( true )
 
+    -- OBJECTS
     self.mHeros[1]      =  Singe:New( self.mWorld, 1000, 500 )
     self.mHeros[2]      =  Lapin:New( self.mWorld, 800, 50 )
     table.insert( self.mEnvironnementObjects, Tree:New( self.mWorld, 2400, 0 ) )
@@ -67,7 +71,7 @@ function Level1:Initialize()
 
 
     --TESTS
-    Ray:New( world, 500, 150, 10, 1000 )
+    ray = Ray:New( world, 500, 150, 10, 20000 )
 
     -- love.audio.play( music )
 end
@@ -124,12 +128,43 @@ end
 -- ==========================================Update/Draw
 
 
--- function  Level1:Update( iDT )
--- end
+function  Level1:Update( iDT )
+
+    for k,v in pairs( self.mBackgrounds ) do
+        v:Update( iDT )
+    end
+
+    self.mWorld:update( iDT )
+    CollidePool.Update( iDT )
+    ObjectPool.Update( iDT )
+
+    for k,v in pairs( self.mForegrounds ) do
+        v:Update( iDT )
+    end
+
+    ray:Update( iDT )
+
+    self:UpdateCamera()
+
+end
 
 
--- function  Level1:Draw()
--- end
+function  Level1:Draw()
+
+    self.mFixedBackground:Draw( 0, 0 )
+
+    for k,v in pairs( self.mBackgrounds ) do
+        v:Draw()
+    end
+
+    ObjectPool.Draw()
+
+    for k,v in pairs( self.mForegrounds ) do
+        v:Draw()
+    end
+
+    ray:Draw()
+end
 
 
 -- ==========================================Level1 functions
