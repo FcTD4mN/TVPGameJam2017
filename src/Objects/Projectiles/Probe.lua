@@ -40,7 +40,7 @@ function  Probe:BuildProbe( iWorld, iX, iY, iDirectionVector, iCallback, iCaller
     shape       = love.physics.newRectangleShape( 1, 1 )
     fixture     = love.physics.newFixture( self.body, shape )
     fixture:setCategory( 10 )
-    fixture:setMask( 1, 2, 10 )
+    fixture:setMask( 2, 10 )
     fixture:setUserData( self )
 
     self.callback   = iCallback
