@@ -10,38 +10,40 @@ local Ray = {}
 -- ==========================================Build/Destroy
 
 
-function Ray:New( iX, iY, iWidth, iLength )
+function Ray:New( iX, iY, iDirectionVector, iWidth, iLength )
 
     newRay = {}
     setmetatable( newRay, Ray )
     Ray.__index = Ray
 
-    newRay:BuildRay( iX, iY, iWidth, iLength )
+    newRay:BuildRay( iX, iY, iDirectionVector, iWidth, iLength )
 
     return  newRay
 end
 
 
-function  Ray:BuildRay( iX, iY, iWidth, iLength )
+function  Ray:BuildRay( iX, iY, iDirectionVector, iWidth, iLength )
 
-    self.x = iX
-    self.y = iY
-    self.width = iWidth     -- This is how wide the ray is
-    self.length = iLength   -- This is how long the ray is
+    self.mX = iX
+    self.mY = iY
+    self.mWidth = iWidth     -- This is how wide the ray is
+    self.mLength = iLength   -- This is how long the ray is
 
     -- Start of the top and bottom part of the ray
-    self.topYStart      = self.y - self.width / 2
-    self.bottomYStart   = self.y  + self.width / 2
+    self.mTopYStart      = self.mY - self.mWidth / 2
+    self.mBottomYStart   = self.mY  + self.mWidth / 2
 
     --                                                                                                      Start          End
     -- Thses are the two points that represent the end contact points of the ray against a surface :   Hero-> O=============/ <-Wall
-    self.topEndX    = self.x + self.length
-    self.topEndY    = self.topYStart
-    self.bottomEndX = self.x + self.length
-    self.bottomEndY = self.bottomYStart
+    self.mTopEndX    = self.mX + self.mLength
+    self.mTopEndY    = self.mTopYStart
+    self.mBottomEndX = self.mX + self.mLength
+    self.mBottomEndY = self.mBottomYStart
 
-    self.animations = {}
-    self.currentAnimation = 0
+    self.mDirectionVector = iDirectionVector
+
+    self.mAnimations = {}
+    self.mCurrentAnimation = 0
 
 end
 
@@ -58,41 +60,31 @@ end
 
 function  Ray:Update( iDT )
 
-    foundContact = { false, false }
+    topShortestLength       = 1.0
+    bottomShortestLength    = 1.0
+
     for i = 1, ObjectPool.Count() do
 
         local fixtures = ObjectPool.ObjectAtIndex( i ).body:getFixtureList()
         for k,v in pairs( fixtures ) do
 
             -- 5th parameter is the max fraction as a scale of line length, so, we want its length to be 1.0 of the line length
-            local topHitVectorX, topHitVectorY, topFraction           = v:rayCast( self.x, self.topYStart,       self.x + self.length, self.topYStart, 1.0 )
-            local bottomHitVectorX, bottomHitVectorY, bottomFraction  = v:rayCast( self.x, self.bottomYStart,    self.x + self.length, self.bottomYStart, 1.0 )
+            local topHitVectorX, topHitVectorY, topFraction           = v:rayCast( self.mX, self.mTopYStart,       self.mX + self.mLength, self.mTopYStart, 1.0 )
+            local bottomHitVectorX, bottomHitVectorY, bottomFraction  = v:rayCast( self.mX, self.mBottomYStart,    self.mX + self.mLength, self.mBottomYStart, 1.0 )
 
-            if( topFraction ) then
-                self.topEndX = self.x + self.length * topFraction
-                self.topEndY = self.topYStart
-                foundContact[ 1 ] = true
+            if( topFraction and topFraction < topShortestLength ) then
+                topShortestLength = topFraction
             end
-            if( bottomFraction ) then
-                self.bottomEndX = self.x + self.length * bottomFraction
-                self.bottomEndY = self.bottomYStart
-                foundContact[ 2 ] = true
+            if( bottomFraction and bottomFraction < bottomShortestLength ) then
+                bottomShortestLength = bottomFraction
             end
 
         end
 
-        if( foundContact[ 1 ] and foundContact[ 2 ] ) then
-            break
-        end
-
-        if( foundContact[ 1 ] == false ) then
-            self.topEndX = self.x + self.length
-            self.topEndY = self.topYStart
-        end
-        if( foundContact[ 2 ] == false ) then
-            self.bottomEndX = self.x + self.length
-            self.bottomEndY = self.bottomYStart
-        end
+        self.mTopEndX = self.mX + self.mLength * topShortestLength
+        self.mTopEndY = self.mTopYStart
+        self.mBottomEndX = self.mX + self.mLength * bottomShortestLength
+        self.mBottomEndY = self.mBottomYStart
 
     end
 
@@ -101,7 +93,7 @@ end
 
 function  Ray:Draw()
 
-    love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.x, self.bottomYStart, self.x, self.topYStart, self.topEndX, self.topYStart, self.bottomEndX, self.bottomYStart ) )
+    love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.mX, self.mBottomYStart, self.mX, self.mTopYStart, self.mTopEndX, self.mTopYStart, self.mBottomEndX, self.mBottomYStart ) )
 
 end
 

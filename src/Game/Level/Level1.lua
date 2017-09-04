@@ -15,9 +15,10 @@ local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 
 
 --TESTS
-local Ray             = require "src/Objects/Rays/Ray"
-local CollidePool     = require "src/Objects/CollidePool"
-local ObjectPool      = require "src/Objects/ObjectPool"
+local Ray               = require "src/Objects/Rays/Ray"
+local CollidePool       = require "src/Objects/CollidePool"
+local ObjectPool        = require "src/Objects/ObjectPool"
+local Vector            = require "src/Math/Vector"
 
 
 local Level1 = {}
@@ -54,7 +55,7 @@ function Level1:Initialize()
     music:setLooping( true )
 
     -- OBJECTS
-    self.mHeros[1]      =  Singe:New( self.mWorld, 1000, 500 )
+    self.mHeros[1]      =  Singe:New( self.mWorld, 1000, 50 )
     self.mHeros[2]      =  Lapin:New( self.mWorld, 800, 50 )
     table.insert( self.mEnvironnementObjects, Tree:New( self.mWorld, 2400, 0 ) )
     table.insert( self.mEnvironnementObjects, BabyTree:New( self.mWorld, 3700, 600 ) )
@@ -71,7 +72,7 @@ function Level1:Initialize()
 
 
     --TESTS
-    ray = Ray:New( 500, 150, 10, 1500 )
+    ray = Ray:New( 500, 150, Vector:New( 1, 0 ), 10, 1500 )
 
     -- love.audio.play( music )
 end
