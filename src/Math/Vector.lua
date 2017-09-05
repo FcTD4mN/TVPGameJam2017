@@ -28,6 +28,12 @@ function Vector:Normalized()
 end
 
 
+-- The 90 degree vector counter clockwise
+function Vector:Normal()
+    return  Vector:New( -self.y, self.x )
+end
+
+
 function Vector:Length()
     return  math.sqrt( self.x * self.x + self.y * self.y )
 end

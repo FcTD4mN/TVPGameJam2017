@@ -72,7 +72,7 @@ function Level1:Initialize()
 
 
     --TESTS
-    ray = Ray:New( 500, 150, Vector:New( 1, 0 ), 10, 1500 )
+    ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
 
     -- love.audio.play( music )
 end

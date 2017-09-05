@@ -29,18 +29,23 @@ function  Ray:BuildRay( iX, iY, iDirectionVector, iWidth, iLength )
     self.mWidth = iWidth     -- This is how wide the ray is
     self.mLength = iLength   -- This is how long the ray is
 
+    self.mDirectionVector = iDirectionVector:Normalized()
+    local normalVector = self.mDirectionVector:Normal()
+
     -- Start of the top and bottom part of the ray
-    self.mTopYStart      = self.mY - self.mWidth / 2
-    self.mBottomYStart   = self.mY  + self.mWidth / 2
+    self.mTopXStart      = self.mX + normalVector.x * self.mWidth / 2
+    self.mTopYStart      = self.mY + normalVector.y * self.mWidth / 2
+
+    self.mBottomXStart   = self.mX  - normalVector.x * self.mWidth / 2
+    self.mBottomYStart   = self.mY  - normalVector.y * self.mWidth / 2
 
     --                                                                                                      Start          End
-    -- Thses are the two points that represent the end contact points of the ray against a surface :   Hero-> O=============/ <-Wall
-    self.mTopEndX    = self.mX + self.mLength
-    self.mTopEndY    = self.mTopYStart
-    self.mBottomEndX = self.mX + self.mLength
-    self.mBottomEndY = self.mBottomYStart
+    -- Theses are the two points that represent the end contact points of the ray against a surface :   Hero-> O=============/ <-Wall
+    self.mTopEndX    = self.mTopXStart + self.mDirectionVector.x * self.mLength
+    self.mTopEndY    = self.mTopYStart + self.mDirectionVector.y * self.mLength
+    self.mBottomEndX = self.mBottomXStart + self.mDirectionVector.x * self.mLength
+    self.mBottomEndY = self.mBottomYStart + self.mDirectionVector.y * self.mLength
 
-    self.mDirectionVector = iDirectionVector
 
     self.mAnimations = {}
     self.mCurrentAnimation = 0
@@ -63,14 +68,21 @@ function  Ray:Update( iDT )
     topShortestLength       = 1.0
     bottomShortestLength    = 1.0
 
+    -- These are the virtual position of the end of the ray if there was no collision, so the ray we want to cast
+    local topEndX    = self.mTopXStart + self.mDirectionVector.x * self.mLength
+    local topEndY    = self.mTopYStart + self.mDirectionVector.y * self.mLength
+    local bottomEndX = self.mBottomXStart + self.mDirectionVector.x * self.mLength
+    local bottomEndY = self.mBottomYStart + self.mDirectionVector.y * self.mLength
+
+
     for i = 1, ObjectPool.Count() do
 
         local fixtures = ObjectPool.ObjectAtIndex( i ).body:getFixtureList()
         for k,v in pairs( fixtures ) do
 
             -- 5th parameter is the max fraction as a scale of line length, so, we want its length to be 1.0 of the line length
-            local topHitVectorX, topHitVectorY, topFraction           = v:rayCast( self.mX, self.mTopYStart,       self.mX + self.mLength, self.mTopYStart, 1.0 )
-            local bottomHitVectorX, bottomHitVectorY, bottomFraction  = v:rayCast( self.mX, self.mBottomYStart,    self.mX + self.mLength, self.mBottomYStart, 1.0 )
+            local topHitVectorX, topHitVectorY, topFraction           = v:rayCast( self.mTopXStart, self.mTopYStart,        topEndX, topEndY,       1.0 )
+            local bottomHitVectorX, bottomHitVectorY, bottomFraction  = v:rayCast( self.mBottomXStart, self.mBottomYStart,  bottomEndX, bottomEndY, 1.0 )
 
             if( topFraction and topFraction < topShortestLength ) then
                 topShortestLength = topFraction
@@ -81,10 +93,10 @@ function  Ray:Update( iDT )
 
         end
 
-        self.mTopEndX = self.mX + self.mLength * topShortestLength
-        self.mTopEndY = self.mTopYStart
-        self.mBottomEndX = self.mX + self.mLength * bottomShortestLength
-        self.mBottomEndY = self.mBottomYStart
+        self.mTopEndX = self.mTopXStart + self.mDirectionVector.x * self.mLength * topShortestLength
+        self.mTopEndY = self.mTopYStart + self.mDirectionVector.y * self.mLength * topShortestLength
+        self.mBottomEndX = self.mBottomXStart + self.mDirectionVector.x * self.mLength * bottomShortestLength
+        self.mBottomEndY = self.mBottomYStart + self.mDirectionVector.y * self.mLength * bottomShortestLength
 
     end
 
@@ -93,7 +105,8 @@ end
 
 function  Ray:Draw()
 
-    love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.mX, self.mBottomYStart, self.mX, self.mTopYStart, self.mTopEndX, self.mTopYStart, self.mBottomEndX, self.mBottomYStart ) )
+    love.graphics.setColor( 255, 20, 20 )
+    love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.mBottomXStart, self.mBottomYStart, self.mTopXStart, self.mTopYStart, self.mTopEndX, self.mTopEndY, self.mBottomEndX, self.mBottomEndY ) )
 
 end
 
