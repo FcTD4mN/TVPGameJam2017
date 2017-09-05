@@ -53,7 +53,7 @@ function Level1:Initialize()
     music:setLooping( true )
 
     -- OBJECTS
-    self.mHeros[1]      =  Singe:New( self.mWorld, 1000, 50 )
+    self.mHeros[1]      =  Singe:New( self.mWorld, 1000, 500 )
     self.mHeros[2]      =  Lapin:New( self.mWorld, 800, 50 )
     table.insert( self.mEnvironnementObjects, Tree:New( self.mWorld, 2400, 0 ) )
     table.insert( self.mEnvironnementObjects, BabyTree:New( self.mWorld, 3700, 600 ) )

@@ -16,7 +16,7 @@ Probe.__index = Probe
 
 function Probe:New( iWorld, iX, iY, iDirectionVector, iCallback, iCaller )
 
-    newProbe = {}
+    local newProbe = {}
     setmetatable( newProbe, Probe )
     Probe.__index = Probe
 
@@ -28,29 +28,19 @@ end
 
 function  Probe:BuildProbe( iWorld, iX, iY, iDirectionVector, iCallback, iCaller )
 
-    self.x = iX
-    self.y = iY
-    self.w = 1
-    self.h = 1
+    self:BuildObject( iWorld, iX, iY, 1, 1, "dynamic", false )
 
-    self.needDestroy = false
+    self.mBody:setLinearVelocity( iDirectionVector.x, iDirectionVector.y )
+    self.mBody:setGravityScale( 0.0 )
 
-    self.body   = love.physics.newBody( iWorld, iX, iY, "dynamic" )
-    self.body:setFixedRotation( false )
-    self.body:setLinearVelocity( iDirectionVector.x, iDirectionVector.y )
-    self.body:setGravityScale( 0.0 )
-
-
-    shape       = love.physics.newRectangleShape( 1, 1 )
-    fixture     = love.physics.newFixture( self.body, shape )
+    local shape       = love.physics.newRectangleShape( 1, 1 )
+    local fixture     = love.physics.newFixture( self.mBody, shape )
     fixture:setCategory( 10 )
     fixture:setMask( 2, 10 )
     fixture:setUserData( self )
 
-    self.callback   = iCallback
-    self.caller     = iCaller
-
-    ObjectPool.AddObject( self )
+    self.mCallback   = iCallback
+    self.mCaller     = iCaller
 
 end
 

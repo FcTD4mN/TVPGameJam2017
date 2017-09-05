@@ -2,48 +2,45 @@ local Animation = require "src/Image/Animation"
 local Object    = require "src/Objects/Object"
 local ObjectPool        = require "src/Objects/Pools/ObjectPool"
 
-local Tree = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
+
+local Tree = {}
+setmetatable( Tree, Object )
+Object.__index = Object
 
 
 -- ==========================================Constructor/Destructor
 
 
 function Tree:New( iWorld, iX, iY )
+
     local newTree = {}
-    setmetatable( newTree, self )
-    self.__index = self
+    setmetatable( newTree, Tree )
+    Tree.__index = Tree
 
-    newTree.x = x
-    newTree.y = y
+    newTree:BuildTree( iWorld, iX, iY )
 
-    newTree.w = 560
-    newTree.h = 540
+    return newTree
 
-    --inherited values
-    newTree.body        = love.physics.newBody( iWorld, iX + newTree.w/2, iY + newTree.h/2, "static" )
-    newTree.body:setFixedRotation( true )
-    newTree.body:setGravityScale( 0.0 )
+end
 
-    hitboxWidth = 80
-    shape       = love.physics.newRectangleShape( 0, 0 , hitboxWidth, 600 )
-    fixture     = love.physics.newFixture( newTree.body, shape )
+
+function  Tree:BuildTree( iWorld, iX, iY )
+
+    self:BuildObject( iWorld, iX, iY, 560, 540, "static", true )
+    self.mBody:setGravityScale( 0.0 )
+
+    local hitboxWidth = 80
+    local shape       = love.physics.newRectangleShape( 0, 0 , hitboxWidth, 600 )
+    local fixture     = love.physics.newFixture( self.mBody, shape )
     fixture:setFriction( 1.0 )
-    fixture:setUserData( newTree )
-
-
-    newTree.animations = {}
-    newTree.currentAnimation = 0
-    newTree.burn = false
+    fixture:setUserData( self )
 
     local tree      = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
     local treeFix   = love.graphics.newImage( "resources/Animation/FX/arbre_fixe.png" )
-    newTree:AddAnimation( tree, 11, 12, false, false )
-    newTree:AddAnimation( treeFix, 1, 1, false, false )
-    newTree:PlayAnimation( 2, 0 )
+    self:AddAnimation( tree, 11, 12, false, false )
+    self:AddAnimation( treeFix, 1, 1, false, false )
+    self:PlayAnimation( 2, 0 )
 
-    ObjectPool.AddObject( newTree )
-
-    return newTree
 end
 
 
@@ -58,14 +55,13 @@ end
 -- ==========================================Update/Draw
 
 
-function Tree:Update( dt )
-    self:UpdateObject( dt )
+function Tree:Update( iDT )
+    self:UpdateObject( iDT )
 end
 
 
 function Tree:Draw()
     self:DrawObject()
-    -- self:DEBUGDrawHitBox()
 end
 
 

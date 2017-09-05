@@ -18,7 +18,7 @@ end
 
 function ObjectPool.Update( iDT )
     for k, v in pairs( ObjectPool.objects ) do
-        if( v.needDestroy ) then
+        if( v.mNeedDestroy ) then
             v:Finalize()
             table.remove( ObjectPool.objects, k )
         else

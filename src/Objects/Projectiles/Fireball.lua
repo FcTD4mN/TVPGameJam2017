@@ -2,7 +2,9 @@ local Animation = require "src/Image/Animation"
 local Object = require "src/Objects/Object"
 local ObjectPool = require "src/Objects/Pools/ObjectPool"
 
-local Fireball = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
+local Fireball = {}
+setmetatable( Fireball, Object )
+Object.__index = Object
 
 
 -- ==========================================Constructor/Destructor
@@ -10,38 +12,35 @@ local Fireball = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
 function Fireball:New( iWorld, iX, iY, iVelocity )
     local newFireball = {}
-    setmetatable( newFireball, self )
-    self.__index = self
+    setmetatable( newFireball, Fireball )
+    Fireball.__index = Fireball
 
-    newFireball.x = x
-    newFireball.y = y
-    newFireball.w = 90
-    newFireball.h = 90
-
-
-    --inherited values
-    newFireball.body        = love.physics.newBody( iWorld, iX + newFireball.w/2, iY + newFireball.h/2, "dynamic" )
-    newFireball.body:setFixedRotation( true )
-    newFireball.body:setLinearVelocity( iVelocity, 0 )
-    newFireball.body:setGravityScale( 0.0 )
-
-    shape       = love.physics.newRectangleShape( newFireball.w, newFireball.h )
-    fixture     = love.physics.newFixture( newFireball.body, shape )
-    fixture:setFriction( 1.0 )
-    fixture:setUserData( newFireball )
-
-    newFireball.animations = {}
-    newFireball.currentAnimation = 0
-    newFireball.flipNeeded = iVelocity < 0
+    newFireball:BuildFireball( iWorld, iX, iY, iVelocity )
 
     if currentFireball then
         currentFireball:Destroy()
     end
+
     currentFireball = newFireball
 
-    ObjectPool.AddObject( newFireball )
-
     return newFireball
+
+end
+
+
+function  Fireball:BuildFireball( iWorld, iX, iY, iVelocity )
+
+    self:BuildObject( iWorld, iX, iY, 90, 90, "dynamic", true )
+    self.mBody:setLinearVelocity( iVelocity, 0 )
+    self.mBody:setGravityScale( 0.0 )
+
+    local shape    = love.physics.newRectangleShape( self.mW, self.mH )
+    local fixture  = love.physics.newFixture( self.mBody, shape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( self )
+
+    self.mFlipNeeded = iVelocity < 0
+
 end
 
 
@@ -67,7 +66,7 @@ end
 
 
 function Fireball:AddAnimation( iImage )
-    table.insert( self.animations, Animation:New( iImage, self.x, self.y, self.w, self.h, 0, 14, 24, self.flipNeeded, false ) )
+    table.insert( self.mAnimations, Animation:New( iImage, self.mX, self.mY, self.mW, self.mH, 0, 14, 24, self.mFlipNeeded, false ) )
 end
 
 

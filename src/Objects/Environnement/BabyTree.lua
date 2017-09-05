@@ -4,54 +4,50 @@ local Object        = require "src/Objects/Object"
 local ObjectPool    = require "src/Objects/Pools/ObjectPool"
 local GrownTree     = require "src/Objects/Environnement/GrownTree"
 
-local BabyTree = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
+
+local BabyTree = {}
+setmetatable( BabyTree, Object )
+Object.__index = Object
 
 
 -- ==========================================Constructor/Destructor
 
 
 function BabyTree:Finalize()
-    local grownTree = GrownTree:New( self.body:getWorld(), self.x, self.y - 300 )
+    local grownTree = GrownTree:New( self.mBody:getWorld(), self.mX, self.mY - 300 )
 
-    self.body:destroy()
-    self.body = nil
-    self.shape = nil
-    self.fixture = nil
+    self.mBody:destroy()
+    self.mBody = nil
 end
 
 
 function BabyTree:New( iWorld, iX, iY )
-    local newBabyTree = {}
-    setmetatable( newBabyTree, self )
-    self.__index = self
 
-    newBabyTree.x = iX
-    newBabyTree.y = iY
-    newBabyTree.w = 64
-    newBabyTree.h = 104
+    newBabyTree = {}
+    setmetatable( newBabyTree, BabyTree )
+    BabyTree.__index = BabyTree
 
-    --inherited values
-
-    newBabyTree.body     = love.physics.newBody( iWorld, iX + newBabyTree.w/2, iY + newBabyTree.h/2, "static" )
-    newBabyTree.body:setFixedRotation( true )
-    newBabyTree.body:setGravityScale( 0.0 )
-
-    shape    = love.physics.newRectangleShape( newBabyTree.w, newBabyTree.h )
-    fixture  = love.physics.newFixture( newBabyTree.body, shape )
-    fixture:setFriction( 1.0 )
-    fixture:setUserData( newBabyTree )
-
-    newBabyTree.animations       = {}
-    newBabyTree.currentAnimation = 0
-
-    local img = love.graphics.newImage( "resources/Animation/FX/Petite-plante.png" )
-    newBabyTree:AddAnimation( img, 8, 8, false, false )
-
-    newBabyTree:PlayAnimation( 1, 0 ) -- play animation n°1 infinitely
-
-    ObjectPool.AddObject( newBabyTree )
+    newBabyTree:BuildBabyTree( iWorld, iX, iY )
 
     return newBabyTree
+
+end
+
+
+function  BabyTree:BuildBabyTree( iWorld, iX, iY )
+
+    self:BuildObject( iWorld, iX, iY, 90, 120, "static", true )
+    self.mBody:setGravityScale( 0.0 )
+
+    local shape    = love.physics.newRectangleShape( self.mW, self.mH )
+    local fixture  = love.physics.newFixture( self.mBody, shape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( self )
+
+    local img = love.graphics.newImage( "resources/Animation/FX/Petite-plante.png" )
+    self:AddAnimation( img, 8, 8, false, false )
+    self:PlayAnimation( 1, 0 ) -- play animation n°1 infinitely
+
 end
 
 
@@ -66,8 +62,8 @@ end
 -- ==========================================Update/Draw
 
 
-function BabyTree:Update( dt )
-    self:UpdateObject( dt )
+function BabyTree:Update( iDT )
+    self:UpdateObject( iDT )
 end
 
 

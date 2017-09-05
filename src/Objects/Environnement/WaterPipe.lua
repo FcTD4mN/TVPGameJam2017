@@ -3,44 +3,40 @@ local Object            = require "src/Objects/Object"
 local ObjectPool        = require "src/Objects/Pools/ObjectPool"
 local AttackGenerator   = require "src/Game/AttackGenerator"
 
-local WaterPipe = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
+local WaterPipe = {}
+setmetatable( WaterPipe, Object )
+Object.__index = Object
 
 
 -- ==========================================Constructor/Destructor
 
 
 function WaterPipe:New( iWorld, iX, iY )
+
     local newWaterPipe = {}
-    setmetatable( newWaterPipe, self )
-    self.__index = self
+    setmetatable( newWaterPipe, WaterPipe )
+    WaterPipe.__index = WaterPipe
 
-    newWaterPipe.x = x
-    newWaterPipe.y = y
-
-    newWaterPipe.w = 230
-    newWaterPipe.h = 350
-
-    --inherited values
-    newWaterPipe.body        = love.physics.newBody( iWorld, iX + newWaterPipe.w/2, iY + newWaterPipe.h/2, "static" )
-    newWaterPipe.body:setFixedRotation( true )
-    newWaterPipe.body:setGravityScale( 0.0 )
-
-    shape       = love.physics.newRectangleShape( 200, newWaterPipe.h - 150 )
-    fixture     = love.physics.newFixture( newWaterPipe.body, shape )
-    fixture:setFriction( 1.0 )
-    fixture:setUserData( newWaterPipe )
-
-
-    newWaterPipe.animations = {}
-    newWaterPipe.currentAnimation = 0
-
-    local WaterPipe      = love.graphics.newImage( "resources/Images/Backgrounds/pipeline.png" )
-    newWaterPipe:AddAnimation( WaterPipe, 1, 1, false, false )
-    newWaterPipe:PlayAnimation( 1, 0 )
-
-    ObjectPool.AddObject( newWaterPipe )
+    newWaterPipe:BuildWaterPipe( iWorld, iX, iY )
 
     return newWaterPipe
+end
+
+
+function  WaterPipe:BuildWaterPipe( iWorld, iX, iY )
+
+    self:BuildObject( iWorld, iX, iY, 230, 350, "static", true )
+    self.mBody:setGravityScale( 0.0 )
+
+    local shape       = love.physics.newRectangleShape( 200, self.mH - 150 )
+    local fixture     = love.physics.newFixture( self.mBody, shape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( self )
+
+    local WaterPipe      = love.graphics.newImage( "resources/Images/Backgrounds/pipeline.png" )
+    self:AddAnimation( WaterPipe, 1, 1, false, false )
+    self:PlayAnimation( 1, 0 )
+
 end
 
 
@@ -55,14 +51,13 @@ end
 -- ==========================================Update/Draw
 
 
-function WaterPipe:Update( dt )
-    self:UpdateObject( dt )
+function WaterPipe:Update( iDT )
+    self:UpdateObject( iDT )
 end
 
 
 function WaterPipe:Draw()
     self:DrawObject()
-    -- self:DEBUGDrawHitBox()
 end
 
 
@@ -70,9 +65,9 @@ end
 
 
 function  WaterPipe:ShootOut()
-    x = self:GetX() + self.w / 2
-    y = self:GetY() + self.h + 5
-    AttackGenerator:GenerateAttack( x, y, "waterball", 100, "vertical" )
+    x = self:GetX() + self.mW / 2
+    y = self:GetY() + self.mH + 5
+    AttackGenerator:GenerateAttack( x, y, "Waterball", 100, "vertical" )
 end
 
 

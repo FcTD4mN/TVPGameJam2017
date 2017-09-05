@@ -80,7 +80,7 @@ function  Ray:Update( iDT )
 
     for i = 1, ObjectPool.Count() do
 
-        local fixtures = ObjectPool.ObjectAtIndex( i ).body:getFixtureList()
+        local fixtures = ObjectPool.ObjectAtIndex( i ).mBody:getFixtureList()
         for k,v in pairs( fixtures ) do
 
             -- 5th parameter is the max fraction as a scale of line length, so, we want its length to be 1.0 of the line length

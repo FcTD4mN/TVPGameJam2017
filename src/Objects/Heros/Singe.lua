@@ -6,7 +6,9 @@ local ObjectPool        = require "src/Objects/Pools/ObjectPool"
 local MonkeySpells      = require "src/Interface/MonkeySpells"
 
 
-local Singe = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
+local Singe = {}
+setmetatable( Singe, Object )
+Object.__index = Object
 
 
 -- ==========================================Constructor/Destructor
@@ -14,63 +16,61 @@ local Singe = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )
 
 function Singe:New( iWorld, iX, iY )
     local newSinge = {}
-    setmetatable( newSinge, self )
-    self.__index = self
+    setmetatable( newSinge, Singe )
+    Singe.__index = Singe
 
-    newSinge.w = 90
-    newSinge.h = 120
+    newSinge:BuildSinge( iWorld, iX, iY )
 
-    --inherited values
-    newSinge.body     = love.physics.newBody( iWorld, iX + newSinge.w/2, iY + newSinge.h/2, "dynamic" )
-    newSinge.body:setFixedRotation( true )
+    return newSinge
+end
 
-    stickyShape     = love.physics.newRectangleShape( newSinge.w - 30, newSinge.h )
-    fixture         = love.physics.newFixture( newSinge.body, stickyShape )
+
+function  Singe:BuildSinge( iWorld, iX, iY )
+
+    self:BuildObject( iWorld, iX, iY, 90, 120, "dynamic", true )
+    self.mBody:setGravityScale( 1.0 )
+
+    local stickyShape    = love.physics.newRectangleShape( self.mW - 30, self.mH )
+    local fixture  = love.physics.newFixture( self.mBody, stickyShape )
     fixture:setFriction( 1.0 )
-    fixture:setUserData( newSinge )
+    fixture:setUserData( self )
 
-    slipperyShape   = love.physics.newRectangleShape( newSinge.w - 25, newSinge.h - 5 )
-    fixture         = love.physics.newFixture( newSinge.body, slipperyShape )
+    local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
+    fixture  = love.physics.newFixture( self.mBody, slipperyShape )
     fixture:setFriction( 0.0 )
-    fixture:setUserData( newSinge )
-
-    newSinge.animations         = {}
-    newSinge.currentAnimation   = 0
+    fixture:setUserData( self )
 
     --Singe values
-    newSinge.canJump    = false
-    newSinge.direction  = 0
-    newSinge.moving     = false
-    newSinge.attacking  = false
+    self.mCanJump    = false
+    self.mDirection  = 0
+    self.mMoving     = false
+    self.mAttacking  = false
 
-    newSinge.sounds         = {}
-    newSinge.sounds.step    = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
-    newSinge.sounds.jump    = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
-    newSinge.sounds.step:setLooping( true )
-    newSinge.sounds.jump:setVolume(0.4)
+    self.mSounds         = {}
+    self.mSounds.step    = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
+    self.mSounds.jump    = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
+    self.mSounds.step:setLooping( true )
+    self.mSounds.jump:setVolume(0.4)
 
     --Animations
     local animCourse        = love.graphics.newImage( "resources/Animation/Characters/singe-course.png" )
     local animSaut          = love.graphics.newImage( "resources/Animation/Characters/singe-saut.png" )
     local animInactif       = love.graphics.newImage( "resources/Animation/Characters/singe-inactif-tout.png" )
     local animInvocation    = love.graphics.newImage( "resources/Animation/Characters/singe-invocation.png" )
-    newSinge:AddAnimation( animCourse, 14, 24, false, false )   --1
-    newSinge:AddAnimation( animCourse, 14, 24, true, false )    --2
-    newSinge:AddAnimation( animSaut, 1, 24, false, false )      --3
-    newSinge:AddAnimation( animSaut, 1, 24, true, false )       --4
-    newSinge:AddAnimation( animInactif, 18, 24, false, false )  --5
-    newSinge:AddAnimation( animInactif, 18, 24, true, false )   --6
-    newSinge:AddAnimation( animInvocation, 7, 24, false, false )--7
-    newSinge:AddAnimation( animInvocation, 7, 24, true, false ) --8
+    self:AddAnimation( animCourse, 14, 24, false, false )   --1
+    self:AddAnimation( animCourse, 14, 24, true, false )    --2
+    self:AddAnimation( animSaut, 1, 24, false, false )      --3
+    self:AddAnimation( animSaut, 1, 24, true, false )       --4
+    self:AddAnimation( animInactif, 18, 24, false, false )  --5
+    self:AddAnimation( animInactif, 18, 24, true, false )   --6
+    self:AddAnimation( animInvocation, 7, 24, false, false )--7
+    self:AddAnimation( animInvocation, 7, 24, true, false ) --8
 
-    newSinge:PlayAnimation( 5, 0 )
-
-    ObjectPool.AddObject( newSinge )
+    self:PlayAnimation( 5, 0 )
 
     -- Images
-    MonkeySpells.Initialize()
+    MonkeySpells.Initialize() --TODO: move that thing elsewhere
 
-    return newSinge
 end
 
 
@@ -87,7 +87,7 @@ end
 
 function Singe:Update( dt )
     -- Key holding detection
-    if not self.attacking then
+    if not self.mAttacking then
         if love.keyboard.isDown( "left" ) then
             self:RunLeft()
         elseif love.keyboard.isDown( "right" ) then
@@ -95,49 +95,49 @@ function Singe:Update( dt )
         end
     end
 
-    local contacts = self.body:getContactList()
+    local contacts = self.mBody:getContactList()
     if #contacts > 0 then
-        self.canJump = false
+        self.mCanJump = false
         for k, v in pairs( contacts ) do
             if v:isTouching() then
-                self.canJump = true
+                self.mCanJump = true
                 break
             end
         end
     else
-        self.canJump = false
+        self.mCanJump = false
     end
 
-    if self.attacking then
-        if self.direction == 0 then
+    if self.mAttacking then
+        if self.mDirection == 0 then
             self:PlayAnimation( 7, 0 )
             self:Attack( 500 )
         end
-        if self.direction == 1 then
+        if self.mDirection == 1 then
             self:PlayAnimation( 8, 0 )
             self:Attack( -500 )
         end
-    elseif self.canJump then
-        if self.moving then
-            if self.direction == 0 then
+    elseif self.mCanJump then
+        if self.mMoving then
+            if self.mDirection == 0 then
                 self:PlayAnimation( 1, 0 )
             end
-            if self.direction == 1 then
+            if self.mDirection == 1 then
                 self:PlayAnimation( 2, 0 )
             end
         else
-            if self.direction == 0 then
+            if self.mDirection == 0 then
                 self:PlayAnimation( 5, 0 )
             end
-            if self.direction == 1 then
+            if self.mDirection == 1 then
                 self:PlayAnimation( 6, 0 )
             end
         end
     else
-        if self.direction == 0 then
+        if self.mDirection == 0 then
             self:PlayAnimation( 3, 0 )
         end
-        if self.direction == 1 then
+        if self.mDirection == 1 then
             self:PlayAnimation( 4, 0 )
         end
     end
@@ -156,46 +156,46 @@ end
 
 
 function Singe:Jump()
-    vx, vy = self.body:getLinearVelocity()
-    self.body:setLinearVelocity( vx, -400 )
-    self.canJump = false
-    love.audio.play( self.sounds.jump )
+    vx, vy = self.mBody:getLinearVelocity()
+    self.mBody:setLinearVelocity( vx, -400 )
+    self.mCanJump = false
+    love.audio.play( self.mSounds.jump )
 end
 
 
 function Singe:RunRight()
-    vx, vy = self.body:getLinearVelocity()
-    self.body:setLinearVelocity( 300, vy )
-    self.direction = 0
-    self.moving = true
-    if self.canJump then
-        love.audio.play( self.sounds.step )
+    vx, vy = self.mBody:getLinearVelocity()
+    self.mBody:setLinearVelocity( 300, vy )
+    self.mDirection = 0
+    self.mMoving = true
+    if self.mCanJump then
+        love.audio.play( self.mSounds.step )
     end
 end
 
 
 function Singe:RunLeft()
-    vx, vy = self.body:getLinearVelocity()
-    self.body:setLinearVelocity( -300, vy )
-    self.direction = 1
-    self.moving = true
-    if self.canJump then
-        love.audio.play( self.sounds.step )
+    vx, vy = self.mBody:getLinearVelocity()
+    self.mBody:setLinearVelocity( -300, vy )
+    self.mDirection = 1
+    self.mMoving = true
+    if self.mCanJump then
+        love.audio.play( self.mSounds.step )
     end
 end
 
 
 function Singe:StopRunning()
-    vx, vy = self.body:getLinearVelocity()
-    self.body:setLinearVelocity( 0, vy )
-    self.moving = false
+    vx, vy = self.mBody:getLinearVelocity()
+    self.mBody:setLinearVelocity( 0, vy )
+    self.mMoving = false
 
-    love.audio.stop( self.sounds.step )
+    love.audio.stop( self.mSounds.step )
 end
 
 
 function  Singe:Attack( iVel )
-    shift = self.w
+    shift = self.mW
     xShift = 5
 
     if iVel < 0 then
@@ -205,15 +205,15 @@ function  Singe:Attack( iVel )
 
     x = self:GetX() + shift
     y = self:GetY()
-    AttackGenerator:GenerateAttack( x + xShift, y, "fireball", iVel )
+    AttackGenerator:GenerateAttack( x + xShift, y, "Fireball", iVel )
 end
 
 
 function Singe:KeyPressed( key, scancode, isrepeat )
     if key == "rctrl" then
-        self.attacking = true
+        self.mAttacking = true
         self:StopRunning()
-    elseif key == "up" and not isrepeat and self.canJump then
+    elseif key == "up" and not isrepeat and self.mCanJump then
         self:Jump()
     end
 end
@@ -221,7 +221,7 @@ end
 
 function Singe:KeyReleased( key, scancode )
     if key == "rctrl" then
-        self.attacking = false
+        self.mAttacking = false
     end
     if key == "left" then
         self:StopRunning()
