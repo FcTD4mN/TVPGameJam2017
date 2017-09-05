@@ -16,8 +16,8 @@ local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 
 --TESTS
 local Ray               = require "src/Objects/Rays/Ray"
-local CollidePool       = require "src/Objects/CollidePool"
-local ObjectPool        = require "src/Objects/ObjectPool"
+local CollidePool       = require "src/Objects/Pools/CollidePool"
+local ObjectPool        = require "src/Objects/Pools/ObjectPool"
 local Vector            = require "src/Math/Vector"
 
 

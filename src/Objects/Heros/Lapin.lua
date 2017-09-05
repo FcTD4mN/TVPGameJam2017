@@ -2,7 +2,7 @@
 local AttackGenerator   = require "src/Game/AttackGenerator"
 local Camera            = require "src/Camera/Camera"
 local Object            = require "src/Objects/Object"
-local ObjectPool        = require "src/Objects/ObjectPool"
+local ObjectPool        = require "src/Objects/Pools/ObjectPool"
 local RabbitSpells      = require "src/Interface/RabbitSpells"
 
 local Lapin = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )

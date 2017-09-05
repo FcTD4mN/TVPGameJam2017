@@ -1,6 +1,6 @@
 local   Camera      = require( "src/Camera/Camera" )
 local   Object      = require( "src/Objects/Object" )
-        ObjectPool  = require( "src/Objects/ObjectPool" )
+        ObjectPool  = require( "src/Objects/Pools/ObjectPool" )
 local   Vector      = require( "src/Math/Vector" )
 
 

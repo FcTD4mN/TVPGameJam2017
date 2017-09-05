@@ -1,6 +1,6 @@
 
 local Object = require "src/Objects/Object"
-local ObjectPool        = require "src/Objects/ObjectPool"
+local ObjectPool        = require "src/Objects/Pools/ObjectPool"
 
 
 local Object_Box = Object:New( 0, 0, 0, 0, 0, 0, 0, 0 )

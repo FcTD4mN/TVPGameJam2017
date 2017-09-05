@@ -1,5 +1,5 @@
-local ObjectPool            = require "src/Objects/ObjectPool"
-local CollidePool           = require "src/Objects/CollidePool"
+local ObjectPool            = require "src/Objects/Pools/ObjectPool"
+local CollidePool           = require "src/Objects/Pools/CollidePool"
 
 
 local LevelBase = {}

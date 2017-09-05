@@ -3,7 +3,7 @@
 
 
 local   Object      = require( "src/Objects/Object" )
-        ObjectPool  = require "src/Objects/ObjectPool"
+        ObjectPool  = require "src/Objects/Pools/ObjectPool"
 
 
 local Probe = {}
