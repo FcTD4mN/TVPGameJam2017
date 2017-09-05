@@ -1,5 +1,6 @@
-local ObjectPool            = require "src/Objects/Pools/ObjectPool"
-local CollidePool           = require "src/Objects/Pools/CollidePool"
+local ObjectPool    = require "src/Objects/Pools/ObjectPool"
+local CollidePool   = require "src/Objects/Pools/CollidePool"
+local RayPool       = require "src/Objects/Pools/RayPool"
 
 
 local LevelBase = {}
@@ -54,6 +55,7 @@ function  LevelBase:Update( iDT )
     self.mWorld:update( iDT )
     CollidePool.Update( iDT )
     ObjectPool.Update( iDT )
+    RayPool.Update( iDT )
 
     for k,v in pairs( self.mForegrounds ) do
         v:Update( iDT )
@@ -72,6 +74,7 @@ function  LevelBase:Draw()
     end
 
     ObjectPool.Draw()
+    RayPool.Draw()
 
     for k,v in pairs( self.mForegrounds ) do
         v:Draw()

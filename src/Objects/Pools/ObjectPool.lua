@@ -30,7 +30,7 @@ end
 
 function ObjectPool.Draw()
     for k, v in pairs( ObjectPool.objects ) do
-        v:Draw( iDT )
+        v:Draw()
     end
 end
 

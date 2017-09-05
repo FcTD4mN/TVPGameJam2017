@@ -1,6 +1,7 @@
 local   Camera      = require( "src/Camera/Camera" )
 local   Object      = require( "src/Objects/Object" )
         ObjectPool  = require( "src/Objects/Pools/ObjectPool" )
+        RayPool     = require( "src/Objects/Pools/RayPool" )
 local   Vector      = require( "src/Math/Vector" )
 
 
@@ -49,6 +50,8 @@ function  Ray:BuildRay( iX, iY, iDirectionVector, iWidth, iLength )
 
     self.mAnimations = {}
     self.mCurrentAnimation = 0
+
+    RayPool.AddRay( self )
 
 end
 

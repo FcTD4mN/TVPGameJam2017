@@ -16,8 +16,6 @@ local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 
 --TESTS
 local Ray               = require "src/Objects/Rays/Ray"
-local CollidePool       = require "src/Objects/Pools/CollidePool"
-local ObjectPool        = require "src/Objects/Pools/ObjectPool"
 local Vector            = require "src/Math/Vector"
 
 
@@ -129,43 +127,12 @@ end
 -- ==========================================Update/Draw
 
 
-function  Level1:Update( iDT )
-
-    for k,v in pairs( self.mBackgrounds ) do
-        v:Update( iDT )
-    end
-
-    self.mWorld:update( iDT )
-    CollidePool.Update( iDT )
-    ObjectPool.Update( iDT )
-
-    for k,v in pairs( self.mForegrounds ) do
-        v:Update( iDT )
-    end
-
-    ray:Update( iDT )
-
-    self:UpdateCamera()
-
-end
+-- function  Level1:Update( iDT )
+-- end
 
 
-function  Level1:Draw()
-
-    self.mFixedBackground:Draw( 0, 0 )
-
-    for k,v in pairs( self.mBackgrounds ) do
-        v:Draw()
-    end
-
-    ObjectPool.Draw()
-
-    for k,v in pairs( self.mForegrounds ) do
-        v:Draw()
-    end
-
-    ray:Draw()
-end
+-- function  Level1:Draw()
+-- end
 
 
 -- ==========================================Level1 functions
