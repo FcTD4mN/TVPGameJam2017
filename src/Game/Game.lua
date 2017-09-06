@@ -15,7 +15,6 @@ local Terrain               = require "src/Objects/Terrain"
 local Level1                = require "src/Game/Level/Level1"
 
 
-
 local Game = {}
 
 function beginContact( a, b, coll )

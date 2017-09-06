@@ -4,7 +4,7 @@ Camera = {
     y = 0,
     w = 0,
     h = 0,
-    scale = 1.0 -- == ZoomAmount, scale is equal on X and Y
+    scale = 0.5 -- == ZoomAmount, scale is equal on X and Y
 }
 
 
@@ -38,16 +38,25 @@ function  Camera.MapToScreenMultiple( ... )
 
     -- return  results
     return  unpack( results )
+
 end
 
 
 function  Camera.Scale()
+
     return  Camera.scale
+
 end
 
 
 function  Camera.MapToWorld( iX, iY )
-    return  iX + Camera.x, iY + Camera.y
+
+    deltaW = ( Camera.w - Camera.w * Camera.scale ) / 2
+    deltaH = ( Camera.h - Camera.h * Camera.scale ) / 2
+
+    return  ( iX + ( ( Camera.x * Camera.scale ) - deltaW ) ) / Camera.scale,
+            ( iY + ( ( Camera.y * Camera.scale ) - deltaH ) ) / Camera.scale
+
 end
 
 
