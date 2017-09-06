@@ -72,6 +72,10 @@ function Level1:Initialize()
     --TESTS
     ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
 
+    --CAMERA
+    Camera.w = love.graphics.getWidth()
+    Camera.h = love.graphics.getHeight()
+
     -- love.audio.play( music )
 end
 

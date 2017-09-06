@@ -64,6 +64,15 @@ end
 function Game:Update( dt )
 
     Level1:Update( dt )
+
+    if love.keyboard.isDown( "o" )  then
+        Camera.scale = Camera.scale + 0.01
+    elseif love.keyboard.isDown( "l" )  then
+        Camera.scale = Camera.scale - 0.01
+    elseif love.keyboard.isDown( "p" )  then
+        Camera.scale = 1.0
+    end
+
     return 1
 
 end
@@ -80,13 +89,7 @@ end
 
 function Game:KeyPressed( iKey, iScancode, iIsRepeat )
 
-    if iKey == "o" and not iIsRepeat  then
-        Camera.scale = Camera.scale + 0.01
-    elseif iKey == "l" and not iIsRepeat then
-        Camera.scale = Camera.scale - 0.01
-    else
-        Level1:KeyPressed( iKey, iScancode, iIsRepeat )
-    end
+    Level1:KeyPressed( iKey, iScancode, iIsRepeat )
 
 end
 
