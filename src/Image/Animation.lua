@@ -109,23 +109,17 @@ function Animation:Draw()
         local scaleX = math.min( w/self.quadW, h/self.quadH )
         local scaleY = scaleX
         if self.flipX then
-            x = x + self.w
             scaleX = -scaleX
         end
         if self.flipY then
-            y = y + self.h
             scaleY = -scaleY
         end
         x, y = Camera.MapToScreen( x, y )
-        currentQuad = self.quads[ self.currentquad ]
-
-        --love.graphics.draw( self.image, currentQuad, x, y, self.angleInRad, scaleX, scaleY )
+        local currentQuad = self.quads[ self.currentquad ]
 
         local quadInBigImage = self.bigImage:Image( currentQuad )
         local defaultQuad = love.graphics.newQuad( 0, 0, self.quadW, self.quadH, self.quadW, self.quadH )
-        love.graphics.draw( quadInBigImage, defaultQuad, x, y, self.angleInRad, scaleX, scaleY )
-
-
+        love.graphics.draw( quadInBigImage, defaultQuad, x + self.w / 2, y + self.h / 2, self.angleInRad, scaleX, scaleY, self.quadW / 2, self.quadH / 2 )
     end
 end
 

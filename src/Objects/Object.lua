@@ -89,7 +89,7 @@ function Object:UpdateObject( iDT )
     end
 
     if self.mCurrentAnimation > 0 then
-        self.mAnimations[self.mCurrentAnimation]:Update( iDT, self:GetX(), self:GetY() )
+        self.mAnimations[self.mCurrentAnimation]:Update( iDT, self:GetX(), self:GetY(), self.mW, self.mH, self.mBody:getAngle() )
     end
 end
 
