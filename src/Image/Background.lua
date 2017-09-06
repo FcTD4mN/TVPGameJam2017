@@ -40,8 +40,8 @@ function  Background:Draw()
     love.graphics.setColor( 255, 255, 255, 255 )
     x, y = Camera.MapToScreen( self.x, self.y )
     --love.graphics.draw( self.image, x, y )
-    
-    self.bigImage:Draw( x, y)
+
+    self.bigImage:Draw( x, y )
 end
 
 

@@ -29,6 +29,8 @@ function  FixedImage:Draw()
 
     if( self.lockedOnScreen == false ) then
         x, y = Camera.MapToScreen( x, y )
+        scaleX = scaleX * Camera.scale
+        scaleY = scaleY * Camera.scale
     end
 
     love.graphics.setColor( 255, 255, 255, 255 )
