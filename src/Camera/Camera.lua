@@ -4,7 +4,7 @@ Camera = {
     y = 0,
     w = 0,
     h = 0,
-    scale = 0.5 -- == ZoomAmount, scale is equal on X and Y
+    scale = 1.0 -- == ZoomAmount, scale is equal on X and Y
 }
 
 
