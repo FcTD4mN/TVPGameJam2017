@@ -104,9 +104,9 @@ function Animation:Draw()
 
         local x = self.x
         local y = self.y
-        local w = self.w
-        local h = self.h
-        local scaleX = math.min( w/self.quadW, h/self.quadH )
+        local w = self.w * Camera.scale
+        local h = self.h * Camera.scale
+        local scaleX = math.min( w/self.quadW, h/self.quadH ) * Camera.scale
         local scaleY = scaleX
         if self.flipX then
             scaleX = -scaleX

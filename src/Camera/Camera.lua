@@ -1,12 +1,13 @@
 
 local Camera = {
     x = 0,
-    y = 0
+    y = 0,
+    scale = 1.0 -- == ZoomAmount, scale is equal on X and Y
 }
 
 
 function  Camera.MapToScreen( iX, iY )
-    return  iX - Camera.x, iY - Camera.y
+    return  ( iX - Camera.x ) * Camera.scale, ( iY - Camera.y ) * Camera.scale
 end
 
 
@@ -31,6 +32,10 @@ function  Camera.MapToScreenMultiple( ... )
     return  unpack( results )
 end
 
+
+function  Camera.Scale()
+    return  Camera.scale
+end
 
 
 function  Camera.MapToWorld( iX, iY )

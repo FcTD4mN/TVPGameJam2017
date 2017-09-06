@@ -78,8 +78,16 @@ end
 
 
 
-function Game:KeyPressed( key, scancode, isrepeat )
-    Level1:KeyPressed( key, scancode, isrepeat )
+function Game:KeyPressed( iKey, iScancode, iIsRepeat )
+
+    if iKey == "o" and not iIsRepeat  then
+        Camera.scale = Camera.scale + 0.01
+    elseif iKey == "l" and not iIsRepeat then
+        Camera.scale = Camera.scale - 0.01
+    else
+        Level1:KeyPressed( iKey, iScancode, iIsRepeat )
+    end
+
 end
 
 function Game:KeyReleased( key, scancode )
