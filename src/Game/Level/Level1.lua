@@ -73,7 +73,7 @@ function Level1:Initialize()
 
     --TESTS
     ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
-    -- self.mMiniMap = MiniMap:New( 10, 10, 500, 200, 0.2 )
+    self.mMiniMap = MiniMap:New( 10, 10, 500, 200, 0.2 )
 
     -- love.audio.play( music )
 end

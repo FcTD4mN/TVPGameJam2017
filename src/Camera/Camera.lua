@@ -28,8 +28,6 @@ function  Camera:BuildCamera( iX, iY, iW, iH, iScale )
 end
 
 
-
-
 function  Camera:MapToScreen( iX, iY )
 
     deltaW = ( self.mW - self.mW * self.mScale ) / 2

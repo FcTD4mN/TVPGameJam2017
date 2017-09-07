@@ -116,14 +116,16 @@ function Object:DrawObject( iCamera )
 end
 
 
-function Object:DrawObjectOnMiniMap( iCamera )
+function Object:DrawObjectOnMiniMap( iMiniMap )
 
     if not self.mBody then
         return
     end
 
+    x, y = iMiniMap:MapToScreen( self:GetX(), self:GetY() )
+
     love.graphics.setColor( 20,50,200 )
-    love.graphics.rectangle( "fill", iCamera:MapToScreenMultiple( self:GetX(), self:GetY(), self.mW, self.mH ) )
+    love.graphics.rectangle( "fill", x, y, self.mW * iMiniMap.mCamera.mScale, self.mH * iMiniMap.mCamera.mScale )
 
 end
 

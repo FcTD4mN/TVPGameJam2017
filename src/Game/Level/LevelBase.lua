@@ -90,9 +90,8 @@ function  LevelBase:Draw()
 
     if( self.mMiniMap ) then
 
-        self.mMiniMap:Draw()
-        ObjectPool.DrawToMiniMap( self.mMiniMap.mCamera )
-        -- RayPool.Draw( self.mMiniMap.mCamera )
+        self.mMiniMap:Draw( self.mCamera )
+        ObjectPool.DrawToMiniMap( self.mMiniMap )
 
     end
 
