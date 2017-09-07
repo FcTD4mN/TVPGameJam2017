@@ -56,8 +56,8 @@ function WaterPipe:Update( iDT )
 end
 
 
-function WaterPipe:Draw()
-    self:DrawObject()
+function WaterPipe:Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 

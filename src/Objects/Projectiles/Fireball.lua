@@ -57,8 +57,8 @@ function Fireball:Update( dt )
     self:UpdateObject( dt )
 end
 
-function Fireball:Draw()
-    self:DrawObject()
+function Fireball:Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 

@@ -57,8 +57,8 @@ function Object_Box:Update( iDT )
 end
 
 
-function Object_Box:Draw()
-    self:DrawObject()
+function Object_Box:Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 return Object_Box

@@ -83,7 +83,15 @@ end
 -- ==========================================Update/Draw
 
 
+function  Object:DrawToMiniMap( iCamera )
+
+    self:DrawObjectOnMiniMap( iCamera )
+
+end
+
+
 function Object:UpdateObject( iDT )
+
     if not self.mBody then
         return
     end
@@ -91,18 +99,31 @@ function Object:UpdateObject( iDT )
     if self.mCurrentAnimation > 0 then
         self.mAnimations[self.mCurrentAnimation]:Update( iDT, self:GetX(), self:GetY(), self.mW, self.mH, self.mBody:getAngle() )
     end
+
 end
 
 
-function Object:DrawObject()
+function Object:DrawObject( iCamera )
 
     if not self.mBody then
         return
     end
 
     if self.mCurrentAnimation > 0 then
-        self.mAnimations[ self.mCurrentAnimation ]:Draw()
+        self.mAnimations[ self.mCurrentAnimation ]:Draw( iCamera )
     end
+
+end
+
+
+function Object:DrawObjectOnMiniMap( iCamera )
+
+    if not self.mBody then
+        return
+    end
+
+    love.graphics.setColor( 20,50,200 )
+    love.graphics.rectangle( "fill", iCamera:MapToScreenMultiple( self:GetX(), self:GetY(), self.mW, self.mH ) )
 
 end
 

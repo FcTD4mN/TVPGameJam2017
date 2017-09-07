@@ -5,9 +5,11 @@ local AttackGenerator       = require "src/Game/AttackGenerator"
 local BabyTree              = require "src/Objects/Environnement/BabyTree"
 local Background            = require "src/Image/Background"
 local BigImage              = require "src/Image/BigImage"
+local Camera                = require "src/Camera/Camera"
 local GrownTree             = require "src/Objects/Environnement/GrownTree"
 local ImageShapeComputer    = require "src/Image/ImageShapeComputer"
 local Lapin                 = require "src/Objects/Heros/Lapin"
+local MiniMap               = require "src/Camera/MiniMap"
 local Singe                 = require "src/Objects/Heros/Singe"
 local Terrain               = require "src/Objects/Terrain"
 local Tree                  = require "src/Objects/Environnement/Tree"
@@ -27,22 +29,22 @@ LevelBase.__index = LevelBase
 -- ==========================================Build/Destroy
 
 
-function Level1:New( iWorld )
+function Level1:New( iWorld, iCamera )
 
     newLevel1 = {}
     setmetatable( newLevel1, Level1 )
     Level1.__index = Level1
 
-    Level1:BuildLevel1( iWorld )
+    Level1:BuildLevel1( iWorld, iCamera )
 
     return  newLevel1
 
 end
 
 
-function  Level1:BuildLevel1( iWorld )
+function  Level1:BuildLevel1( iWorld, iCamera )
 
-    self:BuildLevelBase( iWorld )
+    self:BuildLevelBase( iWorld, iCamera )
     self:Initialize()
 
 end
@@ -71,10 +73,7 @@ function Level1:Initialize()
 
     --TESTS
     ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
-
-    --CAMERA
-    Camera.w = love.graphics.getWidth()
-    Camera.h = love.graphics.getHeight()
+    -- self.mMiniMap = MiniMap:New( 10, 10, 500, 200, 0.2 )
 
     -- love.audio.play( music )
 end

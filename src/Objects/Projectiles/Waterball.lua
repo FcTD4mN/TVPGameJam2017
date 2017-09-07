@@ -61,8 +61,8 @@ function Waterball:Update( iDT )
 end
 
 
-function Waterball:Draw()
-    self:DrawObject()
+function Waterball:Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 

@@ -60,8 +60,8 @@ function GrownTree:Update( iDT )
 end
 
 
-function GrownTree:Draw()
-    self:DrawObject()
+function GrownTree:Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 return GrownTree

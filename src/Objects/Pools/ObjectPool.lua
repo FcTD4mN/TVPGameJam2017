@@ -28,9 +28,16 @@ function ObjectPool.Update( iDT )
 end
 
 
-function ObjectPool.Draw()
+function ObjectPool.Draw( iCamera )
     for k, v in pairs( ObjectPool.objects ) do
-        v:Draw()
+        v:Draw( iCamera )
+    end
+end
+
+
+function ObjectPool.DrawToMiniMap( iCamera )
+    for k, v in pairs( ObjectPool.objects ) do
+        v:DrawToMiniMap( iCamera )
     end
 end
 

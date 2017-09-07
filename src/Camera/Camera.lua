@@ -1,26 +1,48 @@
 
-Camera = {
-    x = 0,
-    y = 0,
-    w = 0,
-    h = 0,
-    scale = 1.0 -- == ZoomAmount, scale is equal on X and Y
-}
+
+local Camera = {}
 
 
-function  Camera.MapToScreen( iX, iY )
+function  Camera:New( iX, iY, iW, iH, iScale )
 
-    deltaW = ( Camera.w - Camera.w * Camera.scale ) / 2
-    deltaH = ( Camera.h - Camera.h * Camera.scale ) / 2
+    newCamera = {}
+    setmetatable( newCamera, Camera )
+    Camera.__index = Camera
 
-    return  ( iX * Camera.scale ) - ( Camera.x * Camera.scale ) + deltaW,
-            ( iY * Camera.scale ) - ( Camera.y * Camera.scale ) + deltaH
+    newCamera:BuildCamera( iX, iY, iW, iH, iScale )
+
+    return  newCamera
+
+end
+
+
+function  Camera:BuildCamera( iX, iY, iW, iH, iScale )
+
+    self.mX = iX
+    self.mY = iY
+    self.mW = iW
+    self.mH = iH
+
+    self.mScale = iScale
+
+end
+
+
+
+
+function  Camera:MapToScreen( iX, iY )
+
+    deltaW = ( self.mW - self.mW * self.mScale ) / 2
+    deltaH = ( self.mH - self.mH * self.mScale ) / 2
+
+    return  ( iX * self.mScale ) - ( self.mX * self.mScale ) + deltaW,
+            ( iY * self.mScale ) - ( self.mY * self.mScale ) + deltaH
 
 end
 
 
 -- To interface Box2d
-function  Camera.MapToScreenMultiple( ... )
+function  Camera:MapToScreenMultiple( ... )
     count = select("#", ... )
 
     if( count % 2 ~= 0 ) then
@@ -31,7 +53,7 @@ function  Camera.MapToScreenMultiple( ... )
     for i = 1, count, 2 do
         x = select( i, ... )
         y = select( i + 1, ... )
-        x, y = Camera.MapToScreen( x, y )
+        x, y = self:MapToScreen( x, y )
         table.insert( results, x )
         table.insert( results, y )
     end
@@ -42,20 +64,20 @@ function  Camera.MapToScreenMultiple( ... )
 end
 
 
-function  Camera.Scale()
+function  Camera:Scale()
 
-    return  Camera.scale
+    return  self.mScale
 
 end
 
 
-function  Camera.MapToWorld( iX, iY )
+function  Camera:MapToWorld( iX, iY )
 
-    deltaW = ( Camera.w - Camera.w * Camera.scale ) / 2
-    deltaH = ( Camera.h - Camera.h * Camera.scale ) / 2
+    deltaW = ( self.mW - self.mW * self.mScale ) / 2
+    deltaH = ( self.mH - self.mH * self.mScale ) / 2
 
-    return  ( iX + ( ( Camera.x * Camera.scale ) - deltaW ) ) / Camera.scale,
-            ( iY + ( ( Camera.y * Camera.scale ) - deltaH ) ) / Camera.scale
+    return  ( iX + ( ( self.mX * self.mScale ) - deltaW ) ) / self.mScale,
+            ( iY + ( ( self.mY * self.mScale ) - deltaH ) ) / self.mScale
 
 end
 

@@ -146,9 +146,9 @@ function Singe:Update( dt )
 end
 
 
-function Singe:Draw()
-    MonkeySpells.Draw()
-    self:DrawObject()
+function Singe:Draw( iCamera )
+    MonkeySpells.Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 

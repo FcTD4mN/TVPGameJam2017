@@ -32,14 +32,13 @@ function  Background:Type()
     return "Background"
 end
 
-function  Background:Update( iDT )
-    self.x = self.originX + self.depth * Camera.x
+function  Background:Update( iDT, iCamera )
+    self.x = self.originX + self.depth * iCamera.mX
 end
 
-function  Background:Draw()
+function  Background:Draw( iCamera )
     love.graphics.setColor( 255, 255, 255, 255 )
-    x, y = Camera.MapToScreen( self.x, self.y )
-    --love.graphics.draw( self.image, x, y )
+    x, y = iCamera:MapToScreen( self.x, self.y )
 
     self.bigImage:Draw( x, y )
 end

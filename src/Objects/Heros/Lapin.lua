@@ -146,9 +146,9 @@ function Lapin:Update( iDT )
 end
 
 
-function Lapin:Draw()
-    RabbitSpells.Draw()
-    self:DrawObject()
+function Lapin:Draw( iCamera )
+    RabbitSpells.Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 

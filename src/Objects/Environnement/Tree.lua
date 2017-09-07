@@ -60,8 +60,8 @@ function Tree:Update( iDT )
 end
 
 
-function Tree:Draw()
-    self:DrawObject()
+function Tree:Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 

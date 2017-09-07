@@ -60,7 +60,7 @@ function  Probe:Update( iDT )
 end
 
 
-function  Probe:Draw()
+function  Probe:Draw( iCamera )
 end
 
 

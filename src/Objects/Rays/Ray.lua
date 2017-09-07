@@ -106,10 +106,10 @@ function  Ray:Update( iDT )
 end
 
 
-function  Ray:Draw()
+function  Ray:Draw( iCamera )
 
     love.graphics.setColor( 255, 20, 20 )
-    love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.mBottomXStart, self.mBottomYStart, self.mTopXStart, self.mTopYStart, self.mTopEndX, self.mTopEndY, self.mBottomEndX, self.mBottomEndY ) )
+    love.graphics.polygon( "fill", iCamera:MapToScreenMultiple( self.mBottomXStart, self.mBottomYStart, self.mTopXStart, self.mTopYStart, self.mTopEndX, self.mTopEndY, self.mBottomEndX, self.mBottomEndY ) )
 
 end
 

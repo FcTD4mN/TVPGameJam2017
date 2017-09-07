@@ -97,15 +97,15 @@ function Animation:Update( dt, x, y, w, h, angleInRad )
 end
 
 
-function Animation:Draw()
+function Animation:Draw( iCamera )
     if self.display then
         love.graphics.setColor( 255, 255, 255, 255 )
         --print( self.currentquad )
 
         local x = self.x
         local y = self.y
-        local w = self.w * Camera.scale
-        local h = self.h * Camera.scale
+        local w = self.w * iCamera.mScale
+        local h = self.h * iCamera.mScale
         local scaleX = math.min( w/self.quadW, h/self.quadH )
         local scaleY = scaleX
         if self.flipX then
@@ -114,7 +114,7 @@ function Animation:Draw()
         if self.flipY then
             scaleY = -scaleY
         end
-        x, y = Camera.MapToScreen( x, y )
+        x, y = iCamera:MapToScreen( x, y )
         local currentQuad = self.quads[ self.currentquad ]
 
         local quadInBigImage = self.bigImage:Image( currentQuad )

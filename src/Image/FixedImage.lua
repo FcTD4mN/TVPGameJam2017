@@ -20,7 +20,7 @@ function FixedImage:New( iFile, iX, iY, iW, iH, iAngle, iLockedOnScreen )
 end
 
 
-function  FixedImage:Draw()
+function  FixedImage:Draw( iCamera )
 
     scaleX = self.w / self.image:getWidth()
     scaleY = self.h / self.image:getHeight()
@@ -28,9 +28,9 @@ function  FixedImage:Draw()
     y = self.y
 
     if( self.lockedOnScreen == false ) then
-        x, y = Camera.MapToScreen( x, y )
-        scaleX = scaleX * Camera.scale
-        scaleY = scaleY * Camera.scale
+        x, y = iCamera:MapToScreen( x, y )
+        scaleX = scaleX * iCamera.mScale
+        scaleY = scaleY * iCamera.mScale
     end
 
     love.graphics.setColor( 255, 255, 255, 255 )

@@ -27,9 +27,9 @@ function RayPool.Update( iDT )
 end
 
 
-function RayPool.Draw()
+function RayPool.Draw( iCamera )
     for k, v in pairs( RayPool.rays ) do
-        v:Draw()
+        v:Draw( iCamera )
     end
 end
 

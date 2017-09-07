@@ -55,7 +55,10 @@ function Game:Initialize()
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
     world:setCallbacks( beginContact, endContact, preSolve, postSolve )
 
-    local level1        =  Level1:New( world )
+    --CAMERA
+    self.mCamera = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 1.0 )
+
+    local level1        =  Level1:New( world, self.mCamera )
 
 end
 
@@ -65,11 +68,11 @@ function Game:Update( dt )
     Level1:Update( dt )
 
     if love.keyboard.isDown( "o" )  then
-        Camera.scale = Camera.scale + 0.01
+        self.mCamera.mScale = self.mCamera.mScale + 0.01
     elseif love.keyboard.isDown( "l" )  then
-        Camera.scale = Camera.scale - 0.01
+        self.mCamera.mScale = self.mCamera.mScale - 0.01
     elseif love.keyboard.isDown( "p" )  then
-        Camera.scale = 1.0
+        self.mCamera.mScale = 1.0
     end
 
     return 1
@@ -121,7 +124,7 @@ function Game:DEBUGWorldHITBOXESDraw( iWhatToDraw )
             -- POLYGONS
             if( v:getShape():getType() == "polygon" ) and ( iWhatToDraw == "all" or iWhatToDraw == "polygon"  ) then
 
-                love.graphics.polygon( "fill", Camera.MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
+                love.graphics.polygon( "fill", self.mCamera:MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
 
             -- CIRCLES
             elseif ( v:getShape():getType() == "circle" ) and ( iWhatToDraw == "all" or iWhatToDraw == "circle"  ) then
@@ -133,14 +136,14 @@ function Game:DEBUGWorldHITBOXESDraw( iWhatToDraw )
                 -- x, y are coordinates from the center of body, so we offset to match center in screen coordinates
                 x = x + xBody
                 y = y + yBody
-                x, y = Camera.MapToScreen( x, y )
+                x, y = self.mCamera:MapToScreen( x, y )
                 love.graphics.circle( "fill", x, y, radius )
 
             -- EDGES
             elseif ( v:getShape():getType() == "edge" ) and ( iWhatToDraw == "all" or iWhatToDraw == "edge"  ) then
 
                 love.graphics.setColor( 255, 0, 0, 200 )
-                love.graphics.line( Camera.MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
+                love.graphics.line( self.mCamera:MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
 
             -- CHAINS
             elseif ( v:getShape():getType() == "chain" ) and ( iWhatToDraw == "all" or iWhatToDraw == "chain"  ) then

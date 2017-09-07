@@ -67,8 +67,8 @@ function BabyTree:Update( iDT )
 end
 
 
-function BabyTree:Draw()
-    self:DrawObject()
+function BabyTree:Draw( iCamera )
+    self:DrawObject( iCamera )
 end
 
 
