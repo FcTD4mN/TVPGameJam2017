@@ -29,7 +29,7 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     
     newWidget.imageData = DrawFilledCircleAA( newWidget.imageData, newWidget.w / 2, newWidget.h / 2, 20, red);
 
-    newWidget.imageData = BoxBlur2( newWidget.imageData, 8);
+    newWidget.imageData = BoxBlur3( newWidget.imageData, 3, 3);
 
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )

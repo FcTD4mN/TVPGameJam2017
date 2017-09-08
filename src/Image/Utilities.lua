@@ -360,3 +360,12 @@ function BoxBlur2( iImageData, iRadius )
 
     return  result;
 end
+
+
+
+function BoxBlur3( iImageData, iRadius, iNpass ) -- Gaussian Approximation Blur
+    for i=1,iNpass,1 do
+        iImageData = BoxBlur2( iImageData, iRadius )
+    end
+    return iImageData
+end
