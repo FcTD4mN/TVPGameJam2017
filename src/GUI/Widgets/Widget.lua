@@ -76,9 +76,9 @@ end
 function Widget:Draw()
 
     love.graphics.setShader(shader_boxBlurH);
-    shader_boxBlurH:send("size", { newWidget.dropShadowImageData:getWidth(), newWidget.dropShadowImageData:getHeight() } );
+    shader_boxBlurH:send("size", { self.dropShadowImageData:getWidth(), self.dropShadowImageData:getHeight() } );
 
-    local tmpBuffer = love.graphics.newCanvas( newWidget.dropShadowImageData:getWidth(), newWidget.dropShadowImageData:getHeight() );
+    local tmpBuffer = love.graphics.newCanvas( self.dropShadowImageData:getWidth(), self.dropShadowImageData:getHeight() );
     love.graphics.setCanvas( tmpBuffer );
         love.graphics.clear();
         love.graphics.setBlendMode("alpha");
