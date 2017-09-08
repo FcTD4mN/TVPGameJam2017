@@ -18,12 +18,12 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.h         = ValidParameter( iH, "number", 0 );
     newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New( 255, 255, 255 ) );
 
-    newWidget.dropShadowSize    = 6;
+    newWidget.dropShadowSize    = 3;
     newWidget.dropShadowQuality = 2;
     newWidget.dropShadowShiftX  = newWidget.dropShadowSize / 2 + 1;
     newWidget.dropShadowShiftY  = newWidget.dropShadowSize / 3 + 1;
-    newWidget.dropShadowOpacity = 0.7;
-    newWidget.borderRadius      = 5;
+    newWidget.dropShadowOpacity = 2/3;
+    newWidget.borderRadius      = 2;
     newWidget.opacity           = 1;
     
     newWidget.dropShadowImageData = love.image.newImageData(    newWidget.w + ( newWidget.dropShadowSize * 2 ), 
@@ -35,7 +35,7 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
                                                                     newWidget.w + ( newWidget.dropShadowSize * 0 ) - 1, 
                                                                     newWidget.h + ( newWidget.dropShadowSize * 0 ) - 1, 
                                                                     newWidget.borderRadius, 
-                                                                    black );
+                                                                    W_COLOR_SHADOW );
     newWidget.dropShadowImageData = BoxBlur3(   newWidget.dropShadowImageData, 
                                                 newWidget.dropShadowSize / newWidget.dropShadowQuality, 
                                                 newWidget.dropShadowQuality);
@@ -44,8 +44,8 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
 
     newWidget.imageData = love.image.newImageData( newWidget.w, newWidget.h )
     newWidget.imageData = Fill( newWidget.imageData, ColorRGBA:New( 0, 0, 0, 0 ) );
-    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, grey1 );
-    newWidget.imageData = DrawOutlineRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, grey2 );
+    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, W_COLOR_FILL );
+    newWidget.imageData = DrawOutlineRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, W_COLOR_OUTLINE );
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )
 
