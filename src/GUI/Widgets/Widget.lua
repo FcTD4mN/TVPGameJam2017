@@ -11,11 +11,11 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     self.__index = self;
     self:Initialize();
 
-    shader = love.graphics.newShader("resources/Shaders/shader.fs")
+    shader_boxBlurH = love.graphics.newShader("resources/Shaders/BoxBlurHorizontal.fs")
+    shader_boxBlurV = love.graphics.newShader("resources/Shaders/BoxBlurVertical.fs")
 
-    --shader:send("size", {200, 200})
-    --shader:send("hstep", 1); 
-    --shader:send("vstep", 1); 
+    shader_boxBlurH:send("radius", 12);
+    shader_boxBlurV:send("radius", 12);
 
     newWidget.parent    = ValidParameter( iParent, "Widget", nil );
     newWidget.x         = ValidParameter( iX, "number", 0 );
@@ -44,9 +44,9 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
                                                                     newWidget.h + ( newWidget.dropShadowSize * 0 ) - 1, 
                                                                     newWidget.borderRadius, 
                                                                     W_COLOR_SHADOW );
-    newWidget.dropShadowImageData = BoxBlur3(   newWidget.dropShadowImageData, 
+    --[[newWidget.dropShadowImageData = BoxBlur3(   newWidget.dropShadowImageData, 
                                                 newWidget.dropShadowSize / newWidget.dropShadowQuality, 
-                                                newWidget.dropShadowQuality);
+                                                newWidget.dropShadowQuality);--]]
 
     newWidget.dropShadowImage = love.graphics.newImage( newWidget.dropShadowImageData )
 
@@ -73,18 +73,27 @@ end
 
 function Widget:Draw()
 
-    love.graphics.setShader(shader)
+    love.graphics.setShader(shader_boxBlurH);
+    shader_boxBlurH:send("size", { self.w, self.h } );
 
-    love.graphics.setColor(255,255,255,255 * self.opacity * self.dropShadowOpacity);
-    love.graphics.draw( self.dropShadowImage, self.x - self.dropShadowShiftX, self.y - newWidget.dropShadowShiftY )
+    local tmpBuffer = love.graphics.newCanvas( love.graphics.getWidth(), love.graphics.getHeight() );
+    love.graphics.setCanvas( tmpBuffer );
+        love.graphics.clear();
+        love.graphics.setBlendMode("alpha");
+        love.graphics.setColor(255, 255, 255, 255 );
 
+    love.graphics.draw( self.dropShadowImage, self.x - self.dropShadowShiftX, self.y - newWidget.dropShadowShiftY );
+    love.graphics.setCanvas();
 
-
-    love.graphics.setColor(255,255,255,255 * self.opacity );
-    love.graphics.draw( self.image, self.x, self.y )
-
+    love.graphics.setShader(shader_boxBlurV);
+    shader_boxBlurV:send("size", { self.w, self.h } );
+    love.graphics.setColor(255, 255, 255, 255 * self.dropShadowOpacity * self.opacity );
+    love.graphics.draw( tmpBuffer );
     
-    love.graphics.setShader()
+    love.graphics.setShader();
+    
+    love.graphics.setColor(255,255,255,255 * self.opacity );
+    love.graphics.draw( self.image, self.x, self.y );
 end
 
 function Widget:KeyPressed( key, scancode, isrepeat )
