@@ -5,6 +5,8 @@
 
 -- FUNCTIONS ==========================================================
 
+PI = 3.14159265359
+
 function IsANumber( iValue )
     return type( iValue ) == "number"
 end

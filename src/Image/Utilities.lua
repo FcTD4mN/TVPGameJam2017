@@ -88,6 +88,37 @@ function DrawOutlineCircleAA( iImageData, iX, iY, iRadius, iColor )
     return  iImageData;
 end
 
+function DrawOutlineArcCircleAA( iImageData, iX, iY, iRadius, iAngle1, iAngle2, iColor )
+    local xmin = iX - iRadius;
+    local xmax = iX + iRadius;
+    local ymin = iY - iRadius;
+    local ymax = iY + iRadius;
+
+    for i=xmin , xmax, 1 do
+        for j=ymin , ymax, 1 do
+            local distance = Distance( i, j, iX, iY );
+            local delta = math.abs( distance - iRadius );
+
+            local angle = math.atan2( iY - j , iX - i ) * 180 / PI;
+
+            if( delta <= 1 and angle > iAngle1 and angle < iAngle2 ) then
+                
+                local aDelta = 1 - delta;
+
+                local ir, ig, ib, ia = iImageData:getPixel( i, j )
+
+                local computedColor = ColorRGBA:New( iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * aDelta );
+                local blended = AlphaBlend( computedColor, ColorRGBA:New( ir, ig, ib, ia ) );
+                
+                iImageData:setPixel( i, j, blended:Red(), blended:Green(), blended:Blue(), blended:Alpha() );
+            end
+
+        end
+    end
+
+    return  iImageData;
+end
+
 
 
 function DrawFilledCircleAA( iImageData, iX, iY, iRadius, iColor )
@@ -133,6 +164,7 @@ function AlphaBlend( iColorA, iColorB )
     return ColorRGBA:New( R_out, G_out, B_out, A_out );
 
 end
+
 
 
 function DrawLine( iImageData, iX1, iY1, iX2, iY2, iColor )
@@ -228,15 +260,33 @@ function DrawFilledRoundedRectangleAA( iImageData, iX, iY, iW, iH, iRadius, iCol
     local maxRadius = iRadius;
     if( iW/2 < maxRadius ) then maxRadius = iW/2; end
     if( iH/2 < maxRadius ) then maxRadius = iH/2; end
-    
-    _log( maxRadius )
-    
+
     DrawFilledRectangle( iImageData, iX + maxRadius , iY, iW - maxRadius * 2, iH, iColor )
     DrawFilledRectangle( iImageData, iX, iY + maxRadius, iW, iH  - maxRadius * 2, iColor )
     DrawFilledCircleAA( iImageData, maxRadius, maxRadius, maxRadius, iColor)
     DrawFilledCircleAA( iImageData, iW - maxRadius, maxRadius, maxRadius, iColor)
     DrawFilledCircleAA( iImageData, maxRadius, iH - maxRadius, maxRadius, iColor)
     DrawFilledCircleAA( iImageData, iW - maxRadius, iH - maxRadius, maxRadius, iColor)
+
+    return  iImageData;
+end
+
+function DrawOutlineRoundedRectangleAA( iImageData, iX, iY, iW, iH, iRadius, iColor )
+    
+    local maxRadius = iRadius;
+    if( iW/2 < maxRadius ) then maxRadius = iW/2; end
+    if( iH/2 < maxRadius ) then maxRadius = iH/2; end
+
+    DrawHorizontalLine( iImageData, iY,         iX + maxRadius,     iX + iW - maxRadius,     iColor )
+    DrawHorizontalLine( iImageData, iY + iH,    iX + maxRadius,     iX + iW - maxRadius,     iColor )
+
+    DrawVerticalLine(   iImageData, iX,         iY + maxRadius,     iY + iH - maxRadius,     iColor )
+    DrawVerticalLine(   iImageData, iX + iW,    iY + maxRadius,     iY + iH - maxRadius,     iColor )
+
+    DrawOutlineArcCircleAA( iImageData,     maxRadius,          maxRadius,          maxRadius, 0,       90,     iColor)
+    DrawOutlineArcCircleAA( iImageData,     iW - maxRadius,     maxRadius,          maxRadius, 90,      180,    iColor)
+    DrawOutlineArcCircleAA( iImageData,     maxRadius,          iH - maxRadius,     maxRadius, -90,     0,      iColor)
+    DrawOutlineArcCircleAA( iImageData,     iW - maxRadius,     iH - maxRadius,     maxRadius, -180,    -90,    iColor)
 
     return  iImageData;
 end
