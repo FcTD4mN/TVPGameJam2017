@@ -18,21 +18,38 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.h         = ValidParameter( iH, "number", 0 );
     newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New( 255, 255, 255 ) );
 
-    local red = ColorRGBA:New( 255, 0, 0 );
-    local grey = ColorRGBA:New( 35, 35, 35 );
-    local dark = ColorRGBA:New( 10, 10, 10 );
+    newWidget.dropShadowSize    = 6;
+    newWidget.dropShadowQuality = 2;
+    newWidget.dropShadowShiftX  = newWidget.dropShadowSize / 2 + 1;
+    newWidget.dropShadowShiftY  = newWidget.dropShadowSize / 3 + 1;
+    newWidget.dropShadowOpacity = 0.7;
+    newWidget.borderRadius      = 5;
+    newWidget.opacity           = 1;
+    
+    newWidget.dropShadowImageData = love.image.newImageData(    newWidget.w + ( newWidget.dropShadowSize * 2 ), 
+                                                                newWidget.h + ( newWidget.dropShadowSize * 2 ) );
+    newWidget.dropShadowImageData = Fill( newWidget.dropShadowImageData, ColorRGBA:New( 0, 0, 0, 0 ) );
+    newWidget.dropShadowImageData = DrawFilledRoundedRectangleAA(   newWidget.dropShadowImageData, 
+                                                                    newWidget.dropShadowSize, 
+                                                                    newWidget.dropShadowSize, 
+                                                                    newWidget.w + ( newWidget.dropShadowSize * 0 ) - 1, 
+                                                                    newWidget.h + ( newWidget.dropShadowSize * 0 ) - 1, 
+                                                                    newWidget.borderRadius, 
+                                                                    black );
+    newWidget.dropShadowImageData = BoxBlur3(   newWidget.dropShadowImageData, 
+                                                newWidget.dropShadowSize / newWidget.dropShadowQuality, 
+                                                newWidget.dropShadowQuality);
+
+    newWidget.dropShadowImage = love.graphics.newImage( newWidget.dropShadowImageData )
+
     newWidget.imageData = love.image.newImageData( newWidget.w, newWidget.h )
     newWidget.imageData = Fill( newWidget.imageData, ColorRGBA:New( 0, 0, 0, 0 ) );
-
-    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 20, 20, newWidget.w -41, newWidget.h -41, 5, grey );
-    newWidget.imageData = DrawOutlineRoundedRectangleAA( newWidget.imageData, 20, 20, newWidget.w -41, newWidget.h -41, 5, red );
-    
-    newWidget.imageData = DrawFilledCircleAA( newWidget.imageData, newWidget.w / 2, newWidget.h / 2, 20, red);
-
-    newWidget.imageData = BoxBlur3( newWidget.imageData, 3, 3);
-
+    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, grey1 );
+    newWidget.imageData = DrawOutlineRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, grey2 );
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )
+
+
 
 
     return  newWidget;
@@ -50,7 +67,10 @@ function Widget:Update( dt )
 end
 
 function Widget:Draw()
-    love.graphics.setColor(255,255,255,255);
+    love.graphics.setColor(255,255,255,255 * self.opacity * self.dropShadowOpacity);
+    love.graphics.draw( self.dropShadowImage, self.x - self.dropShadowShiftX, self.y - newWidget.dropShadowShiftY )
+    
+    love.graphics.setColor(255,255,255,255 * self.opacity );
     love.graphics.draw( self.image, self.x, self.y )
 end
 

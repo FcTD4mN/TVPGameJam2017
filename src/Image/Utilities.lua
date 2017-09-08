@@ -323,42 +323,59 @@ end
 
 
 function BoxBlur2( iImageData, iRadius )
+    local width  = iImageData:getWidth() - 1;
+    local height = iImageData:getHeight() - 1;
+    local tmpImg = {}
+    local count = 0;    local average = ColorRGBA:New( 0, 0, 0, 0 );
+    local hbrMin = 0;   local hbrMax = 0;   -- half box radius
+    local ir;           local ig;   
+    local ib;           local ia;
+    local rRadius = math.floor( iRadius );
 
-    local resultx = love.image.newImageData( iImageData:getWidth(), iImageData:getHeight() )
-    for i=0, iImageData:getWidth()-1, 1 do
-        for j=0, iImageData:getHeight()-1, 1 do
-            local count = 0;
-            local average = ColorRGBA:New( 0, 0, 0, 0 );
-            for k=math.max(0,i-iRadius),math.min(iImageData:getWidth()-1, i + iRadius),1 do
-                local ir, ig, ib, ia = iImageData:getPixel( k, j )
+    for i = 0, width do
+        tmpImg[ i ] = {}
+        
+        hbrMin = math.max( 0, i - rRadius );
+        hbrMax = math.min( width, i + rRadius );
+
+        for j = 0, height do
+            count = 0;
+            average = ColorRGBA:New( 0, 0, 0, 0 );
+            
+            for k = hbrMin, hbrMax do
+                ir, ig, ib, ia = iImageData:getPixel( k, j )
                 average.R = average.R + ir;    average.G = average.G + ig;
                 average.B = average.B + ib;    average.A = average.A + ia;
                 count = count + 1;
             end
             average.R = average.R / count;  average.G = average.G / count;
             average.B = average.B / count;  average.A = average.A / count; 
-            resultx:setPixel( i, j, average:Red(), average:Green(), average:Blue(), average:Alpha() );
+            tmpImg[i][j] = average;
         end
     end
 
-    local result = love.image.newImageData( iImageData:getWidth(), iImageData:getHeight() )
-    for i=0, iImageData:getWidth()-1, 1 do
-        for j=0, iImageData:getHeight()-1, 1 do
-            local count = 0;
-            local average = ColorRGBA:New( 0, 0, 0, 0 );
-            for l=math.max(0,j-iRadius),math.min(iImageData:getHeight()-1, j + iRadius),1 do
-                local ir, ig, ib, ia = resultx:getPixel( i, l )
-                average.R = average.R + ir;    average.G = average.G + ig;
-                average.B = average.B + ib;    average.A = average.A + ia;
+    for j = 0, height do
+
+        hbrMin = math.max( 0, j - rRadius );
+        hbrMax = math.min( height, j + rRadius );
+
+        for i = 0, width do
+            count = 0;
+            average = ColorRGBA:New( 0, 0, 0, 0 );
+            for l = hbrMin, hbrMax do
+                ir = tmpImg[i][l]:Red();        ig = tmpImg[i][l]:Green();
+                ib = tmpImg[i][l]:Blue();       ia = tmpImg[i][l]:Alpha();
+                average.R = average.R + ir;     average.G = average.G + ig;
+                average.B = average.B + ib;     average.A = average.A + ia;
                 count = count + 1;
             end
             average.R = average.R / count;  average.G = average.G / count;
             average.B = average.B / count;  average.A = average.A / count; 
-            result:setPixel( i, j, average:Red(), average:Green(), average:Blue(), average:Alpha() );
+            iImageData:setPixel( i, j, average:Red(), average:Green(), average:Blue(), average:Alpha() );
         end
     end
 
-    return  result;
+    return  iImageData;
 end
 
 
