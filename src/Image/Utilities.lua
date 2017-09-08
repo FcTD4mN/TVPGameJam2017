@@ -28,10 +28,66 @@ end
 
 
 
-function DrawRectangle( iImageData, iX, iY, iW, iH, iColor )
+function DrawFilledRectangle( iImageData, iX, iY, iW, iH, iColor )
     for i=iX, iX + iW, 1 do
         for j=iY, iY + iH, 1 do
             iImageData:setPixel( i, j, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() );
+        end
+    end
+
+    return  iImageData;
+end
+
+
+
+function DrawFilledCircle( iImageData, iX, iY, iRadius, iColor )
+    local xmin = iX - iRadius;
+    local xmax = iX + iRadius;
+    local ymin = iY - iRadius;
+    local ymax = iY + iRadius;
+
+    for i=xmin, xmax, 1 do
+        for j=ymin, ymax, 1 do
+            if( Distance( i, j, iX, iY ) < iRadius ) then        
+                iImageData:setPixel( i, j, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() );
+            end
+        end
+    end
+
+    return  iImageData;
+end
+
+
+
+function DrawFilledCircleAA( iImageData, iX, iY, iRadius, iColor )
+    local xmin = iX - iRadius;
+    local xmax = iX + iRadius;
+    local ymin = iY - iRadius;
+    local ymax = iY + iRadius;
+    local superSampling = 4;
+    local step = 1 / superSampling;
+
+    for i=xmin, xmax, step do
+
+        local xI = math.floor( i );
+        local deltaX  = i - xI;
+        local deltaX2 = 1 - deltaX;
+
+        for j=ymin, ymax, step do
+            if( Distance( i, j, iX, iY ) < iRadius ) then
+                
+                local yI = math.floor( j );
+                local deltaY  = j - yI;
+                local deltaY2 = 1 - deltaY;
+                
+                iImageData:setPixel( xI, yI, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX2 + iColor:Alpha() * deltaY2 );
+                
+                iImageData:setPixel( xI+1, yI, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX +iColor:Alpha() * deltaY2 );
+               -- iImageData:setPixel( xI, yI+1, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX2+ iColor:Alpha() * deltaY );
+            
+               -- iImageData:setPixel( xI-1, yI, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX + iColor:Alpha() * deltaY2 );
+               -- iImageData:setPixel( xI, yI-1, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX2 + iColor:Alpha() * deltaY );
+            end
         end
     end
 

@@ -15,3 +15,9 @@ function Clamp( iValue, iMin, iMax)
 
     return nil;
 end
+
+function Distance( iX1, iY1, iX2, iY2) 
+    local dx = iX2 - iX1;
+    local dy = iY2 - iY1;
+    return math.sqrt( ( dx * dx ) + ( dy * dy ) );
+end

@@ -25,8 +25,10 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.imageData = DrawHorizontalLine( newWidget.imageData, newWidget.h -1  , red );
     newWidget.imageData = DrawVerticalLine( newWidget.imageData, 0 , red );
     newWidget.imageData = DrawVerticalLine( newWidget.imageData, newWidget.w -1  , red );
-    newWidget.imageData = DrawLineAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h-1, ColorRGBA:New( 255, 0, 0 ) );
-    newWidget.imageData = DrawLineAA( newWidget.imageData, 0, newWidget.h - 1, newWidget.w - 1, 0, ColorRGBA:New( 255, 0, 0 ) );
+    --newWidget.imageData = DrawLineAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h-1, ColorRGBA:New( 255, 0, 0 ) );
+    --newWidget.imageData = DrawLineAA( newWidget.imageData, 0, newWidget.h - 1, newWidget.w - 1, 0, ColorRGBA:New( 255, 0, 0 ) );
+
+    newWidget.imageData = DrawFilledCircleAA( newWidget.imageData, newWidget.w / 2, newWidget.h / 2, 20, red);
 
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )
