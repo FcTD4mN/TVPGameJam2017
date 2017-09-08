@@ -263,10 +263,10 @@ function DrawFilledRoundedRectangleAA( iImageData, iX, iY, iW, iH, iRadius, iCol
 
     DrawFilledRectangle( iImageData, iX + maxRadius , iY, iW - maxRadius * 2, iH, iColor )
     DrawFilledRectangle( iImageData, iX, iY + maxRadius, iW, iH  - maxRadius * 2, iColor )
-    DrawFilledCircleAA( iImageData, maxRadius, maxRadius, maxRadius, iColor)
-    DrawFilledCircleAA( iImageData, iW - maxRadius, maxRadius, maxRadius, iColor)
-    DrawFilledCircleAA( iImageData, maxRadius, iH - maxRadius, maxRadius, iColor)
-    DrawFilledCircleAA( iImageData, iW - maxRadius, iH - maxRadius, maxRadius, iColor)
+    DrawFilledCircleAA( iImageData,     iX + maxRadius,          iY + maxRadius,          maxRadius, iColor)
+    DrawFilledCircleAA( iImageData,     iX + iW - maxRadius,     iY + maxRadius,          maxRadius, iColor)
+    DrawFilledCircleAA( iImageData,     iX + maxRadius,          iY + iH - maxRadius,     maxRadius, iColor)
+    DrawFilledCircleAA( iImageData,     iX + iW - maxRadius,     iY + iH - maxRadius,     maxRadius, iColor)
 
     return  iImageData;
 end
@@ -283,10 +283,40 @@ function DrawOutlineRoundedRectangleAA( iImageData, iX, iY, iW, iH, iRadius, iCo
     DrawVerticalLine(   iImageData, iX,         iY + maxRadius,     iY + iH - maxRadius,     iColor )
     DrawVerticalLine(   iImageData, iX + iW,    iY + maxRadius,     iY + iH - maxRadius,     iColor )
 
-    DrawOutlineArcCircleAA( iImageData,     maxRadius,          maxRadius,          maxRadius, 0,       90,     iColor)
-    DrawOutlineArcCircleAA( iImageData,     iW - maxRadius,     maxRadius,          maxRadius, 90,      180,    iColor)
-    DrawOutlineArcCircleAA( iImageData,     maxRadius,          iH - maxRadius,     maxRadius, -90,     0,      iColor)
-    DrawOutlineArcCircleAA( iImageData,     iW - maxRadius,     iH - maxRadius,     maxRadius, -180,    -90,    iColor)
+    DrawOutlineArcCircleAA( iImageData,     iX + maxRadius,          iY + maxRadius,          maxRadius, 0,       90,     iColor)
+    DrawOutlineArcCircleAA( iImageData,     iX + iW - maxRadius,     iY + maxRadius,          maxRadius, 90,      180,    iColor)
+    DrawOutlineArcCircleAA( iImageData,     iX + maxRadius,          iY + iH - maxRadius,     maxRadius, -90,     0,      iColor)
+    DrawOutlineArcCircleAA( iImageData,     iX + iW - maxRadius,     iY + iH - maxRadius,     maxRadius, -180,    -90,    iColor)
 
     return  iImageData;
+end
+
+
+
+function BoxBlur( iImageData, iRadius )
+
+    result = love.image.newImageData( iImageData:getWidth(), iImageData:getHeight() )
+    for i=0, iImageData:getWidth()-1, 1 do
+        for j=0, iImageData:getHeight()-1, 1 do
+            local count = 0;
+            local average = ColorRGBA:New( 0, 0, 0, 0 );
+
+            for k=math.max(0,i-iRadius),math.min(iImageData:getWidth()-1, i + iRadius),1 do
+                for l=math.max(0,j-iRadius),math.min(iImageData:getHeight()-1, j + iRadius),1 do
+                    local ir, ig, ib, ia = iImageData:getPixel( k, l )
+                    average.R = average.R + ir;    average.G = average.G + ig;
+                    average.B = average.B + ib;    average.A = average.A + ia;
+                    count = count + 1;
+                end
+            end
+
+            average.R = average.R / count;  average.G = average.G / count;
+            average.B = average.B / count;  average.A = average.A / count;
+            
+            result:setPixel( i, j, average:Red(), average:Green(), average:Blue(), average:Alpha() );
+        
+        end
+    end
+
+    return  result;
 end

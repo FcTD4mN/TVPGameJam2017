@@ -24,10 +24,13 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.imageData = love.image.newImageData( newWidget.w, newWidget.h )
     newWidget.imageData = Fill( newWidget.imageData, ColorRGBA:New( 0, 0, 0, 0 ) );
 
-    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w -1, newWidget.h -1, 5, grey );
-    newWidget.imageData = DrawOutlineRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w -1, newWidget.h -1, 5, dark );
+    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 20, 20, newWidget.w -41, newWidget.h -41, 5, grey );
+    newWidget.imageData = DrawOutlineRoundedRectangleAA( newWidget.imageData, 20, 20, newWidget.w -41, newWidget.h -41, 5, red );
     
     newWidget.imageData = DrawFilledCircleAA( newWidget.imageData, newWidget.w / 2, newWidget.h / 2, 20, red);
+
+    newWidget.imageData = BoxBlur( newWidget.imageData, 5);
+
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )
 
