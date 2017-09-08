@@ -16,8 +16,8 @@ function EditorScreen:New()
 end
 
 function EditorScreen:Initialize()
-    testWidget1 = Widget:New( nil, 50, 50, 400, 600, nil); 
-    testWidget2 = Widget:New( nil, 120, 180, 800, 100, nil); 
+    testWidget1 = Widget:New( nil, 50, 50, 200, 300, nil); 
+    testWidget2 = Widget:New( nil, 300, 70, 220, 400, nil); 
 end
 
 function EditorScreen:Update( dt )
