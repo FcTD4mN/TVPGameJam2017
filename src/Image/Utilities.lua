@@ -59,37 +59,40 @@ end
 
 
 
-function DrawFilledCircleAA( iImageData, iX, iY, iRadius, iColor )
+function DrawOutlineCircleAA( iImageData, iX, iY, iRadius, iColor )
     local xmin = iX - iRadius;
     local xmax = iX + iRadius;
     local ymin = iY - iRadius;
     local ymax = iY + iRadius;
-    local superSampling = 4;
-    local step = 1 / superSampling;
 
-    for i=xmin, xmax, step do
+    for i=xmin , xmax, 1 do
+        for j=ymin , ymax, 1 do
+            local distance = Distance( i, j, iX, iY );
+            local delta = math.abs( distance - iRadius );
 
-        local xI = math.floor( i );
-        local deltaX  = i - xI;
-        local deltaX2 = 1 - deltaX;
+            if( delta <= 1 ) then
+                
+                local aDelta = 1 - delta;
 
-        for j=ymin, ymax, step do
-            if( Distance( i, j, iX, iY ) < iRadius ) then
+                local ir, ig, ib, ia = iImageData:getPixel( i, j )
+
+                local computedColor = ColorRGBA:New( iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * aDelta );
+                local blended = AlphaBlend( computedColor, ColorRGBA:New( ir, ig, ib, ia ) );
                 
-                local yI = math.floor( j );
-                local deltaY  = j - yI;
-                local deltaY2 = 1 - deltaY;
-                
-                iImageData:setPixel( xI, yI, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX2 + iColor:Alpha() * deltaY2 );
-                
-                iImageData:setPixel( xI+1, yI, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX +iColor:Alpha() * deltaY2 );
-               -- iImageData:setPixel( xI, yI+1, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX2+ iColor:Alpha() * deltaY );
-            
-               -- iImageData:setPixel( xI-1, yI, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX + iColor:Alpha() * deltaY2 );
-               -- iImageData:setPixel( xI, yI-1, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() * deltaX2 + iColor:Alpha() * deltaY );
+                iImageData:setPixel( i, j, blended:Red(), blended:Green(), blended:Blue(), blended:Alpha() );
             end
+
         end
     end
+
+    return  iImageData;
+end
+
+
+
+function DrawFilledCircleAA( iImageData, iX, iY, iRadius, iColor )
+    DrawFilledCircle( iImageData, iX, iY, iRadius, iColor )
+    DrawOutlineCircleAA( iImageData, iX, iY, iRadius, iColor )
 
     return  iImageData;
 end
