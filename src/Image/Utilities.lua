@@ -320,3 +320,43 @@ function BoxBlur( iImageData, iRadius )
 
     return  result;
 end
+
+
+function BoxBlur2( iImageData, iRadius )
+
+    local resultx = love.image.newImageData( iImageData:getWidth(), iImageData:getHeight() )
+    for i=0, iImageData:getWidth()-1, 1 do
+        for j=0, iImageData:getHeight()-1, 1 do
+            local count = 0;
+            local average = ColorRGBA:New( 0, 0, 0, 0 );
+            for k=math.max(0,i-iRadius),math.min(iImageData:getWidth()-1, i + iRadius),1 do
+                local ir, ig, ib, ia = iImageData:getPixel( k, j )
+                average.R = average.R + ir;    average.G = average.G + ig;
+                average.B = average.B + ib;    average.A = average.A + ia;
+                count = count + 1;
+            end
+            average.R = average.R / count;  average.G = average.G / count;
+            average.B = average.B / count;  average.A = average.A / count; 
+            resultx:setPixel( i, j, average:Red(), average:Green(), average:Blue(), average:Alpha() );
+        end
+    end
+
+    local result = love.image.newImageData( iImageData:getWidth(), iImageData:getHeight() )
+    for i=0, iImageData:getWidth()-1, 1 do
+        for j=0, iImageData:getHeight()-1, 1 do
+            local count = 0;
+            local average = ColorRGBA:New( 0, 0, 0, 0 );
+            for l=math.max(0,j-iRadius),math.min(iImageData:getHeight()-1, j + iRadius),1 do
+                local ir, ig, ib, ia = resultx:getPixel( i, l )
+                average.R = average.R + ir;    average.G = average.G + ig;
+                average.B = average.B + ib;    average.A = average.A + ia;
+                count = count + 1;
+            end
+            average.R = average.R / count;  average.G = average.G / count;
+            average.B = average.B / count;  average.A = average.A / count; 
+            result:setPixel( i, j, average:Red(), average:Green(), average:Blue(), average:Alpha() );
+        end
+    end
+
+    return  result;
+end
