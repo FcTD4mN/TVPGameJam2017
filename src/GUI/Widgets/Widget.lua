@@ -21,10 +21,10 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     local red = ColorRGBA:New( 255, 0, 0 );
     newWidget.imageData = love.image.newImageData( newWidget.w, newWidget.h )
     newWidget.imageData = Fill( newWidget.imageData, newWidget.iBGColor );
-    newWidget.imageData = DrawHorizontalLine( newWidget.imageData, 0 , red );
-    newWidget.imageData = DrawHorizontalLine( newWidget.imageData, newWidget.h -1  , red );
-    newWidget.imageData = DrawVerticalLine( newWidget.imageData, 0 , red );
-    newWidget.imageData = DrawVerticalLine( newWidget.imageData, newWidget.w -1  , red );
+    newWidget.imageData = DrawHorizontalLine( newWidget.imageData,  0,                  0,  newWidget.w - 1, red );
+    newWidget.imageData = DrawHorizontalLine( newWidget.imageData,  newWidget.h - 1,    0,  newWidget.w - 1, red );
+    newWidget.imageData = DrawVerticalLine( newWidget.imageData,    0,                  0,  newWidget.h - 1, red );
+    newWidget.imageData = DrawVerticalLine( newWidget.imageData,    newWidget.w -1,     0,  newWidget.h - 1, red );
     --newWidget.imageData = DrawLineAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h-1, ColorRGBA:New( 255, 0, 0 ) );
     --newWidget.imageData = DrawLineAA( newWidget.imageData, 0, newWidget.h - 1, newWidget.w - 1, 0, ColorRGBA:New( 255, 0, 0 ) );
 

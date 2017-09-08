@@ -99,8 +99,8 @@ end
 
 
 
-function DrawHorizontalLine( iImageData, iY, iColor )
-    for i=0, iImageData:getWidth()-1, 1 do
+function DrawHorizontalLine( iImageData, iY, iX1, iX2, iColor )
+    for i=iX1, iX2, 1 do
         iImageData:setPixel( i, iY, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() );
     end
 
@@ -109,8 +109,8 @@ end
 
 
 
-function DrawVerticalLine( iImageData, iX, iColor )
-    for i=0, iImageData:getHeight()-1, 1 do
+function DrawVerticalLine( iImageData, iX, iY1, iY2, iColor )
+    for i=iY1, iY2, 1 do
         iImageData:setPixel( iX, i, iColor:Red(), iColor:Green(), iColor:Blue(), iColor:Alpha() );
     end
 
@@ -141,8 +141,8 @@ function DrawLine( iImageData, iX1, iY1, iX2, iY2, iColor )
     local dy = iY2 - iY1;
     local epsilon = 0.001;
 
-    if( math.abs( dx ) < epsilon ) then    return  DrawVerticalLine( iImageData, iY1, iColor );  end
-    if( math.abs( dy ) < epsilon ) then    return  DrawHorizontalLine( iImageData, iX1, iColor );    end
+    if( math.abs( dx ) < epsilon ) then    return  DrawVerticalLine( iImageData, iY1, iX1, iX2, iColor );  end
+    if( math.abs( dy ) < epsilon ) then    return  DrawHorizontalLine( iImageData, iX1, iY1, iY2, iColor );    end
 
     s = dy / dx;
     c = iY2 - ( s * iX2 );
