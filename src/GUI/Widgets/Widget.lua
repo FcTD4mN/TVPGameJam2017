@@ -14,9 +14,6 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     shader_boxBlurH = love.graphics.newShader("resources/Shaders/BoxBlurHorizontal.fs")
     shader_boxBlurV = love.graphics.newShader("resources/Shaders/BoxBlurVertical.fs")
 
-    shader_boxBlurH:send("radius", 12);
-    shader_boxBlurV:send("radius", 12);
-
     newWidget.parent    = ValidParameter( iParent, "Widget", nil );
     newWidget.x         = ValidParameter( iX, "number", 0 );
     newWidget.y         = ValidParameter( iY, "number", 0 );
@@ -26,7 +23,7 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
 
     newWidget.z_index   = 0;
 
-    newWidget.dropShadowSize    = 12;
+    newWidget.dropShadowSize    = 10;
     newWidget.dropShadowQuality = 2;
     newWidget.dropShadowShiftX  = newWidget.dropShadowSize / 2 + 1;
     newWidget.dropShadowShiftY  = newWidget.dropShadowSize / 3 + 1;
@@ -44,6 +41,11 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
                                                                     newWidget.h + ( newWidget.dropShadowSize * 0 ) - 1, 
                                                                     newWidget.borderRadius, 
                                                                     W_COLOR_SHADOW );
+
+                                                                    
+    shader_boxBlurH:send("radius", newWidget.dropShadowSize);
+    shader_boxBlurV:send("radius", newWidget.dropShadowSize);
+
     --[[newWidget.dropShadowImageData = BoxBlur3(   newWidget.dropShadowImageData, 
                                                 newWidget.dropShadowSize / newWidget.dropShadowQuality, 
                                                 newWidget.dropShadowQuality);--]]
@@ -74,21 +76,21 @@ end
 function Widget:Draw()
 
     love.graphics.setShader(shader_boxBlurH);
-    shader_boxBlurH:send("size", { self.w, self.h } );
+    shader_boxBlurH:send("size", { newWidget.dropShadowImageData:getWidth(), newWidget.dropShadowImageData:getHeight() } );
 
-    local tmpBuffer = love.graphics.newCanvas( love.graphics.getWidth(), love.graphics.getHeight() );
+    local tmpBuffer = love.graphics.newCanvas( newWidget.dropShadowImageData:getWidth(), newWidget.dropShadowImageData:getHeight() );
     love.graphics.setCanvas( tmpBuffer );
         love.graphics.clear();
         love.graphics.setBlendMode("alpha");
         love.graphics.setColor(255, 255, 255, 255 );
 
-    love.graphics.draw( self.dropShadowImage, self.x - self.dropShadowShiftX, self.y - newWidget.dropShadowShiftY );
+    love.graphics.draw( self.dropShadowImage );
     love.graphics.setCanvas();
 
     love.graphics.setShader(shader_boxBlurV);
     shader_boxBlurV:send("size", { self.w, self.h } );
     love.graphics.setColor(255, 255, 255, 255 * self.dropShadowOpacity * self.opacity );
-    love.graphics.draw( tmpBuffer );
+    love.graphics.draw( tmpBuffer, self.x - self.dropShadowShiftX, self.y - newWidget.dropShadowShiftY );
     
     love.graphics.setShader();
     
