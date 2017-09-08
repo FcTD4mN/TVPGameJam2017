@@ -19,17 +19,13 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New( 255, 255, 255 ) );
 
     local red = ColorRGBA:New( 255, 0, 0 );
+    local grey = ColorRGBA:New( 60, 60, 60 );
     newWidget.imageData = love.image.newImageData( newWidget.w, newWidget.h )
-    newWidget.imageData = Fill( newWidget.imageData, newWidget.iBGColor );
-    newWidget.imageData = DrawHorizontalLine( newWidget.imageData,  0,                  0,  newWidget.w - 1, red );
-    newWidget.imageData = DrawHorizontalLine( newWidget.imageData,  newWidget.h - 1,    0,  newWidget.w - 1, red );
-    newWidget.imageData = DrawVerticalLine( newWidget.imageData,    0,                  0,  newWidget.h - 1, red );
-    newWidget.imageData = DrawVerticalLine( newWidget.imageData,    newWidget.w -1,     0,  newWidget.h - 1, red );
-    --newWidget.imageData = DrawLineAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h-1, ColorRGBA:New( 255, 0, 0 ) );
-    --newWidget.imageData = DrawLineAA( newWidget.imageData, 0, newWidget.h - 1, newWidget.w - 1, 0, ColorRGBA:New( 255, 0, 0 ) );
+    newWidget.imageData = Fill( newWidget.imageData, ColorRGBA:New( 0, 0, 0, 0 ) );
 
+    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w -1, newWidget.h -1, 15, grey );
+    
     newWidget.imageData = DrawFilledCircleAA( newWidget.imageData, newWidget.w / 2, newWidget.h / 2, 20, red);
-
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )
 

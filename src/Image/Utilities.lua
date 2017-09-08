@@ -222,3 +222,21 @@ function DrawLineAA( iImageData, iX1, iY1, iX2, iY2, iColor )
     end
     return iImageData;
 end
+
+function DrawFilledRoundedRectangleAA( iImageData, iX, iY, iW, iH, iRadius, iColor )
+    
+    local maxRadius = iRadius;
+    if( iW/2 < maxRadius ) then maxRadius = iW/2; end
+    if( iH/2 < maxRadius ) then maxRadius = iH/2; end
+    
+    _log( maxRadius )
+    
+    DrawFilledRectangle( iImageData, iX + maxRadius , iY, iW - maxRadius * 2, iH, iColor )
+    DrawFilledRectangle( iImageData, iX, iY + maxRadius, iW, iH  - maxRadius * 2, iColor )
+    DrawFilledCircleAA( iImageData, maxRadius, maxRadius, maxRadius, iColor)
+    DrawFilledCircleAA( iImageData, iW - maxRadius, maxRadius, maxRadius, iColor)
+    DrawFilledCircleAA( iImageData, maxRadius, iH - maxRadius, maxRadius, iColor)
+    DrawFilledCircleAA( iImageData, iW - maxRadius, iH - maxRadius, maxRadius, iColor)
+
+    return  iImageData;
+end
