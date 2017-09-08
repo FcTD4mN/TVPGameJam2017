@@ -24,7 +24,7 @@ end
 
 function EditorScreen:Draw()
     love.graphics.setColor(255,255,255,255);
-    love.graphics.clear( 200, 200, 200, 255 )
+    love.graphics.clear( E_BACKGROUND:Red(), E_BACKGROUND:Green(), E_BACKGROUND:Blue(), 255 )
 
     testWidget1:Draw()
     testWidget2:Draw()

@@ -69,6 +69,7 @@ W_COLOR_DEBUG       = ColorRGBA:New( 255,   0,      255 );
 W_COLOR_FILL        = ColorRGBA:New( 204,   201,    202 );
 W_COLOR_OUTLINE     = ColorRGBA:New( 151,   159,    156 );
 W_COLOR_SHADOW      = ColorRGBA:New( 20,    10,     60 );
+E_BACKGROUND        = ColorRGBA:New( 65,    49,     62);
 grey    = ColorRGBA:New( 35,    35,     35 );
 dark    = ColorRGBA:New( 10,    10,     10 );
 black   = ColorRGBA:New( 0,     0,      0 );

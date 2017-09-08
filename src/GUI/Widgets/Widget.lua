@@ -11,6 +11,12 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     self.__index = self;
     self:Initialize();
 
+    shader = love.graphics.newShader("resources/Shaders/shader.fs")
+
+    --shader:send("size", {200, 200})
+    --shader:send("hstep", 1); 
+    --shader:send("vstep", 1); 
+
     newWidget.parent    = ValidParameter( iParent, "Widget", nil );
     newWidget.x         = ValidParameter( iX, "number", 0 );
     newWidget.y         = ValidParameter( iY, "number", 0 );
@@ -18,11 +24,13 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.h         = ValidParameter( iH, "number", 0 );
     newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New( 255, 255, 255 ) );
 
-    newWidget.dropShadowSize    = 3;
+    newWidget.z_index   = 0;
+
+    newWidget.dropShadowSize    = 12;
     newWidget.dropShadowQuality = 2;
     newWidget.dropShadowShiftX  = newWidget.dropShadowSize / 2 + 1;
     newWidget.dropShadowShiftY  = newWidget.dropShadowSize / 3 + 1;
-    newWidget.dropShadowOpacity = 2/3;
+    newWidget.dropShadowOpacity = 0.9;
     newWidget.borderRadius      = 2;
     newWidget.opacity           = 1;
     
@@ -49,9 +57,6 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )
 
-
-
-
     return  newWidget;
 
 end
@@ -63,15 +68,23 @@ end
 function Widget:Initialize()
 end
 
-function Widget:Update( dt )    
+function Widget:Update( dt )
 end
 
 function Widget:Draw()
+
+    love.graphics.setShader(shader)
+
     love.graphics.setColor(255,255,255,255 * self.opacity * self.dropShadowOpacity);
     love.graphics.draw( self.dropShadowImage, self.x - self.dropShadowShiftX, self.y - newWidget.dropShadowShiftY )
-    
+
+
+
     love.graphics.setColor(255,255,255,255 * self.opacity );
     love.graphics.draw( self.image, self.x, self.y )
+
+    
+    love.graphics.setShader()
 end
 
 function Widget:KeyPressed( key, scancode, isrepeat )
