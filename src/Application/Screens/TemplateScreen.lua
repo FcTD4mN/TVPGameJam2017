@@ -1,15 +1,22 @@
---[[ 
+--[[=================================================================== 
+    File: Application.Screens.GameScreen.lua
+
+    @@@@: A Template Screen...
     Do not use this File / Object / Class.
     It's just a template for making new screens quickly.
---]]
+    Just Copy Paste in another file and make your own screen.
 
+===================================================================--]]
+
+-- INCLUDES ===========================================================
 local Screen = require "src/Application/Screens/Screen"
 
+-- OBJECT INITIALISATION ==============================================
 local TemplateScreen = {}
 setmetatable( TemplateScreen, Screen )
 Screen.__index = Screen
 
-
+-- Constructor
 function TemplateScreen:New()
     local newTemplateScreen = {}
     setmetatable( newTemplateScreen, self )
@@ -19,9 +26,15 @@ function TemplateScreen:New()
 
 end
 
+-- LOCAL MEMBERS =====================================================
+    -- That way they are local to file
+    -- NONE YET
+
+-- Called by Global Manager only on SetScreen.
 function TemplateScreen:Initialize()
 end
 
+-- OBJECT FUNCTIONS ===================================================
 function TemplateScreen:Update( dt )    
 end
 
@@ -39,7 +52,9 @@ end
 function TemplateScreen:mousepressed( iX, iY, iButton, iIsTouch )
 end
 
+-- Release resources before Screen Switch or App Close
 function TemplateScreen:Finalize()
 end 
 
+-- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return TemplateScreen

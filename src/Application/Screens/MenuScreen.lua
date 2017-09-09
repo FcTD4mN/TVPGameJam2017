@@ -1,11 +1,20 @@
+--[[=================================================================== 
+    File: Application.Screens.MenuScreen.lua
+
+    @@@@: The Menu Screen.
+    Menu, select options & Stuff
+
+===================================================================--]]
+
+-- INCLUDES ===========================================================
 local Screen = require "src/Application/Screens/Screen"
 
-
+-- OBJECT INITIALISATION ==============================================
 local MenuScreen = {}
 setmetatable( MenuScreen, Screen )
 Screen.__index = Screen
 
-
+-- Constructor
 function MenuScreen:New()
     local newMenuScreen = {}
     setmetatable( newMenuScreen, self )
@@ -15,9 +24,15 @@ function MenuScreen:New()
 
 end
 
+-- LOCAL MEMBERS =====================================================
+    -- That way they are local to file
+    -- NONE YET
+
+-- Called by Global Manager only on SetScreen.
 function MenuScreen:Initialize()
 end
 
+-- OBJECT FUNCTIONS ===================================================
 function MenuScreen:Update( dt )   
 end
 
@@ -35,7 +50,9 @@ end
 function MenuScreen:mousepressed( iX, iY, iButton, iIsTouch )
 end
 
+-- Release resources before Screen Switch or App Close
 function MenuScreen:Finalize()
 end 
 
+-- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return MenuScreen

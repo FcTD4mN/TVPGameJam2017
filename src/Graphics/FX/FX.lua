@@ -2,8 +2,8 @@
     File: Graphics.FX.FX.lua
 
     @@@@: Base for FX Ojects.
-    An FX is a wrapper around a shader who can hold information about
-    this shader. It takes care about sending values to GPU when needed
+    An FX is a wrapper around a shader which can hold information about
+    his shader. It takes care about sending values to GPU when needed
     and each FX can have a Rendering subtleties.
 
 ===================================================================--]]

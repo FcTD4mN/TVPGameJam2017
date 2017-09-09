@@ -1,11 +1,20 @@
+--[[=================================================================== 
+    File: Application.Screens.GameScreen.lua
+
+    @@@@: The Game Screen.
+    Dedicated for the actual game, playing etc...
+
+===================================================================--]]
+
+-- INCLUDES ===========================================================
 local Screen = require "src/Application/Screens/Screen"
 
-
+-- OBJECT INITIALISATION ==============================================
 local GameScreen = {}
 setmetatable( GameScreen, Screen )
 Screen.__index = Screen
 
-
+-- Constructor
 function GameScreen:New()
     local newGameScreen = {}
     setmetatable( newGameScreen, self )
@@ -15,9 +24,15 @@ function GameScreen:New()
 
 end
 
+-- LOCAL MEMBERS =====================================================
+    -- That way they are local to file
+    -- NONE YET
+
+-- Called by Global Manager only on SetScreen.
 function GameScreen:Initialize()
 end
 
+-- OBJECT FUNCTIONS ===================================================
 function GameScreen:Update( dt )    
 end
 
@@ -35,7 +50,9 @@ end
 function GameScreen:mousepressed( iX, iY, iButton, iIsTouch )
 end
 
+-- Release resources before Screen Switch or App Close
 function GameScreen:Finalize()
 end 
 
+-- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return GameScreen

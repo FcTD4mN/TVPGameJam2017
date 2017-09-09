@@ -39,6 +39,7 @@ function Manager:PushScreen( iScreen )
 end
 
 function Manager:SetScreen( iNumScreen )
+    -- Todo: Release resources before switch
     self.currentScreen = iNumScreen;
     self.screens[ self.currentScreen ]:Initialize();
 
