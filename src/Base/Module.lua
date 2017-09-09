@@ -1,7 +1,7 @@
 --[[=================================================================== 
     File: Base.Module.lua
 
-    @@@@: A module is a Global Singleton Objects that will act like a
+    @@@@: A module is a Global Singleton Object that will act like a
     namespace. A module is actually just a table in lua, with
     associated variables and functions.
     

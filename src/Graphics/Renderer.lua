@@ -15,6 +15,9 @@
     Renderer:Clear() and Renderer:Render() should only be called in 
     Screen*:DrawToScreen() functions.
 
+    Since Renderer is global, any object has access to it and can
+    draw itself through Renderer.
+
 ===================================================================--]]
 
 -- INCLUDES ===========================================================
@@ -52,7 +55,7 @@ end
 -- Getter / Setter For Current Camera
 function Renderer:Camera( iCamera )
     if( iCamera == nil ) then
-        return self.Camera;
+        return self.Camer
     else
         self.Camera = iCamera;
     end
@@ -64,10 +67,6 @@ end
 
 -- Render To Screen
 function Renderer:Render()
-end 
-
--- Render To Another OffScreenBuffer
-function Renderer:RenderToTarget( iBuffer )
 end 
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
