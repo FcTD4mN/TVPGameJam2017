@@ -1,5 +1,16 @@
-local Point = {}
+--[[=================================================================== 
+    File: Math.Point.lua
 
+    @@@@: Basic Point.
+    point 2D, decimal values x & y
+
+===================================================================--]]
+
+-- INCLUDES ===========================================================
+-- NONE
+
+-- OBJECT INITIALISATION ==============================================
+local Point = {}
 
 function  Point:New( iX, iY )
     newPoint = {}
@@ -12,4 +23,10 @@ function  Point:New( iX, iY )
     return  newPoint
 end
 
+-- OBJECT FUNCTIONS ===================================================
+function Point:Type()
+    return "Point"
+end
+
+-- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return  Point

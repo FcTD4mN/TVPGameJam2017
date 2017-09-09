@@ -41,11 +41,21 @@ function Renderer:Type()
 end
 
 -- Getter / Setter For Current FX
-function Renderer:FXStack( iFX ) 
+function Renderer:FXStack( iFXStack )
+    if( iFXStack == nil ) then
+        return self.FXStack;
+    else
+        self.FXStack = iFXStack;
+    end
 end
 
 -- Getter / Setter For Current Camera
 function Renderer:Camera( iCamera )
+    if( iCamera == nil ) then
+        return self.Camera;
+    else
+        self.Camera = iCamera;
+    end
 end
 
 -- Clear offscreen buffer
