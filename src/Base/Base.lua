@@ -35,23 +35,17 @@ function Base:log( iString )
 
 end
 
-
-
 -- Short alias for _separator
 function Base:separator()
     print("==========================================================");
 
 end
 
-
-
 -- Short alias for new line
 function Base:endl()
     log("");
 
 end
-
-
 
 -- _log + InvalidOperation for error handling
 function Base:Crash( iErrorMessage )
@@ -60,8 +54,6 @@ function Base:Crash( iErrorMessage )
     print( invalidOperation["No Wai-"] );
 
 end
-
-
 
 -- necessary condition check, optional message
 function Base:xAssert( iCondition, iMessage )
@@ -72,14 +64,10 @@ function Base:xAssert( iCondition, iMessage )
 
 end
 
-
-
 function Base:IsNil( iParameter )
     return iParameter == nil;
 
 end
-
-
 
 -- is type of iParameter one of these... objects are typically tables
 function Base:IsBasicType( iParameter )
@@ -87,8 +75,6 @@ function Base:IsBasicType( iParameter )
     return  string.find(basicTypes, type( iParameter ) );
 
 end
-
-
 
 function Base:IsValidObject( iParameter)
     if( type( iParameter ) == "table" ) then
@@ -102,8 +88,6 @@ function Base:IsValidObject( iParameter)
 
 end
 
-
-
 function Base:SmartType( iParameter )
     local parameterType = nil;
     if( Base:IsValidObject( iParameter ) ) then
@@ -115,7 +99,6 @@ function Base:SmartType( iParameter )
 
     return parameterType;
 end
-
 
 -- Make sure your input parameters are valid
 function Base:ValidParameter( iParameter, iType, iDefaultValue)

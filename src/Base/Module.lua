@@ -37,7 +37,6 @@ function Module:Initialize()
 
 end
 
-
 -- This will be inherited by all Modules
 function Module:Type()
     return "Module"
@@ -45,7 +44,7 @@ function Module:Type()
 end
 
 -- MODULE FUNCTIONS ===================================================
--- NONE
+-- NONE HERE
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Module
