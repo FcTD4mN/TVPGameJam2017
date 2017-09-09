@@ -14,7 +14,7 @@
     Image2  = require "src/Image/Image2"
 
     -- Singletons Objects =============================================
-    -- NONE YET
+    Manager = require "src/Application/Manager"
 
     -- Other Dependencies =============================================
     ColorRGBA   = require "src/Image/ColorRGBA"
@@ -27,7 +27,7 @@
     Image2  = Image2:Initialize();
 
     -- Singletons Objects =============================================
-    -- NONE YET
+    Manager = Manager:New();
 
     -- Color Schemes / Default Color Values ===========================
     --  NAME                                R       G       B       A    

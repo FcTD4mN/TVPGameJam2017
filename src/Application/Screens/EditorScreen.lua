@@ -11,8 +11,6 @@ function EditorScreen:New()
     setmetatable( newEditorScreen, self )
     self.__index = self
 
-    Base:log( Base.name );
-
     return newEditorScreen
 end
 

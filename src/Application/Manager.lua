@@ -1,3 +1,16 @@
+--[[=================================================================== 
+    File: Base.Base.lua
+
+    @@@@: This is the Base Module.
+    A module is a Global Singleton Objects that will act like a
+    namespace. See Base.Module.lua for more details.
+
+===================================================================--]]
+
+-- INCLUDES ===========================================================
+-- NONE
+
+-- OBJECT INITIALISATION ==============================================
 local Manager = {};
 
 function Manager:New()
@@ -13,6 +26,7 @@ function Manager:New()
 
 end
 
+-- OBJECT FUNCTIONS ===================================================
 function Manager:PushScreen( iScreen )
     if( iScreen:Type() == "Screen" ) then
         table.insert( self.screens, iScreen );
@@ -57,4 +71,5 @@ function Manager:Finalize()
 
 end 
 
+-- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Manager
