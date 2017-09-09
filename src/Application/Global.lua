@@ -8,10 +8,10 @@
 
 -- INCLUDES ===========================================================
     -- Modules ========================================================
-    Base    = require "src/Base/Base"
-    Math    = require "src/Math/Math"
-    Image   = require "src/Image/Image"
-    Image2  = require "src/Image/Image2"
+    Base    = require "src/Base/Utilities/Base"
+    Math    = require "src/Math/Utilities/Math"
+    Image   = require "src/Image/Utilities/Image"
+    Image2  = require "src/Image/Utilities/Image2"
 
     -- Singletons Objects =============================================
     Manager = require "src/Application/Manager"
