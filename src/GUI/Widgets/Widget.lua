@@ -1,7 +1,18 @@
-ColorRGBA = require("src/Image/ColorRGBA");
+--[[=================================================================== 
+    File: GUI.Widgets.Widget.lua
 
+    @@@@: Widget Base Class
+    Does nothing by itself, see derivated classes
+
+===================================================================--]]
+
+-- INCLUDES ===========================================================
+-- NONE
+
+-- OBJECT INITIALISATION ==============================================
 local Widget = {};
 
+-- Constructor
 function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget = {}
     setmetatable( newWidget, self );
@@ -60,11 +71,13 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
 
 end
 
-function Widget:Type()
-    return "Widget"
+-- See if needed
+function Widget:Initialize()
 end
 
-function Widget:Initialize()
+-- OBJECT FUNCTIONS ===================================================
+function Widget:Type()
+    return "Widget"
 end
 
 function Widget:Update( dt )
@@ -95,6 +108,7 @@ function Widget:Draw()
     love.graphics.draw( self.image, self.x, self.y );
 end
 
+-- EVENT HANDLERS =====================================================
 function Widget:KeyPressed( key, scancode, isrepeat )
 end
 
@@ -107,4 +121,5 @@ end
 function Widget:Finalize()
 end 
 
+-- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Widget
