@@ -1,14 +1,14 @@
-ApplicationManager  = require("src/ApplicationManager/ApplicationManager")
+Manager  = require("src/Application/Manager")
 
-GameScreen          = require("src/ApplicationManager/Screens/GameScreen")
-MenuScreen          = require("src/ApplicationManager/Screens/MenuScreen")
-EditorScreen        = require("src/ApplicationManager/Screens/EditorScreen")
+GameScreen          = require("src/Application/Screens/GameScreen")
+MenuScreen          = require("src/Application/Screens/MenuScreen")
+EditorScreen        = require("src/Application/Screens/EditorScreen")
 
 local SandBox = {}
 
 function SandBox:Initialize()
 
-    manager = ApplicationManager:New();
+    manager = Manager:New();
 
     local gameScreen    = GameScreen:New();
     local menuScreen    = MenuScreen:New();

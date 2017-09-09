@@ -56,7 +56,7 @@ function Game:Initialize()
     world:setCallbacks( beginContact, endContact, preSolve, postSolve )
 
     --CAMERA
-    self.mCamera = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 1.0 )
+    self.mCamera = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 0.5 )
 
     local level1        =  Level1:New( world, self.mCamera )
 

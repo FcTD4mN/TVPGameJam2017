@@ -23,7 +23,7 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
 
     newWidget.z_index   = 0;
 
-    newWidget.dropShadowSize    = 10;
+    newWidget.dropShadowSize    = 90;
     newWidget.dropShadowQuality = 2;
     newWidget.dropShadowShiftX  = newWidget.dropShadowSize / 2 + 1;
     newWidget.dropShadowShiftY  = newWidget.dropShadowSize / 3 + 1;

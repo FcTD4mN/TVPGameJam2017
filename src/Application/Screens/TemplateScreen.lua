@@ -3,7 +3,7 @@
     It's just a template for making new screens quickly.
 --]]
 
-local Screen = require "src/ApplicationManager/Screens/Screen"
+local Screen = require "src/Application/Screens/Screen"
 
 local TemplateScreen = {}
 setmetatable( TemplateScreen, Screen )

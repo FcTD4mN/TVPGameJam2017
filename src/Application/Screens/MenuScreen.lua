@@ -1,4 +1,4 @@
-local Screen = require "src/ApplicationManager/Screens/Screen"
+local Screen = require "src/Application/Screens/Screen"
 
 
 local MenuScreen = {}
