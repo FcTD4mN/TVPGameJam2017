@@ -1,5 +1,3 @@
-
-
 local Manager = {};
 
 function Manager:New()

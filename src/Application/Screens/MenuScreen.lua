@@ -11,8 +11,6 @@ function MenuScreen:New()
     setmetatable( newMenuScreen, self )
     self.__index = self
 
-    self:Initialize()
-
     return newMenuScreen
 
 end

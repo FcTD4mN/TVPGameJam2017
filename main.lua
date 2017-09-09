@@ -1,5 +1,7 @@
 io.stdout:setvbuf('no')
 
+require "src/Application/Global"
+
 MainMenu    = require( "src/MainMenu/MainMenu" )
 Game        = require( "src/Game/Game" )
 SandBox     = require( "src/SandBox/SandBox")

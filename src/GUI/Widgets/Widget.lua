@@ -1,7 +1,4 @@
 ColorRGBA = require("src/Image/ColorRGBA");
-require("src/Math/Utilities");
-require("src/Base/Utilities");
-require("src/Image/Utilities");
 
 local Widget = {};
 
@@ -14,12 +11,12 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     shader_boxBlurH = love.graphics.newShader("resources/Shaders/BoxBlurHorizontal.fs")
     shader_boxBlurV = love.graphics.newShader("resources/Shaders/BoxBlurVertical.fs")
 
-    newWidget.parent    = ValidParameter( iParent, "Widget", nil );
-    newWidget.x         = ValidParameter( iX, "number", 0 );
-    newWidget.y         = ValidParameter( iY, "number", 0 );
-    newWidget.w         = ValidParameter( iW, "number", 0 );
-    newWidget.h         = ValidParameter( iH, "number", 0 );
-    newWidget.iBGColor  = ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New( 255, 255, 255 ) );
+    newWidget.parent    = Base:ValidParameter( iParent, "Widget", nil );
+    newWidget.x         = Base:ValidParameter( iX, "number", 0 );
+    newWidget.y         = Base:ValidParameter( iY, "number", 0 );
+    newWidget.w         = Base:ValidParameter( iW, "number", 0 );
+    newWidget.h         = Base:ValidParameter( iH, "number", 0 );
+    newWidget.iBGColor  = Base:ValidParameter( iBGColor, "ColorRGBA", ColorRGBA:New( 255, 255, 255 ) );
 
     newWidget.z_index   = 0;
 
@@ -33,8 +30,8 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     
     newWidget.dropShadowImageData = love.image.newImageData(    newWidget.w + ( newWidget.dropShadowSize * 2 ), 
                                                                 newWidget.h + ( newWidget.dropShadowSize * 2 ) );
-    newWidget.dropShadowImageData = Fill( newWidget.dropShadowImageData, ColorRGBA:New( 0, 0, 0, 0 ) );
-    newWidget.dropShadowImageData = DrawFilledRoundedRectangleAA(   newWidget.dropShadowImageData, 
+    newWidget.dropShadowImageData = Image2:Fill( newWidget.dropShadowImageData, ColorRGBA:New( 0, 0, 0, 0 ) );
+    newWidget.dropShadowImageData = Image2:DrawFilledRoundedRectangleAA(   newWidget.dropShadowImageData, 
                                                                     newWidget.dropShadowSize, 
                                                                     newWidget.dropShadowSize, 
                                                                     newWidget.w + ( newWidget.dropShadowSize * 0 ) - 1, 
@@ -53,9 +50,9 @@ function Widget:New( iParent, iX, iY, iW, iH, iBGColor)
     newWidget.dropShadowImage = love.graphics.newImage( newWidget.dropShadowImageData )
 
     newWidget.imageData = love.image.newImageData( newWidget.w, newWidget.h )
-    newWidget.imageData = Fill( newWidget.imageData, ColorRGBA:New( 0, 0, 0, 0 ) );
-    newWidget.imageData = DrawFilledRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, W_COLOR_FILL );
-    newWidget.imageData = DrawOutlineRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, W_COLOR_OUTLINE );
+    newWidget.imageData = Image2:Fill( newWidget.imageData, ColorRGBA:New( 0, 0, 0, 0 ) );
+    newWidget.imageData = Image2:DrawFilledRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, W_COLOR_FILL );
+    newWidget.imageData = Image2:DrawOutlineRoundedRectangleAA( newWidget.imageData, 0, 0, newWidget.w - 1, newWidget.h - 1, newWidget.borderRadius, W_COLOR_OUTLINE );
 
     newWidget.image = love.graphics.newImage( newWidget.imageData )
 

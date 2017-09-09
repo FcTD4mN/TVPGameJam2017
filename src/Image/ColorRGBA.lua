@@ -1,6 +1,14 @@
-require("src/Math/Utilities");
-require("src/Base/Utilities");
+--[[=================================================================== 
+    File: Image.ColorRGBA.lua
 
+    @@@@: A Small Class Representing RGBA Colors.
+
+===================================================================--]]
+
+-- INCLUDES ===========================================================
+-- NONE
+
+-- OBJECT INITIALISATION ==============================================
 local ColorRGBA = {};
 
 -- Constructor
@@ -10,15 +18,17 @@ function ColorRGBA:New( iR, iG, iB, iA )
     self.__index = self;
 
     -- Default Values
-    newColorRGBA.R         = Clamp( ValidParameter( iR, "number", 0 ), 0, 255 );
-    newColorRGBA.G         = Clamp( ValidParameter( iG, "number", 0 ), 0, 255 );
-    newColorRGBA.B         = Clamp( ValidParameter( iB, "number", 0 ), 0, 255 );
-    newColorRGBA.A         = Clamp( ValidParameter( iA, "number", 255 ), 0, 255 );
+    newColorRGBA.R         = Math:Clamp( Base:ValidParameter( iR, "number", 0 ), 0, 255 );
+    newColorRGBA.G         = Math:Clamp( Base:ValidParameter( iG, "number", 0 ), 0, 255 );
+    newColorRGBA.B         = Math:Clamp( Base:ValidParameter( iB, "number", 0 ), 0, 255 );
+    newColorRGBA.A         = Math:Clamp( Base:ValidParameter( iA, "number", 255 ), 0, 255 );
 
     return  newColorRGBA;
 
 end
 
+
+-- OBJECT FUNCTIONS ===================================================
 -- Red Getter / Setter 
 function ColorRGBA:Red( iValue )
     if( iValue == nil ) then
@@ -28,6 +38,8 @@ function ColorRGBA:Red( iValue )
     end
 
 end
+
+
 
 -- Green Getter / Setter
 function ColorRGBA:Green( iValue )
@@ -39,6 +51,8 @@ function ColorRGBA:Green( iValue )
 
 end
 
+
+
 -- Blue Getter / Setter
 function ColorRGBA:Blue( iValue )
     if( iValue == nil ) then
@@ -48,6 +62,8 @@ function ColorRGBA:Blue( iValue )
     end
 
 end
+
+
 
 -- Alpha Getter / Setter
 function ColorRGBA:Alpha( iValue )
@@ -59,19 +75,13 @@ function ColorRGBA:Alpha( iValue )
 
 end
 
+
+
 -- Type Getter
 function ColorRGBA:Type()
     return "ColorRGBA"
 
 end
 
-W_COLOR_DEBUG       = ColorRGBA:New( 255,   0,      255 );
-W_COLOR_FILL        = ColorRGBA:New( 204,   201,    202 );
-W_COLOR_OUTLINE     = ColorRGBA:New( 151,   159,    156 );
-W_COLOR_SHADOW      = ColorRGBA:New( 20,    10,     60 );
-E_BACKGROUND        = ColorRGBA:New( 65,    49,     62);
-grey    = ColorRGBA:New( 35,    35,     35 );
-dark    = ColorRGBA:New( 10,    10,     10 );
-black   = ColorRGBA:New( 0,     0,      0 );
-
+-- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return ColorRGBA
