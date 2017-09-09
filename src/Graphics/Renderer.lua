@@ -36,6 +36,10 @@ function Renderer:New()
 end
 
 -- OBJECT FUNCTIONS ===================================================
+function Renderer:Type()
+    return "Renderer"
+end
+
 -- Getter / Setter For Current FX
 function Renderer:FXStack( iFX ) 
 end

@@ -27,6 +27,10 @@ function Manager:New()
 end
 
 -- OBJECT FUNCTIONS ===================================================
+function Manager:Type()
+    return "Manager"
+end
+
 function Manager:PushScreen( iScreen )
     if( iScreen:Type() == "Screen" ) then
         table.insert( self.screens, iScreen );

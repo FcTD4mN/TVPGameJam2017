@@ -22,8 +22,11 @@ function FXStack:New()
 end
 
 -- OBJECT FUNCTIONS ===================================================
-function FXStack:PushFX( iFX )
-    
+function FXStack:Type()
+    return "FXStack"
+end
+
+function FXStack:PushFX( iFX )  
 end
 
 function FXStack:PopFX()
