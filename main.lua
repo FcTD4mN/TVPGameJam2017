@@ -7,7 +7,7 @@ Game        = require( "src/Game/Game" )
 SandBox     = require( "src/SandBox/SandBox")
 
 --TEST
-libxml = require('src/ExtLibs/libxml/xml.init')
+require("src/ExtLibs/XML/xml2lua")
 
 -- States:
     -- kMainMenu
