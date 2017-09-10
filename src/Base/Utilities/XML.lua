@@ -21,6 +21,8 @@ function  SaveBodyXML( iBody )
 
 end
 
+--TODO: saveFixture
+
 
 function  SaveShapeXML( iShape )
 
@@ -35,6 +37,7 @@ function  SaveShapeXML( iShape )
 
         x1,y1, x2,y2 = iShape:getPoints()
         xmlData = xmlData .. "type='edge' " ..
+                            "friction='" .. iShape:getFriction() .. "' " ..
                             "x1='" .. x1 .. "' " ..
                             "y1='" .. y1 .. "' " ..
                             "x2='" .. x2 .. "' " ..
