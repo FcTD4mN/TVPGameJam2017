@@ -6,8 +6,8 @@ MainMenu    = require( "src/MainMenu/MainMenu" )
 Game        = require( "src/Game/Game" )
 SandBox     = require( "src/SandBox/SandBox")
 
---TEST
-require("src/ExtLibs/XML/xml2lua")
+--TESTS
+local SLAXML = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
 -- States:
     -- kMainMenu
@@ -23,6 +23,17 @@ local sgGameState = kMainMenu
 -- First setup of my game, called at launch
 function love.load( args )
     MainMenu:Initialize()
+
+    --TESTS
+    local xml = io.open('src/Examples/XML.xml'):read('*all')
+    local doc = SLAXML:dom( xml )
+
+    print( doc.root.name )
+
+    for k,v in pairs( doc.root.kids ) do
+        print( v.name )
+    end
+
 
 end
 

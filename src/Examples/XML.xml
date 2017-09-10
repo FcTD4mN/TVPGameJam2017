@@ -1,0 +1,5 @@
+<level id="1" attr2="test" >
+    <object kind="Singe"    x="100"   y="50" />
+    <object kind="Lapin"    x="100"   y="500" />
+    <object kind="Tree"     x="1000"  y="100" />
+</level>
