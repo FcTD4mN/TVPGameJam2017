@@ -38,7 +38,6 @@ function love.load( args )
 end
 
 
-
 -- Updates the values of my game before drawing at screen
 -- Called at each tick of the game before drawing
 function love.update( dt )

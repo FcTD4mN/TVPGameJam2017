@@ -1,3 +1,4 @@
+require( "src/Base/Utilities/XML" )
 
 local Terrain = {}
 
@@ -59,5 +60,22 @@ end
 function  Terrain.Collide( iCollider )
     -- do nothing
 end
+
+
+-- ==========================================XML IO
+
+
+function  Terrain.SaveXML()
+
+    xmlData = "<terrain>\n"
+
+    xmlData = xmlData .. SaveBodyXML( Terrain.body )
+
+    xmlData = xmlData .. "</terrain>\n"
+
+    return  xmlData
+
+end
+
 
 return Terrain

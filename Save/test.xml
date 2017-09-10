@@ -1,0 +1,34 @@
+<terrain>
+<body type='static' x1='0' y1='0'  >
+<shape type='edge' x1='9550' y1='680' x2='9600' y2='350'  />
+<shape type='edge' x1='7880.0004882813' y1='700' x2='9550' y2='680'  />
+<shape type='edge' x1='7650' y1='680' x2='7880.0004882813' y2='700'  />
+<shape type='edge' x1='5600' y1='700' x2='7650' y2='680'  />
+<shape type='edge' x1='5600' y1='660' x2='5600' y2='700'  />
+<shape type='edge' x1='5300' y1='715' x2='5600' y2='660'  />
+<shape type='edge' x1='5100' y1='700' x2='5300' y2='715'  />
+<shape type='edge' x1='2029.9998779297' y1='700' x2='5100' y2='700'  />
+<shape type='edge' x1='1460' y1='700' x2='2029.9998779297' y2='700'  />
+<shape type='edge' x1='730' y1='650' x2='1460' y2='700'  />
+<shape type='edge' x1='500' y1='675' x2='730' y2='650'  />
+<shape type='edge' x1='0' y1='675' x2='500' y2='675'  />
+<shape type='edge' x1='9600' y1='345' x2='9600' y2='0'  />
+<shape type='edge' x1='8110' y1='390' x2='9600' y2='345'  />
+<shape type='edge' x1='7690' y1='310' x2='8110' y2='390'  />
+<shape type='edge' x1='6800' y1='330' x2='7690' y2='310'  />
+<shape type='edge' x1='6115' y1='360' x2='6800' y2='330'  />
+<shape type='edge' x1='5110' y1='360' x2='6115' y2='360'  />
+<shape type='edge' x1='4715' y1='310' x2='5110' y2='360'  />
+<shape type='edge' x1='4400' y1='360' x2='4715' y2='310'  />
+<shape type='edge' x1='3370' y1='330' x2='3900' y2='330'  />
+<shape type='edge' x1='2900' y1='365' x2='3370' y2='330'  />
+<shape type='edge' x1='2180' y1='365' x2='2900' y2='365'  />
+<shape type='edge' x1='1979.9998779297' y1='320' x2='2180' y2='365'  />
+<shape type='edge' x1='1790' y1='320' x2='1979.9998779297' y2='320'  />
+<shape type='edge' x1='1640' y1='375' x2='1790' y2='320'  />
+<shape type='edge' x1='1250' y1='300' x2='1640' y2='375'  />
+<shape type='edge' x1='1000' y1='300' x2='1250' y2='300'  />
+<shape type='edge' x1='600' y1='325' x2='1000' y2='300'  />
+<shape type='edge' x1='0' y1='325' x2='600' y2='325'  />
+</body>
+</terrain>
