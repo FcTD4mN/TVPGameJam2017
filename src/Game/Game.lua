@@ -60,11 +60,6 @@ function Game:Initialize()
 
     local level1        =  Level1:New( world, self.mCamera )
 
-    xmlData = Terrain.SaveXML()
-
-    file = io.open( "Save/test.xml", 'w' )
-    file:write( xmlData )
-
 end
 
 

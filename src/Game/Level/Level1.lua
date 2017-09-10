@@ -19,6 +19,7 @@ local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 --TESTS
 local Ray               = require "src/Objects/Rays/Ray"
 local Vector            = require "src/Math/Vector"
+local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
 
 local Level1 = {}
@@ -80,41 +81,46 @@ end
 
 
 function  Level1:BuildTerrain()
-    Terrain.Initialize( self.mWorld )
 
-    -- Upper ground
-    Terrain.AddEdge( 0, 325, 600, 325 )
-    Terrain.AppendEdgeToPrevious( 1000, 300 )
-    Terrain.AppendEdgeToPrevious( 1250, 300 )
-    Terrain.AppendEdgeToPrevious( 1640, 375 )
-    Terrain.AppendEdgeToPrevious( 1790, 320 )
-    Terrain.AppendEdgeToPrevious( 1980, 320 )
-    Terrain.AppendEdgeToPrevious( 2180, 365 )
-    Terrain.AppendEdgeToPrevious( 2900, 365 )
-    Terrain.AppendEdgeToPrevious( 3370, 330 )
-    Terrain.AppendEdgeToPrevious( 3900, 330 )
-    Terrain.AddEdge( 4400, 360, 4715, 310 )
-    Terrain.AppendEdgeToPrevious( 5110, 360 )
-    Terrain.AppendEdgeToPrevious( 6115, 360 )
-    Terrain.AppendEdgeToPrevious( 6800, 330 )
-    Terrain.AppendEdgeToPrevious( 7690, 310 )
-    Terrain.AppendEdgeToPrevious( 8110, 390 )
-    Terrain.AppendEdgeToPrevious( 9600, 345 )
-    Terrain.AppendEdgeToPrevious( 9600, 0 )
+    local xml = io.open('Save/test.xml'):read('*all')
+    local doc = SLAXML:dom( xml )
+    Terrain.LoadXML( doc.root, self.mWorld )
 
-    -- Lower ground
-    Terrain.AddEdge( 0, 675, 500, 675 )
-    Terrain.AppendEdgeToPrevious( 730, 650 )
-    Terrain.AppendEdgeToPrevious( 1460, 700 )
-    Terrain.AppendEdgeToPrevious( 2030, 700 )
-    Terrain.AppendEdgeToPrevious( 5100, 700 )
-    Terrain.AppendEdgeToPrevious( 5300, 715 )
-    Terrain.AppendEdgeToPrevious( 5600, 660 )
-    Terrain.AppendEdgeToPrevious( 5600, 700 )
-    Terrain.AppendEdgeToPrevious( 7650, 680 )
-    Terrain.AppendEdgeToPrevious( 7880, 700 )
-    Terrain.AppendEdgeToPrevious( 9550, 680 )
-    Terrain.AppendEdgeToPrevious( 9600, 350 )
+    -- Terrain.Initialize( self.mWorld )
+
+    -- -- Upper ground
+    -- Terrain.AddEdge( 0, 325, 600, 325 )
+    -- Terrain.AppendEdgeToPrevious( 1000, 300 )
+    -- Terrain.AppendEdgeToPrevious( 1250, 300 )
+    -- Terrain.AppendEdgeToPrevious( 1640, 375 )
+    -- Terrain.AppendEdgeToPrevious( 1790, 320 )
+    -- Terrain.AppendEdgeToPrevious( 1980, 320 )
+    -- Terrain.AppendEdgeToPrevious( 2180, 365 )
+    -- Terrain.AppendEdgeToPrevious( 2900, 365 )
+    -- Terrain.AppendEdgeToPrevious( 3370, 330 )
+    -- Terrain.AppendEdgeToPrevious( 3900, 330 )
+    -- Terrain.AddEdge( 4400, 360, 4715, 310 )
+    -- Terrain.AppendEdgeToPrevious( 5110, 360 )
+    -- Terrain.AppendEdgeToPrevious( 6115, 360 )
+    -- Terrain.AppendEdgeToPrevious( 6800, 330 )
+    -- Terrain.AppendEdgeToPrevious( 7690, 310 )
+    -- Terrain.AppendEdgeToPrevious( 8110, 390 )
+    -- Terrain.AppendEdgeToPrevious( 9600, 345 )
+    -- Terrain.AppendEdgeToPrevious( 9600, 0 )
+
+    -- -- Lower ground
+    -- Terrain.AddEdge( 0, 675, 500, 675 )
+    -- Terrain.AppendEdgeToPrevious( 730, 650 )
+    -- Terrain.AppendEdgeToPrevious( 1460, 700 )
+    -- Terrain.AppendEdgeToPrevious( 2030, 700 )
+    -- Terrain.AppendEdgeToPrevious( 5100, 700 )
+    -- Terrain.AppendEdgeToPrevious( 5300, 715 )
+    -- Terrain.AppendEdgeToPrevious( 5600, 660 )
+    -- Terrain.AppendEdgeToPrevious( 5600, 700 )
+    -- Terrain.AppendEdgeToPrevious( 7650, 680 )
+    -- Terrain.AppendEdgeToPrevious( 7880, 700 )
+    -- Terrain.AppendEdgeToPrevious( 9550, 680 )
+    -- Terrain.AppendEdgeToPrevious( 9600, 350 )
 
     self.mTerrain = Terrain
 end

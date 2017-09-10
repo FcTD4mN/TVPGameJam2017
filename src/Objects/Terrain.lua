@@ -78,4 +78,16 @@ function  Terrain.SaveXML()
 end
 
 
+function  Terrain.LoadXML( iNode, iWorld )
+
+    assert( iNode.name == "terrain" )
+
+    Terrain.body = LoadBodyXML( iNode.el[ 1 ], iWorld )
+    Terrain.body:setFixedRotation( true )
+    Terrain.lastestEdgeX = nil
+    Terrain.lastestEdgeY = nil
+
+end
+
+
 return Terrain
