@@ -28,10 +28,10 @@ function love.load( args )
     local xml = io.open('src/Examples/XML.xml'):read('*all')
     local doc = SLAXML:dom( xml )
 
-    print( doc.root.name )
-
     for k,v in pairs( doc.root.kids ) do
-        print( v.name )
+        if( v.type == "element" ) then
+            print( v.attr[ 1 ].name )
+        end
     end
 
 
