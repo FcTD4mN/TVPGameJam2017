@@ -17,6 +17,17 @@ function  MiniMap:New( iX, iY, iW, iH, iScale )
 end
 
 
+function MiniMap:NewFromXML( iNode )
+    local newMiniMap = {}
+    setmetatable( newMiniMap, MiniMap )
+    MiniMap.__index = MiniMap
+
+    newMiniMap:LoadMiniMapXML( iNode )
+
+    return newMiniMap
+end
+
+
 function  MiniMap:BuildMiniMap( iX, iY, iW, iH, iScale )
 
     self.mX = iX
@@ -57,6 +68,42 @@ function  MiniMap:MapToScreen( iX, iY )
 
 
     return  x - offsetX, y - offsetY
+end
+
+
+-- ==========================================XML IO
+
+
+function  MiniMap:SaveMiniMapXML()
+
+    xmlData = "<minimap>\n"
+
+    xmlData = xmlData .. "x='" .. self.mX .. "' " ..
+                         "y='" .. self.mY .. "' " ..
+                         "w='" .. self.mW .. "' " ..
+                         "h='" .. self.mH .. "' " ..
+                         " >\n"
+
+    xmlData = xmlData .. self.mCamera:SaveCameraXML()
+
+
+    xmlData = xmlData .. "</minimap>\n"
+
+    return  xmlData
+
+end
+
+
+function  MiniMap:LoadMiniMapXML( iNode )
+
+    assert( iNode.name == "camera" )
+
+    self.mX  = iNode.attr[ 1 ].value
+    self.mY  = iNode.attr[ 2 ].value
+    self.mW  = iNode.attr[ 3 ].value
+    self.mH  = iNode.attr[ 4 ].value
+    self.mCamera  = Camera:NewFromXML( iNode.el[ 1 ] )
+
 end
 
 return  MiniMap

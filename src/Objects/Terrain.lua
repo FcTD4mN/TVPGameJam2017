@@ -65,7 +65,7 @@ end
 -- ==========================================XML IO
 
 
-function  Terrain.SaveXML()
+function  Terrain.SaveTerrainXML()
 
     xmlData = "<terrain>\n"
 
@@ -78,7 +78,7 @@ function  Terrain.SaveXML()
 end
 
 
-function  Terrain.LoadXML( iNode, iWorld )
+function  Terrain.LoadTerrainXML( iNode, iWorld )
 
     assert( iNode.name == "terrain" )
 

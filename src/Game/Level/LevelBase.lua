@@ -21,6 +21,17 @@ function LevelBase:New( iWorld, iCamera )
 end
 
 
+function LevelBase:NewFromXML( iNode, iWorld )
+    local newLevelBase = {}
+    setmetatable( newLevelBase, LevelBase )
+    LevelBase.__index = LevelBase
+
+    newLevelBase:LoadLevelBaseXML( iNode, iWorld )
+
+    return newLevelBase
+end
+
+
 function  LevelBase:BuildLevelBase( iWorld, iCamera )
 
     self.mWorld                 = iWorld
@@ -156,6 +167,62 @@ end
 
 function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
     --
+end
+
+
+-- ==========================================XML IO
+
+
+function  LevelBase:SaveLevelBaseXML()
+
+    xmlData = "<level>\n"
+
+    xmlData = xmlData .. self.mTerrain:SaveTerrainXML()
+    xmlData = xmlData .. self.mCamera:SaveCameraXML()
+    xmlData = xmlData .. self.mMiniMap:SaveMiniMapXML()
+
+    -- self.mFixedBackground       = nil
+    -- self.mBackgrounds           = {}
+    -- self.mForegrounds           = {}
+
+    xmlData = "<heros>\n"
+    for k,v in pairs( self.mHeros ) do
+        xmlData = xmlData .. v:SaveXML()
+    end
+    xmlData = "</heros>\n"
+
+    xmlData = "<environnement>\n"
+    for k,v in pairs( self.mEnvironnementObjects ) do
+        xmlData = xmlData .. v:SaveXML()
+    end
+    xmlData = "</environnement>\n"
+
+    xmlData = xmlData .. "</level>\n"
+
+    return  xmlData
+
+end
+
+
+function  LevelBase:LoadLevelBaseXML( iNode, iWorld )
+
+    assert( iNode.name == "level" )
+
+    self.mTerrain   = Terrain:LoadTerrainXML( iNode.el[ 1 ], iWorld )
+    self.mCamera    = Camera:NewFromXML( iNode.el[ 2 ] )
+    self.mMiniMap   = MiniMap:NewFromXML( iNode.el[ 3 ] )
+
+    -- TODO
+    assert( false )
+    -- TODO: a registry system, so we don't have to switch every possible case like below
+    for k,v in pairs( iNode.el[ 4 ].el ) do
+        if( v.name == "lapin" ) then
+            table.insert( self.mHeros, Lapin:NewFromXML( v, iWorld ) )
+        elseif( v.name == "singe" ) then
+            table.insert( self.mHeros, Singe:NewFromXML( v, iWorld ) )
+        end
+    end
+
 end
 
 

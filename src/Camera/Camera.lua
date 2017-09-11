@@ -16,6 +16,17 @@ function  Camera:New( iX, iY, iW, iH, iScale )
 end
 
 
+function Camera:NewFromXML( iNode )
+    local newCamera = {}
+    setmetatable( newCamera, Camera )
+    Camera.__index = Camera
+
+    newCamera:LoadCameraXML( iNode )
+
+    return newCamera
+end
+
+
 function  Camera:BuildCamera( iX, iY, iW, iH, iScale )
 
     self.mX = iX
@@ -76,6 +87,41 @@ function  Camera:MapToWorld( iX, iY )
 
     return  ( iX + ( ( self.mX * self.mScale ) - deltaW ) ) / self.mScale,
             ( iY + ( ( self.mY * self.mScale ) - deltaH ) ) / self.mScale
+
+end
+
+
+-- ==========================================XML IO
+
+
+function  Camera:SaveCameraXML()
+
+    xmlData = "<camera>\n"
+
+    xmlData = xmlData .. "x='" .. self.mX .. "' " ..
+                         "y='" .. self.mY .. "' " ..
+                         "w='" .. self.mW .. "' " ..
+                         "h='" .. self.mH .. "' " ..
+                         "scale='" .. self.mScale .. "' " ..
+                         " >\n"
+
+
+    xmlData = xmlData .. "</camera>\n"
+
+    return  xmlData
+
+end
+
+
+function  Camera:LoadCameraXML( iNode )
+
+    assert( iNode.name == "camera" )
+
+    self.mX  = iNode.attr[ 1 ].value
+    self.mY  = iNode.attr[ 2 ].value
+    self.mW  = iNode.attr[ 3 ].value
+    self.mH  = iNode.attr[ 4 ].value
+    self.mScale  = iNode.attr[ 5 ].value
 
 end
 
