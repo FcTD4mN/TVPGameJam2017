@@ -25,6 +25,17 @@ function Lapin:New( iWorld, iX, iY )
 end
 
 
+function Lapin:NewFromXML( iNode, iWorld )
+    local newLapin = {}
+    setmetatable( newLapin, Lapin )
+    Lapin.__index = Lapin
+
+    newLapin:LoadLapinXML( iNode, iWorld )
+
+    return newLapin
+end
+
+
 function  Lapin:BuildLapin( iWorld, iX, iY )
 
     self:BuildObject( iWorld, iX, iY, 90, 120, "dynamic", true )
@@ -215,6 +226,10 @@ function Lapin:KeyPressed( iKey, iScancode, iIsRepeat )
         self:StopRunning()
     elseif iKey == "z" and not isrepeat and self.mCanJump then
         self:Jump()
+    elseif iKey == "s" and not isrepeat then
+        xmlData = self:SaveLapinXML()
+        file = io.open( "Save/Lapin.xml", "w" )
+        file:write( xmlData )
     end
 end
 
@@ -222,8 +237,6 @@ end
 function Lapin:KeyReleased( iKey, iScancode )
     if iKey == "space" then
         self.mAttacking = false
-        xmlData = self:SaveObjectXML()
-        print( xmlData )
     end
     if iKey == "q" then
         self:StopRunning()
@@ -231,6 +244,61 @@ function Lapin:KeyReleased( iKey, iScancode )
     if iKey == "d" then
         self:StopRunning()
     end
+end
+
+
+-- ==========================================XML IO
+
+
+function  Lapin:SaveLapinXML()
+
+    xmlData = "<lapin>\n"
+
+    xmlData = xmlData .. self:SaveObjectXML()
+
+    xmlData = xmlData ..  "</lapin>\n"
+
+    return  xmlData
+
+end
+
+
+function  Lapin:LoadLapinXML( iNode, iWorld )
+
+    assert( iNode.name == "lapin" )
+    self:LoadObjectXML( iNode.el[ 1 ], iWorld )
+
+    -- Those are transient values, so no point saving/loading them
+    self.mCanJump    = false
+    self.mDirection  = 0
+    self.mMoving     = false
+    self.mAttacking  = false
+
+    self.mSounds         = {}
+    self.mSounds.step    = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
+    self.mSounds.jump    = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
+    self.mSounds.step:setLooping( true )
+    self.mSounds.jump:setVolume(0.4)
+
+    -- Animations
+    local animCourse        = love.graphics.newImage( "resources/Animation/Characters/lapin-course.png" )
+    local animSaut          = love.graphics.newImage( "resources/Animation/Characters/lapin-saut.png" )
+    local animInactif       = love.graphics.newImage( "resources/Animation/Characters/lapin-inactif-tout.png" )
+    local animInvocation    = love.graphics.newImage( "resources/Animation/Characters/lapin-invocation.png" )
+    self:AddAnimation( animCourse, 14, 24, false, false )   --1
+    self:AddAnimation( animCourse, 14, 24, true, false )    --2
+    self:AddAnimation( animSaut, 1, 24, false, false )      --3
+    self:AddAnimation( animSaut, 1, 24, true, false )       --4
+    self:AddAnimation( animInactif, 17, 24, true, false )   --6
+    self:AddAnimation( animInactif, 17, 24, false, false )  --5
+    self:AddAnimation( animInvocation, 5, 24, false, false )--7
+    self:AddAnimation( animInvocation, 5, 24, true, false ) --8
+
+    self:PlayAnimation( 5, 0 )
+
+    -- Images
+    RabbitSpells.Initialize() --TODO: move that thing elsewhere
+
 end
 
 

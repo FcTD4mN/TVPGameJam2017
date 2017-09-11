@@ -1,4 +1,4 @@
---[[=================================================================== 
+--[[===================================================================
     File: Base.Base.lua
 
     @@@@: This is the Base Module.
@@ -20,7 +20,7 @@ function Base:Initialize()
     local newBase = {}
     setmetatable( newBase, self )
     self.__index = self
-    
+
     -- Init module members
     newBase.name = "Base";
 
@@ -108,6 +108,17 @@ function Base:ValidParameter( iParameter, iType, iDefaultValue)
     else
         return iDefaultValue;
     end
+end
+
+-- Does the opposite of unpack(), takes n arguments and packs them in a table
+function Pack( ... )
+
+    local table = {}
+    for k, v in pairs({...}) do
+        table[k] = v
+    end
+    return  table
+
 end
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================

@@ -25,6 +25,17 @@ function Singe:New( iWorld, iX, iY )
 end
 
 
+function Singe:NewFromXML( iNode, iWorld )
+    local newSinge = {}
+    setmetatable( newSinge, Singe )
+    Singe.__index = Singe
+
+    newSinge:LoadSingeXML( iNode, iWorld )
+
+    return newSinge
+end
+
+
 function  Singe:BuildSinge( iWorld, iX, iY )
 
     self:BuildObject( iWorld, iX, iY, 90, 120, "dynamic", true )
@@ -230,6 +241,62 @@ function Singe:KeyReleased( key, scancode )
         self:StopRunning()
     end
 end
+
+
+-- ==========================================XML IO
+
+
+function  Singe:SaveSingeXML()
+
+    xmlData = "<singe>\n"
+
+    xmlData = xmlData .. self:SaveObjectXML()
+
+    xmlData = xmlData ..  "</singe>\n"
+
+    return  xmlData
+
+end
+
+
+function  Singe:LoadSingeXML( iNode, iWorld )
+
+    assert( iNode.name == "singe" )
+    self:LoadObjectXML( iNode.el[ 1 ], iWorld )
+
+    -- Those are transient values, so no point saving/loading them
+    self.mCanJump    = false
+    self.mDirection  = 0
+    self.mMoving     = false
+    self.mAttacking  = false
+
+    self.mSounds         = {}
+    self.mSounds.step    = love.audio.newSource( "resources/Audio/FXSound/pasherbe.mp3", "stream" )
+    self.mSounds.jump    = love.audio.newSource( "resources/Audio/FXSound/saut.mp3", "stream" )
+    self.mSounds.step:setLooping( true )
+    self.mSounds.jump:setVolume(0.4)
+
+    --Animations
+    local animCourse        = love.graphics.newImage( "resources/Animation/Characters/singe-course.png" )
+    local animSaut          = love.graphics.newImage( "resources/Animation/Characters/singe-saut.png" )
+    local animInactif       = love.graphics.newImage( "resources/Animation/Characters/singe-inactif-tout.png" )
+    local animInvocation    = love.graphics.newImage( "resources/Animation/Characters/singe-invocation.png" )
+    self:AddAnimation( animCourse, 14, 24, false, false )   --1
+    self:AddAnimation( animCourse, 14, 24, true, false )    --2
+    self:AddAnimation( animSaut, 1, 24, false, false )      --3
+    self:AddAnimation( animSaut, 1, 24, true, false )       --4
+    self:AddAnimation( animInactif, 18, 24, false, false )  --5
+    self:AddAnimation( animInactif, 18, 24, true, false )   --6
+    self:AddAnimation( animInvocation, 7, 24, false, false )--7
+    self:AddAnimation( animInvocation, 7, 24, true, false ) --8
+
+    self:PlayAnimation( 5, 0 )
+
+    -- Images
+    MonkeySpells.Initialize() --TODO: move that thing elsewhere
+
+end
+
 
 
 return Singe

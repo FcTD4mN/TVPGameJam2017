@@ -1,0 +1,12 @@
+<lapin>
+<object x='800' y='50' w='90' h='120'  >
+<body type='dynamic' x1='1629.0521240234' y1='305.59796142578' gravity='1' fixedrotation='true'  >
+<fixture friction='1' >
+<shape type='polygon' x1='30.000001907349' y1='-60.000003814697' x3='30.000001907349' y3='60.000003814697' x5='-30.000001907349' y5='60.000003814697' x7='-30.000001907349' y7='-60.000003814697'  />
+</fixture>
+<fixture friction='0' >
+<shape type='polygon' x1='32.5' y1='-57.5' x3='32.5' y3='57.5' x5='-32.5' y5='57.5' x7='-32.5' y7='-57.5'  />
+</fixture>
+</body>
+</object>
+</lapin>

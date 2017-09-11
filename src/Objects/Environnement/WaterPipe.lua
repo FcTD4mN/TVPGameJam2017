@@ -23,6 +23,17 @@ function WaterPipe:New( iWorld, iX, iY )
 end
 
 
+function WaterPipe:NewFromXML( iNode, iWorld )
+    local newWaterPipe = {}
+    setmetatable( newWaterPipe, WaterPipe )
+    WaterPipe.__index = WaterPipe
+
+    newWaterPipe:LoadWaterPipeXML( iNode, iWorld )
+
+    return newWaterPipe
+end
+
+
 function  WaterPipe:BuildWaterPipe( iWorld, iX, iY )
 
     self:BuildObject( iWorld, iX, iY, 230, 350, "static", true )
@@ -78,6 +89,36 @@ function  WaterPipe:Collide( iObject )
     if( iObject:Type() == "Waterball" ) then
         self:ShootOut()
     end
+end
+
+
+-- ==========================================XML IO
+
+
+function  WaterPipe:SaveWaterPipeXML()
+
+    xmlData = "<waterpipe>\n"
+
+    xmlData = xmlData .. self:SaveObjectXML()
+
+    xmlData = xmlData ..  "</waterpipe>\n"
+
+    return  xmlData
+
+end
+
+
+function  WaterPipe:LoadWaterPipeXML( iNode, iWorld )
+
+    assert( iNode.name == "waterpipe" )
+    self:LoadObjectXML( iNode.el[ 1 ], iWorld )
+
+    -- Those are transient values, so no point saving/loading them
+    --Animations
+    local WaterPipe      = love.graphics.newImage( "resources/Images/Backgrounds/pipeline.png" )
+    self:AddAnimation( WaterPipe, 1, 1, false, false )
+    self:PlayAnimation( 1, 0 )
+
 end
 
 

@@ -24,6 +24,17 @@ function Tree:New( iWorld, iX, iY )
 end
 
 
+function Tree:NewFromXML( iNode, iWorld )
+    local newTree = {}
+    setmetatable( newTree, Tree )
+    Tree.__index = Tree
+
+    newTree:LoadTreeXML( iNode, iWorld )
+
+    return newTree
+end
+
+
 function  Tree:BuildTree( iWorld, iX, iY )
 
     self:BuildObject( iWorld, iX, iY, 560, 540, "static", true )
@@ -84,5 +95,38 @@ function Tree:Collide( iObject )
         self:Burn()
     end
 end
+
+
+-- ==========================================XML IO
+
+
+function  Tree:SaveTreeXML()
+
+    xmlData = "<tree>\n"
+
+    xmlData = xmlData .. self:SaveObjectXML()
+
+    xmlData = xmlData ..  "</tree>\n"
+
+    return  xmlData
+
+end
+
+
+function  Tree:LoadTreeXML( iNode, iWorld )
+
+    assert( iNode.name == "tree" )
+    self:LoadObjectXML( iNode.el[ 1 ], iWorld )
+
+    -- Those are transient values, so no point saving/loading them
+    --Animations
+    local tree      = love.graphics.newImage( "resources/Animation/FX/arbre_brule.png" )
+    local treeFix   = love.graphics.newImage( "resources/Animation/FX/arbre_fixe.png" )
+    self:AddAnimation( tree, 11, 12, false, false )
+    self:AddAnimation( treeFix, 1, 1, false, false )
+    self:PlayAnimation( 2, 0 )
+
+end
+
 
 return Tree

@@ -1,4 +1,4 @@
-
+require( "src/Base/Utilities/Base" )
 -- BODY
 
 function  SaveBodyXML( iBody )
@@ -27,7 +27,7 @@ function  SaveBodyXML( iBody )
 end
 
 
-function  LoadBodyXML( iNode, iWorld )
+function  LoadBodyXML( iNode, iWorld, iObject )
 
     assert( iNode.name == "body" )
 
@@ -42,7 +42,7 @@ function  LoadBodyXML( iNode, iWorld )
     body:setFixedRotation( fixedrotation )
 
     for i = 1, #iNode.el do
-        fixture = LoadFixtureXML( iNode.el[ i ], body )
+        fixture = LoadFixtureXML( iNode.el[ i ], body, iObject )
     end
 
     return  body
@@ -68,7 +68,7 @@ function  SaveFixtureXML( iFixture )
 end
 
 
-function  LoadFixtureXML( iNode, iBody )
+function  LoadFixtureXML( iNode, iBody, iObject )
 
     assert( iNode.name == "fixture" )
     assert( #iNode.el == 1 ) -- Can only have one shape per fixture
@@ -79,6 +79,7 @@ function  LoadFixtureXML( iNode, iBody )
 
     fixture    = love.physics.newFixture( iBody, shape )
     fixture:setFriction( friction )
+    fixture:setUserData( iObject )
 
     return  fixture
 
@@ -94,12 +95,14 @@ function  SaveShapeXML( iShape )
 
     if( iShape:getType() == "polygon" ) then
 
-        assert( false ) -- TODO
         xmlData = xmlData .. "type='polygon' "
 
-        points = iShape:getPoints()
-        for k,v in pairs( points ) do
-
+        local points = Pack( iShape:getPoints() )
+        for i = 1, #points, 2 do
+            x = points[ i ]
+            y = points[ i + 1 ]
+            xmlData = xmlData .. "x" .. i .. "='" .. x .. "' " ..
+                                "y" .. i .. "='" .. y .. "' "
         end
 
         xmlData = xmlData .. " />\n"
@@ -141,7 +144,12 @@ function  LoadShapeXML( iNode )
     -- POLYGON
     elseif type == "polygon" then
 
-        shape    = love.physics.newPolygonShape( 0, 0, 1, 1, 2, 2 )
+        local points = {}
+        -- -1 because first attribute is type
+        for i = 2, #iNode.attr do
+            table.insert( points, iNode.attr[ i ].value )
+        end
+        shape    = love.physics.newPolygonShape( unpack( points ) )
 
     -- RECTANGLE
     elseif type == "rectangle" then

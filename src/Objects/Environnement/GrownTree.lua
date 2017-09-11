@@ -23,6 +23,17 @@ function GrownTree:New( iWorld, iX, iY )
 end
 
 
+function GrownTree:NewFromXML( iNode, iWorld )
+    local newGrownTree = {}
+    setmetatable( newGrownTree, GrownTree )
+    GrownTree.__index = GrownTree
+
+    newGrownTree:LoadGrownTreeXML( iNode, iWorld )
+
+    return newGrownTree
+end
+
+
 function  GrownTree:BuildGrownTree( iWorld, iX, iY )
 
     self:BuildObject( iWorld, iX, iY, 912, 468, "static", true )
@@ -62,6 +73,36 @@ end
 
 function GrownTree:Draw( iCamera )
     self:DrawObject( iCamera )
+end
+
+
+-- ==========================================XML IO
+
+
+function  GrownTree:SaveGrownTreeXML()
+
+    xmlData = "<growntree>\n"
+
+    xmlData = xmlData .. self:SaveObjectXML()
+
+    xmlData = xmlData .. "</growntree>\n"
+
+    return  xmlData
+
+end
+
+
+function  GrownTree:LoadGrownTreeXML( iNode, iWorld )
+
+    assert( iNode.name == "growntree" )
+    self:LoadObjectXML( iNode.el[ 1 ], iWorld )
+
+    -- Those are transient values, so no point saving/loading them
+    --Animations
+    local img = love.graphics.newImage( "resources/Animation/FX/Grande-plante.png" )
+    self:AddAnimation( img, 16, 12, false, false )
+    self:PlayAnimation( 1, 1 )
+
 end
 
 return GrownTree

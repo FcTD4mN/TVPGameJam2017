@@ -34,6 +34,17 @@ function BabyTree:New( iWorld, iX, iY )
 end
 
 
+function BabyTree:NewFromXML( iNode, iWorld )
+    local newBabyTree = {}
+    setmetatable( newBabyTree, BabyTree )
+    BabyTree.__index = BabyTree
+
+    newBabyTree:LoadBabyTreeXML( iNode, iWorld )
+
+    return newBabyTree
+end
+
+
 function  BabyTree:BuildBabyTree( iWorld, iX, iY )
 
     self:BuildObject( iWorld, iX, iY, 90, 120, "static", true )
@@ -79,6 +90,36 @@ function BabyTree:Collide( iObject )
     if iObject:Type() == "Waterball" then
         self:Destroy()
     end
+end
+
+
+-- ==========================================XML IO
+
+
+function  BabyTree:SaveBabyTreeXML()
+
+    xmlData = "<babytree>\n"
+
+    xmlData = xmlData .. self:SaveObjectXML()
+
+    xmlData = xmlData .. "</babytree>\n"
+
+    return  xmlData
+
+end
+
+
+function  BabyTree:LoadBabyTreeXML( iNode, iWorld )
+
+    assert( iNode.name == "babytree" )
+    self:LoadObjectXML( iNode.el[ 1 ], iWorld )
+
+    -- Those are transient values, so no point saving/loading them
+    --Animations
+    local img = love.graphics.newImage( "resources/Animation/FX/Petite-plante.png" )
+    self:AddAnimation( img, 8, 8, false, false )
+    self:PlayAnimation( 1, 0 ) -- play animation n°1 infinitely
+
 end
 
 return BabyTree

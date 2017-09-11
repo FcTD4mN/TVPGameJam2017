@@ -4,6 +4,9 @@ local Animation     = require "src/Image/Animation"
 local Camera        = require "src/Camera/Camera"
 local ObjectPool    = require "src/Objects/Pools/ObjectPool"
 
+
+local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
+
 local Object = {}
 
 -- ==========================================Constructor/Destructor
@@ -191,6 +194,7 @@ end
 
 -- ==========================================Collision stuff
 
+
 function Object:Collide( iObject )
     --does nothing
 end
@@ -201,7 +205,7 @@ end
 
 function  Object:SaveObjectXML()
 
-    xmlData = "<object>\n"
+    xmlData = "<object "
 
     xmlData = xmlData .. "x='" .. self.mX .. "' " ..
                          "y='" .. self.mY .. "' " ..
@@ -226,7 +230,7 @@ function  Object:LoadObjectXML( iNode, iWorld )
 
     assert( iNode.name == "object" )
 
-    self.mBody = LoadBodyXML( iNode.el[ 1 ], iWorld )
+    self.mBody = LoadBodyXML( iNode.el[ 1 ], iWorld, self )
 
     self.mX  = iNode.attr[ 1 ].value
     self.mY  = iNode.attr[ 2 ].value
