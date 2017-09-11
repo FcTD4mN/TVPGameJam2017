@@ -222,6 +222,8 @@ end
 function Lapin:KeyReleased( iKey, iScancode )
     if iKey == "space" then
         self.mAttacking = false
+        xmlData = self:SaveObjectXML()
+        print( xmlData )
     end
     if iKey == "q" then
         self:StopRunning()

@@ -6,9 +6,12 @@ function  SaveBodyXML( iBody )
     xmlData = "<body "
 
     x1,y1 = iBody:getPosition()
+
     xmlData = xmlData .. "type='" .. iBody:getType() .. "' " ..
                         "x1='" .. x1 .. "' " ..
                         "y1='" .. y1 .. "' " ..
+                        "gravity='" .. iBody:getGravityScale() .. "' " ..
+                        "fixedrotation='" .. tostring( iBody:isFixedRotation() ) .. "' " ..
                         " >\n"
 
     fixtures = iBody:getFixtureList()
@@ -28,14 +31,15 @@ function  LoadBodyXML( iNode, iWorld )
 
     assert( iNode.name == "body" )
 
-    local type  = iNode.attr[ 1 ].value
-    local x1    = iNode.attr[ 2 ].value
-    local y1    = iNode.attr[ 3 ].value
-    print( type )
-    print( x1 )
-    print( y1 )
+    local type          = iNode.attr[ 1 ].value
+    local x1            = iNode.attr[ 2 ].value
+    local y1            = iNode.attr[ 3 ].value
+    local gravity       = iNode.attr[ 4 ].value
+    local fixedrotation = iNode.attr[ 5 ].value
 
     body = love.physics.newBody( iWorld, x1, y1, type )
+    body:setGravityScale( gravity )
+    body:setFixedRotation( fixedrotation )
 
     for i = 1, #iNode.el do
         fixture = LoadFixtureXML( iNode.el[ i ], body )
@@ -90,8 +94,15 @@ function  SaveShapeXML( iShape )
 
     if( iShape:getType() == "polygon" ) then
 
-        xmlData = xmlData .. "type='polygon' " ..
-                            " />\n"
+        assert( false ) -- TODO
+        xmlData = xmlData .. "type='polygon' "
+
+        points = iShape:getPoints()
+        for k,v in pairs( points ) do
+
+        end
+
+        xmlData = xmlData .. " />\n"
 
     elseif( iShape:getType() == "edge" ) then
 

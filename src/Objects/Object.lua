@@ -1,3 +1,5 @@
+require( "src/Base/Utilities/XML" )
+
 local Animation     = require "src/Image/Animation"
 local Camera        = require "src/Camera/Camera"
 local ObjectPool    = require "src/Objects/Pools/ObjectPool"
@@ -193,4 +195,54 @@ function Object:Collide( iObject )
     --does nothing
 end
 
+
+-- ==========================================XML IO
+
+
+function  Object:SaveObjectXML()
+
+    xmlData = "<object>\n"
+
+    xmlData = xmlData .. "x='" .. self.mX .. "' " ..
+                         "y='" .. self.mY .. "' " ..
+                         "w='" .. self.mW .. "' " ..
+                         "h='" .. self.mH .. "' " ..
+                         " >\n"
+
+    xmlData = xmlData .. SaveBodyXML( self.mBody )
+
+    -- TODO at some point, save those :
+        -- self.mAnimations         = {}
+        -- self.mCurrentAnimation   = 0
+
+    xmlData = xmlData .. "</object>\n"
+
+    return  xmlData
+
+end
+
+
+function  Object:LoadObjectXML( iNode, iWorld )
+
+    assert( iNode.name == "object" )
+
+    self.mBody = LoadBodyXML( iNode.el[ 1 ], iWorld )
+
+    self.mX  = iNode.attr[ 1 ].value
+    self.mY  = iNode.attr[ 2 ].value
+    self.mW  = iNode.attr[ 3 ].value
+    self.mH  = iNode.attr[ 4 ].value
+
+    self.mAnimations         = {}
+    self.mCurrentAnimation   = 0
+
+    self.mNeedDestroy = false
+
+    ObjectPool.AddObject( self )
+
+end
+
+
+
 return Object
+
