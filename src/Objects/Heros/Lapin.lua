@@ -3,12 +3,15 @@ local AttackGenerator   = require "src/Game/AttackGenerator"
 local Camera            = require "src/Camera/Camera"
 local Object            = require "src/Objects/Object"
 local ObjectPool        = require "src/Objects/Pools/ObjectPool"
+      ObjectRegistry    = require "src/Base/ObjectRegistry"
 local RabbitSpells      = require "src/Interface/RabbitSpells"
 
 
 local Lapin = {}
 setmetatable( Lapin, Object )
 Object.__index = Object
+
+ObjectRegistry.RegisterXMLCreation( "lapin", Lapin )
 
 
 -- ==========================================Constructor/Destructor

@@ -10,6 +10,7 @@ local GrownTree             = require "src/Objects/Environnement/GrownTree"
 local ImageShapeComputer    = require "src/Image/ImageShapeComputer"
 local Lapin                 = require "src/Objects/Heros/Lapin"
 local MiniMap               = require "src/Camera/MiniMap"
+      ObjectRegistry        = require "src/Base/ObjectRegistry"
 local Singe                 = require "src/Objects/Heros/Singe"
 local Terrain               = require "src/Objects/Terrain"
 local Tree                  = require "src/Objects/Environnement/Tree"
@@ -74,8 +75,12 @@ function Level1:Initialize()
 
 
     --TESTS
+    local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Lapin.xml'):read('*all')
+    local doc = SLAXML:dom( xml )
+
     ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
     self.mMiniMap = MiniMap:New( 10, 10, 500, 200, 0.2 )
+    local lapinTest = ObjectRegistry.CreateFromRegistry( "lapin", doc.root, self.mWorld )
 
     -- love.audio.play( music )
 end
