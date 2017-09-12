@@ -1,11 +1,14 @@
 
-local Camera        = require "src/Camera/Camera"
-local Object        = require "src/Objects/Object"
-local ObjectPool    = require "src/Objects/Pools/ObjectPool"
+local Camera            = require "src/Camera/Camera"
+local Object            = require "src/Objects/Object"
+local ObjectPool        = require "src/Objects/Pools/ObjectPool"
+      ObjectRegistry    = require "src/Base/ObjectRegistry"
 
 local GrownTree = {}
 setmetatable( GrownTree, Object )
 Object.__index = Object
+
+ObjectRegistry.RegisterXMLCreation( "growntree", GrownTree )
 
 
 -- ==========================================Constructor/Destructor
@@ -77,6 +80,11 @@ end
 
 
 -- ==========================================XML IO
+
+
+function  GrownTree:SaveXML()
+    return  self:SaveGrownTreeXML()
+end
 
 
 function  GrownTree:SaveGrownTreeXML()

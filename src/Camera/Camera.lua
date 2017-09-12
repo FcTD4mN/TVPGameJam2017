@@ -96,17 +96,12 @@ end
 
 function  Camera:SaveCameraXML()
 
-    xmlData = "<camera>\n"
-
-    xmlData = xmlData .. "x='" .. self.mX .. "' " ..
-                         "y='" .. self.mY .. "' " ..
-                         "w='" .. self.mW .. "' " ..
-                         "h='" .. self.mH .. "' " ..
-                         "scale='" .. self.mScale .. "' " ..
-                         " >\n"
-
-
-    xmlData = xmlData .. "</camera>\n"
+    xmlData = "<camera " .. "x='" .. self.mX .. "' " ..
+                            "y='" .. self.mY .. "' " ..
+                            "w='" .. self.mW .. "' " ..
+                            "h='" .. self.mH .. "' " ..
+                            "scale='" .. self.mScale .. "' " ..
+                            " />\n"
 
     return  xmlData
 

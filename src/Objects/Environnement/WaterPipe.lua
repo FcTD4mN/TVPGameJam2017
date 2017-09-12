@@ -1,11 +1,14 @@
 local Animation         = require "src/Image/Animation"
 local Object            = require "src/Objects/Object"
 local ObjectPool        = require "src/Objects/Pools/ObjectPool"
+      ObjectRegistry    = require "src/Base/ObjectRegistry"
 local AttackGenerator   = require "src/Game/AttackGenerator"
 
 local WaterPipe = {}
 setmetatable( WaterPipe, Object )
 Object.__index = Object
+
+ObjectRegistry.RegisterXMLCreation( "waterpipe", WaterPipe )
 
 
 -- ==========================================Constructor/Destructor
@@ -93,6 +96,11 @@ end
 
 
 -- ==========================================XML IO
+
+
+function  WaterPipe:SaveXML()
+    return  self:SaveWaterPipeXML()
+end
 
 
 function  WaterPipe:SaveWaterPipeXML()

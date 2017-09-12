@@ -14,6 +14,8 @@ end
 
 function  ObjectRegistry.CreateFromRegistry( iObjectString, iNode, iWorld )
 
+    print( iObjectString )
+
     for k,v in pairs( ObjectRegistry.references ) do
         if k == iObjectString then
             return  v:NewFromXML( iNode, iWorld )

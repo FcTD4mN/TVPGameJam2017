@@ -203,6 +203,12 @@ end
 -- ==========================================XML IO
 
 
+function  Object:SaveXML()
+    xassert( false ) -- This method shouldn't be called as Object is abstract
+                        -- Your object needs to override this method
+end
+
+
 function  Object:SaveObjectXML()
 
     xmlData = "<object "

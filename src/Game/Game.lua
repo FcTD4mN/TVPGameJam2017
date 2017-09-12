@@ -55,24 +55,22 @@ function Game:Initialize()
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
     world:setCallbacks( beginContact, endContact, preSolve, postSolve )
 
-    --CAMERA
-    self.mCamera = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 0.5 )
-
-    local level1        =  Level1:New( world, self.mCamera )
+    -- level1        =  Level1:NewFromXML( world )
+    level1        =  Level1:New( world )
 
 end
 
 
 function Game:Update( dt )
 
-    Level1:Update( dt )
+    level1:Update( dt )
 
     if love.keyboard.isDown( "o" )  then
-        self.mCamera.mScale = self.mCamera.mScale + 0.01
+        level1.mCamera.mScale = level1.mCamera.mScale + 0.01
     elseif love.keyboard.isDown( "l" )  then
-        self.mCamera.mScale = self.mCamera.mScale - 0.01
+        level1.mCamera.mScale = level1.mCamera.mScale - 0.01
     elseif love.keyboard.isDown( "p" )  then
-        self.mCamera.mScale = 1.0
+        level1.mCamera.mScale = 1.0
     end
 
     return 1
@@ -82,7 +80,7 @@ end
 
 function Game:Draw()
 
-    Level1:Draw()
+    level1:Draw()
     self:DEBUGWorldHITBOXESDraw( "all" )
 
 end
@@ -91,16 +89,16 @@ end
 
 function Game:KeyPressed( iKey, iScancode, iIsRepeat )
 
-    Level1:KeyPressed( iKey, iScancode, iIsRepeat )
+    level1:KeyPressed( iKey, iScancode, iIsRepeat )
 
 end
 
 function Game:KeyReleased( key, scancode )
-    Level1:KeyReleased( key, scancode )
+    level1:KeyReleased( key, scancode )
 end
 
 function  Game:mousepressed( iX, iY, iButton, iIsTouch )
-    Level1:MousePressed(  iX, iY, iButton, iIsTouch )
+    level1:MousePressed(  iX, iY, iButton, iIsTouch )
 end
 
 
@@ -124,7 +122,7 @@ function Game:DEBUGWorldHITBOXESDraw( iWhatToDraw )
             -- POLYGONS
             if( v:getShape():getType() == "polygon" ) and ( iWhatToDraw == "all" or iWhatToDraw == "polygon"  ) then
 
-                love.graphics.polygon( "fill", self.mCamera:MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
+                love.graphics.polygon( "fill", level1.mCamera:MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
 
             -- CIRCLES
             elseif ( v:getShape():getType() == "circle" ) and ( iWhatToDraw == "all" or iWhatToDraw == "circle"  ) then
@@ -136,14 +134,14 @@ function Game:DEBUGWorldHITBOXESDraw( iWhatToDraw )
                 -- x, y are coordinates from the center of body, so we offset to match center in screen coordinates
                 x = x + xBody
                 y = y + yBody
-                x, y = self.mCamera:MapToScreen( x, y )
+                x, y = level1.mCamera:MapToScreen( x, y )
                 love.graphics.circle( "fill", x, y, radius )
 
             -- EDGES
             elseif ( v:getShape():getType() == "edge" ) and ( iWhatToDraw == "all" or iWhatToDraw == "edge"  ) then
 
                 love.graphics.setColor( 255, 0, 0, 200 )
-                love.graphics.line( self.mCamera:MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
+                love.graphics.line( level1.mCamera:MapToScreenMultiple( b:getWorldPoints( v:getShape():getPoints() ) ) )
 
             -- CHAINS
             elseif ( v:getShape():getType() == "chain" ) and ( iWhatToDraw == "all" or iWhatToDraw == "chain"  ) then

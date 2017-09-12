@@ -3,12 +3,15 @@ local AttackGenerator   = require "src/Game/AttackGenerator"
 local Camera            = require "src/Camera/Camera"
 local Object            = require "src/Objects/Object"
 local ObjectPool        = require "src/Objects/Pools/ObjectPool"
+      ObjectRegistry    = require "src/Base/ObjectRegistry"
 local MonkeySpells      = require "src/Interface/MonkeySpells"
 
 
 local Singe = {}
 setmetatable( Singe, Object )
 Object.__index = Object
+
+ObjectRegistry.RegisterXMLCreation( "singe", Singe )
 
 
 -- ==========================================Constructor/Destructor
@@ -244,6 +247,11 @@ end
 
 
 -- ==========================================XML IO
+
+
+function  Singe:SaveXML()
+    return  self:SaveSingeXML()
+end
 
 
 function  Singe:SaveSingeXML()

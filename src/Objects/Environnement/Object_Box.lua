@@ -1,11 +1,14 @@
 
-local Object = require "src/Objects/Object"
+local Object            = require "src/Objects/Object"
 local ObjectPool        = require "src/Objects/Pools/ObjectPool"
+      ObjectRegistry    = require "src/Base/ObjectRegistry"
 
 
 local Object_Box = {}
 setmetatable( Object_Box, Object )
 Object.__index = Object
+
+ObjectRegistry.RegisterXMLCreation( "objectbox", Object_Box )
 
 
 -- ==========================================Constructor/Destructor
@@ -74,6 +77,11 @@ end
 
 
 -- ==========================================XML IO
+
+
+function  Object_Box:SaveXML()
+    return  self:SaveObject_BoxXML()
+end
 
 
 function  Object_Box:SaveObject_BoxXML()

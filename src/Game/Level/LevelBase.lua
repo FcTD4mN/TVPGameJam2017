@@ -1,6 +1,12 @@
-local ObjectPool    = require "src/Objects/Pools/ObjectPool"
-local CollidePool   = require "src/Objects/Pools/CollidePool"
-local RayPool       = require "src/Objects/Pools/RayPool"
+local  Camera   = require "src/Camera/Camera"
+local  MiniMap  = require "src/Camera/MiniMap"
+local  Terrain  = require "src/Objects/Terrain"
+
+-- Pools
+ObjectPool      = require "src/Objects/Pools/ObjectPool"
+ObjectRegistry  = require "src/Base/ObjectRegistry"
+CollidePool     = require "src/Objects/Pools/CollidePool"
+RayPool         = require "src/Objects/Pools/RayPool"
 
 
 local LevelBase = {}
@@ -44,7 +50,6 @@ function  LevelBase:BuildLevelBase( iWorld, iCamera )
     self.mForegrounds           = {}
 
     self.mHeros                 = {}
-    self.mEnvironnementObjects  = {}
 
 end
 
@@ -149,6 +154,12 @@ end
 
 function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
 
+    if iKey == "s" and not iIsRepeat then
+        xmlData = self:SaveLevelBaseXML()
+        file = io.open( "Save/Level1.xml", "w" )
+        file:write( xmlData )
+    end
+
     for k,v in pairs( self.mHeros ) do
         v:KeyPressed( iKey, iScancode, iIsRepeat )
     end
@@ -185,17 +196,13 @@ function  LevelBase:SaveLevelBaseXML()
     -- self.mBackgrounds           = {}
     -- self.mForegrounds           = {}
 
-    xmlData = "<heros>\n"
-    for k,v in pairs( self.mHeros ) do
-        xmlData = xmlData .. v:SaveXML()
-    end
-    xmlData = "</heros>\n"
+    xmlData = xmlData .. "<objectpool>\n"
+    for i = 1, ObjectPool.Count() do
 
-    xmlData = "<environnement>\n"
-    for k,v in pairs( self.mEnvironnementObjects ) do
-        xmlData = xmlData .. v:SaveXML()
+        local obj = ObjectPool.ObjectAtIndex( i )
+        xmlData = xmlData .. obj:SaveXML()
     end
-    xmlData = "</environnement>\n"
+    xmlData = xmlData .. "</objectpool>\n"
 
     xmlData = xmlData .. "</level>\n"
 
@@ -207,21 +214,31 @@ end
 function  LevelBase:LoadLevelBaseXML( iNode, iWorld )
 
     assert( iNode.name == "level" )
+    temp = iNode.el[ 1 ]
 
-    self.mTerrain   = Terrain:LoadTerrainXML( iNode.el[ 1 ], iWorld )
+    self.mWorld     = iWorld
+    Terrain.LoadTerrainXML( iNode.el[ 1 ], iWorld ) -- TODO: terrain shouldn't be singleton
+    self.mTerrain   = Terrain
     self.mCamera    = Camera:NewFromXML( iNode.el[ 2 ] )
     self.mMiniMap   = MiniMap:NewFromXML( iNode.el[ 3 ] )
 
-    -- TODO
-    assert( false )
-    -- TODO: a registry system, so we don't have to switch every possible case like below
+    self.mHeros                 = {}
+
+    -- TODO : save/load those
+    self.mFixedBackground       = nil
+    self.mBackgrounds           = {}
+    self.mForegrounds           = {}
+
+
+    -- Node <objectpool>
     for k,v in pairs( iNode.el[ 4 ].el ) do
-        if( v.name == "lapin" ) then
-            table.insert( self.mHeros, Lapin:NewFromXML( v, iWorld ) )
-        elseif( v.name == "singe" ) then
-            table.insert( self.mHeros, Singe:NewFromXML( v, iWorld ) )
+        local obj = ObjectRegistry.CreateFromRegistry( v.name, v, iWorld )
+        -- TODO: shouldn't heros ne only in pool as well ? and shouldn't pool forward all events to all objects ?
+        if obj:Type() == "Singe" or obj:Type() == "Lapin" then
+            table.insert( self.mHeros, obj )
         end
     end
+
 
 end
 

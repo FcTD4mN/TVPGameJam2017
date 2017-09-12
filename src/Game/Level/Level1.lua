@@ -44,6 +44,27 @@ function Level1:New( iWorld, iCamera )
 end
 
 
+function Level1:NewFromXML( iWorld )
+
+    newLevel1 = {}
+    setmetatable( newLevel1, Level1 )
+    Level1.__index = Level1
+
+    local xml = io.open('Save/Level1.xml'):read('*all')
+    local doc = SLAXML:dom( xml )
+    newLevel1:LoadLevelBaseXML( doc.root, iWorld )
+
+    -- BACKGROUNDS
+    newLevel1.mFixedBackground          = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
+    table.insert( newLevel1.mBackgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", 0, 0, 0 ) )
+    table.insert( newLevel1.mBackgrounds, Background:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 0, 0, 0 ) )
+    table.insert( newLevel1.mForegrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
+
+    return  newLevel1
+
+end
+
+
 function  Level1:BuildLevel1( iWorld, iCamera )
 
     self:BuildLevelBase( iWorld, iCamera )
@@ -56,13 +77,16 @@ function Level1:Initialize()
     music = love.audio.newSource( "resources/Audio/Music/Enjeuloop.mp3", "stream" )
     music:setLooping( true )
 
+    --CAMERA
+    self.mCamera = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 0.5 )
+
     -- OBJECTS
-    self.mHeros[1]      =  Singe:New( self.mWorld, 1000, 500 )
+    self.mHeros[1]      =  Singe:New( self.mWorld, 1000, 50 )
     self.mHeros[2]      =  Lapin:New( self.mWorld, 800, 50 )
 
-    table.insert( self.mEnvironnementObjects, Tree:New( self.mWorld, 2400, 0 ) )
-    table.insert( self.mEnvironnementObjects, BabyTree:New( self.mWorld, 3700, 600 ) )
-    table.insert( self.mEnvironnementObjects, WaterPipe:New( self.mWorld, 3600, 130 ) )
+    Tree:New( self.mWorld, 2400, 0 )
+    BabyTree:New( self.mWorld, 3700, 600 )
+    WaterPipe:New( self.mWorld, 3600, 130 )
 
     -- TERRAIN
     Level1:BuildTerrain()
@@ -73,24 +97,14 @@ function Level1:Initialize()
     table.insert( self.mBackgrounds, Background:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 0, 0, 0 ) )
     table.insert( self.mForegrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
 
-
-    --TESTS
-    local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Lapin.xml'):read('*all')
-    local doc = SLAXML:dom( xml )
-
-    ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
     self.mMiniMap = MiniMap:New( 10, 10, 500, 200, 0.2 )
-    local lapinTest = ObjectRegistry.CreateFromRegistry( "lapin", doc.root, self.mWorld )
+    -- ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
 
     -- love.audio.play( music )
 end
 
 
 function  Level1:BuildTerrain()
-
-    -- local xml = io.open('Save/test.xml'):read('*all')
-    -- local doc = SLAXML:dom( xml )
-    -- Terrain.LoadXML( doc.root, self.mWorld )
 
     Terrain.Initialize( self.mWorld )
 

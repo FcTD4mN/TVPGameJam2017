@@ -1,11 +1,14 @@
-local Animation = require "src/Image/Animation"
-local Object    = require "src/Objects/Object"
+local Animation         = require "src/Image/Animation"
+local Object            = require "src/Objects/Object"
 local ObjectPool        = require "src/Objects/Pools/ObjectPool"
+      ObjectRegistry    = require "src/Base/ObjectRegistry"
 
 
 local Tree = {}
 setmetatable( Tree, Object )
 Object.__index = Object
+
+ObjectRegistry.RegisterXMLCreation( "tree", Tree )
 
 
 -- ==========================================Constructor/Destructor
@@ -98,6 +101,11 @@ end
 
 
 -- ==========================================XML IO
+
+
+function  Tree:SaveXML()
+    return  self:SaveTreeXML()
+end
 
 
 function  Tree:SaveTreeXML()

@@ -229,10 +229,6 @@ function Lapin:KeyPressed( iKey, iScancode, iIsRepeat )
         self:StopRunning()
     elseif iKey == "z" and not isrepeat and self.mCanJump then
         self:Jump()
-    elseif iKey == "s" and not isrepeat then
-        xmlData = self:SaveLapinXML()
-        file = io.open( "Save/Lapin.xml", "w" )
-        file:write( xmlData )
     end
 end
 
@@ -251,6 +247,11 @@ end
 
 
 -- ==========================================XML IO
+
+
+function  Lapin:SaveXML()
+    return  self:SaveLapinXML()
+end
 
 
 function  Lapin:SaveLapinXML()

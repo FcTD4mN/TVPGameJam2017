@@ -76,13 +76,11 @@ end
 
 function  MiniMap:SaveMiniMapXML()
 
-    xmlData = "<minimap>\n"
-
-    xmlData = xmlData .. "x='" .. self.mX .. "' " ..
-                         "y='" .. self.mY .. "' " ..
-                         "w='" .. self.mW .. "' " ..
-                         "h='" .. self.mH .. "' " ..
-                         " >\n"
+    xmlData = "<minimap " ..    "x='" .. self.mX .. "' " ..
+                                "y='" .. self.mY .. "' " ..
+                                "w='" .. self.mW .. "' " ..
+                                "h='" .. self.mH .. "' " ..
+                                " >\n"
 
     xmlData = xmlData .. self.mCamera:SaveCameraXML()
 
@@ -96,7 +94,7 @@ end
 
 function  MiniMap:LoadMiniMapXML( iNode )
 
-    assert( iNode.name == "camera" )
+    assert( iNode.name == "minimap" )
 
     self.mX  = iNode.attr[ 1 ].value
     self.mY  = iNode.attr[ 2 ].value
