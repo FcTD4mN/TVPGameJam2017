@@ -157,8 +157,8 @@ function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
 
     if iKey == "s" and not iIsRepeat then
         xmlData = self:SaveLevelBaseXML()
-        -- file = io.open( "Save/Level1.xml", "w" )
-        file = io.open( "/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml", "w" )
+        file = io.open( "Save/Level1.xml", "w" )
+        -- file = io.open( "/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml", "w" )
         file:write( xmlData )
     end
 

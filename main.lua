@@ -23,18 +23,6 @@ local sgGameState = kMainMenu
 -- First setup of my game, called at launch
 function love.load( args )
     MainMenu:Initialize()
-
-    --TESTS
-    -- local xml = io.open('src/Examples/XML.xml'):read('*all')
-    -- local doc = SLAXML:dom( xml )
-
-    -- for k,v in pairs( doc.root.kids ) do
-    --     if( v.type == "element" ) then
-    --         print( v.attr[ 1 ].name )
-    --     end
-    -- end
-
-
 end
 
 

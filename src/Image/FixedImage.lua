@@ -87,7 +87,7 @@ function  FixedImage:LoadFixedImageXML( iNode )
     self.w = iNode.attr[ 3 ].value
     self.h = iNode.attr[ 4 ].value
     self.angle = iNode.attr[ 5 ].value
-    self.lockedOnScreen = iNode.attr[ 6 ].value
+    self.lockedOnScreen = iNode.attr[ 6 ].value == 'true'
     self.filename   = iNode.attr[ 7 ].value
 
     self.image = love.graphics.newImage( self.filename )

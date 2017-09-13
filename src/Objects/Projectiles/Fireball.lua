@@ -72,6 +72,7 @@ end
 
 -- ==========================================Collision stuff
 
+
 function Fireball:Collide( iObject )
     self:Destroy()
     currentFireball = nil

@@ -50,8 +50,8 @@ function Level1:NewFromXML( iWorld )
     setmetatable( newLevel1, Level1 )
     Level1.__index = Level1
 
-    -- local xml = io.open('Save/Level1.xml'):read('*all')
-    local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml'):read('*all')
+    local xml = io.open('Save/Level1.xml'):read('*all')
+    -- local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml'):read('*all')
     local doc = SLAXML:dom( xml )
     newLevel1:LoadLevelBaseXML( doc.root, iWorld )
 

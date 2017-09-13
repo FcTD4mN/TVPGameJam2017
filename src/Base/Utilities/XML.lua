@@ -39,7 +39,7 @@ function  LoadBodyXML( iNode, iWorld, iObject )
 
     body = love.physics.newBody( iWorld, x1, y1, type )
     body:setGravityScale( gravity )
-    body:setFixedRotation( fixedrotation )
+    body:setFixedRotation( fixedrotation == 'true' )
 
     for i = 1, #iNode.el do
         fixture = LoadFixtureXML( iNode.el[ i ], body, iObject )
@@ -56,7 +56,9 @@ end
 function  SaveFixtureXML( iFixture )
 
     xmlData = "<fixture "
-    xmlData = xmlData .. "friction='" .. iFixture:getFriction() .. "' >\n"
+    xmlData = xmlData ..    "friction='" .. iFixture:getFriction() .. "' " ..
+                            "sensor='" .. tostring( iFixture:isSensor() ) .. "' " ..
+                            ">\n"
 
     xmlData = xmlData .. SaveShapeXML( iFixture:getShape() )
 
@@ -75,10 +77,12 @@ function  LoadFixtureXML( iNode, iBody, iObject )
 
     local fixture = nil
     local friction = iNode.attr[ 1 ].value
+    local sensor = iNode.attr[ 2 ].value
     local shape = LoadShapeXML( iNode.el[ 1 ] )
 
     fixture    = love.physics.newFixture( iBody, shape )
     fixture:setFriction( friction )
+    fixture:setSensor( sensor == 'true' )
     fixture:setUserData( iObject )
 
     return  fixture

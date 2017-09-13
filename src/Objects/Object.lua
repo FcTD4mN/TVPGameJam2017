@@ -80,6 +80,16 @@ function Object:SetY( iY )
 end
 
 
+function Object:SetAsSensor()
+
+    fixtures = self.mBody:getFixtures()
+    for k,v in pairs( fixtures ) do
+        v:setSensor( true )
+    end
+
+end
+
+
 function Object:Destroy()
     self.mNeedDestroy = true
 end
