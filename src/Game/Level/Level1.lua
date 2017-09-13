@@ -50,15 +50,13 @@ function Level1:NewFromXML( iWorld )
     setmetatable( newLevel1, Level1 )
     Level1.__index = Level1
 
-    local xml = io.open('Save/Level1.xml'):read('*all')
+    -- local xml = io.open('Save/Level1.xml'):read('*all')
+    local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml'):read('*all')
     local doc = SLAXML:dom( xml )
     newLevel1:LoadLevelBaseXML( doc.root, iWorld )
 
     -- BACKGROUNDS
     newLevel1.mFixedBackground          = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
-    table.insert( newLevel1.mBackgrounds, Background:New( "resources/Images/Backgrounds/Background3000x720.png", 0, 0, 0 ) )
-    table.insert( newLevel1.mBackgrounds, Background:New( "resources/Images/Backgrounds/Final/TERRAIN.png", 0, 0, 0 ) )
-    table.insert( newLevel1.mForegrounds, Background:New( "resources/Images/Backgrounds/Foreground3000x720.png", 0, 0 , -1 ) )
 
     return  newLevel1
 

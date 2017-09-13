@@ -55,8 +55,8 @@ function Game:Initialize()
     world = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
     world:setCallbacks( beginContact, endContact, preSolve, postSolve )
 
-    -- level1        =  Level1:NewFromXML( world )
-    level1        =  Level1:New( world )
+    level1        =  Level1:NewFromXML( world )
+    -- level1        =  Level1:New( world )
 
 end
 

@@ -2,122 +2,129 @@
 <terrain>
 <body type='static' x1='0' y1='0' gravity='1' fixedrotation='true'  >
 <fixture friction='1' >
-<shape type='edge' x1='0' y1='325' x2='600' y2='325'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='600' y1='325' x2='1000' y2='300'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='1000' y1='300' x2='1250' y2='300'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='1250' y1='300' x2='1640' y2='375'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='1640' y1='375' x2='1790' y2='320'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='1790' y1='320' x2='1979.9998779297' y2='320'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='1979.9998779297' y1='320' x2='2180' y2='365'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='2180' y1='365' x2='2900' y2='365'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='2900' y1='365' x2='3370' y2='330'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='3370' y1='330' x2='3900' y2='330'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='4400' y1='360' x2='4715' y2='310'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='4715' y1='310' x2='5110' y2='360'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='5110' y1='360' x2='6115' y2='360'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='6115' y1='360' x2='6800' y2='330'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='6800' y1='330' x2='7690' y2='310'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='7690' y1='310' x2='8110' y2='390'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='8110' y1='390' x2='9600' y2='345'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='9600' y1='345' x2='9600' y2='0'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='0' y1='675' x2='500' y2='675'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='500' y1='675' x2='730' y2='650'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='730' y1='650' x2='1460' y2='700'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='1460' y1='700' x2='2029.9998779297' y2='700'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='2029.9998779297' y1='700' x2='5100' y2='700'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='5100' y1='700' x2='5300' y2='715'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='5300' y1='715' x2='5600' y2='660'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='5600' y1='660' x2='5600' y2='700'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='5600' y1='700' x2='7650' y2='680'  />
-</fixture>
-<fixture friction='1' >
-<shape type='edge' x1='7650' y1='680' x2='7880.0004882813' y2='700'  />
+<shape type='edge' x1='9550' y1='680' x2='9600' y2='350'  />
 </fixture>
 <fixture friction='1' >
 <shape type='edge' x1='7880.0004882813' y1='700' x2='9550' y2='680'  />
 </fixture>
 <fixture friction='1' >
-<shape type='edge' x1='9550' y1='680' x2='9600' y2='350'  />
+<shape type='edge' x1='7650' y1='680' x2='7880.0004882813' y2='700'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='5600' y1='700' x2='7650' y2='680'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='5600' y1='660' x2='5600' y2='700'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='5300' y1='715' x2='5600' y2='660'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='5100' y1='700' x2='5300' y2='715'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='2029.9998779297' y1='700' x2='5100' y2='700'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='1460' y1='700' x2='2029.9998779297' y2='700'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='730' y1='650' x2='1460' y2='700'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='500' y1='675' x2='730' y2='650'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='0' y1='675' x2='500' y2='675'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='9600' y1='345' x2='9600' y2='0'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='8110' y1='390' x2='9600' y2='345'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='7690' y1='310' x2='8110' y2='390'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='6800' y1='330' x2='7690' y2='310'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='6115' y1='360' x2='6800' y2='330'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='5110' y1='360' x2='6115' y2='360'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='4715' y1='310' x2='5110' y2='360'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='4400' y1='360' x2='4715' y2='310'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='3370' y1='330' x2='3900' y2='330'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='2900' y1='365' x2='3370' y2='330'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='2180' y1='365' x2='2900' y2='365'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='1979.9998779297' y1='320' x2='2180' y2='365'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='1790' y1='320' x2='1979.9998779297' y2='320'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='1640' y1='375' x2='1790' y2='320'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='1250' y1='300' x2='1640' y2='375'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='1000' y1='300' x2='1250' y2='300'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='600' y1='325' x2='1000' y2='300'  />
+</fixture>
+<fixture friction='1' >
+<shape type='edge' x1='0' y1='325' x2='600' y2='325'  />
 </fixture>
 </body>
 </terrain>
-<camera x='2436.0208740234' y='0' w='1200' h='720' scale='0.5'  />
+<camera x='2132.9270019531' y='0' w='1200' h='720' scale='1'  />
 <minimap x='10' y='10' w='500' h='200'  >
-<camera x='2436.0208740234' y='0' w='1200' h='720' scale='0.2'  />
+<camera x='2132.9270019531' y='0' w='1200' h='720' scale='0.2'  />
 </minimap>
+<backgrounds>
+<background x='0' y='0' w='3000' h='720' depth='0' file='resources/Images/Backgrounds/Background3000x720.png'  />
+<background x='0' y='0' w='9716' h='720' depth='0' file='resources/Images/Backgrounds/Final/TERRAIN.png'  />
+</backgrounds>
+<foregrounds>
+<background x='-3693.0445251465' y='0' w='3000' h='720' depth='-1' file='resources/Images/Backgrounds/Foreground3000x720.png'  />
+</foregrounds>
 <objectpool>
 <singe>
 <object x='1000' y='50' w='90' h='120'  >
-<body type='dynamic' x1='3132.5690917969' y1='283.56964111328' gravity='1' fixedrotation='true'  >
-<fixture friction='1' >
-<shape type='polygon' x1='30.000001907349' y1='-60.000003814697' x3='30.000001907349' y3='60.000003814697' x5='-30.000001907349' y5='60.000003814697' x7='-30.000001907349' y7='-60.000003814697'  />
-</fixture>
+<body type='dynamic' x1='3043.0712890625' y1='290.29553222656' gravity='1' fixedrotation='true'  >
 <fixture friction='0' >
 <shape type='polygon' x1='32.5' y1='-57.5' x3='32.5' y3='57.5' x5='-32.5' y5='57.5' x7='-32.5' y7='-57.5'  />
+</fixture>
+<fixture friction='1' >
+<shape type='polygon' x1='30.000001907349' y1='-60.000003814697' x3='30.000001907349' y3='60.000003814697' x5='-30.000001907349' y5='60.000003814697' x7='-30.000001907349' y7='-60.000003814697'  />
 </fixture>
 </body>
 </object>
 </singe>
 <lapin>
 <object x='800' y='50' w='90' h='120'  >
-<body type='dynamic' x1='3029.47265625' y1='291.15814208984' gravity='1' fixedrotation='true'  >
-<fixture friction='1' >
-<shape type='polygon' x1='30.000001907349' y1='-60.000003814697' x3='30.000001907349' y3='60.000003814697' x5='-30.000001907349' y5='60.000003814697' x7='-30.000001907349' y7='-60.000003814697'  />
-</fixture>
+<body type='dynamic' x1='2512.7827148438' y1='303.47146606445' gravity='1' fixedrotation='true'  >
 <fixture friction='0' >
 <shape type='polygon' x1='32.5' y1='-57.5' x3='32.5' y3='57.5' x5='-32.5' y5='57.5' x7='-32.5' y7='-57.5'  />
+</fixture>
+<fixture friction='1' >
+<shape type='polygon' x1='30.000001907349' y1='-60.000003814697' x3='30.000001907349' y3='60.000003814697' x5='-30.000001907349' y5='60.000003814697' x7='-30.000001907349' y7='-60.000003814697'  />
 </fixture>
 </body>
 </object>

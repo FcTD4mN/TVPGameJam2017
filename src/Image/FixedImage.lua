@@ -8,6 +8,7 @@ function FixedImage:New( iFile, iX, iY, iW, iH, iAngle, iLockedOnScreen )
     self.__index = self
 
 
+    newFixedImage.filename = iFile
     newFixedImage.image = love.graphics.newImage( iFile )
     newFixedImage.x = iX
     newFixedImage.y = iY
@@ -17,6 +18,19 @@ function FixedImage:New( iFile, iX, iY, iW, iH, iAngle, iLockedOnScreen )
     newFixedImage.lockedOnScreen = iLockedOnScreen
 
     return newFixedImage
+end
+
+
+function FixedImage:NewFromXML( iNode )
+
+    newFixedImage = {}
+    setmetatable( newFixedImage, FixedImage )
+    FixedImage.__index = FixedImage
+
+    newFixedImage:LoadFixedImageXML( iNode )
+
+    return  newFixedImage
+
 end
 
 
@@ -35,6 +49,48 @@ function  FixedImage:Draw( iCamera )
 
     love.graphics.setColor( 255, 255, 255, 255 )
     love.graphics.draw( self.image, x, y, self.angle, scaleX, scaleY )
+
+end
+
+
+-- ==========================================XML IO
+
+
+function  FixedImage:SaveXML()
+    return  self:SaveFixedImageXML()
+end
+
+
+function  FixedImage:SaveFixedImageXML()
+
+    xmlData = "<fixedimage " ..
+                                "x='" .. self.x .. "' " ..
+                                "y='" .. self.y .. "' " ..
+                                "w='" .. self.w .. "' " ..
+                                "h='" .. self.h .. "' " ..
+                                "angle='" .. self.angle .. "' " ..
+                                "lockedonscreen='" .. tostring( self.lockedOnScreen ) .. "' " ..
+                                "filename='" .. self.filename .. "' " ..
+                                " />\n"
+
+    return  xmlData
+
+end
+
+
+function  FixedImage:LoadFixedImageXML( iNode )
+
+    assert( iNode.name == "fixedimage" )
+
+    self.x = iNode.attr[ 1 ].value
+    self.y = iNode.attr[ 2 ].value
+    self.w = iNode.attr[ 3 ].value
+    self.h = iNode.attr[ 4 ].value
+    self.angle = iNode.attr[ 5 ].value
+    self.lockedOnScreen = iNode.attr[ 6 ].value
+    self.filename   = iNode.attr[ 7 ].value
+
+    self.image = love.graphics.newImage( self.filename )
 
 end
 

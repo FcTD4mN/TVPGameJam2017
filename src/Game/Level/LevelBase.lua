@@ -1,6 +1,7 @@
-local  Camera   = require "src/Camera/Camera"
-local  MiniMap  = require "src/Camera/MiniMap"
-local  Terrain  = require "src/Objects/Terrain"
+local  Background   = require "src/Image/Background"
+local  Camera       = require "src/Camera/Camera"
+local  MiniMap      = require "src/Camera/MiniMap"
+local  Terrain      = require "src/Objects/Terrain"
 
 -- Pools
 ObjectPool      = require "src/Objects/Pools/ObjectPool"
@@ -156,7 +157,8 @@ function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
 
     if iKey == "s" and not iIsRepeat then
         xmlData = self:SaveLevelBaseXML()
-        file = io.open( "Save/Level1.xml", "w" )
+        -- file = io.open( "Save/Level1.xml", "w" )
+        file = io.open( "/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml", "w" )
         file:write( xmlData )
     end
 
@@ -188,21 +190,35 @@ function  LevelBase:SaveLevelBaseXML()
 
     xmlData = "<level>\n"
 
-    xmlData = xmlData .. self.mTerrain:SaveTerrainXML()
-    xmlData = xmlData .. self.mCamera:SaveCameraXML()
-    xmlData = xmlData .. self.mMiniMap:SaveMiniMapXML()
+        -- STUFF
+        xmlData = xmlData .. self.mTerrain:SaveTerrainXML()
+        xmlData = xmlData .. self.mCamera:SaveCameraXML()
+        xmlData = xmlData .. self.mMiniMap:SaveMiniMapXML()
 
-    -- self.mFixedBackground       = nil
-    -- self.mBackgrounds           = {}
-    -- self.mForegrounds           = {}
 
-    xmlData = xmlData .. "<objectpool>\n"
-    for i = 1, ObjectPool.Count() do
+        -- BACKGROUNDS
+        -- xmlData = xmlData .. self.mFixedBackground:SaveXML() -- this is a bigimage
 
-        local obj = ObjectPool.ObjectAtIndex( i )
-        xmlData = xmlData .. obj:SaveXML()
-    end
-    xmlData = xmlData .. "</objectpool>\n"
+        xmlData = xmlData .. "<backgrounds>\n"
+            for k,v in pairs( self.mBackgrounds ) do
+                xmlData = xmlData .. v:SaveXML()
+            end
+        xmlData = xmlData .. "</backgrounds>\n"
+
+        xmlData = xmlData .. "<foregrounds>\n"
+            for k,v in pairs( self.mForegrounds ) do
+                xmlData = xmlData .. v:SaveXML()
+            end
+        xmlData = xmlData .. "</foregrounds>\n"
+
+        -- OBJECTS
+        xmlData = xmlData .. "<objectpool>\n"
+            for i = 1, ObjectPool.Count() do
+
+                local obj = ObjectPool.ObjectAtIndex( i )
+                xmlData = xmlData .. obj:SaveXML()
+            end
+        xmlData = xmlData .. "</objectpool>\n"
 
     xmlData = xmlData .. "</level>\n"
 
@@ -222,16 +238,24 @@ function  LevelBase:LoadLevelBaseXML( iNode, iWorld )
     self.mCamera    = Camera:NewFromXML( iNode.el[ 2 ] )
     self.mMiniMap   = MiniMap:NewFromXML( iNode.el[ 3 ] )
 
-    self.mHeros                 = {}
+    self.mHeros         = {}
+    self.mBackgrounds   = {}
+    self.mForegrounds   = {}
 
-    -- TODO : save/load those
-    self.mFixedBackground       = nil
-    self.mBackgrounds           = {}
-    self.mForegrounds           = {}
+    -- Node <backgrounds>
+    for k,v in pairs( iNode.el[ 4 ].el ) do
+        table.insert( self.mBackgrounds, Background:NewFromXML( v ) )
+    end
+
+
+    -- Node <foregrounds>
+    for k,v in pairs( iNode.el[ 5 ].el ) do
+        table.insert( self.mForegrounds, Background:NewFromXML( v ) )
+    end
 
 
     -- Node <objectpool>
-    for k,v in pairs( iNode.el[ 4 ].el ) do
+    for k,v in pairs( iNode.el[ 6 ].el ) do
         local obj = ObjectRegistry.CreateFromRegistry( v.name, v, iWorld )
         -- TODO: shouldn't heros ne only in pool as well ? and shouldn't pool forward all events to all objects ?
         if obj:Type() == "Singe" or obj:Type() == "Lapin" then
