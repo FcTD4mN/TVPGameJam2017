@@ -1,9 +1,10 @@
---[[=================================================================== 
+--[[===================================================================
     File: Base.Base.lua
 
     @@@@: This is the Base Module.
     A module is a Global Singleton Objects that will act like a
     namespace. See Base.Module.lua for more details.
+    This class is SINGLETON
 
 ===================================================================--]]
 
@@ -13,68 +14,79 @@
 -- OBJECT INITIALISATION ==============================================
 local Manager = {};
 
-function Manager:New()
-    newManager = {}
-    setmetatable( newManager, self );
-    self.__index = self;
+function Manager:Initialize()
 
-    newManager.screens = {}
-    newManager.currentScreen = 1;
-    newManager.running = true;
+    Manager.screens = {}
+    -- Manager.currentScreen = 1;
+    Manager.running = true;
 
-    return  newManager;
+    return  Manager;
 
 end
 
 -- OBJECT FUNCTIONS ===================================================
-function Manager:Type()
-    return "Manager"
-end
 
 function Manager:PushScreen( iScreen )
     if( iScreen:Type() == "Screen" ) then
-        table.insert( self.screens, iScreen );
+        iScreen:Initialize()
+        table.insert( Manager.screens, iScreen );
     end
-    
-end
-
-function Manager:SetScreen( iNumScreen )
-    -- Todo: Release resources before switch
-    self.currentScreen = iNumScreen;
-    self.screens[ self.currentScreen ]:Initialize();
 
 end
 
-function Manager:UpdateScreen( dt )
-    self.screens[ self.currentScreen ]:Update( dt );
-    
+
+function Manager:PopScreen()
+
+    table.remove( Manager.screens, #Manager.screens );
+
 end
 
-function Manager:DrawScreen()
+
+-- function Manager:SetScreen( iNumScreen )
+
+--     Manager.currentScreen = iNumScreen;
+--     Manager.screens[ Manager.currentScreen ]:Initialize();
+
+-- end
+
+
+function Manager:Update( dt )
+    -- Manager.currentScreen = Manager.screens[ Manager.currentScreen ]:Update( dt );
+    Manager.screens[ #Manager.screens ]:Update( dt );
+
+end
+
+
+function Manager:Draw()
     love.graphics.setColor(255,255,255,255);
     love.graphics.clear( 200, 200, 200, 255 )
-    self.screens[ self.currentScreen ]:Draw();
+    Manager.screens[ #Manager.screens ]:Draw();
 end
 
-function Manager:KeyPressed( key, scancode, isrepeat )
-    self.screens[ self.currentScreen ]:KeyPressed( key, scancode, isrepeat );
+
+function Manager:KeyPressed( iKey, iScancode, iIsRepeat )
+    Manager.screens[ #Manager.screens ]:KeyPressed( iKey, iScancode, iIsRepeat );
 
 end
 
-function Manager:KeyReleased( key, scancode )
-    self.screens[ self.currentScreen ]:KeyReleased( key, scancode );
+
+function Manager:KeyReleased( iKey, iScancode )
+    Manager.screens[ #Manager.screens ]:KeyReleased( iKey, iScancode );
 
 end
+
 
 function Manager:mousepressed( iX, iY, iButton, iIsTouch )
-    self.screens[ self.currentScreen ]:mousepressed( iX, iY, iButton, iIsTouch );
+    Manager.screens[ #Manager.screens ]:mousepressed( iX, iY, iButton, iIsTouch );
 
 end
 
-function Manager:Finalize()
-    self.screens[ self.currentScreen ]:Finalize()
 
-end 
+function Manager:Finalize()
+    Manager.screens[ #Manager.screens ]:Finalize()
+
+end
+
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Manager

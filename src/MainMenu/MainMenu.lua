@@ -2,18 +2,21 @@
 MenuItem    = require( "src/MainMenu/MenuItem" )
 MenuPage    = require( "src/MainMenu/MenuPage" )
 
+local  EditorScreen   = require( "src/Application/Screens/EditorScreen" )
+local  GameScreen   = require( "src/Application/Screens/GameScreen" )
+
 local MainMenu = {
     menuPages = {},
-    currentPage = 1,
-    returnValue = 0
+    currentPage = 1
 }
 
--- local music = love.audio.newSource( "resources/Audio/Music/DaRealMenu.mp3", "stream" )
 
 function  MainMenu:Initialize()
 
     local spaceBetItems = 50
-    -- music:setLooping( true )
+    music = love.audio.newSource( "resources/Audio/Music/DaRealMenu.mp3", "stream" )
+    music:setVolume( 0 )
+    music:setLooping( true )
 
     -- ============================ MAIN MAIN ===============================
     y = 250
@@ -36,10 +39,10 @@ function  MainMenu:Initialize()
     newSandBox.rectangle.x = dz+ love.graphics.getWidth() / 2 - newSandBox.rectangle.w /2
 
     -- Callbacks
-    newGame:SetCallback(    function() MainMenu.returnValue = 1 end )
+    newGame:SetCallback(    function() Manager:PushScreen( GameScreen:New() ); love.audio.stop( music ); end )
     options:SetCallback(    function() MainMenu.currentPage = 2 end )
     quit:SetCallback(       function() love.event.quit() end )
-    newSandBox:SetCallback( function() MainMenu.returnValue = 2 end )
+    newSandBox:SetCallback( function() Manager:PushScreen( EditorScreen:New() ); love.audio.stop( music ); end )
 
     -- Sounds
     newGame:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
@@ -85,7 +88,7 @@ function  MainMenu:Initialize()
 
     self:AddPage( optionPage )
 
-    -- love.audio.play( music )
+    love.audio.play( music )
 
     --Menu Images
     imageBG = love.graphics.newImage( "resources/Images/Backgrounds/Final/MenuBG.png" )
@@ -99,12 +102,6 @@ end
 
 function MainMenu:Update( iDT )
     self:HighlightItemUnderMouse()
-
-    -- if( self.returnValue == 1 ) then
-    --     love.audio.stop( music )
-    -- end
-
-    return  self.returnValue
 end
 
 function MainMenu:HighlightItemUnderMouse()

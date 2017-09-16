@@ -1,4 +1,4 @@
---[[=================================================================== 
+--[[===================================================================
     File: Application.Global.lua
 
     @@@@: The Global Centralized initializer.
@@ -27,10 +27,10 @@
     Image2  = Image2:Initialize();
 
     -- Singletons Objects =============================================
-    Manager = Manager:New();
+    Manager.Initialize();
 
     -- Color Schemes / Default Color Values ===========================
-    --  NAME                                R       G       B       A    
+    --  NAME                                R       G       B       A
     W_COLOR_DEBUG       = ColorRGBA:New(    255,    0,      255,    255     );
     W_COLOR_FILL        = ColorRGBA:New(    204,    201,    202,    255     );
     W_COLOR_OUTLINE     = ColorRGBA:New(    151,    159,    156,    255     );
