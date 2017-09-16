@@ -37,6 +37,7 @@ end
 
 function Manager:PopScreen()
 
+    Manager.screens[ #Manager.screens ]:Finalize();
     table.remove( Manager.screens, #Manager.screens );
 
 end
@@ -64,21 +65,41 @@ function Manager:Draw()
 end
 
 
+--USER INPUT============================================================================
+
+
+function Manager:TextInput( iT )
+    Manager.screens[ #Manager.screens ]:TextInput( iT );
+end
+
+
 function Manager:KeyPressed( iKey, iScancode, iIsRepeat )
     Manager.screens[ #Manager.screens ]:KeyPressed( iKey, iScancode, iIsRepeat );
-
 end
 
 
 function Manager:KeyReleased( iKey, iScancode )
     Manager.screens[ #Manager.screens ]:KeyReleased( iKey, iScancode );
+end
 
+
+function Manager:MouseMoved( iX, iY )
+    Manager.screens[ #Manager.screens ]:MouseMoved( iX, iY );
 end
 
 
 function Manager:mousepressed( iX, iY, iButton, iIsTouch )
     Manager.screens[ #Manager.screens ]:mousepressed( iX, iY, iButton, iIsTouch );
+end
 
+
+function Manager:MouseReleased( iX, iY, iButton, iIsTouch )
+    Manager.screens[ #Manager.screens ]:MouseReleased( iX, iY, iButton, iIsTouch );
+end
+
+
+function Manager:WheelMoved( iX, iY )
+    Manager.screens[ #Manager.screens ]:WheelMoved( iX, iY );
 end
 
 

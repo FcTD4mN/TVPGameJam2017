@@ -1,4 +1,4 @@
---[[=================================================================== 
+--[[===================================================================
     File: Application.Screens.EditorScreen.lua
 
     @@@@: The Editor Screen.
@@ -8,7 +8,8 @@
 
 -- INCLUDES ===========================================================
 local Screen = require "src/Application/Screens/Screen"
-local Widget = require "src/GUI/Widgets/Widget"
+
+local Editor = require "src/Editor/Editor"
 
 -- OBJECT INITIALISATION ==============================================
 local EditorScreen = {}
@@ -18,47 +19,70 @@ Screen.__index = Screen
 -- Constructor
 function EditorScreen:New()
     local newEditorScreen = {}
-    setmetatable( newEditorScreen, self )
-    self.__index = self
+    setmetatable( newEditorScreen, EditorScreen )
+    EditorScreen.__index = EditorScreen
 
     return newEditorScreen
 end
 
 -- LOCAL MEMBERS =====================================================
-    -- That way they are local to file
-    local testWidget1;
-    local testWidget2;
 
 -- Called by Global Manager only on SetScreen.
 function EditorScreen:Initialize()
-    testWidget1 = Widget:New( nil, 50, 50, 300, 300, nil);
-    testWidget2 = Widget:New( nil, 200, 200, 220, 400, nil);
 end
 
 -- OBJECT FUNCTIONS ===================================================
-function EditorScreen:Update( dt )
+function EditorScreen:Update( iDT )
+    Editor.Update( iDT )
 end
 
 function EditorScreen:Draw()
     love.graphics.setColor(255,255,255,255);
     love.graphics.clear( E_BACKGROUND:Red(), E_BACKGROUND:Green(), E_BACKGROUND:Blue(), 255 )
-
-    testWidget1:Draw()
-    testWidget2:Draw()
+    Editor.Draw()
 end
 
-function EditorScreen:KeyPressed( key, scancode, isrepeat )
+
+-- UNSER INPUTS ===================================================
+
+
+function EditorScreen:TextInput( iT )
+    Editor.TextInput( iT )
 end
 
-function EditorScreen:KeyReleased( key, scancode )
+
+function EditorScreen:KeyPressed( iKey, iScancode, iIsRepeat )
+    Editor.KeyPressed( iKey, iScancode, iIsRepeat )
 end
+
+
+function EditorScreen:KeyReleased( iKey, iScancode )
+    Editor.KeyReleased( iKey, iScancode )
+end
+
+
+function EditorScreen:MouseMoved( iX, iY )
+    Editor.MouseMoved( iX, iY )
+end
+
 
 function EditorScreen:mousepressed( iX, iY, iButton, iIsTouch )
+    Editor.MousePressed( iX, iY, iButton, iIsTouch )
+end
+
+
+function EditorScreen:MouseReleased( iX, iY, iButton, iIsTouch )
+    Editor.MouseReleased( iX, iY, iButton, iIsTouch )
+end
+
+
+function EditorScreen:WheelMoved( iX, iY )
+    Editor.WheelMoved( iX, iY )
 end
 
 -- Release resources before Screen Switch or App Close
 function EditorScreen:Finalize()
-end 
+end
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return EditorScreen

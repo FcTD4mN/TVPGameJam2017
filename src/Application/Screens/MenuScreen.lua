@@ -42,19 +42,46 @@ function MenuScreen:Draw()
     MainMenu:Draw()
 end
 
-function MenuScreen:KeyPressed( iKey, iScancode, iIsRepeat )
+
+--USER INPUT============================================================================
+
+
+function MenuScreen:TextInput( iT )
+    --Nothing special
+end
+
+
+function MenuScreen:KeyPressed( key, scancode, isrepeat )
     MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
-function MenuScreen:KeyReleased( iKey, iScancode )
+
+function MenuScreen:KeyReleased( key, scancode )
     MainMenu:KeyReleased( iKey, iScancode )
 end
+
+
+function MenuScreen:MouseMoved( iX, iY )
+    --Nothing special
+end
+
 
 function MenuScreen:mousepressed( iX, iY, iButton, iIsTouch )
     MainMenu:mousepressed( iX, iY, iButton, iIsTouch )
 end
 
--- Release resources before Screen Switch or App Close
+
+function MenuScreen:MouseReleased( iX, iY, iButton, iIsTouch )
+    --Nothing special
+end
+
+
+function MenuScreen:WheelMoved( iX, iY )
+    --Nothing special
+end
+
+
+-- Release resources before Screen Switch or App Close ======================================
 function MenuScreen:Finalize()
     -- nothing special here
 end

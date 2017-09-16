@@ -30,21 +30,38 @@ function love.draw()
 end
 
 
+--USER INPUT============================================================================
+
+
+function love.textinput( iText )
+    Manager:TextInput( iText )
+end
+
 
 function love.keypressed( iKey, iScancode, iIsRepeat )
-
     Manager:KeyPressed( iKey, iScancode, iIsRepeat )
-
 end
 
 function love.keyreleased( iKey, iScancode )
-
     Manager:KeyReleased( iKey, iScancode )
-
 end
 
+
+function love.mousemoved( iX, iY )
+    Manager:MouseMoved( iX, iY )
+end
+
+
 function  love.mousepressed( iX, iY, iButton, iIsTouch )
-
     Manager:mousepressed( iX, iY, iButton, iIsTouch )
+end
 
+
+function love.mousereleased( iX, iY, iButton )
+    Manager:MouseReleased( iX, iY, iButton )
+end
+
+
+function love.wheelmoved( iX, iY )
+    Manager:WheelMoved( iY )
 end

@@ -71,22 +71,6 @@ function GameScreen:Draw()
 
 end
 
-
-function GameScreen:KeyPressed( iKey, iScancode, iIsRepeat )
-
-    level1:KeyPressed( iKey, iScancode, iIsRepeat )
-end
-
-function GameScreen:KeyReleased( key, scancode )
-    level1:KeyReleased( key, scancode )
-end
-
-
-function GameScreen:mousepressed( iX, iY, iButton, iIsTouch )
-    level1:MousePressed(  iX, iY, iButton, iIsTouch )
-end
-
-
 -- DEBUG ===================================================
 function GameScreen:DEBUGWorldHITBOXESDraw( iWhatToDraw )
     local red = 255
@@ -149,9 +133,49 @@ function GameScreen:DEBUGWorldHITBOXESDraw( iWhatToDraw )
 
 end
 
--- Release resources before Screen Switch or App Close
+
+--USER INPUT============================================================================
+
+
+function GameScreen:TextInput( iT )
+    --Nothing special
+end
+
+
+function GameScreen:KeyPressed( key, scancode, isrepeat )
+    level1:KeyPressed( iKey, iScancode, iIsRepeat )
+end
+
+
+function GameScreen:KeyReleased( key, scancode )
+    level1:KeyReleased( key, scancode )
+end
+
+
+function GameScreen:MouseMoved( iX, iY )
+    --Nothing special
+end
+
+
+function GameScreen:mousepressed( iX, iY, iButton, iIsTouch )
+    level1:MousePressed(  iX, iY, iButton, iIsTouch )
+end
+
+
+function GameScreen:MouseReleased( iX, iY, iButton, iIsTouch )
+    --Nothing special
+end
+
+
+function GameScreen:WheelMoved( iX, iY )
+    --Nothing special
+end
+
+
+-- Release resources before Screen Switch or App Close ======================================
 function GameScreen:Finalize()
 end
+
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return GameScreen
