@@ -92,7 +92,9 @@ end
 
 function  LevelBase:Draw()
 
-    self.mFixedBackground:Draw( 0, 0 )
+    if( self.mFixedBackground ) then
+        self.mFixedBackground:Draw( 0, 0 )
+    end
 
     for k,v in pairs( self.mBackgrounds ) do
         v:Draw( self.mCamera )

@@ -1,64 +1,120 @@
 require "imgui"
 
+local LevelBase   = require( "src/Game/Level/LevelBase")
+local Camera      = require( "src/Camera/Camera")
 
-Editor = {}
 
---
--- LOVE callbacks
---
+local BigImage    = require( "src/Image/BigImage" )
+
+Editor = {
+    mCurrentEditedLevel = nil
+}
+
+local gWorld   = nil
+local gCamera  = nil
+local gCameraX = 0
+local gCameraY = 0
+local gCameraW = 800
+local gCameraH = 600
+
 
 function Editor.Update( iDT )
     imgui.NewFrame()
 end
 
-local draw = false
 
 function Editor.Draw()
 
-    imgui.SetNextWindowPos(0, 0)
-    imgui.SetNextWindowSize(love.graphics.getWidth(), love.graphics.getHeight())
-    if imgui.Begin("DockArea", nil, { "NoTitleBar", "NoResize", "NoMove", "NoBringToFrontOnFocus" }) then
-        imgui.BeginDockspace()
-
-        -- Create 10 docks
-        for i = 1, 10 do
-            if imgui.BeginDock("dock_"..i) then
-                imgui.Text("Hello, dock "..i.."!");
-            end
-            imgui.EndDock()
-        end
-
-        if imgui.BeginDock("DrawingDock") then
-            x, y = imgui.GetItemRectMin()
-            w, h = imgui.GetWindowSize()
-            w = w - 16
-            h = h - 34
-            if imgui.Button("Draw") then
-                draw = not draw
-            end
-        end
-        imgui.EndDock()
-
-
-        imgui.EndDockspace()
+    if( Editor.mCurrentEditedLevel ) then
+        Editor.mCurrentEditedLevel:Draw()
     end
+
+    status, mainCommands = imgui.Begin( "MainMenu", nil, { "AlwaysAutoResize" } );
+
+        if( imgui.Button( "New Level" ) ) then
+            imgui.OpenPopup( "Camera settings" )
+        end
+        if imgui.BeginPopupModal( "Camera settings", nil, { "AlwaysAutoResize", "NoResize" } ) then
+
+            xStatus, gCameraX = imgui.InputInt( "X", gCameraX )
+            imgui.SameLine()
+            yStatus, gCameraY = imgui.InputInt( "Y", gCameraY )
+
+            wStatus, gCameraW = imgui.InputInt( "W", gCameraW )
+            imgui.SameLine()
+            hStatus, gCameraH = imgui.InputInt( "H", gCameraH )
+
+            if( imgui.Button( "Ok" ) ) then
+                imgui.CloseCurrentPopup()
+                Editor.SetCamera( gCameraX, gCameraY, gCameraW, gCameraH )
+                Editor.NewLevel()
+            end
+            imgui.EndPopup()
+        end
+
     imgui.End()
 
-    love.graphics.clear(100, 100, 100, 255)
-    imgui.Render();
-    if draw then
-        ObjectDraw( x, y, w, h )
-    end
+
+
+    imgui.ShowTestWindow( true )
+    imgui.Render()
+
+    -- imgui.SetNextWindowSize(love.graphics.getWidth(), love.graphics.getHeight())
+    -- if imgui.Begin("DockArea", nil, { "NoTitleBar", "NoResize", "NoMove", "NoBringToFrontOnFocus" }) then
+    --     imgui.BeginDockspace()
+
+    --     if imgui.BeginDock("DrawingDock") then
+    --         x, y = imgui.GetItemRectMin()
+    --         w, h = imgui.GetWindowSize()
+    --         w = w - 16
+    --         h = h - 34
+    --         if imgui.Button("Draw") then
+    --             draw = not draw
+    --         end
+    --     end
+    --     imgui.EndDock()
+    --     imgui.EndDockspace()
+    -- end
+    -- imgui.End()
+
+    -- love.graphics.clear(100, 100, 100, 255)
+    -- imgui.Render();
+    -- if draw then
+    --     ObjectDraw( x, y, w, h )
+    -- end
 end
+
 
 function Editor.Quit()
     imgui.ShutDown();
 end
 
+
 function  ObjectDraw(x,y,w,h)
 
     love.graphics.setColor( 255, 0,0);
     love.graphics.rectangle( "fill", x,y, w, h );
+
+end
+
+
+-- EDITOR FUNCTIONS ===================================================
+
+
+
+function Editor.SetCamera( iX, iY, iW, iH, iScale )
+
+    gCamera = Camera:New( iX, iY, iW, iH, iScale )
+
+end
+
+
+function Editor.NewLevel()
+
+    gWorld = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
+
+    Editor.mCurrentEditedLevel  = LevelBase:New( gWorld, gCamera )
+    Editor.mCurrentEditedLevel.mFixedBackground          = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
 
 end
 

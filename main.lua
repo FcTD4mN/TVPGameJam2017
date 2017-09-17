@@ -63,5 +63,5 @@ end
 
 
 function love.wheelmoved( iX, iY )
-    Manager:WheelMoved( iY )
+    Manager:WheelMoved( iX, iY )
 end
