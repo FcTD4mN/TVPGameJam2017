@@ -5,9 +5,18 @@ LevelEditor = {
 }
 
 
+
+
 function LevelEditor.Initialize( iLevel )
 
     LevelEditor.mLevel = iLevel
+
+    gCameraX = LevelEditor.mLevel.mCamera.mX
+    gCameraY = LevelEditor.mLevel.mCamera.mY
+    gCameraW = LevelEditor.mLevel.mCamera.mW
+    gCameraH = LevelEditor.mLevel.mCamera.mH
+
+    gFixedBGFile = "test"
 
 end
 
@@ -15,6 +24,7 @@ function LevelEditor.Draw()
 
     status, mainCommands = imgui.Begin( "Level Properties", nil, { "AlwaysAutoResize" } );
 
+        -- Camera =====================================
         if( imgui.Button( "Edit Camera" ) ) then
             imgui.OpenPopup( "Camera settings" )
         end
@@ -35,16 +45,20 @@ function LevelEditor.Draw()
             imgui.EndPopup()
         end
 
+        -- Fixed BG =====================================
         if( imgui.Button( "Set fixed background" ) ) then
             imgui.OpenPopup( "Image path" )
         end
         if imgui.BeginPopupModal( "Image path", nil, { "AlwaysAutoResize", "NoResize" } ) then
 
-            xStatus, text = imgui.InputText( "Image path" );
+            xStatus, gFixedBGFile = imgui.InputText( "Image path", gFixedBGFile, 200 );
 
             if( imgui.Button( "Ok" ) ) then
                 imgui.CloseCurrentPopup()
-                Editor.SetFixedImage( text )
+                LevelEditor.SetFixedImage( gFixedBGFile )
+            end
+            if( imgui.Button( "Cancel" ) ) then
+                imgui.CloseCurrentPopup()
             end
             imgui.EndPopup()
         end
@@ -70,7 +84,9 @@ end
 
 function  LevelEditor.SetFixedImage( iImagePath )
 
-    LevelEditor.mLevel.mFixedBackground = BigImage:New( iImagePath, love.graphics.getWidth() )
+    if iImagePath ~= nil and iImagePath ~= "" then
+        LevelEditor.mLevel.mFixedBackground = BigImage:New( iImagePath, love.graphics.getWidth() )
+    end
 
 end
 
