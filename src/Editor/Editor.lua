@@ -1,6 +1,7 @@
 require "imgui"
 
 local LevelBase   = require( "src/Game/Level/LevelBase")
+local LevelEditor   = require( "src/Editor/LevelEditor")
 local Camera      = require( "src/Camera/Camera")
 
 
@@ -48,12 +49,19 @@ function Editor.Draw()
                 imgui.CloseCurrentPopup()
                 Editor.SetCamera( gCameraX, gCameraY, gCameraW, gCameraH )
                 Editor.NewLevel()
+
             end
             imgui.EndPopup()
         end
 
     imgui.End()
 
+
+    if( Editor.mCurrentEditedLevel ) then
+
+        LevelEditor.Draw()
+
+    end
 
 
     imgui.ShowTestWindow( true )
@@ -114,7 +122,7 @@ function Editor.NewLevel()
     gWorld = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
 
     Editor.mCurrentEditedLevel  = LevelBase:New( gWorld, gCamera )
-    Editor.mCurrentEditedLevel.mFixedBackground          = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
+    LevelEditor.Initialize( Editor.mCurrentEditedLevel )
 
 end
 
