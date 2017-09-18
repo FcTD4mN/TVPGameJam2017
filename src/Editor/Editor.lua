@@ -8,7 +8,7 @@ local Camera      = require( "src/Camera/Camera")
 local BigImage    = require( "src/Image/BigImage" )
 
 Editor = {
-    mCurrentEditedLevel = nil
+    mEditingLevel = nil
 }
 
 gWorld   = nil
@@ -26,13 +26,6 @@ end
 
 
 function Editor.Draw()
-
-    if( Editor.mCurrentEditedLevel ) then
-
-        Editor.mCurrentEditedLevel:Draw()
-        DEBUGWorldHITBOXESDraw( gWorld, Editor.mCurrentEditedLevel.mCamera, "all" )
-
-    end
 
     status, mainCommands = imgui.Begin( "MainMenu", nil, { "AlwaysAutoResize" } );
 
@@ -63,7 +56,7 @@ function Editor.Draw()
     imgui.End()
 
 
-    if( Editor.mCurrentEditedLevel ) then
+    if( Editor.mEditingLevel ) then
 
         LevelEditor.Draw()
 
@@ -127,8 +120,8 @@ function Editor.NewLevel()
 
     gWorld = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
 
-    Editor.mCurrentEditedLevel  = LevelBase:New( gWorld, gCamera )
-    LevelEditor.Initialize( Editor.mCurrentEditedLevel )
+    Editor.mEditingLevel  =  true
+    LevelEditor.Initialize( LevelBase:New( gWorld, gCamera ) )
 
 end
 

@@ -22,6 +22,7 @@ function LevelEditor.Initialize( iLevel )
 
     LevelEditor.mLevel = iLevel
 
+
     Terrain.Initialize( LevelEditor.mLevel.mWorld )
     LevelEditor.mLevel.mTerrain = Terrain
 
@@ -41,6 +42,13 @@ function LevelEditor.Initialize( iLevel )
 end
 
 function LevelEditor.Draw()
+
+    if( LevelEditor.mLevel ) then
+
+        LevelEditor.mLevel:Draw()
+        DEBUGWorldHITBOXESDraw( gWorld, LevelEditor.mLevel.mCamera, "all" )
+
+    end
 
     status, mainCommands = imgui.Begin( "Level Properties", nil, { "AlwaysAutoResize" } );
 
