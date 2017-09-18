@@ -195,7 +195,10 @@ function  LevelBase:SaveLevelBaseXML()
         -- STUFF
         xmlData = xmlData .. self.mTerrain:SaveTerrainXML()
         xmlData = xmlData .. self.mCamera:SaveCameraXML()
-        xmlData = xmlData .. self.mMiniMap:SaveMiniMapXML()
+
+        if self.mMiniMap then
+            xmlData = xmlData .. self.mMiniMap:SaveMiniMapXML()
+        end
 
 
         -- BACKGROUNDS
@@ -232,32 +235,39 @@ end
 function  LevelBase:LoadLevelBaseXML( iNode, iWorld )
 
     assert( iNode.name == "level" )
-    temp = iNode.el[ 1 ]
+
+    elIndex = 1
 
     self.mWorld     = iWorld
-    Terrain.LoadTerrainXML( iNode.el[ 1 ], iWorld ) -- TODO: terrain shouldn't be singleton
+    Terrain.LoadTerrainXML( iNode.el[ elIndex ], iWorld ) -- TODO: terrain shouldn't be singleton
+    elIndex = elIndex + 1
     self.mTerrain   = Terrain
-    self.mCamera    = Camera:NewFromXML( iNode.el[ 2 ] )
-    self.mMiniMap   = MiniMap:NewFromXML( iNode.el[ 3 ] )
+    self.mCamera    = Camera:NewFromXML( iNode.el[ elIndex ] )
+    elIndex = elIndex + 1
+
+    if iNode.el[ elIndex ].name =="minimap" then
+        self.mMiniMap   = MiniMap:NewFromXML( iNode.el[ elIndex ] )
+        elIndex = elIndex + 1
+    end
 
     self.mHeros         = {}
     self.mBackgrounds   = {}
     self.mForegrounds   = {}
 
     -- Node <backgrounds>
-    for k,v in pairs( iNode.el[ 4 ].el ) do
+    for k,v in pairs( iNode.el[ elIndex ].el ) do
         table.insert( self.mBackgrounds, Background:NewFromXML( v ) )
     end
-
+    elIndex = elIndex + 1
 
     -- Node <foregrounds>
-    for k,v in pairs( iNode.el[ 5 ].el ) do
+    for k,v in pairs( iNode.el[ elIndex ].el ) do
         table.insert( self.mForegrounds, Background:NewFromXML( v ) )
     end
-
+    elIndex = elIndex + 1
 
     -- Node <objectpool>
-    for k,v in pairs( iNode.el[ 6 ].el ) do
+    for k,v in pairs( iNode.el[ elIndex ].el ) do
         local obj = ObjectRegistry.CreateFromRegistry( v.name, v, iWorld )
         -- TODO: shouldn't heros ne only in pool as well ? and shouldn't pool forward all events to all objects ?
         if obj:Type() == "Singe" or obj:Type() == "Lapin" then

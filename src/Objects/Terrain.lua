@@ -43,7 +43,20 @@ function Terrain.AddEdge( iX, iY, iX2, iY2 )
 end
 
 
-function Terrain.AppendEdgeToPrevious( iX, iY )
+function Terrain.AppendEdgeToPrevious( iX, iY, iRule )
+
+    if( Terrain.lastestEdgeX == nil ) or Terrain.lastestEdgeY == nil then
+        Terrain.lastestEdgeX = iX
+        Terrain.lastestEdgeY = iY
+        return
+    end
+
+    if iRule == "horizontal" then
+        iY = Terrain.lastestEdgeY
+    elseif iRule == "vertical" then
+        iX = Terrain.lastestEdgeX
+    end
+
     newShape = love.physics.newEdgeShape( Terrain.lastestEdgeX, Terrain.lastestEdgeY, iX, iY )
     fixture  = love.physics.newFixture( Terrain.body, newShape )
     fixture:setFriction( 1.0 )
@@ -51,6 +64,26 @@ function Terrain.AppendEdgeToPrevious( iX, iY )
 
     Terrain.lastestEdgeX = iX
     Terrain.lastestEdgeY = iY
+end
+
+
+function Terrain.CutEdgeAppending()
+
+    Terrain.lastestEdgeX = nil
+    Terrain.lastestEdgeY = nil
+
+end
+
+
+function Terrain.RemoveLastSegment()
+
+    fixtures = Terrain.body:getFixtureList()
+
+    if #fixtures >= 1 then
+        fixtures[ 1 ]:destroy()
+        Terrain.CutEdgeAppending()
+    end
+
 end
 
 

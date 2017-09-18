@@ -11,12 +11,13 @@ Editor = {
     mCurrentEditedLevel = nil
 }
 
-local gWorld   = nil
+gWorld   = nil
 local gCamera  = nil
 local gCameraX = 0
 local gCameraY = 0
 local gCameraW = 800
 local gCameraH = 600
+local gCameraScale = 1.0
 
 
 function Editor.Update( iDT )
@@ -27,7 +28,10 @@ end
 function Editor.Draw()
 
     if( Editor.mCurrentEditedLevel ) then
+
         Editor.mCurrentEditedLevel:Draw()
+        DEBUGWorldHITBOXESDraw( gWorld, Editor.mCurrentEditedLevel.mCamera, "all" )
+
     end
 
     status, mainCommands = imgui.Begin( "MainMenu", nil, { "AlwaysAutoResize" } );
@@ -45,9 +49,11 @@ function Editor.Draw()
             imgui.SameLine()
             hStatus, gCameraH = imgui.InputInt( "H", gCameraH )
 
+            hStatus, gCameraScale = imgui.InputInt( "Scale", gCameraScale )
+
             if( imgui.Button( "Ok" ) ) then
                 imgui.CloseCurrentPopup()
-                Editor.SetCamera( gCameraX, gCameraY, gCameraW, gCameraH )
+                Editor.SetCamera( gCameraX, gCameraY, gCameraW, gCameraH, gCameraScale )
                 Editor.NewLevel()
 
             end
@@ -147,21 +153,25 @@ end
 
 function Editor.MouseMoved( iX, iY )
     imgui.MouseMoved( iX, iY )
+    LevelEditor.MouseMoved( iX, iY )
 end
 
 
 function Editor.MousePressed( iX, iY, iButton, iIsTouch )
     imgui.MousePressed( iButton )
+    LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
 function Editor.MouseReleased( iX, iY, iButton, iIsTouch )
     imgui.MouseReleased( iButton )
+    LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 
 function Editor.WheelMoved( iX, iY )
     imgui.WheelMoved( iY )
+    LevelEditor.WheelMoved( iX, iY )
 end
 
 
