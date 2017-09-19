@@ -176,7 +176,7 @@ function  Level1:UpdateCamera()
     xAverage = xAverage / #self.mHeros
 
     self.mCamera.mX = xAverage - love.graphics.getWidth() / 2
-    self.mCamera.mY = 0 --love.graphics.getHeight() / 2
+    self.mCamera.mY = - ( love.graphics.getHeight() - 720 ) / 2
 
 end
 
