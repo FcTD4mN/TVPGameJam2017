@@ -2,11 +2,22 @@ require( "imgui" )
 
 local Background    = require( "src/Image/Background" )
 local Camera        = require( "src/Camera/Camera")
-local Lapin         = require( "src/Objects/Heros/Lapin")
-local Singe         = require( "src/Objects/Heros/Singe")
 local Terrain       = require( "src/Objects/Terrain" )
 local LevelBase     = require( "src/Game/Level/LevelBase" )
 local SLAXML        = require 'src/ExtLibs/XML/SLAXML/slaxdom'
+
+-- ASSETS
+--      HEROS
+local Lapin         = require( "src/Objects/Heros/Lapin")
+local Singe         = require( "src/Objects/Heros/Singe")
+
+--      ENVIRONNEMENT
+local BabyTree      = require( "src/Objects/Environnement/BabyTree")
+local GrownTree     = require( "src/Objects/Environnement/GrownTree")
+local Object_Box    = require( "src/Objects/Environnement/Object_Box")
+local Tree          = require( "src/Objects/Environnement/Tree")
+local WaterPipe     = require( "src/Objects/Environnement/WaterPipe")
+
 
 -- TODO: Add it in Base/Global
 ObjectPool      = require "src/Objects/Pools/ObjectPool"
@@ -294,31 +305,41 @@ function LevelEditor.Draw()
             end
 
             if (imgui.TreeNode("Environnement")) then
+
+                imgui.Text( "BabyTree" );
+                imgui.SameLine()
+                if imgui.Button( "AddBabyTree" ) then
+                    BabyTree:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.Text( "GrownTree" );
+                imgui.SameLine()
+                if imgui.Button( "AddGrownTree" ) then
+                    GrownTree:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.Text( "Object_Box" );
+                imgui.SameLine()
+                if imgui.Button( "AddObject_Box" ) then
+                    Object_Box:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
                 imgui.Text( "Tree" );
+                imgui.SameLine()
+                if imgui.Button( "AddTree" ) then
+                    Tree:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.Text( "WaterPipe" );
+                imgui.SameLine()
+                if imgui.Button( "AddWaterPipe" ) then
+                    WaterPipe:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
                 imgui.TreePop();
             end
 
         end
-
-
-
-        -- -- NAVIGATION ==================================
-        -- if( imgui.CollapsingHeader("Navigation") ) then
-
-        --     if LevelEditor.mState ~= "navigation" then
-        --         if( imgui.Button( "Enter navigation mode" ) ) then
-        --             LevelEditor.mState = "navigation"
-        --             love.mouse.setCursor( love.mouse.getSystemCursor( "hand" ) )
-        --         end
-        --     elseif LevelEditor.mState == "navigation" then
-        --         if( imgui.Button( "Leave navigation mode" ) ) then
-        --             LevelEditor.mState = "menu"
-        --             love.mouse.setCursor( love.mouse.getSystemCursor( "arrow" ) )
-        --         end
-        --     end
-
-        -- end
-
 
 
         -- SAVE ==================================
@@ -341,6 +362,7 @@ function LevelEditor.Draw()
         end
 
         imgui.SameLine()
+
 
         -- LOAD ==================================
         if( imgui.Button( "Load level" ) ) then

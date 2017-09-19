@@ -62,7 +62,7 @@ function Editor.Draw()
 
     end
 
-    imgui.ShowTestWindow( true )
+    -- imgui.ShowTestWindow( true )
     imgui.Render()
 end
 
