@@ -106,16 +106,19 @@ end
 
 function Editor.TextInput( iT )
     imgui.TextInput( iT )
+    LevelEditor.TextInput( iT )
 end
 
 
 function Editor.KeyPressed( iKey, iScancode, iIsRepeat )
     imgui.KeyPressed( iKey )
+    LevelEditor.KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function Editor.KeyReleased( iKey, iScancode )
     imgui.KeyReleased( iKey )
+    LevelEditor.KeyReleased( iKey, iScancode )
 end
 
 

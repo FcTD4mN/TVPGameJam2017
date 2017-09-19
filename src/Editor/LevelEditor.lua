@@ -302,22 +302,22 @@ function LevelEditor.Draw()
 
 
 
-        -- NAVIGATION ==================================
-        if( imgui.CollapsingHeader("Navigation") ) then
+        -- -- NAVIGATION ==================================
+        -- if( imgui.CollapsingHeader("Navigation") ) then
 
-            if LevelEditor.mState ~= "navigation" then
-                if( imgui.Button( "Enter navigation mode" ) ) then
-                    LevelEditor.mState = "navigation"
-                    love.mouse.setCursor( love.mouse.getSystemCursor( "hand" ) )
-                end
-            elseif LevelEditor.mState == "navigation" then
-                if( imgui.Button( "Leave navigation mode" ) ) then
-                    LevelEditor.mState = "menu"
-                    love.mouse.setCursor( love.mouse.getSystemCursor( "arrow" ) )
-                end
-            end
+        --     if LevelEditor.mState ~= "navigation" then
+        --         if( imgui.Button( "Enter navigation mode" ) ) then
+        --             LevelEditor.mState = "navigation"
+        --             love.mouse.setCursor( love.mouse.getSystemCursor( "hand" ) )
+        --         end
+        --     elseif LevelEditor.mState == "navigation" then
+        --         if( imgui.Button( "Leave navigation mode" ) ) then
+        --             LevelEditor.mState = "menu"
+        --             love.mouse.setCursor( love.mouse.getSystemCursor( "arrow" ) )
+        --         end
+        --     end
 
-        end
+        -- end
 
 
 
@@ -431,6 +431,27 @@ end
 -- UNSER INPUTS ===================================================
 
 
+function LevelEditor.KeyPressed( iKey, iScancode, iIsRepeat )
+
+    if iKey == "lalt" then
+        LevelEditor.mState = "navigation"
+    elseif iKey == "lshift" then
+        LevelEditor.mState = "propedition"
+    end
+
+end
+
+
+function LevelEditor.KeyReleased( iKey, iScancode )
+
+    if iKey == "lalt" then
+        LevelEditor.mState = "menu"
+    elseif iKey == "lshift" then
+        LevelEditor.mState = "menu"
+    end
+end
+
+
 function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
 
     if LevelEditor.mState == "placingterrain" then
@@ -443,13 +464,12 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
         dragMode = true
         previousX, previousY = iX, iY
 
-    elseif LevelEditor.mState == "propedition" or LevelEditor.mState == "menu" then
+    elseif LevelEditor.mState == "propedition" then
 
         xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
         gCurrentEditedAsset = ObjectPool.ObjectAtCoordinates( xMapped, yMapped )
 
         if gCurrentEditedAsset then
-            LevelEditor.mState = "propedition"
             dragMode = true
             previousX, previousY = iX, iY
         end
@@ -475,10 +495,6 @@ function LevelEditor.MouseMoved( iX, iY )
 
         local  speedX = ( previousX - iX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
         local  speedY = ( previousY - iY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
-        if love.keyboard.isDown( 'lshift' ) then
-            speedX = speedX * 2
-            speedY = speedY * 2
-        end
 
         LevelEditor.mEditorCamera.mX = LevelEditor.mEditorCamera.mX + speedX
         LevelEditor.mEditorCamera.mY = LevelEditor.mEditorCamera.mY + speedY
@@ -488,10 +504,6 @@ function LevelEditor.MouseMoved( iX, iY )
 
         local  speedX = ( iX - previousX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
         local  speedY = ( iY - previousY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
-        if love.keyboard.isDown( 'lshift' ) then
-            speedX = speedX * 2
-            speedY = speedY * 2
-        end
 
         if( gCurrentEditedAsset ) then
             gCurrentEditedAsset:SetX( gCurrentEditedAsset:GetX() + speedX )
@@ -534,7 +546,6 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
     elseif LevelEditor.mState == "propedition" then
 
         gCurrentEditedAsset = nil
-        LevelEditor.mState = "menu"
         dragMode = false
 
     end
