@@ -16,7 +16,7 @@ function  MenuItem:New( iText, iX, iY )
     newMenuItem.font = love.graphics.newFont("resources/Fonts/Oswald/Oswald-Bold.ttf", 30 )
     newMenuItem.isCurrent = false
     newMenuItem.rectangle = Rectangle:New( iX, iY, newMenuItem.font:getWidth( iText ), newMenuItem.font:getHeight() )
-    newMenuItem.actionCB = 0
+    newMenuItem.actionCB = nil
     newMenuItem.sound = 0
 
     return  newMenuItem
@@ -36,9 +36,11 @@ end
 
 
 function  MenuItem:Click()
-    self.actionCB()
-    if( self.sound ~= 0 ) then
-        -- love.audio.play( self.sound )
+    if self.actionCB then
+        self.actionCB()
+        if( self.sound ~= 0 ) then
+            -- love.audio.play( self.sound )
+        end
     end
 end
 

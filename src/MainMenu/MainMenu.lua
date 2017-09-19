@@ -74,6 +74,7 @@ function  MainMenu:Initialize()
     back.rectangle.x = dz+ love.graphics.getWidth() / 2 - back.rectangle.w /2
 
     -- Callbacks
+    video:SetCallback( function() MainMenu.currentPage = 3 end )
     back:SetCallback( function() MainMenu.currentPage = 1 end )
 
     -- Sounds
@@ -87,6 +88,34 @@ function  MainMenu:Initialize()
     optionPage:AddItem( back )
 
     self:AddPage( optionPage )
+
+
+    -- ========================== VIDEO OPTIONS =============================
+    y = 250
+    dz = 0
+    local fullScreen = MenuItem:New( "FullScreen", love.graphics.getWidth() / 2, y )
+    y = y + spaceBetItems
+    fullScreen.rectangle.x = dz + love.graphics.getWidth() / 2 - video.rectangle.w /2
+    local lowerRes  = MenuItem:New( "1200x720", love.graphics.getWidth() / 2, y )
+    y = y + spaceBetItems
+    lowerRes.rectangle.x = dz + love.graphics.getWidth() / 2 - video.rectangle.w /2
+    local back  = MenuItem:New( "Back", love.graphics.getWidth() / 2, y )
+    back.rectangle.x = dz+ love.graphics.getWidth() / 2 - back.rectangle.w /2
+
+    -- Callbacks
+    fullScreen:SetCallback( function() love.window.setMode( 800, 600, { fullscreen=true } ) end )
+    lowerRes:SetCallback( function() love.window.setMode( 1200, 720, { fullscreen=false } ) end )
+    back:SetCallback( function() MainMenu.currentPage = 2 end )
+
+    -- Item building
+    videoOptions = MenuPage:New()
+    videoOptions:AddItem( fullScreen )
+    videoOptions:AddItem( lowerRes )
+    videoOptions:AddItem( back )
+
+    self:AddPage( videoOptions )
+
+    -- ================================ END =================================
 
     love.audio.play( music )
 
