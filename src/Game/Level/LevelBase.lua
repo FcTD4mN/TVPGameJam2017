@@ -90,26 +90,31 @@ function  LevelBase:Update( iDT )
 end
 
 
-function  LevelBase:Draw()
+function  LevelBase:Draw( iCamera )
+
+    local camera = self.mCamera
+    if( iCamera ) then
+        camera = iCamera
+    end
 
     if( self.mFixedBackground ) then
         self.mFixedBackground:Draw( 0, 0 )
     end
 
     for k,v in pairs( self.mBackgrounds ) do
-        v:Draw( self.mCamera )
+        v:Draw( camera )
     end
 
-    ObjectPool.Draw( self.mCamera )
-    RayPool.Draw( self.mCamera )
+    ObjectPool.Draw( camera )
+    RayPool.Draw( camera )
 
     for k,v in pairs( self.mForegrounds ) do
-        v:Draw( self.mCamera )
+        v:Draw( camera )
     end
 
     if( self.mMiniMap ) then
 
-        self.mMiniMap:Draw( self.mCamera )
+        self.mMiniMap:Draw( camera )
         ObjectPool.DrawToMiniMap( self.mMiniMap )
 
     end
@@ -121,18 +126,7 @@ end
 
 
 function  LevelBase:UpdateCamera()
-
-    xAverage = 0
-
-    for k,v in pairs( self.mHeros ) do
-        x = v:GetX()
-        xAverage = ( xAverage + x )
-    end
-    xAverage = xAverage / #self.mHeros
-
-    self.mCamera.mX = xAverage - love.graphics.getWidth() / 2
-    self.mCamera.mY = 0 --love.graphics.getHeight() / 2
-
+    -- Nothing here
 end
 
 

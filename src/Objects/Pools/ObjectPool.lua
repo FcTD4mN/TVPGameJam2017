@@ -55,6 +55,20 @@ function ObjectPool.ObjectAtIndex( iIndex )
 end
 
 
+function ObjectPool.ObjectAtCoordinates( iX, iY )
+
+    for k, v in pairs( ObjectPool.objects ) do
+
+        if v:ContainsPoint( iX, iY ) then
+            return  v
+        end
+
+    end
+
+    return  nil
+end
+
+
 -- ==========================================Pool actions
 
 

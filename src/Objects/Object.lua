@@ -125,7 +125,7 @@ function Object:DrawObject( iCamera )
     end
 
     if self.mCurrentAnimation > 0 then
-        self.mAnimations[ self.mCurrentAnimation ]:Draw( iCamera )
+        self.mAnimations[ self.mCurrentAnimation ]:Draw( iCamera, self:GetX(), self:GetY() )
     end
 
 end
@@ -142,33 +142,6 @@ function Object:DrawObjectOnMiniMap( iMiniMap )
     love.graphics.setColor( 20,50,200 )
     love.graphics.rectangle( "fill", x, y, self.mW * iMiniMap.mCamera.mScale, self.mH * iMiniMap.mCamera.mScale )
 
-end
-
-
-function Object:DEBUGDrawHitBox()
-    love.graphics.setColor( 255, 0, 0, 125 )
-
-    fixtures = self.mBody:getFixtureList()
-    for k,v in pairs( fixtures ) do
-
-        if( v:getShape():getType() == "polygon" ) then
-            love.graphics.polygon( "fill", Camera.MapToScreenMultiple( self.mBody:getWorldPoints( self.mShape:getPoints() ) ) )
-        elseif ( v:getShape():getType() == "circle" ) then
-            radius  = v:getShape():getRadius()
-            x, y    = v:getShape():getPoint()
-
-            -- x, y are coordinates from the center of body, so we offset to match center in screen coordinates
-            x = x + self:GetX() + self.mW/2
-            y = y + self:GetY() + self.mH/2
-            x, y = Camera.MapToScreen( x, y )
-            love.graphics.circle( "fill", x, y, radius )
-        elseif ( v:getShape():getType() == "edge" ) then
-            --TODO
-        elseif ( v:getShape():getType() == "chain" ) then
-            --TODO
-        end
-
-    end
 end
 
 
@@ -260,6 +233,19 @@ function  Object:LoadObjectXML( iNode, iWorld )
 
     ObjectPool.AddObject( self )
 
+end
+
+
+-- Utilities=============================================
+
+
+function  Object:ContainsPoint( iX, iY )
+    if iX < self:GetX()  then  return  false end
+    if iY < self:GetY()  then  return  false end
+    if iX > self:GetX() + self.mW then  return  false end
+    if iY > self:GetY() + self.mH then  return  false end
+
+    return  true
 end
 
 

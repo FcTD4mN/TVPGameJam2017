@@ -97,13 +97,15 @@ function Animation:Update( dt, x, y, w, h, angleInRad )
 end
 
 
-function Animation:Draw( iCamera )
+function Animation:Draw( iCamera, iX, iY )
     if self.display then
         love.graphics.setColor( 255, 255, 255, 255 )
         --print( self.currentquad )
 
-        local x = self.x
-        local y = self.y
+        local x = iX
+        local y = iY
+        -- local x = self.x
+        -- local y = self.y
         local w = self.w * iCamera.mScale
         local h = self.h * iCamera.mScale
         local scaleX = math.min( w/self.quadW, h/self.quadH )

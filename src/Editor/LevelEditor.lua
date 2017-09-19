@@ -1,26 +1,37 @@
 require( "imgui" )
 
 local Background    = require( "src/Image/Background" )
+local Camera        = require( "src/Camera/Camera")
+local Lapin         = require( "src/Objects/Heros/Lapin")
+local Singe         = require( "src/Objects/Heros/Singe")
 local Terrain       = require( "src/Objects/Terrain" )
 local LevelBase     = require( "src/Game/Level/LevelBase" )
 local SLAXML        = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
+-- TODO: Add it in Base/Global
+ObjectPool      = require "src/Objects/Pools/ObjectPool"
+
 
 LevelEditor = {
     mLevel = nil,
-    mState = "menu"
+    mState = "uninitialized",
+    mEditorCamera = nil
 }
 
 
 
 local renderPreviewLine = false
+local dragMode = false
 local xStartingMouse, yStartingMouse = 0, 0
 local xCurrentMouse, yCurrentMouse = 0, 0
+
+local gCurrentEditedAsset = nil
 
 
 function LevelEditor.Initialize( iLevel )
 
     LevelEditor.mLevel = iLevel
+    LevelEditor.mEditorCamera = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 1.0 )
 
 
     Terrain.Initialize( LevelEditor.mLevel.mWorld )
@@ -35,9 +46,11 @@ function LevelEditor.Initialize( iLevel )
     gIntX = 0
     gIntY = 0
     gIntA = 0
-    gFileName = ""
+    gFileName = "Save/Level1.xml" -- Just so it's quicker to debug
 
     gFixedBGFile = "test"
+
+    LevelEditor.mState = "menu"
 
 end
 
@@ -45,10 +58,12 @@ function LevelEditor.Draw()
 
     if( LevelEditor.mLevel ) then
 
-        LevelEditor.mLevel:Draw()
-        DEBUGWorldHITBOXESDraw( gWorld, LevelEditor.mLevel.mCamera, "all" )
+        LevelEditor.mLevel:Draw( LevelEditor.mEditorCamera )
+        DEBUGWorldHITBOXESDraw( gWorld, LevelEditor.mEditorCamera, "all" )
 
     end
+
+    love.graphics.setColor( 255, 255, 255, 255 )
 
     status, mainCommands = imgui.Begin( "Level Properties", nil, { "AlwaysAutoResize" } );
 
@@ -238,7 +253,7 @@ function LevelEditor.Draw()
         -- TERRAIN ==================================
         if( imgui.CollapsingHeader("Terrain") ) then
 
-            if LevelEditor.mState == "menu" then
+            if LevelEditor.mState ~= "placingterrain" then
                 if( imgui.Button( "Start terrain edition" ) ) then
                     LevelEditor.mState = "placingterrain"
                     love.mouse.setCursor( love.mouse.getSystemCursor( "crosshair" ) )
@@ -249,6 +264,56 @@ function LevelEditor.Draw()
                     love.mouse.setCursor( love.mouse.getSystemCursor( "arrow" ) )
                     renderPreviewLine = false
                     LevelEditor.mLevel.mTerrain.RemoveLastSegment() -- Cuz event still goes to mouse event first ..
+                end
+            end
+
+        end
+
+
+
+        -- ASSETS ==================================
+        if( imgui.CollapsingHeader("Assets") ) then
+
+            local x, y = LevelEditor.mEditorCamera.mX, LevelEditor.mEditorCamera.mY
+
+            if (imgui.TreeNode("Heros")) then
+
+                imgui.Text( "Lapin" );
+                imgui.SameLine()
+                if imgui.Button( "AddLapin" ) then
+                    Lapin:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.Text( "Singe" );
+                imgui.SameLine()
+                if imgui.Button( "AddSinge" ) then
+                    Singe:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.TreePop();
+            end
+
+            if (imgui.TreeNode("Environnement")) then
+                imgui.Text( "Tree" );
+                imgui.TreePop();
+            end
+
+        end
+
+
+
+        -- NAVIGATION ==================================
+        if( imgui.CollapsingHeader("Navigation") ) then
+
+            if LevelEditor.mState ~= "navigation" then
+                if( imgui.Button( "Enter navigation mode" ) ) then
+                    LevelEditor.mState = "navigation"
+                    love.mouse.setCursor( love.mouse.getSystemCursor( "hand" ) )
+                end
+            elseif LevelEditor.mState == "navigation" then
+                if( imgui.Button( "Leave navigation mode" ) ) then
+                    LevelEditor.mState = "menu"
+                    love.mouse.setCursor( love.mouse.getSystemCursor( "arrow" ) )
                 end
             end
 
@@ -275,8 +340,7 @@ function LevelEditor.Draw()
             imgui.EndPopup()
         end
 
-
-
+        imgui.SameLine()
 
         -- LOAD ==================================
         if( imgui.Button( "Load level" ) ) then
@@ -372,6 +436,23 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
     if LevelEditor.mState == "placingterrain" then
 
         renderPreviewLine = true
+        dragMode = false
+
+    elseif LevelEditor.mState == "navigation" then
+
+        dragMode = true
+        previousX, previousY = iX, iY
+
+    elseif LevelEditor.mState == "propedition" or LevelEditor.mState == "menu" then
+
+        xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
+        gCurrentEditedAsset = ObjectPool.ObjectAtCoordinates( xMapped, yMapped )
+
+        if gCurrentEditedAsset then
+            LevelEditor.mState = "propedition"
+            dragMode = true
+            previousX, previousY = iX, iY
+        end
 
     end
 
@@ -390,6 +471,34 @@ function LevelEditor.MouseMoved( iX, iY )
             xCurrentMouse = xStartingMouse
         end
 
+    elseif LevelEditor.mState == "navigation" and dragMode == true then
+
+        local  speedX = ( previousX - iX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+        local  speedY = ( previousY - iY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+        if love.keyboard.isDown( 'lshift' ) then
+            speedX = speedX * 2
+            speedY = speedY * 2
+        end
+
+        LevelEditor.mEditorCamera.mX = LevelEditor.mEditorCamera.mX + speedX
+        LevelEditor.mEditorCamera.mY = LevelEditor.mEditorCamera.mY + speedY
+        previousX, previousY = iX, iY
+
+    elseif LevelEditor.mState == "propedition" and dragMode == true then
+
+        local  speedX = ( iX - previousX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+        local  speedY = ( iY - previousY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+        if love.keyboard.isDown( 'lshift' ) then
+            speedX = speedX * 2
+            speedY = speedY * 2
+        end
+
+        if( gCurrentEditedAsset ) then
+            gCurrentEditedAsset:SetX( gCurrentEditedAsset:GetX() + speedX )
+            gCurrentEditedAsset:SetY( gCurrentEditedAsset:GetY() + speedY )
+            previousX, previousY = iX, iY
+        end
+
     end
 
 end
@@ -401,7 +510,7 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 
         -- xStartingMouse, yStartingMouse = iX, iY
 
-        xMapped, yMapped = LevelEditor.mLevel.mCamera:MapToWorld( iX, iY )
+        xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
 
         local rulerType = "norule"
 
@@ -418,6 +527,16 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 
         LevelEditor.mLevel.mTerrain.AppendEdgeToPrevious( xMapped, yMapped, rulerType )
 
+    elseif LevelEditor.mState == "navigation" then
+
+        dragMode = false
+
+    elseif LevelEditor.mState == "propedition" then
+
+        gCurrentEditedAsset = nil
+        LevelEditor.mState = "menu"
+        dragMode = false
+
     end
 
 end
@@ -425,7 +544,11 @@ end
 
 function LevelEditor.WheelMoved( iX, iY )
 
-    -- LevelEditor.mLevel.mCamera.mScale = LevelEditor.mLevel.mCamera.mScale + iY/10
+    if LevelEditor.mState == "navigation" then
+
+        LevelEditor.mEditorCamera:SetScale( LevelEditor.mEditorCamera.mScale + iY/20 )
+
+    end
 
 end
 

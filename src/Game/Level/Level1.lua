@@ -165,6 +165,22 @@ end
 -- ==========================================Level1 functions
 
 
+function  Level1:UpdateCamera()
+
+    xAverage = 0
+
+    for k,v in pairs( self.mHeros ) do
+        x = v:GetX()
+        xAverage = ( xAverage + x )
+    end
+    xAverage = xAverage / #self.mHeros
+
+    self.mCamera.mX = xAverage - love.graphics.getWidth() / 2
+    self.mCamera.mY = 0 --love.graphics.getHeight() / 2
+
+end
+
+
 -- ==========================================Collide CB
 
 

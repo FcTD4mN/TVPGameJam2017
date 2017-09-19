@@ -62,33 +62,8 @@ function Editor.Draw()
 
     end
 
-
     imgui.ShowTestWindow( true )
     imgui.Render()
-
-    -- imgui.SetNextWindowSize(love.graphics.getWidth(), love.graphics.getHeight())
-    -- if imgui.Begin("DockArea", nil, { "NoTitleBar", "NoResize", "NoMove", "NoBringToFrontOnFocus" }) then
-    --     imgui.BeginDockspace()
-
-    --     if imgui.BeginDock("DrawingDock") then
-    --         x, y = imgui.GetItemRectMin()
-    --         w, h = imgui.GetWindowSize()
-    --         w = w - 16
-    --         h = h - 34
-    --         if imgui.Button("Draw") then
-    --             draw = not draw
-    --         end
-    --     end
-    --     imgui.EndDock()
-    --     imgui.EndDockspace()
-    -- end
-    -- imgui.End()
-
-    -- love.graphics.clear(100, 100, 100, 255)
-    -- imgui.Render();
-    -- if draw then
-    --     ObjectDraw( x, y, w, h )
-    -- end
 end
 
 
