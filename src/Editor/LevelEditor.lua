@@ -2,8 +2,9 @@ require( "imgui" )
 
 local Background    = require( "src/Image/Background" )
 local Camera        = require( "src/Camera/Camera")
-local Terrain       = require( "src/Objects/Terrain" )
 local LevelBase     = require( "src/Game/Level/LevelBase" )
+local Rectangle     = require( "src/Math/Rectangle" )
+local Terrain       = require( "src/Objects/Terrain" )
 local SLAXML        = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
 -- ASSETS
@@ -26,7 +27,8 @@ ObjectPool      = require "src/Objects/Pools/ObjectPool"
 LevelEditor = {
     mLevel = nil,
     mState = "uninitialized",
-    mEditorCamera = nil
+    mEditorCamera = nil,
+    mLevelPropertiesGUIRect = nil
 }
 
 
@@ -37,6 +39,7 @@ local xStartingMouse, yStartingMouse = 0, 0
 local xCurrentMouse, yCurrentMouse = 0, 0
 
 local gCurrentEditedAsset = nil
+local gInPopup = false
 
 
 function LevelEditor.Initialize( iLevel )
@@ -62,6 +65,7 @@ function LevelEditor.Initialize( iLevel )
     gFixedBGFile = "test"
 
     LevelEditor.mState = "menu"
+    LevelEditor.mLevelPropertiesGUIRect = Rectangle:New( 0, 0, 0, 0 )
 
 end
 
@@ -78,7 +82,13 @@ function LevelEditor.Draw()
 
     status, mainCommands = imgui.Begin( "Level Properties", nil, { "AlwaysAutoResize" } );
 
+    x, y = imgui.GetWindowPos()
+    w, h = imgui.GetWindowSize()
 
+    LevelEditor.mLevelPropertiesGUIRect.w = w
+    LevelEditor.mLevelPropertiesGUIRect.h = h
+    LevelEditor.mLevelPropertiesGUIRect:SetX( x )
+    LevelEditor.mLevelPropertiesGUIRect:SetY( y )
 
         -- Camera =====================================
         if( imgui.CollapsingHeader("Camera") ) then
@@ -274,7 +284,6 @@ function LevelEditor.Draw()
                     LevelEditor.mState = "menu"
                     love.mouse.setCursor( love.mouse.getSystemCursor( "arrow" ) )
                     renderPreviewLine = false
-                    LevelEditor.mLevel.mTerrain.RemoveLastSegment() -- Cuz event still goes to mouse event first ..
                 end
             end
 
@@ -384,23 +393,31 @@ function LevelEditor.Draw()
         end
 
 
-    -- POPUPS==========================================
-    if gCurrentEditedAsset then
-        if imgui.BeginPopupContextItem("Asset Options") then
-            if (imgui.Selectable("Test")) then
-                value = 0.0;
+    -- POPUPS ======================================
+    if gInPopup then
+
+        imgui.OpenPopup( "Test" )
+        if imgui.BeginPopupModal( "Test", nil, { "AlwaysAutoResize", "NoResize", "NoTitleBar" } ) then
+
+            if( imgui.Button( "Delete" ) ) then
+                imgui.CloseCurrentPopup()
+                gCurrentEditedAsset:Destroy()
+                ObjectPool.Update( 0 )
+                gInPopup = false
+                gCurrentEditedAsset = nil
             end
-            if (imgui.Selectable("Test2")) then
-                value = 0.1;
+
+            if( imgui.Button( "Cancel" ) ) then
+                imgui.CloseCurrentPopup()
+                gInPopup = false
+                gCurrentEditedAsset = nil
             end
-            imgui.EndPopup();
+            imgui.EndPopup()
         end
+
     end
 
-
     imgui.End()
-
-
 
     if renderPreviewLine then
         love.graphics.line( xStartingMouse, yStartingMouse, xCurrentMouse, yCurrentMouse )
@@ -410,7 +427,6 @@ end
 
 
 -- EDITOR FUNCTIONS ===================================================
-
 
 
 function LevelEditor.SetCamera( iX, iY, iW, iH, iScale )
@@ -478,8 +494,10 @@ function LevelEditor.KeyPressed( iKey, iScancode, iIsRepeat )
 
     if iKey == "lalt" then
         LevelEditor.mState = "navigation"
-    elseif iKey == "lshift" then
+    elseif iKey == "lshift" and LevelEditor.mState ~= "placingterrain" then
         LevelEditor.mState = "propedition"
+    elseif iKey == "u" and LevelEditor.mState == "placingterrain" then
+        LevelEditor.mLevel.mTerrain:RemoveLastSegment()
     end
 
 end
@@ -489,7 +507,7 @@ function LevelEditor.KeyReleased( iKey, iScancode )
 
     if iKey == "lalt" then
         LevelEditor.mState = "menu"
-    elseif iKey == "lshift" then
+    elseif iKey == "lshift" and LevelEditor.mState ~= "placingterrain" then
         LevelEditor.mState = "menu"
     end
 end
@@ -497,7 +515,7 @@ end
 
 function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
 
-    if LevelEditor.mState == "placingterrain" then
+    if LevelEditor.mState == "placingterrain" and not LevelEditor.mLevelPropertiesGUIRect:ContainsPoint( iX, iY ) then
 
         renderPreviewLine = true
         dragMode = false
@@ -507,7 +525,7 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
         dragMode = true
         previousX, previousY = iX, iY
 
-    elseif LevelEditor.mState == "propedition" then
+    elseif LevelEditor.mState == "propedition" and not gInPopup and not LevelEditor.mLevelPropertiesGUIRect:ContainsPoint( iX, iY ) then
 
         xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
         gCurrentEditedAsset = ObjectPool.ObjectAtCoordinates( xMapped, yMapped )
@@ -524,7 +542,7 @@ end
 
 function LevelEditor.MouseMoved( iX, iY )
 
-    if LevelEditor.mState == "placingterrain" then
+    if LevelEditor.mState == "placingterrain" and not LevelEditor.mLevelPropertiesGUIRect:ContainsPoint( iX, iY ) then
 
         xCurrentMouse, yCurrentMouse = iX, iY
 
@@ -561,9 +579,7 @@ end
 
 function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 
-    if LevelEditor.mState == "placingterrain" then
-
-        -- xStartingMouse, yStartingMouse = iX, iY
+    if LevelEditor.mState == "placingterrain" and not LevelEditor.mLevelPropertiesGUIRect:ContainsPoint( iX, iY ) then
 
         xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
 
@@ -588,7 +604,11 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 
     elseif LevelEditor.mState == "propedition" then
 
-        gCurrentEditedAsset = nil
+        if iButton == 2 and gCurrentEditedAsset then
+            gInPopup = true
+        elseif not gInPopup then
+            gCurrentEditedAsset = nil
+        end
         dragMode = false
 
     end
