@@ -384,7 +384,23 @@ function LevelEditor.Draw()
         end
 
 
+    -- POPUPS==========================================
+    if gCurrentEditedAsset then
+        if imgui.BeginPopupContextItem("Asset Options") then
+            if (imgui.Selectable("Test")) then
+                value = 0.0;
+            end
+            if (imgui.Selectable("Test2")) then
+                value = 0.1;
+            end
+            imgui.EndPopup();
+        end
+    end
+
+
     imgui.End()
+
+
 
     if renderPreviewLine then
         love.graphics.line( xStartingMouse, yStartingMouse, xCurrentMouse, yCurrentMouse )
@@ -451,6 +467,11 @@ end
 
 
 -- UNSER INPUTS ===================================================
+
+
+function LevelEditor.TextInput( iT )
+    --Nothing
+end
 
 
 function LevelEditor.KeyPressed( iKey, iScancode, iIsRepeat )
