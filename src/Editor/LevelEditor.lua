@@ -5,6 +5,7 @@ local Camera        = require( "src/Camera/Camera")
 local LevelBase     = require( "src/Game/Level/LevelBase" )
 local Rectangle     = require( "src/Math/Rectangle" )
 local Terrain       = require( "src/Objects/Terrain" )
+local TerrainHUD    = require( "src/HUD/TerrainHUD" )
 local SLAXML        = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
 -- ASSETS
@@ -50,6 +51,7 @@ function LevelEditor.Initialize( iLevel )
 
     Terrain.Initialize( LevelEditor.mLevel.mWorld )
     LevelEditor.mLevel.mTerrain = Terrain
+    LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain )
 
     gCameraX = LevelEditor.mLevel.mCamera.mX
     gCameraY = LevelEditor.mLevel.mCamera.mY
@@ -74,6 +76,7 @@ function LevelEditor.Draw()
     if( LevelEditor.mLevel ) then
 
         LevelEditor.mLevel:Draw( LevelEditor.mEditorCamera )
+        LevelEditor.mTerrainHUD:Draw( LevelEditor.mEditorCamera )
         DEBUGWorldHITBOXESDraw( gWorld, LevelEditor.mEditorCamera, "all" )
 
     end
@@ -597,6 +600,7 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
         end
 
         LevelEditor.mLevel.mTerrain.AppendEdgeToPrevious( xMapped, yMapped, rulerType )
+        LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain )
 
     elseif LevelEditor.mState == "navigation" then
 
