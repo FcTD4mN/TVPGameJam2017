@@ -79,8 +79,8 @@ function TerrainHUD:MousePressed( iX, iY, iButton, iIsTouch )
     local handleNumber
     for k,v in pairs( self.mEdgeHUDs ) do
 
-        x, y = self.mCamera:MapToScreen( iX, iY )
-        handleNumber = v:GetHandleNumberAtPos( x, y, self.mCamera )
+        -- x, y = self.mCamera:MapToWorld( iX, iY )
+        handleNumber = v:GetHandleNumberAtPos( iX, iY, self.mCamera ) -- Screen coords here and inside GetHandleNumberAtPos, so mousePos doesn't get affected by scale
         if handleNumber > 0 then
             table.insert( self.mDraggingEdgeHUDs, v )
             table.insert( self.mDraggingHandleNumbers, handleNumber )
@@ -94,7 +94,9 @@ end
 function TerrainHUD:MouseMoved( iX, iY )
 
     for k,v in pairs( self.mDraggingEdgeHUDs) do
-        v:MoveHandleAtPos( self.mDraggingHandleNumbers[ k ], iX, iY )
+
+        x, y = self.mCamera:MapToWorld( iX, iY )
+        v:MoveHandleAtPos( self.mDraggingHandleNumbers[ k ], x, y )
     end
 
 end

@@ -4,7 +4,7 @@ local Background    = require( "src/Image/Background" )
 local Camera        = require( "src/Camera/Camera")
 local LevelBase     = require( "src/Game/Level/LevelBase" )
 local Rectangle     = require( "src/Math/Rectangle" )
-local Terrain       = require( "src/Objects/Terrain" )
+      Terrain       = require( "src/Objects/Terrain" )
 local TerrainHUD    = require( "src/HUD/Terrain/TerrainHUD" )
 local SLAXML        = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
@@ -48,9 +48,11 @@ function LevelEditor.Initialize( iLevel )
     LevelEditor.mLevel = iLevel
     LevelEditor.mEditorCamera = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 1.0 )
 
+    if LevelEditor.mLevel.mTerrain == nil then
+        Terrain.Initialize( LevelEditor.mLevel.mWorld )
+        LevelEditor.mLevel.mTerrain = Terrain
+    end
 
-    Terrain.Initialize( LevelEditor.mLevel.mWorld )
-    LevelEditor.mLevel.mTerrain = Terrain
     LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain, LevelEditor.mEditorCamera )
 
     gCameraX = LevelEditor.mLevel.mCamera.mX
@@ -615,12 +617,20 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
             yStartingMouse = iY
         end
 
-        LevelEditor.mLevel.mTerrain.AppendEdgeToPrevious( xMapped, yMapped, rulerType )
+        if iButton == 1 then
+            LevelEditor.mLevel.mTerrain.AppendEdgeToPrevious( xMapped, yMapped, rulerType )
+        elseif iButton == 2 then
+            LevelEditor.mLevel.mTerrain.CutEdgeAppending()
+            renderPreviewLine = false
+        end
+
         LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain, LevelEditor.mEditorCamera )
 
     elseif LevelEditor.mState == "navigation" then
 
         dragMode = false
+
+
 
     elseif LevelEditor.mState == "propedition" then
 

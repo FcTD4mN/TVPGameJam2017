@@ -48,7 +48,6 @@ function Editor.Draw()
                 imgui.CloseCurrentPopup()
                 Editor.SetCamera( gCameraX, gCameraY, gCameraW, gCameraH, gCameraScale )
                 Editor.NewLevel()
-
             end
             imgui.EndPopup()
         end
