@@ -121,5 +121,14 @@ function Pack( ... )
 
 end
 
+-- Clears a table
+function ClearTable( iTable )
+
+    for k in pairs( iTable ) do
+        iTable[ k ] = nil
+    end
+
+end
+
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Base

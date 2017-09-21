@@ -51,7 +51,7 @@ function LevelEditor.Initialize( iLevel )
 
     Terrain.Initialize( LevelEditor.mLevel.mWorld )
     LevelEditor.mLevel.mTerrain = Terrain
-    LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain )
+    LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain, LevelEditor.mEditorCamera )
 
     gCameraX = LevelEditor.mLevel.mCamera.mX
     gCameraY = LevelEditor.mLevel.mCamera.mY
@@ -540,6 +540,14 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
 
     end
 
+
+    -- HUD Event forwarding
+    if LevelEditor.mTerrainHUD then
+
+        LevelEditor.mTerrainHUD:MousePressed( iX, iY, iButton, iIsTouch )
+
+    end
+
 end
 
 
@@ -577,6 +585,14 @@ function LevelEditor.MouseMoved( iX, iY )
 
     end
 
+
+    -- HUD Event forwarding
+    if LevelEditor.mTerrainHUD then
+
+        LevelEditor.mTerrainHUD:MouseMoved( iX, iY )
+
+    end
+
 end
 
 
@@ -600,7 +616,7 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
         end
 
         LevelEditor.mLevel.mTerrain.AppendEdgeToPrevious( xMapped, yMapped, rulerType )
-        LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain )
+        LevelEditor.mTerrainHUD = TerrainHUD:New( LevelEditor.mLevel.mTerrain, LevelEditor.mEditorCamera )
 
     elseif LevelEditor.mState == "navigation" then
 
@@ -614,6 +630,14 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
             gCurrentEditedAsset = nil
         end
         dragMode = false
+
+    end
+
+
+    -- HUD Event forwarding
+    if LevelEditor.mTerrainHUD then
+
+        LevelEditor.mTerrainHUD:MouseReleased( iX, iY, iButton, iIsTouch )
 
     end
 
