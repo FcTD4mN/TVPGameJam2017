@@ -5,7 +5,7 @@ local Camera        = require( "src/Camera/Camera")
 local LevelBase     = require( "src/Game/Level/LevelBase" )
 local Rectangle     = require( "src/Math/Rectangle" )
 local Terrain       = require( "src/Objects/Terrain" )
-local TerrainHUD    = require( "src/HUD/TerrainHUD" )
+local TerrainHUD    = require( "src/HUD/Terrain/TerrainHUD" )
 local SLAXML        = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
 -- ASSETS

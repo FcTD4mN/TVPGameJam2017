@@ -57,7 +57,7 @@ function  Background:Draw( iCamera )
     love.graphics.setColor( 255, 255, 255, 255 )
     x, y = iCamera:MapToScreen( self.x, self.y )
 
-    self.bigImage:Draw( x, y )
+    self.bigImage:Draw( x, y, iCamera.mScale )
 end
 
 

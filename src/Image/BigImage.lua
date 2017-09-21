@@ -79,12 +79,12 @@ function  BigImage:Update( iDT )
 
 end
 
-function  BigImage:Draw( dx, dy )
+function  BigImage:Draw( dx, dy, iScale )
 
     love.graphics.setColor( 255, 255, 255, 255 )
 
     windowW = love.graphics.getWidth()
-    tileW = self.tileWidth
+    tileW = self.tileWidth * iScale
 
     numberTiles = math.ceil( windowW / tileW )
     firstTile = math.floor( -dx / tileW )
@@ -100,10 +100,10 @@ function  BigImage:Draw( dx, dy )
 
     for i = firstTile, lastTile, 1 do
 
-        tx = dx + self.rectangles[i].x
-        ty = dy + self.rectangles[i].y
+        tx = (dx + self.rectangles[i].x) * iScale
+        ty = (dy + self.rectangles[i].y) * iScale
 
-        love.graphics.draw( self.images[i], tx,  ty )
+        love.graphics.draw( self.images[i], tx,  ty, 0, iScale, iScale )
     end
 
 end

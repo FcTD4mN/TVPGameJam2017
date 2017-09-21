@@ -98,7 +98,7 @@ function  LevelBase:Draw( iCamera )
     end
 
     if( self.mFixedBackground ) then
-        self.mFixedBackground:Draw( 0, 0 )
+        self.mFixedBackground:Draw( 0, 0, camera.mScale )
     end
 
     for k,v in pairs( self.mBackgrounds ) do
