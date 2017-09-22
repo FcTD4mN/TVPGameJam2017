@@ -540,13 +540,12 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
             previousX, previousY = iX, iY
         end
 
-    end
+        -- HUD Event forwarding
+        if LevelEditor.mTerrainHUD then
 
+            LevelEditor.mTerrainHUD:MousePressed( iX, iY, iButton, iIsTouch )
 
-    -- HUD Event forwarding
-    if LevelEditor.mTerrainHUD then
-
-        LevelEditor.mTerrainHUD:MousePressed( iX, iY, iButton, iIsTouch )
+        end
 
     end
 
@@ -574,24 +573,23 @@ function LevelEditor.MouseMoved( iX, iY )
         LevelEditor.mEditorCamera.mY = LevelEditor.mEditorCamera.mY + speedY
         previousX, previousY = iX, iY
 
-    elseif LevelEditor.mState == "propedition" and dragMode == true then
-
-        local  speedX = ( iX - previousX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
-        local  speedY = ( iY - previousY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+    elseif LevelEditor.mState == "propedition" then
 
         if( gCurrentEditedAsset ) then
+            local  speedX = ( iX - previousX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+            local  speedY = ( iY - previousY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+
             gCurrentEditedAsset:SetX( gCurrentEditedAsset:GetX() + speedX )
             gCurrentEditedAsset:SetY( gCurrentEditedAsset:GetY() + speedY )
             previousX, previousY = iX, iY
         end
 
-    end
+        -- HUD Event forwarding
+        if LevelEditor.mTerrainHUD then
 
+            LevelEditor.mTerrainHUD:MouseMoved( iX, iY )
 
-    -- HUD Event forwarding
-    if LevelEditor.mTerrainHUD then
-
-        LevelEditor.mTerrainHUD:MouseMoved( iX, iY )
+        end
 
     end
 
@@ -641,13 +639,12 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
         end
         dragMode = false
 
-    end
+        -- HUD Event forwarding
+        if LevelEditor.mTerrainHUD then
 
+            LevelEditor.mTerrainHUD:MouseReleased( iX, iY, iButton, iIsTouch )
 
-    -- HUD Event forwarding
-    if LevelEditor.mTerrainHUD then
-
-        LevelEditor.mTerrainHUD:MouseReleased( iX, iY, iButton, iIsTouch )
+        end
 
     end
 

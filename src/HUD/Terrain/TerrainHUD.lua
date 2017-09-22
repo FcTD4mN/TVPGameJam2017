@@ -71,6 +71,7 @@ end
 -- ==========================================TerrainHUD Functions
 
 
+
 -- ==========================================User Inputs
 
 
@@ -103,6 +104,15 @@ end
 
 
 function TerrainHUD:MouseReleased( iX, iY, iButton, iIsTouch )
+
+    if love.keyboard.isDown( 'r' ) then
+
+        for k,v in pairs( self.mDraggingEdgeHUDs) do
+            v:Destroy()
+            table.remove( self.mEdgeHUDs, GetObjectIndexInTable( self.mEdgeHUDs, v ) )
+        end
+
+    end
 
     ClearTable( self.mDraggingEdgeHUDs )
     ClearTable( self.mDraggingHandleNumbers )

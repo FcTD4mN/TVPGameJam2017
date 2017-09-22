@@ -20,6 +20,13 @@ function EdgeHUD:New( iFixture )
 end
 
 
+function EdgeHUD:Destroy()
+
+    self.mFixture:destroy()
+
+end
+
+
 function EdgeHUD:Type()
     return  "EdgeHUD"
 end

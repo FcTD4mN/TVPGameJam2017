@@ -130,5 +130,18 @@ function ClearTable( iTable )
 
 end
 
+-- Gets index of iObject in iTable
+function GetObjectIndexInTable( iTable, iObject )
+
+    for k,v in pairs( iTable ) do
+
+        if v == iObject then
+            return  k
+        end
+
+    end
+
+end
+
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Base
