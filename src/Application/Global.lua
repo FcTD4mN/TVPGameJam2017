@@ -14,7 +14,8 @@
     Image2  = require "src/Image/Utilities/Image2"
 
     -- Singletons Objects =============================================
-    Manager = require "src/Application/Manager"
+    Manager   = require "src/Application/Manager"
+    Shortcuts = require "src/Application/Shortcuts"
 
     -- Other Dependencies =============================================
     ColorRGBA   = require "src/Image/ColorRGBA"
@@ -28,6 +29,7 @@
 
     -- Singletons Objects =============================================
     Manager.Initialize();
+    Shortcuts.Initialize();
 
     -- Color Schemes / Default Color Values ===========================
     --  NAME                                R       G       B       A

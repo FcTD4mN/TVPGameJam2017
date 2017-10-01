@@ -143,5 +143,18 @@ function GetObjectIndexInTable( iTable, iObject )
 
 end
 
+
+-- Hey, lua doesn't have built in spliter, we need to do it ourselves ...
+function SplitString( iString, iSeparator )
+
+    local sep, fields = iSeparator, {}
+    local pattern = string.format( "([^%s]+)", iSeparator )
+    string.gsub( iString, pattern, function(c) fields[ #fields+1 ] = c end)
+
+    return  fields
+
+end
+
+
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Base

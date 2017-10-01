@@ -102,9 +102,9 @@ end
 function Lapin:Update( iDT )
     -- Key holding detection
     if not self.mAttacking then
-        if love.keyboard.isDown( "q" ) then
+        if love.keyboard.isDown( Shortcuts.GetKeyForAction( "leftLapin" ) ) then
             self:RunLeft()
-        elseif love.keyboard.isDown( "d" ) then
+        elseif love.keyboard.isDown( Shortcuts.GetKeyForAction( "rightLapin" ) ) then
             self:RunRight()
         end
     end
@@ -224,23 +224,23 @@ end
 
 
 function Lapin:KeyPressed( iKey, iScancode, iIsRepeat )
-    if iKey == "space" then
+    if iKey == Shortcuts.GetKeyForAction( "shootLapin" ) then
         self.mAttacking = true
         self:StopRunning()
-    elseif iKey == "z" and not isrepeat and self.mCanJump then
+    elseif iKey == Shortcuts.GetKeyForAction( "jumpLapin" ) and not isrepeat and self.mCanJump then
         self:Jump()
     end
 end
 
 
 function Lapin:KeyReleased( iKey, iScancode )
-    if iKey == "space" then
+    if iKey == Shortcuts.GetKeyForAction( "shootLapin" ) then
         self.mAttacking = false
     end
-    if iKey == "q" then
+    if iKey == Shortcuts.GetKeyForAction( "leftLapin" ) then
         self:StopRunning()
     end
-    if iKey == "d" then
+    if iKey == Shortcuts.GetKeyForAction( "rightLapin" ) then
         self:StopRunning()
     end
 end
