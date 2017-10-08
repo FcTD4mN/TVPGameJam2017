@@ -2,8 +2,9 @@
 MenuItem    = require( "src/MainMenu/MenuItem" )
 MenuPage    = require( "src/MainMenu/MenuPage" )
 
-local  EditorScreen   = require( "src/Application/Screens/EditorScreen" )
-local  GameScreen   = require( "src/Application/Screens/GameScreen" )
+local  EditorScreen  = require( "src/Application/Screens/EditorScreen" )
+local  GameScreen    = require( "src/Application/Screens/GameScreen" )
+local  TestScreen    = require( "src/Application/Screens/TestScreen" )
 
 local MainMenu = {
     menuPages = {},
@@ -38,11 +39,16 @@ function  MainMenu:Initialize()
     y = y + spaceBetItems
     newSandBox.rectangle.x = dz+ love.graphics.getWidth() / 2 - newSandBox.rectangle.w /2
 
+    newTest    = MenuItem:New( "Test", love.graphics.getWidth() / 2, y )
+    y = y + spaceBetItems
+    newTest.rectangle.x = dz+ love.graphics.getWidth() / 2 - newTest.rectangle.w /2
+
     -- Callbacks
     newGame:SetCallback(    function() Manager:PushScreen( GameScreen:New() ); love.audio.stop( music ); end )
     options:SetCallback(    function() MainMenu.currentPage = 2 end )
     quit:SetCallback(       function() love.event.quit() end )
     newSandBox:SetCallback( function() Manager:PushScreen( EditorScreen:New() ); love.audio.stop( music ); end )
+    newTest:SetCallback( function() Manager:PushScreen( TestScreen:New() ); love.audio.stop( music ); end )
 
     -- Sounds
     newGame:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
@@ -54,6 +60,7 @@ function  MainMenu:Initialize()
     mainPage:AddItem( options )
     mainPage:AddItem( quit )
     mainPage:AddItem( newSandBox )
+    mainPage:AddItem( newTest )
 
     self:AddPage( mainPage )
 

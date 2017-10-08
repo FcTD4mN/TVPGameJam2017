@@ -43,12 +43,14 @@ end
 
 
 function  Rectangle:ContainsPoint( iX, iY )
+
     if iX < self.x  then  return  false end
     if iY < self.y  then  return  false end
     if iX > self.x2 then  return  false end
     if iY > self.y2 then  return  false end
 
     return  true
+
 end
 
 return  Rectangle

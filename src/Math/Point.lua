@@ -1,4 +1,4 @@
---[[=================================================================== 
+--[[===================================================================
     File: Math.Point.lua
 
     @@@@: Basic Point.
@@ -17,8 +17,8 @@ function  Point:New( iX, iY )
     setmetatable( newPoint, self )
     self.__index = self
 
-    newPoint.x = iX
-    newPoint.y = iY
+    newPoint.mX = iX
+    newPoint.mY = iY
 
     return  newPoint
 end
