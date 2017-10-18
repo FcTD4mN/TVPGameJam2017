@@ -93,21 +93,21 @@
 </fixture>
 </body>
 </terrain>
-<camera x='-40.779373168945' y='0' w='1200' h='720' scale='1'  />
+<camera x='-22.045471191406' y='-0' w='1200' h='720' scale='1'  />
 <minimap x='10' y='10' w='500' h='200'  >
-<camera x='-40.779373168945' y='0' w='1200' h='720' scale='0.2'  />
+<camera x='-22.045471191406' y='-0' w='1200' h='720' scale='0.2'  />
 </minimap>
 <backgrounds>
 <background x='0' y='0' w='3000' h='720' depth='0' file='resources/Images/Backgrounds/Background3000x720.png'  />
 <background x='0' y='0' w='9716' h='720' depth='0' file='resources/Images/Backgrounds/Final/TERRAIN.png'  />
 </backgrounds>
 <foregrounds>
-<background x='-5984.4234771729' y='0' w='3000' h='720' depth='-1' file='resources/Images/Backgrounds/Foreground3000x720.png'  />
+<background x='-5921.5986328126' y='0' w='3000' h='720' depth='-1' file='resources/Images/Backgrounds/Foreground3000x720.png'  />
 </foregrounds>
 <objectpool>
 <singe>
 <object x='1000' y='50' w='90' h='120'  >
-<body type='dynamic' x1='761.73333740234' y1='251.03015136719' gravity='1' fixedrotation='true'  >
+<body type='dynamic' x1='792.607421875' y1='249.17311096191' gravity='1' fixedrotation='true'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='32.5' y1='-57.5' x3='32.5' y3='57.5' x5='-32.5' y5='57.5' x7='-32.5' y7='-57.5'  />
 </fixture>
@@ -119,7 +119,7 @@
 </singe>
 <lapin>
 <object x='800' y='50' w='90' h='120'  >
-<body type='dynamic' x1='446.70791625977' y1='263.13375854492' gravity='1' fixedrotation='true'  >
+<body type='dynamic' x1='453.30163574219' y1='263.01788330078' gravity='1' fixedrotation='true'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='32.5' y1='-57.5' x3='32.5' y3='57.5' x5='-32.5' y5='57.5' x7='-32.5' y7='-57.5'  />
 </fixture>
@@ -147,5 +147,32 @@
 </body>
 </object>
 </waterpipe>
+<Water>
+<object x='50' y='50' w='2' h='2'  >
+<body type='dynamic' x1='48.087203979492' y1='322.50003051758' gravity='1' fixedrotation='true'  >
+<fixture friction='0.5' sensor='false' >
+<shape type='polygon' x1='1' y1='-1' x3='1' y3='1' x5='-1' y5='1' x7='-1' y7='-1'  />
+</fixture>
+</body>
+</object>
+</Water>
+<babytree>
+<object x='50' y='50' w='90' h='120'  >
+<body type='static' x1='95' y1='110' gravity='0' fixedrotation='true'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='45' y1='-60.000003814697' x3='45' y3='60.000003814697' x5='-45' y5='60.000003814697' x7='-45' y7='-60.000003814697'  />
+</fixture>
+</body>
+</object>
+</babytree>
+<Water>
+<object x='600' y='50' w='2' h='2'  >
+<body type='dynamic' x1='716.09826660156' y1='315.17840576172' gravity='1' fixedrotation='true'  >
+<fixture friction='0.5' sensor='false' >
+<shape type='polygon' x1='-1' y1='-1' x3='1' y3='-1' x5='1' y5='1' x7='-1' y7='1'  />
+</fixture>
+</body>
+</object>
+</Water>
 </objectpool>
 </level>

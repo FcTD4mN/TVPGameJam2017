@@ -19,6 +19,7 @@ local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
 
 --TESTS
 local Ray               = require "src/Objects/Rays/Ray"
+local Water             = require "src/Objects/Particles/Water"
 local Vector            = require "src/Math/Vector"
 local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
@@ -57,6 +58,11 @@ function Level1:NewFromXML( iWorld )
 
     -- BACKGROUNDS
     newLevel1.mFixedBackground          = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
+
+    for i = 1, 100 do
+        water = Water:New( iWorld, 600, 50 )
+    end
+    -- BabyTree:New( iWorld, 600, 50 )
 
     return  newLevel1
 
@@ -97,7 +103,6 @@ function Level1:Initialize()
 
     self.mMiniMap = MiniMap:New( 10, 10, 500, 200, 0.2 )
     -- ray = Ray:New( 500, 150, Vector:New( 10, 10 ), 10, 1500 )
-
     -- love.audio.play( music )
 end
 
