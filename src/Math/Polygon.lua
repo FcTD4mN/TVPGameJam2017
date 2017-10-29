@@ -88,9 +88,7 @@ function  Polygon:IsConvex()
         self:RotateClockwise( point2, angle )
 
         for k,v in pairs( self.mVertexes ) do
-            print( v.mY .. " vs " .. point2.mY )
-            if v.mY > point2.mY then -- This fires when v.mY == point2.mY sometimes, so i don't know how to fix this
-                print("FALSE")
+            if v.mY - point2.mY > 1/10000 then
                 return  false
             end
         end

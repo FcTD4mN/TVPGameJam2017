@@ -61,7 +61,7 @@ function TestScreen:Initialize()
     -- polygon:AddPoint( Point:New( 500+50, 190+200 ) )
 
     print( love.math.isConvex( polygon:GetAsVertexesList() ) )
-    -- print( polygon:IsConvex() )
+    print( polygon:IsConvex() )
 
 end
 
