@@ -11,11 +11,14 @@ local Screen            = require "src/Application/Screens/Screen"
 local Camera            = require( "src/Camera/Camera" )
 local ShapeAnalyser     = require( "src/Image/ShapeAnalyser" )
 local Rectangle         = require( "src/Math/Rectangle" )
+local Point             = require( "src/Math/Point" )
+local Polygon           = require( "src/Math/Polygon" )
 
 -- OBJECT INITIALISATION ==============================================
 local TestScreen = {}
 setmetatable( TestScreen, Screen )
 Screen.__index = Screen
+
 
 -- Constructor
 function TestScreen:New()
@@ -23,7 +26,7 @@ function TestScreen:New()
     setmetatable( newTestScreen, TestScreen )
     TestScreen.__index = TestScreen
 
-    newTestScreen.mCamera = Camera:New( 100, 100, 800, 600, 1.0 );
+    newTestScreen.mCamera = Camera:New( 0, 0, 800, 600, 1.0 );
 
     return newTestScreen
 
@@ -34,17 +37,49 @@ end
 
 -- Called by Global Manager only on SetScreen.
 function TestScreen:Initialize()
-    ShapeAnalyser.Initialize( "resources/Images/AlgoTest.png" )
-    ShapeAnalyser.Run( Rectangle:New( 0, 0, 200, 200 ), 200, 1 )
+
+    indexCount = 0
+    process = false
+
+    polygon = Polygon:New()
+    -- polygon:AddPoint( Point:New( 200+500, 170 ) )
+    -- polygon:AddPoint( Point:New( 200+500, 400 ) )
+    -- polygon:AddPoint( Point:New( 340+500, 500 ) )
+    -- polygon:AddPoint( Point:New( 520+500, 400 ) )
+    -- polygon:AddPoint( Point:New( 520+500, 170 ) )
+
+    polygon:AddPoint( Point:New( 160+50, 170 ) )
+    polygon:AddPoint( Point:New( 160+50, 300 ) )
+    polygon:AddPoint( Point:New( 250+50, 400 ) )
+    polygon:AddPoint( Point:New( 300+50, 300 ) )
+    polygon:AddPoint( Point:New( 300+50, 190 ) )
+
+    -- polygon:AddPoint( Point:New( 200+50, 170+200 ) )
+    -- polygon:AddPoint( Point:New( 160+50, 400+200 ) )
+    -- polygon:AddPoint( Point:New( 340+50, 500+200 ) )
+    -- polygon:AddPoint( Point:New( 520+50, 400+200 ) )
+    -- polygon:AddPoint( Point:New( 500+50, 190+200 ) )
+
+    print( love.math.isConvex( polygon:GetAsVertexesList() ) )
+    -- print( polygon:IsConvex() )
 
 end
 
 -- OBJECT FUNCTIONS ===================================================
 function TestScreen:Update( iDT )
+
+    if process then
+        polygon:IsConvexDEBUG( indexCount )
+        process = false
+    end
+
 end
 
+
 function TestScreen:Draw()
-    ShapeAnalyser.DebugDraw( self.mCamera )
+
+    polygon:Draw( self.mCamera )
+
 end
 
 
@@ -57,12 +92,18 @@ end
 
 
 function TestScreen:KeyPressed( key, scancode, isrepeat )
-    MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
+
+    if key == 'y' then
+        indexCount = indexCount + 1
+        process = true
+    end
+
+    -- MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function TestScreen:KeyReleased( key, scancode )
-    MainMenu:KeyReleased( iKey, iScancode )
+    -- MainMenu:KeyReleased( iKey, iScancode )
 end
 
 
