@@ -68,11 +68,6 @@ end
 -- OBJECT FUNCTIONS ===================================================
 function TestScreen:Update( iDT )
 
-    if process then
-        polygon:IsConvexDEBUG( indexCount )
-        process = false
-    end
-
 end
 
 
@@ -92,11 +87,6 @@ end
 
 
 function TestScreen:KeyPressed( key, scancode, isrepeat )
-
-    if key == 'y' then
-        indexCount = indexCount + 1
-        process = true
-    end
 
     -- MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
 end
