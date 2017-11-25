@@ -133,13 +133,15 @@ end
 -- Gets index of iObject in iTable
 function GetObjectIndexInTable( iTable, iObject )
 
-    for k,v in pairs( iTable ) do
+    for i = 1, #iTable do
 
-        if v == iObject then
-            return  k
+        if iTable[i] == iObject then
+            return  i
         end
 
     end
+
+    return  -1
 
 end
 
