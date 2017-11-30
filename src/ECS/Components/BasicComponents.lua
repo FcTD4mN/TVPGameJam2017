@@ -16,7 +16,7 @@ function  BasicComponents:NewBodyComponent( iX, iY, iW, iH )
 end
 
 
-function  BasicComponents:NewBox2DComponent( iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType, iDoesRotation, iGravity )
+function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType, iDoesRotation, iGravity )
 
     local  newBox2DComponent = {}
     newBox2DComponent.mName = "box2d"

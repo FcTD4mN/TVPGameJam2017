@@ -59,7 +59,6 @@ function  Entity:MatchComponentsName( ... )
 
         local componentName = select( i, ... )
         if self:GetComponentByName( componentName ) == nil then
-            print("Unmatch")
             return  false
         end
     end
