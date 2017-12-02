@@ -19,6 +19,23 @@ function  Shortcuts.GetKeyForAction( iAction )
         return  Shortcuts.mShortcutTable[ iAction ]
     end
 
+    return  nil
+
+end
+
+
+function  Shortcuts.GetActionForKey( iKey )
+
+    for k, v in pairs( Shortcuts.mShortcutTable ) do
+
+        if k == iKey then
+            return  v
+        end
+
+    end
+
+    return  "none"
+
 end
 
 

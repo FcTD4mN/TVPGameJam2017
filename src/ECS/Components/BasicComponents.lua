@@ -80,4 +80,16 @@ function  BasicComponents:NewColor( iR, iG, iB )
 end
 
 
+function  BasicComponents:UserInput()
+
+    local  newUserInput = {}
+    newUserInput.mName = "userinput"
+
+    newUserInput.mActions = {}
+
+    return  newUserInput
+
+end
+
+
 return  BasicComponents
