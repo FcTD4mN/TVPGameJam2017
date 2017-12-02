@@ -7,7 +7,7 @@
 ===================================================================--]]
 
 -- INCLUDES ===========================================================
--- NONE
+FX_BoxBlurHorizontal = require( "src/Graphics/FX/FX_BoxBlurHorizontal" );
 
 -- OBJECT INITIALISATION ==============================================
 local Widget = {};
@@ -84,7 +84,7 @@ function Widget:Update( dt )
 end
 
 function Widget:Draw()
-
+--[[
     love.graphics.setShader(shader_boxBlurH);
     shader_boxBlurH:send("size", { self.dropShadowImageData:getWidth(), self.dropShadowImageData:getHeight() } );
 
@@ -96,7 +96,11 @@ function Widget:Draw()
 
     love.graphics.draw( self.dropShadowImage );
     love.graphics.setCanvas();
-
+]]
+    local tmpFx = FX_BoxBlurHorizontal:New( 15 );
+        
+    local tmpBuffer = tmpFx:Render( self.dropShadowImage );
+    
     love.graphics.setShader(shader_boxBlurV);
     shader_boxBlurV:send("size", { self.w, self.h } );
     love.graphics.setColor(255, 255, 255, 255 * self.dropShadowOpacity * self.opacity );
