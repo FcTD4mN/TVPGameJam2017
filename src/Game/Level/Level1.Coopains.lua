@@ -1,4 +1,4 @@
-local LevelBase     = require "src/Game/Level/LevelBaseECS"
+local LevelBase     = require "src/Game/Level/LevelBase"
 
 
 local AttackGenerator       = require "src/Game/AttackGenerator"
@@ -23,7 +23,6 @@ local Water             = require "src/Objects/Particles/Water"
 local Vector            = require "src/Math/Vector"
 local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
-local ECSIncludes            = require 'src/ECS/ECSIncludes'
 
 local Level1 = {}
 setmetatable( Level1, LevelBase )
@@ -34,6 +33,7 @@ LevelBase.__index = LevelBase
 
 
 function Level1:NewFromXML( iWorld )
+
     newLevel1 = {}
     setmetatable( newLevel1, Level1 )
     Level1.__index = Level1
@@ -44,43 +44,23 @@ function Level1:NewFromXML( iWorld )
     newLevel1:LoadLevelBaseXML( doc.root, iWorld )
 
     -- BACKGROUNDS
+    newLevel1.mFixedBackground          = BigImage:New( "resources/Images/Backgrounds/Final/GRADIENT.png", 500 )
+    for i = 1, 100 do
+        water = Water:New( iWorld, 600, 50 )
+    end
+    -- BabyTree:New( iWorld, 600, 50 )
 
-    newLevel1:InitializeECS();
-    
     return  newLevel1
+
 end
 
 -- ==========================================Type
 
-function  Level1:InitializeECS()
-    local hero = Entity:New( "hero" )
-    hero:AddComponent( BasicComponents:NewBodyComponent( 0, 0, 50, 50 ) )
-    hero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
-    
-    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 0, 50, 50, "dynamic", false, 0.9 )
-    print( box2DComponent.mName )
-    hero:AddComponent( box2DComponent )
 
-    local stickyShape    = love.physics.newRectangleShape( 50, 50 )
-    local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
-    fixture:setFriction( 1.0 )
-    fixture:setUserData( hero )
-
-    --local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
-    --fixture  = love.physics.newFixture( self.mBody, slipperyShape )
-    --fixture:setFriction( 0.0 )
-    --fixture:setUserData( hero )
-
-    ECSWorld:AddEntity( hero )
-    ECSWorld:AddSystem( SpriteRenderer ) 
-
-    self.mWorldECS = ECSWorld
-end
-
-
-function  Level1:Type()
+function  Level1.Type()
     return "Level1"
 end
+
 
 -- ==========================================Update/Draw
 
