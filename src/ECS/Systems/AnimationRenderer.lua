@@ -58,6 +58,7 @@ function  AnimationRenderer:Draw( iCamera )
 
         local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )
         local state = self.mEntityGroup[ i ]:GetComponentByName( "state" )
+        local direction = self.mEntityGroup[ i ]:GetComponentByName( "direction" )
         local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animations" )
 
         local animation = animationComponent.mAnimations[ state.mState ]
@@ -66,12 +67,20 @@ function  AnimationRenderer:Draw( iCamera )
 
             local scaleX = iCamera.mScale
             local scaleY = iCamera.mScale
+            
             if animation.mFlipX then
                 scaleX = -scaleX
             end
             if animation.mFlipY then
                 scaleY = -scaleY
             end
+
+            if direction then
+                if direction.mDirection == "left" then 
+                    scaleX = -scaleX
+                end
+            end
+
             local currentQuad = animation.mQuads[ animation.mCurrentQuadIndex ]
             love.graphics.draw( animation.mImage, currentQuad, x + animation.mQuadW / 2, y + animation.mQuadH / 2, box2d.mBody:getAngle(), scaleX, scaleY, animation.mQuadW / 2, animation.mQuadH / 2 )
         end

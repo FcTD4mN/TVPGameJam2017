@@ -57,18 +57,19 @@ function  Level1:InitializeECS()
     self.mHero = Entity:New( "hero" )
 
     -- Components
-    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, -100, 50, 50, "dynamic", true, 1 )
-        local stickyShape    = love.physics.newRectangleShape( 50, 50 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, -100, 45, 100, "dynamic", true, 1 )
+        local stickyShape    = love.physics.newRectangleShape( 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 1.0 )
         fixture:setUserData( self.mHero )
 
     local animations = {}
-    animations[ "idleright" ] = Animation:New( 'resources/Animation/Characters/Dummy/idle.png', 24, 16, true, false, false )
-    animations[ "idleleft" ] = Animation:New( 'resources/Animation/Characters/Dummy/idle.png', 24, 16, true, true, false )
+    animations[ "idle" ] = Animation:New( 'resources/Animation/Characters/Dummy/idle.png', 24, 16, true, false, false )
+    animations[ "move" ] = Animation:New( 'resources/Animation/Characters/Dummy/run.png', 13, 24, true, false, false )
 
     self.mHero:AddComponent( BasicComponents:NewUserInput() )
-    self.mHero:AddComponent( BasicComponents:NewStateComponent( "idleright" ) )
+    self.mHero:AddComponent( BasicComponents:NewStateComponent( "idle" ) )
+    self.mHero:AddComponent( BasicComponents:NewDirectionComponent( "right" ) )
     self.mHero:AddComponent( BasicComponents:NewAnimationsComponent( animations ) )
     --self.mHero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
     self.mHero:AddComponent( box2DComponent )

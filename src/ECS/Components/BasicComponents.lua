@@ -90,6 +90,17 @@ function  BasicComponents:NewStateComponent( iState )
 end
 
 
+function  BasicComponents:NewDirectionComponent( iDirection )
+
+    local  newDirection = {}
+    newDirection.mName = "direction"
+    newDirection.mDirection = iDirection
+    
+    return  newDirection
+    
+end
+
+
 function  BasicComponents:NewColor( iR, iG, iB )
 
     local  newColor = {}
