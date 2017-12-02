@@ -30,16 +30,16 @@ function AnimationRenderer:Update( iDT )
     --does nothing
     for i = 1, #self.mEntityGroup do
         local state = self.mEntityGroup[ i ]:GetComponentByName( "state" )
-        local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animation" )
+        local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animations" )
 
-        local animation = animationComponent.mAnimations[ state ]
+        local animation = animationComponent.mAnimations[ state.mState ]
         if animation then
             if not animation.mIsPaused then
                 animation.mTime = animation.mTime + iDT
                 animation.mCurrentQuadIndex =  math.floor( animation.mTime * animation.mFPS ) % animation.mImageCount
                 if animation.mLoop then
                     animation.mCurrentQuadIndex = animation.mCurrentQuadIndex % ( animation.mImageCount )
-                else animation.mCurrentQuadIndex >= animation.mImageCount then
+                elseif animation.mCurrentQuadIndex >= animation.mImageCount then
                     animation.mIsPaused = true
                     if animation.mPlayEndCB then
                         animation.mPlayEndCB( animation.mPlayEndCBArguments )
@@ -58,9 +58,9 @@ function  AnimationRenderer:Draw( iCamera )
 
         local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )
         local state = self.mEntityGroup[ i ]:GetComponentByName( "state" )
-        local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animation" )
+        local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animations" )
 
-        local animation = animationComponent.mAnimations[ state ]
+        local animation = animationComponent.mAnimations[ state.mState ]
         if animation then
             local x, y = iCamera:MapToScreen( box2d.mBody:getX() - animation.mQuadW / 2, box2d.mBody:getY() - animation.mQuadH / 2 )
 
@@ -73,7 +73,7 @@ function  AnimationRenderer:Draw( iCamera )
                 scaleY = -scaleY
             end
             local currentQuad = animation.mQuads[ animation.mCurrentQuadIndex ]
-            love.graphics.draw( animation.mImage, currentQuad, x + animation.mQuadW / 2, y + animation.mQuadH / 2, box2d.mBody.getAngle(), scaleX, scaleY, animation.mQuadW / 2, animation.mQuadH / 2 )
+            love.graphics.draw( animation.mImage, currentQuad, x + animation.mQuadW / 2, y + animation.mQuadH / 2, box2d.mBody:getAngle(), scaleX, scaleY, animation.mQuadW / 2, animation.mQuadH / 2 )
         end
     end
 

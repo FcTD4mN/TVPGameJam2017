@@ -3,6 +3,7 @@ local LevelBase     = require "src/Game/Level/LevelBaseECS"
 
 local AttackGenerator       = require "src/Game/AttackGenerator"
 local BabyTree              = require "src/Objects/Environnement/BabyTree"
+local Animation            = require "src/Image/Animation"
 local Background            = require "src/Image/Background"
 local BigImage              = require "src/Image/BigImage"
 local Camera                = require "src/Camera/Camera"
@@ -62,9 +63,15 @@ function  Level1:InitializeECS()
         fixture:setFriction( 1.0 )
         fixture:setUserData( hero )
 
+    local animations = {}
+    animations[ "idleright" ] = Animation:New( 'resources/Animation/Characters/Dummy/idle.png', 24, 16, true, false, false )
+    animations[ "idleleft" ] = Animation:New( 'resources/Animation/Characters/Dummy/idle.png', 24, 16, true, true, false )
+
     hero:AddComponent( BasicComponents:NewBodyComponent( 0, 0, 50, 50 ) )
     hero:AddComponent( BasicComponents:NewUserInput() )
-    hero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
+    hero:AddComponent( BasicComponents:NewStateComponent( "idleright" ) )
+    hero:AddComponent( BasicComponents:NewAnimationsComponent( animations ) )
+    --hero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
     hero:AddComponent( box2DComponent )
 
     --local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
@@ -75,6 +82,7 @@ function  Level1:InitializeECS()
     ECSWorld:AddEntity( hero )
     ECSWorld:AddSystem( SpriteRenderer )
     ECSWorld:AddSystem( InputConverter )
+    ECSWorld:AddSystem( AnimationRenderer )
 
     self.mWorldECS = ECSWorld
 end

@@ -1,27 +1,27 @@
 local Animation = {}
 
-function Animation:New( iFileName )
+function Animation:New( iFileName, iImageCount, iFPS, iLoop, iFlipX, iFlipY )
     local newAnimation = {}
     setmetatable( newAnimation, self )
     self.__index = self
 
-    newSimpleSprite.mImage = love.graphics.newImage( iFileName )
-    newAnimations.mQuadW = mImage.getWidth() / mImageCount
-    newAnimations.mQuadH = mImage.getHeight()
-    newAnimations.mFlipX = iFlipX
-    newAnimations.mFlipY = iFlipY
-    newAnimations.mFPS = iFPS
-    newAnimations.mImageCount = iImageCount
-    newAnimations.mLoop = iLoop
-    newAnimations.mIsPaused = iLoop
-    newAnimations.mQuads = {}
+    newAnimation.mImage = love.graphics.newImage( iFileName )
+    newAnimation.mImageCount = iImageCount
+    newAnimation.mQuadW = newAnimation.mImage:getWidth() / newAnimation.mImageCount
+    newAnimation.mQuadH = newAnimation.mImage:getHeight()
+    newAnimation.mFlipX = iFlipX
+    newAnimation.mFlipY = iFlipY
+    newAnimation.mFPS = iFPS
+    newAnimation.mLoop = iLoop
+    newAnimation.mIsPaused = false
+    newAnimation.mQuads = {}
     newAnimation.mTime = 0
     newAnimation.mCurrentQuadIndex = 1
     newAnimation.mPlayEndCB = nil
     newAnimation.mPlayEndCBArguments = nil
     
-    for i = 0, mImageCount - 1, 1 do
-        newAnimations.mQuads[i+1] = love.graphics.newQuad( newAnimations.mQuadW * i, 0, newAnimations.mQuadW, newAnimations.mQuadH, mImage.getWidth(), mImage.getHeight() )
+    for i = 0, newAnimation.mImageCount - 1, 1 do
+        newAnimation.mQuads[i+1] = love.graphics.newQuad( newAnimation.mQuadW * i, 0, newAnimation.mQuadW, newAnimation.mQuadH, newAnimation.mImage:getWidth(), newAnimation.mImage:getHeight() )
     end
 
     return newAnimation
