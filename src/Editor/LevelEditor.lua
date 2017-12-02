@@ -2,7 +2,7 @@ require( "imgui" )
 
 local Background    = require( "src/Image/Background" )
 local Camera        = require( "src/Camera/Camera")
-local LevelBase     = require( "src/Game/Level/LevelBase" )
+local LevelBaseECS  = require( "src/Game/Level/LevelBaseECS" )
 local Rectangle     = require( "src/Math/Rectangle" )
       Terrain       = require( "src/Objects/Terrain" )
 local TerrainHUD    = require( "src/HUD/Terrain/TerrainHUD" )
@@ -470,11 +470,12 @@ end
 
 function  LevelEditor.SaveLevel( iFilePath )
 
-    xmlData = LevelEditor.mLevel:SaveLevelBaseXML()
+    xmlData = LevelEditor.mLevel:SaveLevelBaseECSXML()
     file = io.open( iFilePath, "w" )
     -- file = io.open( "/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml", "w" )
     file:write( xmlData )
-
+    file:flush()
+    file:close()
 end
 
 
@@ -482,7 +483,7 @@ function  LevelEditor.LoadLevel( iFilePath )
 
     local xml = io.open( iFilePath ):read('*all')
     local doc = SLAXML:dom( xml )
-    LevelEditor.Initialize( LevelBase:NewFromXML( doc.root, gWorld ) )
+    LevelEditor.Initialize( LevelBaseECS:NewFromXML( doc.root, gWorld ) )
 
 end
 

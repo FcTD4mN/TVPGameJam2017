@@ -1,4 +1,4 @@
-local LevelBase     = require "src/Game/Level/LevelBaseECS"
+local LevelBaseECS     = require "src/Game/Level/LevelBaseECS"
 
 
 local AttackGenerator       = require "src/Game/AttackGenerator"
@@ -27,8 +27,8 @@ local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 local ECSIncludes            = require 'src/ECS/ECSIncludes'
 
 local Level1 = {}
-setmetatable( Level1, LevelBase )
-LevelBase.__index = LevelBase
+setmetatable( Level1, LevelBaseECS )
+LevelBaseECS.__index = LevelBaseECS
 
 
 -- ==========================================Build/Destroy
@@ -42,7 +42,7 @@ function Level1:NewFromXML( iWorld )
     local xml = io.open('Save/Level1.xml'):read('*all')
     -- local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml'):read('*all')
     local doc = SLAXML:dom( xml )
-    newLevel1:LoadLevelBaseXML( doc.root, iWorld )
+    newLevel1:LoadLevelBaseECSXML( doc.root, iWorld )
 
     -- BACKGROUNDS
 
@@ -83,12 +83,6 @@ function  Level1:InitializeECS()
     --fixture:setUserData( self.mHero )
 
     ECSWorld:AddEntity( self.mHero )
-    ECSWorld:AddSystem( SpriteRenderer )
-    ECSWorld:AddSystem( InputConverter )
-    ECSWorld:AddSystem( AnimationRenderer )
-    ECSWorld:AddSystem( HeroController )
-
-    self.mWorldECS = ECSWorld
 end
 
 

@@ -5,43 +5,44 @@ local  Terrain      = require "src/Objects/Terrain"
 
 -- Pools
 ObjectRegistry  = require "src/Base/ObjectRegistry"
+ObjectRegistry  = require "src/ECS/ECSIncludes"
 CollidePool     = require "src/Objects/Pools/CollidePool"
 RayPool         = require "src/Objects/Pools/RayPool"
 
 
-local LevelBase = {}
+local LevelBaseECS = {}
 
 
 -- ==========================================Build/Destroy
 
 
-function LevelBase:New( iWorld, iCamera )
+function LevelBaseECS:New( iWorld, iCamera )
 
-    newLevelBase = {}
-    setmetatable( newLevelBase, LevelBase )
-    LevelBase.__index = LevelBase
+    newLevelBaseECS = {}
+    setmetatable( newLevelBaseECS, LevelBaseECS )
+    LevelBaseECS.__index = LevelBaseECS
 
-    newLevelBase:BuildLevelBase( iWorld, iCamera )
+    newLevelBaseECS:BuildLevelBaseECS( iWorld, iCamera )
 
-    return  newLevelBase
+    return  newLevelBaseECS
 end
 
 
-function LevelBase:NewFromXML( iNode, iWorld )
-    local newLevelBase = {}
-    setmetatable( newLevelBase, LevelBase )
-    LevelBase.__index = LevelBase
+function LevelBaseECS:NewFromXML( iNode, iWorld )
+    local newLevelBaseECS = {}
+    setmetatable( newLevelBaseECS, LevelBaseECS )
+    LevelBaseECS.__index = LevelBaseECS
 
-    newLevelBase:LoadLevelBaseXML( iNode, iWorld )
+    newLevelBaseECS:LoadLevelBaseECSXML( iNode, iWorld )
 
-    return newLevelBase
+    return newLevelBaseECS
 end
 
 
-function  LevelBase:BuildLevelBase( iWorld, iCamera )
+function  LevelBaseECS:BuildLevelBaseECS( iWorld, iCamera )
 
     self.mWorld                 = iWorld
-    self.mWorldECS              = nil
+    self.mWorldECS              = ECSWorld
     self.mTerrain               = nil
     self.mCamera                = iCamera
     self.mMiniMap               = nil
@@ -51,21 +52,25 @@ function  LevelBase:BuildLevelBase( iWorld, iCamera )
     self.mForegrounds           = {}
 
     self.mHeros                 = {}
-
+    
+    self.mWorldECS:AddSystem( SpriteRenderer )
+    self.mWorldECS:AddSystem( InputConverter )
+    self.mWorldECS:AddSystem( AnimationRenderer )
+    self.mWorldECS:AddSystem( HeroController )
 end
 
 -- ==========================================Type
 
 
-function  LevelBase.Type()
-    return "LevelBase"
+function  LevelBaseECS.Type()
+    return "LevelBaseECS"
 end
 
 
 -- ==========================================Update/Draw
 
 
-function  LevelBase:Update( iDT )
+function  LevelBaseECS:Update( iDT )
 
     for k,v in pairs( self.mBackgrounds ) do
         v:Update( iDT, self.mCamera )
@@ -96,7 +101,7 @@ function  LevelBase:Update( iDT )
 end
 
 
-function  LevelBase:Draw( iCamera )
+function  LevelBaseECS:Draw( iCamera )
 
     local camera = self.mCamera
     if( iCamera ) then
@@ -130,15 +135,15 @@ function  LevelBase:Draw( iCamera )
 end
 
 
--- ==========================================LevelBase functions
+-- ==========================================LevelBaseECS functions
 
 
-function  LevelBase:UpdateCamera()
+function  LevelBaseECS:UpdateCamera()
     -- Nothing here
 end
 
 
-function  LevelBase:UpdateMiniMap()
+function  LevelBaseECS:UpdateMiniMap()
 
     self.mMiniMap.mCamera.mX = self.mCamera.mX
     self.mMiniMap.mCamera.mY = self.mCamera.mY
@@ -149,7 +154,7 @@ end
 -- ==========================================Collide CB
 
 
-function  LevelBase.Collide( iCollider )
+function  LevelBaseECS.Collide( iCollider )
     -- do nothing
 end
 
@@ -157,21 +162,21 @@ end
 -- ==========================================Events
 
 
-function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
+function LevelBaseECS:KeyPressed( iKey, iScancode, iIsRepeat )
 
     self.mWorldECS:KeyPressed( iKey, iScancode, iIsRepeat )
 
 end
 
 
-function LevelBase:KeyReleased( iKey, iScancode )
+function LevelBaseECS:KeyReleased( iKey, iScancode )
 
     self.mWorldECS:KeyReleased( iKey, iScancode )
 
 end
 
 
-function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
+function  LevelBaseECS:MousePressed( iX, iY, iButton, iIsTouch )
     --
 end
 
@@ -179,7 +184,7 @@ end
 -- ==========================================XML IO
 
 
-function  LevelBase:SaveLevelBaseXML()
+function  LevelBaseECS:SaveLevelBaseECSXML()
 
     xmlData = "<level>\n"
 
@@ -216,15 +221,14 @@ function  LevelBase:SaveLevelBaseXML()
 
             end
         xmlData = xmlData .. "</objectpool>\n"
-
+        xmlData = xmlData .. self.mWorldECS:SaveXML()
     xmlData = xmlData .. "</level>\n"
 
     return  xmlData
-
 end
 
 
-function  LevelBase:LoadLevelBaseXML( iNode, iWorld )
+function  LevelBaseECS:LoadLevelBaseECSXML( iNode, iWorld )
 
     assert( iNode.name == "level" )
 
@@ -266,10 +270,15 @@ function  LevelBase:LoadLevelBaseXML( iNode, iWorld )
             table.insert( self.mHeros, obj )
         end
     end
+    elIndex = elIndex + 1
 
+    --ECSWorld
+    self.mWorldECS = ECSWorld
+    ECSWorld:LoadECSWorldXML( iNode.el[ elIndex ], iWorld )
+    elIndex = elIndex + 1
 
 end
 
 
 
-return  LevelBase
+return  LevelBaseECS

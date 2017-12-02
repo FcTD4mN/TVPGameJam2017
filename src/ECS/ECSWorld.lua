@@ -4,7 +4,6 @@ local ECSWorld = {
 }
 
 
-
 function  ECSWorld:AddEntity( iEntity )
 
     table.insert( self.mEntities, iEntity )
@@ -120,5 +119,34 @@ function ECSWorld:KeyReleased( iKey, iScancode )
 end
 
 
+-- ==========================================XML IO
+
+
+function  ECSWorld:SaveXML()
+    return  self:SaveECSWorldXML()
+end
+
+
+function  ECSWorld:SaveECSWorldXML()
+
+    xmlData = "<ecsworld>\n"
+    for k,v in pairs( self.mEntities ) do
+        xmlData = xmlData .. v:SaveXML()
+    end
+    xmlData = xmlData .. "</ecsworld>\n"
+
+    return  xmlData
+
+end
+
+
+function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
+
+    assert( iNode.name == "ecsworld" )
+
+    for i = 1, #iNode.el do
+        AddEntity( Entity:NewFromXML( iNode.el[ i ] ), iWorld )
+    end
+end
 
 return  ECSWorld

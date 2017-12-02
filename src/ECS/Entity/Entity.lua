@@ -19,6 +19,17 @@ function  Entity:New( iID )
 end
 
 
+function Entity:NewFromXML( iNode, iWorld )
+    local newEntity = {}
+    setmetatable( newEntity, Entity )
+    Entity.__index = Entity
+
+    newEntity:LoadEntityXML( iNode, iWorld )
+
+    return newEntity
+end
+
+
 function  Entity:Destroy()
 
     self.mDestroy = true
@@ -98,6 +109,56 @@ function  Entity:GetTagByName( iTagName )
 
     return  self.mTags[ iTagName ]
 
+end
+
+
+-- ==========================================XML IO
+
+
+function  Entity:SaveXML()
+    return  self:SaveEntityXML()
+end
+
+
+function  Entity:SaveEntityXML()
+
+    xmlData = "<entity "
+    xmlData =   xmlData .. "id='" .. self.mID .. "' " ..
+                " >\n"
+
+    xmlData = xmlData .. "<tags>\n"
+    for k,v in pairs( self.mTags ) do
+        xmlData = xmlData .. "<tag "
+        xmlData =   xmlData .. "name='" .. k .. "' " ..
+                    "value='" .. v .. "' " ..
+                    " />\n"
+    end
+    xmlData = xmlData .. "</tags>\n"
+
+    xmlData = xmlData .. "<components>\n"
+    for k,v in pairs( self.mComponents ) do
+        xmlData = xmlData .. BasicComponents:SaveXML( v )
+    end
+    xmlData = xmlData .. "</components>\n"
+    xmlData = xmlData .. "</entity>\n"
+    return  xmlData
+
+end
+
+
+function  Entity:LoadEntityXML( iNode, iWorld )
+
+    assert( iNode.name == "entity" )
+
+    self.mID = iNode.attr[1].value
+
+    for i = 1, #iNode.el[1].el do
+        self.mComponents[i] = BasicComponents:NewFromXML( iNode.el[1].el[i], iWorld )
+    end
+
+    for i = 1, #iNode.el[2].el do
+        self.mTags[ iNode.el[2].el[i].attr[ 1 ].value ] = iNode.el[2].el[i].attr[2].value
+    end
 end
 
 

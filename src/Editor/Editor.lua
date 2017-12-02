@@ -1,6 +1,6 @@
 require "imgui"
 
-local LevelBase   = require( "src/Game/Level/LevelBase")
+local LevelBaseECS  = require( "src/Game/Level/LevelBaseECS")
 local LevelEditor   = require( "src/Editor/LevelEditor")
 local Camera      = require( "src/Camera/Camera")
 
@@ -95,7 +95,7 @@ function Editor.NewLevel()
     gWorld = love.physics.newWorld( 0, 9.81 * love.physics.getMeter(), true ) --normal gravity
 
     Editor.mEditingLevel  =  true
-    LevelEditor.Initialize( LevelBase:New( gWorld, gCamera ) )
+    LevelEditor.Initialize( LevelBaseECS:New( gWorld, gCamera ) )
 
 end
 
