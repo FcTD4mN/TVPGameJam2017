@@ -79,6 +79,9 @@ function  AnimationRenderer:Draw( iCamera )
                 if direction.mDirection == "left" then 
                     scaleX = -scaleX
                 end
+                if direction.mDirection == "down" then 
+                    scaleY = -scaleY
+                end
             end
 
             local currentQuad = animation.mQuads[ animation.mCurrentQuadIndex ]
