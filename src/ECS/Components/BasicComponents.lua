@@ -66,6 +66,30 @@ function  BasicComponents:NewSimpleSprite( iFileName )
 end
 
 
+function  BasicComponents:NewAnimationsComponent( iAnimations )
+
+    local  newAnimations = {}
+    newAnimations.mName = "animations"
+    newAnimations.mAnimations = iAnimations
+    
+
+    return  newAnimations
+
+end
+
+
+function  BasicComponents:NewStateComponent( iState )
+
+    local  newState = {}
+    newState.mName = "state"
+    newState.mState = iState
+    
+
+    return  newState
+
+end
+
+
 function  BasicComponents:NewColor( iR, iG, iB )
 
     local  newColor = {}

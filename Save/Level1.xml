@@ -102,23 +102,5 @@
 <background x='-5921.5986328126' y='0' w='3000' h='720' depth='-1' file='resources/Images/Backgrounds/Foreground3000x720.png'  />
 </foregrounds>
 <objectpool>
-<Water>
-<object x='50' y='50' w='2' h='2'  >
-<body type='dynamic' x1='48.087203979492' y1='322.50003051758' gravity='1' fixedrotation='true'  >
-<fixture friction='0.5' sensor='false' >
-<shape type='polygon' x1='1' y1='-1' x3='1' y3='1' x5='-1' y5='1' x7='-1' y7='-1'  />
-</fixture>
-</body>
-</object>
-</Water>
-<Water>
-<object x='600' y='50' w='2' h='2'  >
-<body type='dynamic' x1='716.09826660156' y1='315.17840576172' gravity='1' fixedrotation='true'  >
-<fixture friction='0.5' sensor='false' >
-<shape type='polygon' x1='1' y1='-1' x3='1' y3='1' x5='-1' y5='1' x7='-1' y7='-1'  />
-</fixture>
-</body>
-</object>
-</Water>
 </objectpool>
 </level>
