@@ -58,17 +58,4 @@ function RectangleDrawer:Type()
 end
 
 
--- EVENTS : =================================================================================
-
-
-function RectangleDrawer:KeyPressed( iKey, iScancode, iIsRepeat )
-
-end
-
-
-function RectangleDrawer:KeyReleased( iKey, iScancode )
-
-end
-
-
 return  RectangleDrawer

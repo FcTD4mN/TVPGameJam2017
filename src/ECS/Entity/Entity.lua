@@ -73,7 +73,7 @@ end
 
 function  Entity:AddTag( iTag )
 
-    self.mTags[ iTag.mName ] = iTag
+    self.mTags[ iTag ] = 1
     -- Update systems observers/ groups
 
 end
@@ -81,7 +81,7 @@ end
 
 function  Entity:RemoveTag( iTag )
 
-    self.mTags[ iTag.mName ] = 0
+    self.mTags[ iTag ] = 0
 
 end
 

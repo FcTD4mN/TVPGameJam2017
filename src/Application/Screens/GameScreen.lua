@@ -30,6 +30,41 @@ function GameScreen:New()
 end
 
 
+function beginContact( a, b, coll )
+
+    if not coll:isTouching() then
+        return
+    end
+
+    if a:getUserData() == nil or b:getUserData() == nil then
+        return
+    end
+
+    if a:getUserData().needDestroy or b:getUserData().needDestroy then
+        return
+    end
+
+    CollidePool.AddCollision( a:getUserData(), b:getUserData() )
+    CollidePool.AddCollision( b:getUserData(), a:getUserData() )
+
+end
+
+
+function endContact( a, b, coll )
+
+end
+
+
+function preSolve( a, b, coll )
+
+end
+
+
+function postSolve( a, b, coll, normalimpulse, tangentimpulse )
+
+end
+
+
 -- LOCAL MEMBERS =====================================================
     -- That way they are local to file
     -- NONE YET

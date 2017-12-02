@@ -28,7 +28,6 @@ function  Shortcuts.GetActionForKey( iKey )
 
     for k, v in pairs( Shortcuts.mShortcutTable ) do
 
-        print("key: " .. k .. " value: " .. v )
         if v == iKey then
             return  k
         end

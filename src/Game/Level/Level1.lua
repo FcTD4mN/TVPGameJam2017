@@ -57,7 +57,7 @@ function  Level1:InitializeECS()
     local hero = Entity:New( "hero" )
 
     -- Components
-    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 0, 50, 50, "dynamic", true, 1 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, -100, 50, 50, "dynamic", true, 1 )
         local stickyShape    = love.physics.newRectangleShape( 50, 50 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 1.0 )
@@ -67,12 +67,13 @@ function  Level1:InitializeECS()
     animations[ "idleright" ] = Animation:New( 'resources/Animation/Characters/Dummy/idle.png', 24, 16, true, false, false )
     animations[ "idleleft" ] = Animation:New( 'resources/Animation/Characters/Dummy/idle.png', 24, 16, true, true, false )
 
-    hero:AddComponent( BasicComponents:NewBodyComponent( 0, 0, 50, 50 ) )
     hero:AddComponent( BasicComponents:NewUserInput() )
     hero:AddComponent( BasicComponents:NewStateComponent( "idleright" ) )
     hero:AddComponent( BasicComponents:NewAnimationsComponent( animations ) )
     --hero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
     hero:AddComponent( box2DComponent )
+
+    hero:AddTag( "canJump" )
 
     --local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
     --fixture  = love.physics.newFixture( self.mBody, slipperyShape )
@@ -83,6 +84,7 @@ function  Level1:InitializeECS()
     ECSWorld:AddSystem( SpriteRenderer )
     ECSWorld:AddSystem( InputConverter )
     ECSWorld:AddSystem( AnimationRenderer )
+    ECSWorld:AddSystem( HeroController )
 
     self.mWorldECS = ECSWorld
 end

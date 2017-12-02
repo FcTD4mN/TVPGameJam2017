@@ -9,17 +9,7 @@ function  ECSWorld:AddEntity( iEntity )
 
     table.insert( self.mEntities, iEntity )
 
-    for i = 1, #self.mSystems do
-
-        local system = self.mSystems[ i ]
-        if iEntity:MatchComponentsName( system:Requirements() ) then
-
-            table.insert( system.mEntityGroup, iEntity )
-            table.insert( iEntity.mObserverSystems, system )
-
-        end
-
-    end
+    self:UpdateWorldForEntity( iEntity )
 
 end
 
@@ -44,6 +34,23 @@ function  ECSWorld:AddSystem( iSystem )
 
             table.insert( iSystem.mEntityGroup, entity )
             table.insert( entity.mObserverSystems, iSystem )
+
+        end
+
+    end
+
+end
+
+
+function  ECSWorld:UpdateWorldForEntity( iEntity )
+
+    for i = 1, #self.mSystems do
+
+        local system = self.mSystems[ i ]
+        if iEntity:MatchComponentsName( system:Requirements() ) then
+
+            table.insert( system.mEntityGroup, iEntity )
+            table.insert( iEntity.mObserverSystems, system )
 
         end
 

@@ -51,17 +51,4 @@ function SpriteRenderer:Type()
 end
 
 
--- EVENTS : =================================================================================
-
-
-function SpriteRenderer:KeyPressed( iKey, iScancode, iIsRepeat )
-
-end
-
-
-function SpriteRenderer:KeyReleased( iKey, iScancode )
-
-end
-
-
 return  SpriteRenderer

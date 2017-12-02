@@ -22,6 +22,19 @@ function SystemBase:Type()
 end
 
 
+-- EVENTS : =================================================================================
+
+
+function SystemBase:KeyPressed( iKey, iScancode, iIsRepeat )
+    --Nothing
+end
+
+
+function SystemBase:KeyReleased( iKey, iScancode )
+    --Nothing
+end
+
+
 
 return SystemBase
 
