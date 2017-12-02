@@ -46,9 +46,9 @@ function HeroController:Update( iDT )
 
         if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1
             and entity:GetTagByName( "canJump" ) == 1
-            and entity:GetTagByName( "jumpAvailable" ) == 1 ) then
+            and entity:GetTagByName( "isJumping" ) == 0 ) then
 
-            entity:RemoveTag( "jumpAvailable" )
+            entity:AddTag( "isJumping" )
             velY = velY - 400
 
         end
