@@ -57,7 +57,7 @@ function  Level1:InitializeECS()
     hero:AddComponent( BasicComponents:NewBodyComponent( 0, 0, 50, 50 ) )
     hero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
     
-    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 0, 50, 50, "dynamic", false, 0.9 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 0, 50, 50, "dynamic", true, 0.9 )
     print( box2DComponent.mName )
     hero:AddComponent( box2DComponent )
 
