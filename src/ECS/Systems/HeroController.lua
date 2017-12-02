@@ -44,8 +44,13 @@ function HeroController:Update( iDT )
             velX = velX - 300
         end
 
-        if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1 and entity:GetTagByName( "canJump" ) ) then
+        if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1
+            and entity:GetTagByName( "canJump" ) == 1
+            and entity:GetTagByName( "jumpAvailable" ) == 1 ) then
+
+            entity:RemoveTag( "jumpAvailable" )
             velY = velY - 400
+
         end
 
         box2d.mBody:setLinearVelocity( velX, velY )

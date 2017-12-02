@@ -115,7 +115,7 @@ function  Terrain.LoadTerrainXML( iNode, iWorld )
 
     assert( iNode.name == "terrain" )
 
-    Terrain.body = LoadBodyXML( iNode.el[ 1 ], iWorld )
+    Terrain.body = LoadBodyXML( iNode.el[ 1 ], iWorld, Terrain )
     Terrain.body:setFixedRotation( true )
     Terrain.lastestEdgeX = nil
     Terrain.lastestEdgeY = nil

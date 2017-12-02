@@ -74,6 +74,7 @@ function  Level1:InitializeECS()
     hero:AddComponent( box2DComponent )
 
     hero:AddTag( "canJump" )
+    hero:AddTag( "jumpAvailable" )
 
     --local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
     --fixture  = love.physics.newFixture( self.mBody, slipperyShape )

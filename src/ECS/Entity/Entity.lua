@@ -29,6 +29,14 @@ function  Entity:Destroy()
 end
 
 
+-- ==========================================Type
+
+
+function Entity:Type()
+    return "Entity"
+end
+
+
 --COMPONENT MANAGEMENT----------------------------------------------------
 
 
