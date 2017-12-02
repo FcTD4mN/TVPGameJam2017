@@ -240,7 +240,7 @@ function  LevelBase:LoadLevelBaseXML( iNode, iWorld )
     elIndex = elIndex + 1
 
     if iNode.el[ elIndex ].name =="minimap" then
-        self.mMiniMap   = MiniMap:NewFromXML( iNode.el[ elIndex ] )
+        -- self.mMiniMap   = MiniMap:NewFromXML( iNode.el[ elIndex ] )
         elIndex = elIndex + 1
     end
 

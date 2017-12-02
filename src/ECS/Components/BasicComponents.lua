@@ -35,6 +35,25 @@ function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBo
 end
 
 
+function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType, iFixedRotation, iGravity )
+
+    local  newBox2DComponent = {}
+    newBox2DComponent.mName = "box2d"
+
+    newBox2DComponent.mBodyX = iBodyX
+    newBox2DComponent.mBodyY = iBodyY
+    newBox2DComponent.mBodyW = iBodyW
+    newBox2DComponent.mBodyH = iBodyH
+
+    newBox2DComponent.mBody     = love.physics.newBody( iWorld, newBox2DComponent.mBodyX + newBox2DComponent.mBodyW / 2, newBox2DComponent.mBodyY + newBox2DComponent.mBodyH / 2, iPhysicType )
+    newBox2DComponent.mBody:setFixedRotation( iFixedRotation )
+    newBox2DComponent.mBody:setGravityScale( iGravity )
+
+    return  newBox2DComponent
+
+end
+
+
 function  BasicComponents:NewSimpleSprite( iFileName )
 
     local  newSimpleSprite = {}

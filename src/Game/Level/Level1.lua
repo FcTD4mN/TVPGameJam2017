@@ -54,17 +54,15 @@ end
 
 function  Level1:InitializeECS()
     local hero = Entity:New( "hero" )
-    hero:AddComponent( BasicComponents:NewBodyComponent( 0, 0, 50, 50 ) )
-    hero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
-    
-    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 0, 50, 50, "dynamic", true, 0.9 )
-    print( box2DComponent.mName )
-    hero:AddComponent( box2DComponent )
+    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 0, 50, 50, "dynamic", true, 1 )
+        local stickyShape    = love.physics.newRectangleShape( 50, 50 )
+        local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
+        fixture:setFriction( 1.0 )
+        fixture:setUserData( hero )
+    local spriteComponent = BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' )
 
-    local stickyShape    = love.physics.newRectangleShape( 50, 50 )
-    local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
-    fixture:setFriction( 1.0 )
-    fixture:setUserData( hero )
+    hero:AddComponent( box2DComponent )
+    hero:AddComponent( spriteComponent )
 
     --local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
     --fixture  = love.physics.newFixture( self.mBody, slipperyShape )

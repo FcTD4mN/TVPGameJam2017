@@ -15,7 +15,7 @@ end
 function SpriteRenderer:Requirements()
 
     local requirements = {}
-    table.insert( requirements, "body" )
+    table.insert( requirements, "box2d" )
     table.insert( requirements, "sprite" )
 
     return  unpack( requirements )
@@ -24,14 +24,7 @@ end
 
 
 function SpriteRenderer:Update( iDT )
-
-    for i = 1, #self.mEntityGroup do
-
-        local body = self.mEntityGroup[ i ]:GetComponentByName( "body" )
-        body.mX = body.mX + 10
-
-    end
-
+    --does nothing
 end
 
 
@@ -39,11 +32,12 @@ function  SpriteRenderer:Draw( iCamera )
 
     for i = 1, #self.mEntityGroup do
 
-        local body = self.mEntityGroup[ i ]:GetComponentByName( "body" )
+        local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )
         local sprite = self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
 
-        love.graphics.draw( sprite.mImage, body.mX, body.mY )
-
+        local x, y = iCamera:MapToScreen( box2d.mBody:getX() - sprite.mImage:getWidth() / 2, box2d.mBody:getY() - sprite.mImage:getHeight() / 2 )
+        --love.graphics.draw( sprite.mImage, box2d.mBody:getX() - sprite.mImage:getWidth() / 2, box2d.mBody:getY() - sprite.mImage:getHeight() / 2 )
+        love.graphics.draw( sprite.mImage, x, y, 0, iCamera.mScale, iCamera.mScale )
     end
 
 end
