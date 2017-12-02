@@ -1,0 +1,91 @@
+local SystemBase = require( "src/ECS/Systems/SystemBase" )
+
+local  AnimationRenderer = {}
+setmetatable( AnimationRenderer, SystemBase )
+SystemBase.__index = SystemBase
+
+
+function  AnimationRenderer:Initialize()
+
+    self.mEntityGroup = {}
+
+    self.mTime = 0
+    self.mTime = 0
+end
+
+
+function AnimationRenderer:Requirements()
+
+    local requirements = {}
+    table.insert( requirements, "box2d" )
+    table.insert( requirements, "state" )
+    table.insert( requirements, "animations" )
+
+    return  unpack( requirements )
+
+end
+
+
+function AnimationRenderer:Update( iDT )
+    --does nothing
+    for i = 1, #self.mEntityGroup do
+        local state = self.mEntityGroup[ i ]:GetComponentByName( "state" )
+        local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animation" )
+
+        local animation = animationComponent.mAnimations[ state ]
+        if animation then
+            if not animation.mIsPaused then
+                animation.mTime = animation.mTime + iDT
+                animation.mCurrentQuadIndex =  math.floor( animation.mTime * animation.mFPS ) % animation.mImageCount
+                if animation.mLoop then
+                    animation.mCurrentQuadIndex = animation.mCurrentQuadIndex % ( animation.mImageCount )
+                else animation.mCurrentQuadIndex >= animation.mImageCount then
+                    animation.mIsPaused = true
+                    if animation.mPlayEndCB then
+                        animation.mPlayEndCB( animation.mPlayEndCBArguments )
+                    end
+                end
+                animation.mCurrentQuadIndex = animation.mCurrentQuadIndex + 1 --arrays starts at index 1
+            end
+        end
+    end
+end
+
+
+function  AnimationRenderer:Draw( iCamera )
+
+    for i = 1, #self.mEntityGroup do
+
+        local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )
+        local state = self.mEntityGroup[ i ]:GetComponentByName( "state" )
+        local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animation" )
+
+        local animation = animationComponent.mAnimations[ state ]
+        if animation then
+            local x, y = iCamera:MapToScreen( box2d.mBody:getX() - animation.mQuadW / 2, box2d.mBody:getY() - animation.mQuadH / 2 )
+
+            local scaleX = iCamera.mScale
+            local scaleY = iCamera.mScale
+            if animation.mFlipX then
+                scaleX = -scaleX
+            end
+            if animation.mFlipY then
+                scaleY = -scaleY
+            end
+            local currentQuad = animation.mQuads[ animation.mCurrentQuadIndex ]
+            love.graphics.draw( animation.mImage, currentQuad, x + animation.mQuadW / 2, y + animation.mQuadH / 2, box2d.mBody.getAngle(), scaleX, scaleY, animation.mQuadW / 2, animation.mQuadH / 2 )
+        end
+    end
+
+end
+
+
+-- ==========================================Type
+
+
+function AnimationRenderer:Type()
+    return "AnimationRenderer"
+end
+
+
+return  AnimationRenderer
