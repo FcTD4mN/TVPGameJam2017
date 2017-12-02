@@ -159,18 +159,14 @@ end
 
 function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
 
-    for k,v in pairs( self.mHeros ) do
-        v:KeyPressed( iKey, iScancode, iIsRepeat )
-    end
+    self.mWorldECS:KeyPressed( iKey, iScancode, iIsRepeat )
 
 end
 
 
 function LevelBase:KeyReleased( iKey, iScancode )
 
-    for k,v in pairs( self.mHeros ) do
-        v:KeyReleased( iKey, iScancode )
-    end
+    self.mWorldECS:KeyReleased( iKey, iScancode )
 
 end
 
@@ -217,6 +213,7 @@ function  LevelBase:SaveLevelBaseXML()
 
                 local obj = ObjectPool.ObjectAtIndex( i )
                 xmlData = xmlData .. obj:SaveXML()
+
             end
         xmlData = xmlData .. "</objectpool>\n"
 

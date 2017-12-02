@@ -61,26 +61,12 @@ end
 -- EVENTS : =================================================================================
 
 
-function ECSWorld:KeyPressed( iKey, iScancode, iIsRepeat )
-
-    for i = 1, #self.mSystems do
-
-        local system = self.mSystems[ i ]
-        system:KeyPressed( iKey, iScancode, iIsRepeat )
-
-    end
+function RectangleDrawer:KeyPressed( iKey, iScancode, iIsRepeat )
 
 end
 
 
-function ECSWorld:KeyReleased( iKey, iScancode )
-
-    for i = 1, #self.mSystems do
-
-        local system = self.mSystems[ i ]
-        system:KeyReleased( iKey, iScancode )
-
-    end
+function RectangleDrawer:KeyReleased( iKey, iScancode )
 
 end
 

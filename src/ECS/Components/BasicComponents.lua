@@ -80,7 +80,7 @@ function  BasicComponents:NewColor( iR, iG, iB )
 end
 
 
-function  BasicComponents:UserInput()
+function  BasicComponents:NewUserInput()
 
     local  newUserInput = {}
     newUserInput.mName = "userinput"

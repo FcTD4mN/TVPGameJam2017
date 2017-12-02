@@ -30,9 +30,6 @@ end
 
 function  InputConverter:Draw( iCamera )
 
-    local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
-    print( userInput.mActions )
-
 end
 
 
@@ -52,7 +49,7 @@ function InputConverter:KeyPressed( iKey, iScancode, iIsRepeat )
     for i = 1, #self.mEntityGroup do
 
         local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
-        table.insert( userInput.mActions , Shortcuts:GetActionForKey( iKey ) )
+        table.insert( userInput.mActions, Shortcuts.GetActionForKey( iKey ) )
 
     end
 
@@ -61,14 +58,15 @@ end
 
 function InputConverter:KeyReleased( iKey, iScancode )
 
-    local action = Shortcuts:GetActionForKey( iKey )
+    local action = Shortcuts.GetActionForKey( iKey )
     for i = 1, #self.mEntityGroup do
 
         local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
         for i = 1, #userInput.mActions do
 
-            if( userInput.mActions[ i ] == action )
+            if( userInput.mActions[ i ] == action ) then
                 table.remove( userInput.mActions, i )
+            end
 
         end
 

@@ -56,24 +56,10 @@ end
 
 function SpriteRenderer:KeyPressed( iKey, iScancode, iIsRepeat )
 
-    for i = 1, #self.mSystems do
-
-        local system = self.mSystems[ i ]
-        system:KeyPressed( iKey, iScancode, iIsRepeat )
-
-    end
-
 end
 
 
 function SpriteRenderer:KeyReleased( iKey, iScancode )
-
-    for i = 1, #self.mSystems do
-
-        local system = self.mSystems[ i ]
-        system:KeyReleased( iKey, iScancode )
-
-    end
 
 end
 

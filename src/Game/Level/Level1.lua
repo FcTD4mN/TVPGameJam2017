@@ -46,7 +46,7 @@ function Level1:NewFromXML( iWorld )
     -- BACKGROUNDS
 
     newLevel1:InitializeECS();
-    
+
     return  newLevel1
 end
 
@@ -54,15 +54,18 @@ end
 
 function  Level1:InitializeECS()
     local hero = Entity:New( "hero" )
+
+    -- Components
     local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 0, 50, 50, "dynamic", true, 1 )
         local stickyShape    = love.physics.newRectangleShape( 50, 50 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 1.0 )
         fixture:setUserData( hero )
-    local spriteComponent = BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' )
 
+    hero:AddComponent( BasicComponents:NewBodyComponent( 0, 0, 50, 50 ) )
+    hero:AddComponent( BasicComponents:NewUserInput() )
+    hero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
     hero:AddComponent( box2DComponent )
-    hero:AddComponent( spriteComponent )
 
     --local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
     --fixture  = love.physics.newFixture( self.mBody, slipperyShape )
@@ -70,7 +73,8 @@ function  Level1:InitializeECS()
     --fixture:setUserData( hero )
 
     ECSWorld:AddEntity( hero )
-    ECSWorld:AddSystem( SpriteRenderer ) 
+    ECSWorld:AddSystem( SpriteRenderer )
+    ECSWorld:AddSystem( InputConverter )
 
     self.mWorldECS = ECSWorld
 end
@@ -95,7 +99,7 @@ end
 
 
 function  Level1:UpdateCamera()
-    if #self.mHeros <= 0 then    
+    if #self.mHeros <= 0 then
         return
     end
     xAverage = 0
