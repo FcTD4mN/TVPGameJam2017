@@ -69,7 +69,7 @@ function  Level1:InitializeECS()
 
     self.mHero:AddComponent( BasicComponents:NewUserInput() )
     self.mHero:AddComponent( BasicComponents:NewStateComponent( "idle" ) )
-    self.mHero:AddComponent( BasicComponents:NewDirectionComponent( "right" ) )
+    self.mHero:AddComponent( BasicComponents:NewDirectionComponent( "right", "up" ) )
     self.mHero:AddComponent( BasicComponents:NewAnimationsComponent( animations ) )
     --self.mHero:AddComponent( BasicComponents:NewSimpleSprite( 'resources/Images/Objects/Water.png' ) )
     self.mHero:AddComponent( box2DComponent )

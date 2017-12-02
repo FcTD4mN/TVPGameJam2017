@@ -76,10 +76,10 @@ function  AnimationRenderer:Draw( iCamera )
             end
 
             if direction then
-                if direction.mDirection == "left" then 
+                if direction.mDirectionH == "left" then 
                     scaleX = -scaleX
                 end
-                if direction.mDirection == "down" then 
+                if direction.mDirectionV == "down" then 
                     scaleY = -scaleY
                 end
             end

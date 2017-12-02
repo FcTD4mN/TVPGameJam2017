@@ -90,11 +90,12 @@ function  BasicComponents:NewStateComponent( iState )
 end
 
 
-function  BasicComponents:NewDirectionComponent( iDirection )
+function  BasicComponents:NewDirectionComponent( iDirectionH, iDirectionV )
 
     local  newDirection = {}
     newDirection.mName = "direction"
-    newDirection.mDirection = iDirection
+    newDirection.mDirectionH = iDirectionH
+    newDirection.mDirectionV = iDirectionV
     
     return  newDirection
     

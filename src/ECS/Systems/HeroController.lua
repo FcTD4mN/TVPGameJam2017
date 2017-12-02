@@ -48,7 +48,7 @@ function HeroController:Update( iDT )
         if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 ) then
             velX = velX + 300
             
-            direction.mDirection = "right";
+            direction.mDirectionH = "right";
             if entity:GetTagByName( "isJumping" ) == 0 then
                 state.mState = "move"
             end
@@ -56,7 +56,7 @@ function HeroController:Update( iDT )
 
         if( GetObjectIndexInTable( userinput.mActions, "moveleft" ) > -1 ) then
             velX = velX - 300
-            direction.mDirection = "left";
+            direction.mDirectionH = "left";
             if entity:GetTagByName( "isJumping" ) == 0 then
                 state.mState = "move"
             end
