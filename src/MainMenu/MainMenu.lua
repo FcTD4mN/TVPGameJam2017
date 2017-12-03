@@ -146,7 +146,7 @@ function  MainMenu:Initialize()
     animrunZozo = Animation:New( runZozo, 0, 0, 2600/13, 169, 0, 13, 24, false, false )
     animrunZozo:Play( 0 )
 
-    nDummies = 250
+    nDummies = 50
     dummies = {}
     math.randomseed( os.time() )
     for i=1, nDummies do

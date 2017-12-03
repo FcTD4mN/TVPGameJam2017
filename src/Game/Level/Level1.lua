@@ -97,10 +97,6 @@ end
 -- end
 
 
--- function  Level1:Draw()
--- end
-
-
 -- ==========================================Level1 functions
 
 
