@@ -146,7 +146,7 @@ function  MainMenu:Initialize()
     animrunZozo = Animation:New( runZozo, 0, 0, 2600/13, 169, 0, 13, 24, false, false )
     animrunZozo:Play( 0 )
 
-    nDummies = 25
+    nDummies = 250
     dummies = {}
     math.randomseed( os.time() )
     for i=1, nDummies do
@@ -194,7 +194,6 @@ function MainMenu:Draw()
     animZozo:Draw( camZozo, 50, love.graphics.getHeight() / 2 + imageBG:getHeight() / 2 - imageZozo:getHeight() )
     for i=1, nDummies do
       animrunZozo.currentquad = math.floor( ( animrunZozo.currentquad + dummies[i].mStartFrame ) % 13 ) + 1
-      print( animrunZozo.currentquad )
       animrunZozo:Draw( camZozo, dummies[i].mx, love.graphics.getHeight() / 2 + imageBG:getHeight() / 2 - runZozo:getHeight() + 20 )
     end
 end
