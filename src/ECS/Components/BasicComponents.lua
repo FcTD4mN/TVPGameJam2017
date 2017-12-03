@@ -1,22 +1,21 @@
 local BasicComponents = {}
 
-
-function BasicComponents:NewFromXML( iNode, iWorld )
-    return BasicComponents:LoadBasicComponentsXML( iNode, iWorld )
+function BasicComponents:NewFromXML( iNode, iWorld, iEntity )
+    print( "NewFromXML"..tostring(iWorld) )
+    return  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
 end
 
 
 function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType, iFixedRotation, iGravity )
 
+    print( "NewBox2DComponent"..tostring(iWorld) )
     local  newBox2DComponent = {}
     newBox2DComponent.mName = "box2d"
 
-    newBox2DComponent.mBodyX = iBodyX
-    newBox2DComponent.mBodyY = iBodyY
     newBox2DComponent.mBodyW = iBodyW
     newBox2DComponent.mBodyH = iBodyH
 
-    newBox2DComponent.mBody = love.physics.newBody( iWorld, newBox2DComponent.mBodyX + newBox2DComponent.mBodyW / 2, newBox2DComponent.mBodyY + newBox2DComponent.mBodyH / 2, iPhysicType )
+    newBox2DComponent.mBody = love.physics.newBody( iWorld, iBodyX + iBodyW / 2, iBodyY + iBodyH / 2, iPhysicType )
     newBox2DComponent.mBody:setFixedRotation( iFixedRotation )
     newBox2DComponent.mBody:setGravityScale( iGravity )
 
@@ -111,8 +110,8 @@ end
 -- ==========================================XML IO
 
 
-function  BasicComponents:SaveXML()
-    return  self:SaveBasicComponentsXML()
+function  BasicComponents:SaveXML( iComponent )
+    return  self:SaveBasicComponentsXML( iComponent )
 end
 
 
@@ -121,14 +120,24 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
                 
     if iComponent.mName == "box2d" then
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
-                    "bodyx='" .. iComponent.mBodyX .. "' " ..
-                    "bodyy='" .. iComponent.mBodyY .. "' " ..
+                    "bodyx='" .. iComponent.mBody:getX() .. "' " ..
+                    "bodyy='" .. iComponent.mBody:getY() .. "' " ..
                     "bodyw='" .. iComponent.mBodyW .. "' " ..
                     "bodyh='" .. iComponent.mBodyH .. "' " ..
-                    "physictype='" .. iComponent.mBody:getType() .. "' " ..
-                    "fixedrotation='" .. iComponent.mBody:getFixedRotation() .. "' " ..
-                    "gravity='" .. iComponent.mBody:getGravity() .. "' " ..
-                    " >\n"
+                    "physictype='" .. iComponent.mBody:getType() .. "' "
+        if iComponent.mBody:isFixedRotation() then
+            xmlData =   xmlData .. "fixedrotation='true' "
+        else
+            xmlData =   xmlData .. "fixedrotation='false' "
+        end
+        xmlData =   xmlData .. "gravity='" .. iComponent.mBody:getGravityScale() .. "' " ..
+        " >\n"
+        
+        fixtures = iComponent.mBody:getFixtureList()
+        for k,v in pairs( fixtures ) do
+            xmlData = xmlData .. SaveFixtureXML( v )
+        end
+                    
         xmlData = xmlData .. "</component>\n"
     elseif iComponent.mName == "simplesprite" then
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
@@ -144,11 +153,26 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
             xmlData =   xmlData .. "name='" .. iComponent.mAnimations[i].mName .. "' " ..
                         "filename='" .. iComponent.mAnimations[i].mName .. "' " ..
                         "imagecount='" .. iComponent.mAnimations[i].mImageCount .. "' " ..
-                        "fps='" .. iComponent.mAnimations[i].mFPS .. "' " ..
-                        "loop='" .. iComponent.mAnimations[i].mLoop .. "' " ..
-                        "flipx='" .. iComponent.mAnimations[i].mFlipX .. "' " ..
-                        "flipy='" .. iComponent.mAnimations[i].mFlipY .. "' " ..
-                        " >\n"
+                        "fps='" .. iComponent.mAnimations[i].mFPS .. "' "
+                        
+            if iComponent.mAnimations[i].mLoop then
+                xmlData =   xmlData .. "loop='true' "
+            else
+                xmlData =   xmlData .. "loop='false' "
+            end
+
+            if iComponent.mAnimations[i].mFlipX then
+                xmlData =   xmlData .. "flipx='true' "
+            else
+                xmlData =   xmlData .. "flipx='false' "
+            end
+
+            if iComponent.mAnimations[i].mFlipY then
+                xmlData =   xmlData .. "flipy='true' "
+            else
+                xmlData =   xmlData .. "flipy='false' "
+            end
+            xmlData =   xmlData .. " >\n"
             xmlData =   xmlData .. "</animation>\n"
         end
         xmlData = xmlData .. "</animations>\n"
@@ -168,34 +192,51 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
                     " >\n"
         xmlData = xmlData .. "</component>\n"
+    elseif iComponent.mName == "spike" then
+        xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    " >\n"
+        xmlData = xmlData .. "</component>\n"
+    elseif iComponent.mName == "wall" then
+        xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    " >\n"
+        xmlData = xmlData .. "</component>\n"
     end
 
     return  xmlData
 end
 
 
-function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld )
+function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
 
     assert( iNode.name == "component" )
 
     local name = iNode.attr[1].value
+    print( "LoadBasicComponentsXML"..tostring(iWorld) )
 
     if name == "box2d" then
-        return  NewBox2DComponent( iWorld, iNode.attr[2].value, iNode.attr[3].value, iNode.attr[4].value, iNode.attr[5].value, iNode.attr[6].value, iNode.attr[7].value, iNode.attr[8].value )        
+        local component = BasicComponents:NewBox2DComponent( iWorld, iNode.attr[2].value - iNode.attr[4].value / 2, iNode.attr[3].value - iNode.attr[5].value / 2, iNode.attr[4].value, iNode.attr[5].value, iNode.attr[6].value, iNode.attr[7].value == "true", iNode.attr[8].value )        
+        for i = 1, #iNode.el do
+            fixture = LoadFixtureXML( iNode.el[ i ], component.mBody, iEntity )
+        end
+        return  component
     elseif name == "simplesprite" then
-        return  NewSimpleSprite( iNode.attr[2].value )        
+        return  BasicComponents:NewSimpleSprite( iNode.attr[2].value )        
     elseif name == "animations" then
         local animations = {}
         for i = 1, #iNode.el[1].el do
-            animations[i] = Animation:New( iNode.el[1].el[i].attr[1].value, iNode.el[1].el[i].attr[2].value, iNode.el[1].el[i].attr[3].value, iNode.el[1].el[i].attr[4].value, iNode.el[1].el[i].attr[5].value, iNode.el[1].el[i].attr[6].value )
+            animations[i] = Animation:New( iNode.el[1].el[i].attr[1].value, iNode.el[1].el[i].attr[2].value, iNode.el[1].el[i].attr[3].value, iNode.el[1].el[i].attr[4].value == "true", iNode.el[1].el[i].attr[5].value == "true", iNode.el[1].el[i].attr[6].value == "true" )
         end
-        return  NewAnimationsComponent( animations )        
+        return  BasicComponents:NewAnimationsComponent( animations )        
     elseif name == "state" then
-        return  NewStateComponent( iNode.attr[2].value )        
+        return  BasicComponents:NewStateComponent( iNode.attr[2].value )        
     elseif name == "direction" then
-        return  NewDirectionComponent( iNode.attr[2].value, iNode.attr[3].value )
+        return  BasicComponents:NewDirectionComponent( iNode.attr[2].value, iNode.attr[3].value )
     elseif name == "userinput" then
-        return  NewUserInput()       
+        return  BasicComponents:NewUserInput()       
+    elseif name == "wall" then
+        return  BasicComponents:NewWallComponent()       
+    elseif name == "spike" then
+        return  BasicComponents:NewSpikeComponent()       
     end
 end
 

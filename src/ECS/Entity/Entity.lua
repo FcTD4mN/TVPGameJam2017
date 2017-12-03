@@ -24,6 +24,9 @@ function Entity:NewFromXML( iNode, iWorld )
     setmetatable( newEntity, Entity )
     Entity.__index = Entity
 
+    newEntity.mTags = {}
+    newEntity.mComponents = {}
+    newEntity.mObserverSystems = {}
     newEntity:LoadEntityXML( iNode, iWorld )
 
     return newEntity
@@ -153,11 +156,12 @@ function  Entity:LoadEntityXML( iNode, iWorld )
     self.mID = iNode.attr[1].value
 
     for i = 1, #iNode.el[1].el do
-        self.mComponents[i] = BasicComponents:NewFromXML( iNode.el[1].el[i], iWorld )
+        self.mTags[ iNode.el[1].el[i].attr[ 1 ].value ] = iNode.el[1].el[i].attr[2].value
     end
 
     for i = 1, #iNode.el[2].el do
-        self.mTags[ iNode.el[2].el[i].attr[ 1 ].value ] = iNode.el[2].el[i].attr[2].value
+        local component = BasicComponents:NewFromXML( iNode.el[2].el[i], iWorld, self )
+        self.mComponents[component.mName] = component
     end
 end
 

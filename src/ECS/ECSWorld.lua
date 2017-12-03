@@ -145,7 +145,7 @@ function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
     assert( iNode.name == "ecsworld" )
 
     for i = 1, #iNode.el do
-        AddEntity( Entity:NewFromXML( iNode.el[ i ] ), iWorld )
+        self:AddEntity( Entity:NewFromXML( iNode.el[ i ], iWorld ) )
     end
     
     self:AddSystem( SpriteRenderer )

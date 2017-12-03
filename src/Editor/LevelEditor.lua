@@ -514,6 +514,7 @@ function  LevelEditor.LoadLevel( iFilePath )
 
     local xml = io.open( iFilePath ):read('*all')
     local doc = SLAXML:dom( xml )
+    print( "1:"..tostring(gWorld) )
     LevelEditor.Initialize( LevelBaseECS:NewFromXML( doc.root, gWorld ) )
 
 end

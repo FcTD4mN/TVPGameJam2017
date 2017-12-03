@@ -104,5 +104,51 @@
 <objectpool>
 </objectpool>
 <ecsworld>
+<entity id='wall0'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='600' bodyy='360' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+</component>
+</components>
+</entity>
+<entity id='spike0'  >
+<tags>
+</tags>
+<components>
+<component name='spike'  >
+</component>
+<component name='box2d' bodyx='558.41583251953' bodyy='417.42575073242' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+</component>
+</components>
+</entity>
+<entity id='wall0'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='999.01190185547' bodyy='299.60388183594' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='50' y1='-50' x3='50' y3='50' x5='-50' y5='50' x7='-50' y7='-50'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='spike0'  >
+<tags>
+</tags>
+<components>
+<component name='box2d' bodyx='1000.9896240234' bodyy='400.59408569336' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='50' y1='-50' x3='50' y3='50' x5='-50' y5='50' x7='-50' y7='-50'  />
+</fixture>
+</component>
+<component name='spike'  >
+</component>
+</components>
+</entity>
 </ecsworld>
 </level>
