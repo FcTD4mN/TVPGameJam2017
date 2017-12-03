@@ -122,12 +122,12 @@ function DashEnd( arg )
                         arg:RemoveTag( "isInAir" )
                     end
                 end
-                
+
                 if x2 and y2 then
                     x2, y2 = box2d.mBody:getLocalPoint( x2, y2 )
                     if y2 > box2d.mBodyH / 2 then
                         arg:RemoveTag( "didDash" )
-                        arg:RemoveTag( "isInAir" )        
+                        arg:RemoveTag( "isInAir" )
                     end
                 end
             end
@@ -233,7 +233,7 @@ function Level1:Draw( iCamera )
         if( arrayAchievementsZozo[i].mOn == true ) then
             love.graphics.draw( arrayAchievementsZozo[i].mImageOn, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
         else
-            love.graphics.draw( arrayAchievementsZozo[i].mImageOff, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )            
+            love.graphics.draw( arrayAchievementsZozo[i].mImageOff, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
         end
     end
 end
@@ -249,7 +249,7 @@ function  Level1:UpdateCamera()
         self.mCamera.mY = self.mCamera.mY  + ( targety - self.mCamera.mY ) / cameraSmooth
 
         targetx = self.mHero:GetComponentByName( "box2d" ).mBody:getX() - self.mCamera.mW / 2
-        targety = ( self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH / 2 )
+        targety = ( self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH / 2 ) * 0.3
     end
 
 end
