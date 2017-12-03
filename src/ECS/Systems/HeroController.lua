@@ -112,7 +112,7 @@ function HeroController:Update( iDT )
         --jump
         if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1 ) then
             if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isInAir" ) == "0" and entity:GetTagByName( "isCrouch" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
-                velY = -400
+                velY = -550
                 entity:AddTag( "isInAir" )
             end
         end
