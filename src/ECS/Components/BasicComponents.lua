@@ -16,7 +16,7 @@ function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBo
     newBox2DComponent.mBodyW = iBodyW
     newBox2DComponent.mBodyH = iBodyH
 
-    newBox2DComponent.mBody     = love.physics.newBody( iWorld, newBox2DComponent.mBodyX + newBox2DComponent.mBodyW / 2, newBox2DComponent.mBodyY + newBox2DComponent.mBodyH / 2, iPhysicType )
+    newBox2DComponent.mBody = love.physics.newBody( iWorld, newBox2DComponent.mBodyX + newBox2DComponent.mBodyW / 2, newBox2DComponent.mBodyY + newBox2DComponent.mBodyH / 2, iPhysicType )
     newBox2DComponent.mBody:setFixedRotation( iFixedRotation )
     newBox2DComponent.mBody:setGravityScale( iGravity )
 
@@ -81,6 +81,29 @@ function  BasicComponents:NewUserInput()
     newUserInput.mActions = {}
 
     return  newUserInput
+
+end
+
+
+-- ==========================================Dummy components
+
+
+function  BasicComponents:NewWallComponent( iWall )
+
+    local  newWall = {}
+    newWall.mName = "wall"
+
+    return  newWall
+
+end
+
+
+function  BasicComponents:NewSpikeComponent( iSpike )
+
+    local  newSpike = {}
+    newSpike.mName = "spike"
+
+    return  newSpike
 
 end
 

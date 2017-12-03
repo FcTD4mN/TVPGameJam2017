@@ -12,6 +12,9 @@ local SLAXML        = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 --      HEROS
 local Lapin         = require( "src/Objects/Heros/Lapin")
 local Singe         = require( "src/Objects/Heros/Singe")
+local Wall          = require( "src/ECS/Factory/Wall")
+local Spike         = require( "src/ECS/Factory/Spike")
+local ECSIncludes   = require( "src/ECS/ECSIncludes")
 
 --      ENVIRONNEMENT
 local BabyTree      = require( "src/Objects/Environnement/BabyTree")
@@ -40,6 +43,8 @@ local xStartingMouse, yStartingMouse = 0, 0
 local xCurrentMouse, yCurrentMouse = 0, 0
 
 local gCurrentEditedAsset = nil
+local gCurrentEditedComponent = nil
+local gCurrentEditedEntityIndex = -1
 local gInPopup = false
 
 
@@ -318,6 +323,23 @@ function LevelEditor.Draw()
                 imgui.TreePop();
             end
 
+            if (imgui.TreeNode("Wall")) then
+
+                imgui.Text( "Wall" );
+                imgui.SameLine()
+                if imgui.Button( "AddWall" ) then
+                    Wall:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.Text( "Spike" );
+                imgui.SameLine()
+                if imgui.Button( "AddSpike" ) then
+                    Spike:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.TreePop();
+            end
+
             if (imgui.TreeNode("Environnement")) then
 
                 imgui.Text( "BabyTree" );
@@ -406,16 +428,25 @@ function LevelEditor.Draw()
 
             if( imgui.Button( "Delete" ) ) then
                 imgui.CloseCurrentPopup()
-                gCurrentEditedAsset:Destroy()
-                ObjectPool.Update( 0 )
+                if( gCurrentEditedAsset ) then
+                    gCurrentEditedAsset:Destroy()
+                    ObjectPool.Update( 0 )
+                end
+                if( gCurrentEditedComponent ) then
+                    table.remove( ECSWorld.mEntities, gCurrentEditedEntityIndex )
+                end
                 gInPopup = false
                 gCurrentEditedAsset = nil
+                gCurrentEditedComponent = nil
+                gCurrentEditedEntityIndex = -1
             end
 
             if( imgui.Button( "Cancel" ) ) then
                 imgui.CloseCurrentPopup()
                 gInPopup = false
                 gCurrentEditedAsset = nil
+                gCurrentEditedComponent = nil
+                gCurrentEditedEntityIndex = -1
             end
             imgui.EndPopup()
         end
@@ -535,8 +566,24 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
 
         xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
         gCurrentEditedAsset = ObjectPool.ObjectAtCoordinates( xMapped, yMapped )
+        if not gCurrentEditedAsset then
+            for k1,v1 in pairs( ECSWorld.mEntities ) do
+                for k2,v2 in pairs( v1.mComponents ) do
+                    if v2.mName == "box2d" then
+                        for k3,v3 in pairs( v2.mBody:getFixtureList() ) do
+                            local x, y = v2.mBody:getLocalPoint( xMapped, yMapped )
+                            if v3:getShape():testPoint( 0, 0, 0, x, y ) then
+                                gCurrentEditedComponent = v2
+                                gCurrentEditedEntityIndex = k1
+                            end
+                        end
+                    end
+                end
+            end
+        end
 
-        if gCurrentEditedAsset then
+
+        if gCurrentEditedAsset or gCurrentEditedComponent then
             dragMode = true
             previousX, previousY = iX, iY
         end
@@ -576,12 +623,18 @@ function LevelEditor.MouseMoved( iX, iY )
 
     elseif LevelEditor.mState == "propedition" then
 
-        if( gCurrentEditedAsset ) then
+        if( gCurrentEditedAsset or gCurrentEditedComponent ) then
             local  speedX = ( iX - previousX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
             local  speedY = ( iY - previousY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
 
-            gCurrentEditedAsset:SetX( gCurrentEditedAsset:GetX() + speedX )
-            gCurrentEditedAsset:SetY( gCurrentEditedAsset:GetY() + speedY )
+            if( gCurrentEditedComponent ) then
+                gCurrentEditedComponent.mBody:setX( gCurrentEditedComponent.mBody:getX() + speedX )
+                gCurrentEditedComponent.mBody:setY( gCurrentEditedComponent.mBody:getY() + speedY )
+            end
+            if( gCurrentEditedAsset ) then
+                gCurrentEditedAsset:SetX( gCurrentEditedAsset:GetX() + speedX )
+                gCurrentEditedAsset:SetY( gCurrentEditedAsset:GetY() + speedY )
+            end
             previousX, previousY = iX, iY
         end
 
@@ -633,10 +686,12 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 
     elseif LevelEditor.mState == "propedition" then
 
-        if iButton == 2 and gCurrentEditedAsset then
+        if iButton == 2 and ( gCurrentEditedAsset or gCurrentEditedComponent )then
             gInPopup = true
         elseif not gInPopup then
             gCurrentEditedAsset = nil
+            gCurrentEditedComponent = nil
+            gCurrentEditedEntityIndex = -1
         end
         dragMode = false
 

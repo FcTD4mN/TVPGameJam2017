@@ -77,11 +77,6 @@ function  Level1:InitializeECS()
     self.mHero:AddTag( "canJump" )
     self.mHero:AddTag( "isJumping" )
 
-    --local slipperyShape    = love.physics.newRectangleShape( self.mW - 25, self.mH - 5 )
-    --fixture  = love.physics.newFixture( self.mBody, slipperyShape )
-    --fixture:setFriction( 0.0 )
-    --fixture:setUserData( self.mHero )
-
     ECSWorld:AddEntity( self.mHero )
 end
 

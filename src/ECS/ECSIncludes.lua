@@ -11,7 +11,9 @@ AnimationRenderer = require "src/ECS/Systems/AnimationRenderer"
 HeroController    = require "src/ECS/Systems/HeroController"
 InputConverter    = require "src/ECS/Systems/InputConverter"
 RectangleDrawer   = require "src/ECS/Systems/RectangleDrawer"
+SpikeDrawer       = require "src/ECS/Systems/SpikeDrawer"
 SpriteRenderer    = require "src/ECS/Systems/SpriteRenderer"
+WallDrawer        = require "src/ECS/Systems/WallDrawer"
 
 
 SystemTest    = require "src/ECS/Systems/SystemTest"

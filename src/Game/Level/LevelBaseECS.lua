@@ -5,7 +5,7 @@ local  Terrain      = require "src/Objects/Terrain"
 
 -- Pools
 ObjectRegistry  = require "src/Base/ObjectRegistry"
-ObjectRegistry  = require "src/ECS/ECSIncludes"
+ECSIncludes     = require "src/ECS/ECSIncludes"
 CollidePool     = require "src/Objects/Pools/CollidePool"
 RayPool         = require "src/Objects/Pools/RayPool"
 
@@ -52,11 +52,6 @@ function  LevelBaseECS:BuildLevelBaseECS( iWorld, iCamera )
     self.mForegrounds           = {}
 
     self.mHeros                 = {}
-    
-    self.mWorldECS:AddSystem( SpriteRenderer )
-    self.mWorldECS:AddSystem( InputConverter )
-    self.mWorldECS:AddSystem( AnimationRenderer )
-    self.mWorldECS:AddSystem( HeroController )
 end
 
 -- ==========================================Type
