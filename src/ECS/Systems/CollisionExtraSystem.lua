@@ -25,7 +25,7 @@ function  Collision( iEntityA, iEntityB )
 
             killable.mDeathCount = killable.mDeathCount + 1
             box2d.mBody:setX( 0 )
-            box2d.mBody:setY( 100 )
+            box2d.mBody:setY( 500 )
 
             iEA:RemoveTag( "isAutoRun" )
             iEA:RemoveTag( "isInAir" )

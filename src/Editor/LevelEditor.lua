@@ -71,7 +71,7 @@ function LevelEditor.Initialize( iLevel )
     gIntW = 0
     gIntH = 0
     gIntA = 0
-    gFileName = "Save/Level1.xml" -- Just so it's quicker to debug
+    gFileName = "Save/Level11.xml" -- Just so it's quicker to debug
 
     gFixedBGFile = "test"
 
