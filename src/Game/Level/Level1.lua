@@ -49,6 +49,8 @@ function Level1:NewFromXML( iWorld )
     -- BACKGROUNDS
 
     newLevel1:InitializeECS();
+    
+    bgZozo = love.graphics.newImage( "resources/Images/BGGRID.png" )
 
     return  newLevel1
 end
@@ -96,6 +98,35 @@ end
 -- function  Level1:Update( iDT )
 -- end
 
+function Level1:Draw( iCamera )
+
+    local camera = self.mCamera
+    if( iCamera ) then
+        camera = iCamera
+    end
+
+    love.graphics.clear( 40, 40, 40 )
+    local width = love.graphics.getWidth();
+    local height = love.graphics.getHeight();
+
+    local rwidth = width / camera.mScale;
+    local rheight = height / camera.mScale;
+
+    local zozoWidth = bgZozo:getWidth()
+    local zozoHeight = bgZozo:getHeight()
+    local nfw = math.ceil( rwidth / zozoWidth );
+    local nfh = math.ceil( rheight / zozoHeight );
+    local zozoDepth = 1
+    love.graphics.setColor(255,255,255,127);
+    for i=0, nfw, 1 do
+        for j=0, nfh, 1 do
+            love.graphics.draw( bgZozo, - ( camera.mX % zozoWidth ) * zozoDepth + i * zozoWidth * camera.mScale, - ( camera.mY % zozoHeight ) * zozoDepth + j * zozoHeight * camera.mScale, 0, camera.mScale, camera.mScale )
+        end
+    end
+    love.graphics.setColor(255,255,255,255);
+
+    self:DrawBase( iCamera )
+end
 
 -- ==========================================Level1 functions
 

@@ -97,35 +97,12 @@ function  LevelBaseECS:Update( iDT )
 end
 
 
-function  LevelBaseECS:Draw( iCamera )
-
+function  LevelBaseECS:DrawBase( iCamera )
+    
     local camera = self.mCamera
     if( iCamera ) then
         camera = iCamera
     end
-
-    bgZozo = love.graphics.newImage( "resources/Images/BGGRID.png" )
-
-    love.graphics.clear( 40, 40, 40 )
-    local width = love.graphics.getWidth();
-    local height = love.graphics.getHeight();
-
-    local rwidth = width / camera.mScale;
-    local rheight = height / camera.mScale;
-
-    local zozoWidth = bgZozo:getWidth()
-    local zozoHeight = bgZozo:getHeight()
-    local nfw = math.ceil( rwidth / zozoWidth );
-    local nfh = math.ceil( rheight / zozoHeight );
-    local zozoDepth = 1
-    love.graphics.setColor(255,255,255,127);
-    for i=0, nfw, 1 do
-        for j=0, nfh, 1 do
-            love.graphics.draw( bgZozo, - ( camera.mX % zozoWidth ) * zozoDepth + i * zozoWidth * camera.mScale, - ( camera.mY % zozoHeight ) * zozoDepth + j * zozoHeight * camera.mScale, 0, camera.mScale, camera.mScale )
-        end
-    end
-    love.graphics.setColor(255,255,255,255);
-
 
     if( self.mFixedBackground ) then
         self.mFixedBackground:Draw( 0, 0, camera.mScale )
@@ -154,7 +131,10 @@ function  LevelBaseECS:Draw( iCamera )
         ObjectPool.DrawToMiniMap( self.mMiniMap )
 
     end
+end 
 
+function  LevelBaseECS:Draw( iCamera )
+    self:DrawBase( iCamera )
 end
 
 
