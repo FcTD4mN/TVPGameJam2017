@@ -55,6 +55,13 @@ function Level1:NewFromXML( iWorld )
     return  newLevel1
 end
 
+-- ==========================================CB
+
+function DashEnd( arg )
+    arg:RemoveTag( "isDashing" )
+    arg:AddTag( "didDash" )
+end
+
 -- ==========================================Type
 
 function  Level1:InitializeECS()
@@ -74,9 +81,12 @@ function  Level1:InitializeECS()
     animations[ "land" ] = Animation:New( 'resources/Animation/Characters/Dummy/Land.png', 9, 16, false, false, false )
     animations[ "crouch" ] = Animation:New( 'resources/Animation/Characters/Dummy/Crouch.png', 4, 16, false, false, false )
     animations[ "crawl" ] = Animation:New( 'resources/Animation/Characters/Dummy/Crawl.png', 19, 24, true, false, false )
-    animations[ "dash" ] = Animation:New( 'resources/Animation/Characters/Dummy/Dash.png', 8, 16, false, false, false, 1.5 )
+    animations[ "dash" ] = Animation:New( 'resources/Animation/Characters/Dummy/Dash.png', 8, 16, false, false, false, 0.3 )
     animations[ "fall" ] = Animation:New( 'resources/Animation/Characters/Dummy/Fall.png', 9, 16, true, false, false )
     animations[ "death" ] = Animation:New( 'resources/Animation/Characters/Dummy/Death.png', 8, 24, false, false, false )
+
+    animations[ "dash" ].mPlayEndCB = DashEnd
+    animations[ "dash" ].mPlayEndCBArguments = self.mHero
 
     self.mHero:AddComponent( BasicComponents:NewUserInput() )
     self.mHero:AddComponent( BasicComponents:NewKillable() )
@@ -93,6 +103,7 @@ function  Level1:InitializeECS()
     --self.mHero:AddTag( "isDead" )
     --self.mHero:AddTag( "didDoubleJump" )
     --self.mHero:AddTag( "didTripleJump" )
+    --self.mHero:AddTag( "didDash" )
 
     ECSWorld:AddEntity( self.mHero )
 end

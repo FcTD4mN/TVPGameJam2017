@@ -35,6 +35,7 @@ function  Collision( iEntityA, iEntityB )
             iEA:RemoveTag( "isCrouch" )
             iEA:RemoveTag( "didDoubleJump" )
             iEA:RemoveTag( "didTripleJump" )
+            iEA:RemoveTag( "didDash" )
 
             Shortcuts:Iterate()
         end
@@ -46,6 +47,7 @@ function  Collision( iEntityA, iEntityB )
         iEntityA:RemoveTag( "isInAir" )
         iEntityA:RemoveTag( "didDoubleJump" )
         iEntityA:RemoveTag( "didTripleJump" )
+        iEntityA:RemoveTag( "didDash" )
     end
 
 end

@@ -74,7 +74,7 @@ function HeroController:Update( iDT )
         vX, velY = box2d.mBody:getLinearVelocity()
         local crouchSpeed = 150;
         local normalSpeed = 300;
-        local dashSpeed = 600;
+        local dashSpeed = 2000;
 
         velX = normalSpeed
 
@@ -97,16 +97,12 @@ function HeroController:Update( iDT )
         end
 
         --dash
-        if( GetObjectIndexInTable( userinput.mActions, "dash" ) > -1 ) then
-            if entity:GetTagByName( "isDead" ) == "0" then
+        if( GetObjectIndexInTable( userinput.mActions, "dash" ) > -1 or entity:GetTagByName( "isDashing" ) == "1" ) then
+            if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isCrouch" ) == "0" and entity:GetTagByName( "didDash" ) == "0" then
                 entity:AddTag( "isDashing" )
                 velX = dashSpeed
                 velY = 0.0
-            elseif entity:GetTagByName( "isDashing" ) == "1" then --TODO make it move a certain time
-                entity:RemoveTag( "isDashing" )
             end
-        elseif entity:GetTagByName( "isDashing" ) == "1" then --TODO make it move a certain time
-            entity:RemoveTag( "isDashing" )
         end
 
         --jump
@@ -118,11 +114,11 @@ function HeroController:Update( iDT )
         end
 
         if( GetObjectIndexInTable( userinput.mActions, "doublejump" ) > -1 ) then
-            if entity:GetTagByName( "isDead" ) == 0 and
-               entity:GetTagByName( "isInAir" ) == 1 and
-               entity:GetTagByName( "isCrouch" ) == 0 and
-               entity:GetTagByName( "isDashing" ) == 0 and
-               entity:GetTagByName( "didDoubleJump" ) == 0
+            if entity:GetTagByName( "isDead" ) == "0" and
+               entity:GetTagByName( "isInAir" ) == "1" and
+               entity:GetTagByName( "isCrouch" ) == "0" and
+               entity:GetTagByName( "isDashing" ) == "0" and
+               entity:GetTagByName( "didDoubleJump" ) == "0"
                then
                 velY = -400
                 entity:AddTag( "didDoubleJump" )
@@ -130,12 +126,12 @@ function HeroController:Update( iDT )
         end
 
         if( GetObjectIndexInTable( userinput.mActions, "triplejump" ) > -1 ) then
-            if entity:GetTagByName( "isDead" ) == 0 and
-               entity:GetTagByName( "isInAir" ) == 1 and
-               entity:GetTagByName( "isCrouch" ) == 0 and
-               entity:GetTagByName( "isDashing" ) == 0 and
-               entity:GetTagByName( "didDoubleJump" ) == 1 and
-               entity:GetTagByName( "didTripleJump" ) == 0
+            if entity:GetTagByName( "isDead" ) == "0" and
+               entity:GetTagByName( "isInAir" ) == "1" and
+               entity:GetTagByName( "isCrouch" ) == "0" and
+               entity:GetTagByName( "isDashing" ) == "0" and
+               entity:GetTagByName( "didDoubleJump" ) == "1" and
+               entity:GetTagByName( "didTripleJump" ) == "0"
                then
                 velY = -400
                 entity:AddTag( "didTripleJump" )

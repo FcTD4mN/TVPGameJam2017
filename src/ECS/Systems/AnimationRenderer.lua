@@ -34,16 +34,16 @@ function AnimationRenderer:Update( iDT )
         if animation then
             if not animation.mIsPaused then
                 animation.mTime = animation.mTime + iDT
-                animation.mCurrentQuadIndex =  math.floor( animation.mTime * animation.mFPS ) % animation.mImageCount
-                if animation.mLoop and animation.mMaxTime and animation.mTime <= animation.mMaxTime then
+                animation.mCurrentQuadIndex =  math.floor( animation.mTime * animation.mFPS )
+                if animation.mLoop and ( not animation.mMaxTime or ( animation.mMaxTime and animation.mTime <= animation.mMaxTime ) ) then
                     animation.mCurrentQuadIndex = animation.mCurrentQuadIndex % ( animation.mImageCount )
-                elseif ( animation.mMaxTime and animation.mTime > animation.mMaxTime ) or ( not animation.mMaxTime and animation.mCurrentQuadIndex >= animation.mImageCount ) then
+                elseif ( animation.mMaxTime and animation.mTime > animation.mMaxTime ) or ( ( not animation.mMaxTime ) and animation.mCurrentQuadIndex >= animation.mImageCount ) then
                     animation.mIsPaused = true
                     if animation.mPlayEndCB then
                         animation.mPlayEndCB( animation.mPlayEndCBArguments )
                     end
                 end
-                animation.mCurrentQuadIndex = animation.mCurrentQuadIndex + 1 --arrays starts at index 1
+                animation.mCurrentQuadIndex = math.min( animation.mCurrentQuadIndex + 1, animation.mImageCount ) --arrays starts at index 1
             end
         end
     end
