@@ -5,6 +5,8 @@ MenuPage    = require( "src/MainMenu/MenuPage" )
 local  EditorScreen  = require( "src/Application/Screens/EditorScreen" )
 local  GameScreen    = require( "src/Application/Screens/GameScreen" )
 local  TestScreen    = require( "src/Application/Screens/TestScreen" )
+local  Animation     = require( "src/Image/AnimationCoopains")
+local  Camera        = require( "src/Camera/Camera")
 
 local MainMenu = {
     menuPages = {},
@@ -20,28 +22,28 @@ function  MainMenu:Initialize()
     music:setLooping( true )
 
     -- ============================ MAIN MAIN ===============================
-    y = 250
+    y = 300
     dz = 0
-    newGame = MenuItem:New( "NewGame", love.graphics.getWidth() / 2, y )
+    newGame = MenuItem:New( "NewGame", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    newGame.rectangle.x = dz+ love.graphics.getWidth() / 2 - newGame.rectangle.w /2
+    newGame.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newGame.rectangle.w /2
 
 
-    options = MenuItem:New( "Options", love.graphics.getWidth() / 2, y )
+    options = MenuItem:New( "Options", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    options.rectangle.x = dz+ love.graphics.getWidth() / 2 - options.rectangle.w /2
+    options.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - options.rectangle.w /2
 
-    quit    = MenuItem:New( "Quit", love.graphics.getWidth() / 2, y )
+    quit    = MenuItem:New( "Quit", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    quit.rectangle.x = dz+ love.graphics.getWidth() / 2 - quit.rectangle.w /2
+    quit.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - quit.rectangle.w /2
 
-    newSandBox    = MenuItem:New( "SandBox", love.graphics.getWidth() / 2, y )
+    newSandBox    = MenuItem:New( "SandBox", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    newSandBox.rectangle.x = dz+ love.graphics.getWidth() / 2 - newSandBox.rectangle.w /2
+    newSandBox.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newSandBox.rectangle.w /2
 
-    newTest    = MenuItem:New( "Test", love.graphics.getWidth() / 2, y )
+    newTest    = MenuItem:New( "Test", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    newTest.rectangle.x = dz+ love.graphics.getWidth() / 2 - newTest.rectangle.w /2
+    newTest.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newTest.rectangle.w /2
 
     -- Callbacks
     newGame:SetCallback(    function() Manager:PushScreen( GameScreen:New() ); love.audio.stop( music ); end )
@@ -66,19 +68,19 @@ function  MainMenu:Initialize()
 
 
     -- ========================== MAIN OPTIONS =============================
-    y = 250
+    y = 300
     dz = 0
-    video = MenuItem:New( "Video", love.graphics.getWidth() / 2, y )
+    video = MenuItem:New( "Video", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    video.rectangle.x = dz+ love.graphics.getWidth() / 2 - video.rectangle.w /2
-    sound = MenuItem:New( "Sound", love.graphics.getWidth() / 2, y )
+    video.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - video.rectangle.w /2
+    sound = MenuItem:New( "Sound", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    sound.rectangle.x = dz+ love.graphics.getWidth() / 2 - sound.rectangle.w /2
-    controls = MenuItem:New( "Controls", love.graphics.getWidth() / 2, y )
+    sound.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - sound.rectangle.w /2
+    controls = MenuItem:New( "Controls", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    controls.rectangle.x = dz+ love.graphics.getWidth() / 2 - controls.rectangle.w /2
-    back    = MenuItem:New( "Back", love.graphics.getWidth() / 2, y )
-    back.rectangle.x = dz+ love.graphics.getWidth() / 2 - back.rectangle.w /2
+    controls.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - controls.rectangle.w /2
+    back    = MenuItem:New( "Back", 2 * love.graphics.getWidth() / 3, y )
+    back.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - back.rectangle.w /2
 
     -- Callbacks
     video:SetCallback( function() MainMenu.currentPage = 3 end )
@@ -98,16 +100,16 @@ function  MainMenu:Initialize()
 
 
     -- ========================== VIDEO OPTIONS =============================
-    y = 250
+    y = 300
     dz = 0
-    local fullScreen = MenuItem:New( "FullScreen", love.graphics.getWidth() / 2, y )
+    local fullScreen = MenuItem:New( "FullScreen", 2 * love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    fullScreen.rectangle.x = dz + love.graphics.getWidth() / 2 - video.rectangle.w /2
-    local lowerRes  = MenuItem:New( "1200x720", love.graphics.getWidth() / 2, y )
+    fullScreen.rectangle.x = dz +  2 * love.graphics.getWidth() / 3 - video.rectangle.w /2
+    local lowerRes  = MenuItem:New( "1200x720",  2 *love.graphics.getWidth() / 3, y )
     y = y + spaceBetItems
-    lowerRes.rectangle.x = dz + love.graphics.getWidth() / 2 - video.rectangle.w /2
-    local back  = MenuItem:New( "Back", love.graphics.getWidth() / 2, y )
-    back.rectangle.x = dz+ love.graphics.getWidth() / 2 - back.rectangle.w /2
+    lowerRes.rectangle.x = dz + 2 * love.graphics.getWidth() / 3 - video.rectangle.w /2
+    local back  = MenuItem:New( "Back", 2 * love.graphics.getWidth() / 3, y )
+    back.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - back.rectangle.w /2
 
     -- Callbacks
     fullScreen:SetCallback( function() love.window.setMode( 800, 600, { fullscreen=true } ) end )
@@ -127,9 +129,13 @@ function  MainMenu:Initialize()
     love.audio.play( music )
 
     --Menu Images
-    imageBG = love.graphics.newImage( "resources/Images/Backgrounds/Final/MenuBG.png" )
-    imageLOGO = love.graphics.newImage( "resources/Images/Backgrounds/Final/MenuLOGO.png" )
+    imageBG = love.graphics.newImage( "resources/Images/Backgrounds/BGGRID2000.png" )
+    imageLOGO = love.graphics.newImage( "resources/Images/LOGOROBOT.png" )
 
+    camZozo = Camera:New( 0, 0, love.graphics.getWidth(), love.graphics.getHeight(), 1 )
+    imageZozo = love.graphics.newImage( "resources/Animation/Characters/Dummy/Dancing3.png" )
+    animZozo = Animation:New( imageZozo, 0, 0, 30000/60, 506, 0, 60, 24, false, false )
+    animZozo:Play( 0 )
 end
 
 function  MainMenu:AddPage( iPage )
@@ -137,6 +143,7 @@ function  MainMenu:AddPage( iPage )
 end
 
 function MainMenu:Update( iDT )
+    animZozo:Update( iDT, 0, 0, 30000/60, 506, 0 )
     self:HighlightItemUnderMouse()
 end
 
@@ -145,12 +152,14 @@ function MainMenu:HighlightItemUnderMouse()
 end
 
 function MainMenu:Draw()
-    love.graphics.setColor( 255, 255, 255, 255 )
-    love.graphics.draw( imageBG, love.graphics.getWidth() / 2 - imageBG:getWidth() /2, 0 )
-    love.graphics.draw( imageLOGO, love.graphics.getWidth() / 2 - imageLOGO:getWidth()/2 , 0 )
+    love.graphics.setColor( 200, 200, 200, 255 )
+    love.graphics.draw( imageBG, 2 * love.graphics.getWidth() / 3 - imageBG:getWidth() /2, love.graphics.getHeight() / 2 - imageBG:getHeight() /2 )
+    love.graphics.draw( imageLOGO, love.graphics.getWidth() / 3 + love.graphics.getWidth() / 3 - imageLOGO:getWidth()/2 , love.graphics.getHeight() / 3 - imageLOGO:getHeight()/2 )
 
 
     self.menuPages[ self.currentPage ]:Draw()
+
+    animZozo:Draw( camZozo, 0, 0 )
 end
 
 
