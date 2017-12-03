@@ -52,6 +52,7 @@ end
 
 
 function MenuScreen:KeyPressed( key, scancode, isrepeat )
+    print( key )
     MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 

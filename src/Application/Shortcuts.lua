@@ -39,7 +39,12 @@ function  Shortcuts.GetActionForKey( iKey )
 end
 
 
-function  Shortcuts.Save()
+function  Shortcuts.Save( iFilePath )
+
+    local filePath = iFilePath
+    if filePath == nil then
+        filePath = "Config/keybinds.ini"
+    end
 
     local keybindsData = ""
 
@@ -47,24 +52,41 @@ function  Shortcuts.Save()
         keybindsData = keybindsData .. k .. ":" .. v .. "\n"
     end
 
-    local file = io.open( "Config/keybinds.ini", "w" )
+    local file = io.open( filePath, "w" )
     file:write( keybindsData )
 
 end
 
 
-function  Shortcuts.Load()
+function  Shortcuts.Load( iFilePath )
 
-    local shortcuts = io.open( 'Config/keybinds.ini' ):read( '*all' )
+    local filePath = iFilePath
+    if filePath == nil then
+        filePath = "Config/keybinds.ini"
+    end
+
+    local shortcuts = io.open( filePath ):read( '*all' )
     local shortcutsSplit = SplitString( shortcuts, "\n" )
 
     for k,v in pairs( shortcutsSplit ) do
 
         local subSplit = SplitString( v, ":" )
-        Shortcuts.mShortcutTable[ subSplit[ 1 ] ] = subSplit[ 2 ]
-
+        Shortcuts.Register( subSplit[ 1 ], subSplit[ 2 ] )
     end
+end
 
+function  Shortcuts.Register( action, key )
+        Shortcuts.mShortcutTable[ action ] = key
+end
+
+function  Shortcuts.Unregister( action, key )
+        Shortcuts.mShortcutTable[ action ] = nil
+end
+
+function  Shortcuts.Cleanse()
+    for k,v in pairs( Shortcuts.mShortcutTable ) do
+        Shortcuts.mShortcutTable[ k ] = nil
+    end
 end
 
 
