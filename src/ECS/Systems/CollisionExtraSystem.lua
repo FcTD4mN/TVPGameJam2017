@@ -1,4 +1,4 @@
-
+local Shortcuts = require( "src/Application/Shortcuts" )
 
 function  Collision( iEntityA, iEntityB )
 
@@ -15,7 +15,7 @@ function  Collision( iEntityA, iEntityB )
             box2d.mBody:setY( 100 )
 
             iEntityA:RemoveTag( "autoRun" )
-
+            Shortcuts:Iterate()
         end
 
     end

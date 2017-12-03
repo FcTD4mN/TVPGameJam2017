@@ -2,14 +2,16 @@
 
 Shortcuts = {
 
-    mShortcutTable = {}
+    mShortcutTable = {};
+    mModelShortcutTable = {};
+    mIteration = 0;
 }
 
 
 function Shortcuts.Initialize()
 
     Shortcuts.Load();
-
+    Shortcuts.Sync();
 end
 
 
@@ -76,16 +78,36 @@ function  Shortcuts.Load( iFilePath )
 end
 
 function  Shortcuts.Register( action, key )
-        Shortcuts.mShortcutTable[ action ] = key
+        Shortcuts.mModelShortcutTable[ action ] = key
 end
 
 function  Shortcuts.Unregister( action, key )
-        Shortcuts.mShortcutTable[ action ] = nil
+        Shortcuts.mModelShortcutTable[ action ] = nil
 end
 
 function  Shortcuts.Cleanse()
     for k,v in pairs( Shortcuts.mShortcutTable ) do
         Shortcuts.mShortcutTable[ k ] = nil
+    end
+end
+
+function  Shortcuts.Iterate()
+    Shortcuts.mIteration = Shortcuts.mIteration + 1
+    Shortcuts.Sync()
+end
+
+function  Shortcuts.Sync()
+
+    local iteration = 0
+    print(  Shortcuts.mIteration  )
+    
+    for k,v in pairs( Shortcuts.mModelShortcutTable ) do
+
+        if iteration < Shortcuts.mIteration then
+            Shortcuts.mShortcutTable[ k ] = Shortcuts.mModelShortcutTable[k]
+        end
+        
+        iteration = iteration+1
     end
 end
 
