@@ -4,7 +4,7 @@ Shortcuts = {
 
     mShortcutTable = {};
     mModelShortcutTable = {};
-    mIteration = 0;
+    mIteration = 1;
 }
 
 
@@ -97,8 +97,7 @@ function  Shortcuts.Iterate()
 end
 
 function  Shortcuts.Sync()
-
-    local iteration = 0
+    local iteration = 1
     print(  Shortcuts.mIteration  )
     
     for k,v in pairs( Shortcuts.mModelShortcutTable ) do
