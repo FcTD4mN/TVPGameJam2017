@@ -12,7 +12,7 @@ function Spike:New( iWorld, iX, iY )
     Spike.mId = Spike.mId + 1
 
     -- Components
-    local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 100, 100, "dynamic", true, 1 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 100, 100, "static", true, 1 )
         local stickyShape    = love.physics.newRectangleShape( 100, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 1.0 )
@@ -22,6 +22,9 @@ function Spike:New( iWorld, iX, iY )
 
     entity:AddComponent( BasicComponents:NewSpikeComponent( animations ) )
     entity:AddComponent( box2DComponent )
+
+    entity:AddTag( "canKill" )
+
     ECSWorld:AddEntity( entity )
 
     return  entity

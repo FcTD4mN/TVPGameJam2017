@@ -24,7 +24,8 @@ local Water             = require "src/Objects/Particles/Water"
 local Vector            = require "src/Math/Vector"
 local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
-local ECSIncludes            = require 'src/ECS/ECSIncludes'
+local ECSIncludes       = require 'src/ECS/ECSIncludes'
+local Spike             = require 'src/ECS/Factory/Spike'
 
 local Level1 = {}
 setmetatable( Level1, LevelBaseECS )
@@ -68,6 +69,7 @@ function  Level1:InitializeECS()
     animations[ "move" ] = Animation:New( 'resources/Animation/Characters/Dummy/run.png', 13, 24, true, false, false )
 
     self.mHero:AddComponent( BasicComponents:NewUserInput() )
+    self.mHero:AddComponent( BasicComponents:NewKillable() )
     self.mHero:AddComponent( BasicComponents:NewStateComponent( "idle" ) )
     self.mHero:AddComponent( BasicComponents:NewDirectionComponent( "right", "up" ) )
     self.mHero:AddComponent( BasicComponents:NewAnimationsComponent( animations ) )
@@ -76,8 +78,10 @@ function  Level1:InitializeECS()
 
     self.mHero:AddTag( "canJump" )
     self.mHero:AddTag( "isJumping" )
+    self.mHero:AddTag( "autoRun" )
 
     ECSWorld:AddEntity( self.mHero )
+    ECSWorld:AddEntity( Spike:New( self.mWorld, 200, 150 ) )
 end
 
 

@@ -47,7 +47,7 @@ function HeroController:Update( iDT )
 
         if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 ) then
             velX = velX + 300
-            
+
             direction.mDirectionH = "right";
             if entity:GetTagByName( "isJumping" ) == 0 then
                 state.mState = "move"
@@ -70,6 +70,12 @@ function HeroController:Update( iDT )
             velY = velY - 400
 
             state.mState = "jump"
+        end
+
+        if( entity:GetTagByName( "autoRun" ) == 1 ) then
+
+            velX = 300
+
         end
 
         box2d.mBody:setLinearVelocity( velX, velY )
