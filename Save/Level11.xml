@@ -17,7 +17,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='6451.9453125' bodyy='-284.24353027344' bodyw='50' bodyh='110' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='6941.181640625' bodyy='-84.998764038086' bodyw='50' bodyh='110' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='25' y1='-55' x3='25' y3='55' x5='-25' y5='55' x7='-25' y7='-55'  />
 </fixture>
@@ -355,9 +355,9 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='6132.4448242188' bodyy='-1963.9519042969' bodyw='500' bodyh='5000' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='6130.783203125' bodyy='-2041.8132324219' bodyw='500' bodyh='5000' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-249.99998474121' y1='-2500' x3='249.99998474121' y3='-2500' x5='249.99998474121' y5='2500' x7='-249.99998474121' y7='2500'  />
+<shape type='polygon' x1='249.99998474121' y1='-2500' x3='249.99998474121' y3='2500' x5='-249.99998474121' y5='2500' x7='-249.99998474121' y7='-2500'  />
 </fixture>
 </component>
 </components>
@@ -368,9 +368,9 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='5829.8334960938' bodyy='11.120133399963' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='5831.8134765625' bodyy='202.70433044434' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-10' x3='50' y3='-10' x5='50' y5='10' x7='-50' y7='10'  />
+<shape type='polygon' x1='50' y1='-10' x3='50' y3='10' x5='-50' y5='10' x7='-50' y7='-10'  />
 </fixture>
 </component>
 </components>
@@ -381,9 +381,9 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='5016.7758789062' bodyy='-192.44186401367' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='5016.7729492188' bodyy='-345.42114257812' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-10' x3='50' y3='-10' x5='50' y5='10' x7='-50' y7='10'  />
+<shape type='polygon' x1='50' y1='-10' x3='50' y3='10' x5='-50' y5='10' x7='-50' y7='-10'  />
 </fixture>
 </component>
 </components>
@@ -394,22 +394,9 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='5832.4033203125' bodyy='-480.94522094727' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='5832.3999023438' bodyy='-639.46557617188' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-10' x3='50' y3='-10' x5='50' y5='10' x7='-50' y7='10'  />
-</fixture>
-</component>
-</components>
-</entity>
-<entity id='wall4'  >
-<tags>
-</tags>
-<components>
-<component name='wall'  >
-</component>
-<component name='box2d' bodyx='5016.7729492188' bodyy='-719.55651855469' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
-<fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-10' x3='50' y3='-10' x5='50' y5='10' x7='-50' y7='10'  />
+<shape type='polygon' x1='50' y1='-10' x3='50' y3='10' x5='-50' y5='10' x7='-50' y7='-10'  />
 </fixture>
 </component>
 </components>
@@ -420,9 +407,297 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='5832.404296875' bodyy='-903.9384765625' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='5831.9995117188' bodyy='-936.24060058594' bodyw='100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-10' x3='50' y3='-10' x5='50' y5='10' x7='-50' y7='10'  />
+<shape type='polygon' x1='50' y1='-10' x3='50' y3='10' x5='-50' y5='10' x7='-50' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall0'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='5871.8823242188' bodyy='92.040832519531' bodyw='20' bodyh='200' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='10' y1='-100' x3='10' y3='100' x5='-10' y5='100' x7='-10' y7='-100'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='spike0'  >
+<tags>
+<tag name='canKill' value='1'  />
+</tags>
+<components>
+<component name='spike'  >
+</component>
+<component name='box2d' bodyx='5408.2036132812' bodyy='525.01538085938' bodyw='600' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='300' y1='-10' x3='300' y3='10' x5='-300' y5='10' x7='-300' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='spike1'  >
+<tags>
+<tag name='canKill' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='4861.3999023438' bodyy='524.08447265625' bodyw='300' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='150' y1='-10' x3='150' y3='10' x5='-150' y5='10' x7='-150' y7='-10'  />
+</fixture>
+</component>
+<component name='spike'  >
+</component>
+</components>
+</entity>
+<entity id='Ribbon0'  >
+<tags>
+</tags>
+<components>
+<component name='sprite' filename='resources/Images/Decor/ruban_03.png'  >
+</component>
+<component name='box2d' bodyx='4761.1665039062' bodyy='-1379.8018798828' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+</component>
+</components>
+</entity>
+<entity id='wall0'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='7313.1049804688' bodyy='-1964.7379150391' bodyw='600' bodyh='5000' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='300' y1='-2500' x3='300' y3='2500' x5='-300' y5='2500' x7='-300' y7='-2500'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall1'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='7006.4736328125' bodyy='447.47473144531' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='5' y1='-10' x3='5' y3='10' x5='-5' y5='10' x7='-5' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall2'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6846.0576171875' bodyy='373.51620483398' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='5' y1='-10' x3='5' y3='10' x5='-5' y5='10' x7='-5' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall3'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6561.6845703125' bodyy='377.68295288086' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='5' y1='-10' x3='5' y3='10' x5='-5' y5='10' x7='-5' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall4'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6386.6860351562' bodyy='265.18283081055' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='5' y1='-10' x3='5' y3='10' x5='-5' y5='10' x7='-5' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall5'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6553.3515625' bodyy='200.59980773926' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='5' y1='-10' x3='5' y3='10' x5='-5' y5='10' x7='-5' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall6'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='7008.5571289062' bodyy='23.516284942627' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='5' y1='-10' x3='5' y3='10' x5='-5' y5='10' x7='-5' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall7'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6846.6044921875' bodyy='195.17199707031' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='5' y1='-10' x3='5' y3='10' x5='-5' y5='10' x7='-5' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall8'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6390.6440429688' bodyy='357.89138793945' bodyw='20' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='10' y1='-10' x3='10' y3='10' x5='-10' y5='10' x7='-10' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall9'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6983.5590820312' bodyy='107.89133453369' bodyw='60' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='30' y1='-10' x3='30' y3='10' x5='-30' y5='10' x7='-30' y7='-10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='spike0'  >
+<tags>
+<tag name='canKill' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='6561.9990234375' bodyy='529.73907470703' bodyw='100' bodyh='10' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='-50' y1='-5' x3='50' y3='-5' x5='50' y5='5' x7='-50' y7='5'  />
+</fixture>
+</component>
+<component name='spike'  >
+</component>
+</components>
+</entity>
+<entity id='spike1'  >
+<tags>
+<tag name='canKill' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='6827.625' bodyy='530.78051757812' bodyw='100' bodyh='10' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='-50' y1='-5' x3='50' y3='-5' x5='50' y5='5' x7='-50' y7='5'  />
+</fixture>
+</component>
+<component name='spike'  >
+</component>
+</components>
+</entity>
+<entity id='wall0'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6747.5927734375' bodyy='10.359512329102' bodyw='10' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-5' y1='-10' x3='5' y3='-10' x5='5' y5='10' x7='-5' y7='10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='spike3'  >
+<tags>
+<tag name='canKill' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='6657.6142578125' bodyy='339.90338134766' bodyw='20' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='-10' y1='-10' x3='10' y3='-10' x5='10' y5='10' x7='-10' y7='10'  />
+</fixture>
+</component>
+<component name='spike'  >
+</component>
+</components>
+</entity>
+<entity id='wall1'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6466.376953125' bodyy='43.564529418945' bodyw='20' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-10' y1='-10' x3='10' y3='-10' x5='10' y5='10' x7='-10' y7='10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall2'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6385.00390625' bodyy='-51.930995941162' bodyw='5' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-2.5' y1='-10' x3='2.5' y3='-10' x5='2.5' y5='10' x7='-2.5' y7='10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall3'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6743.4536132812' bodyy='-68.243392944336' bodyw='1' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-0.5' y1='-10' x3='0.5' y3='-10' x5='0.5' y5='10' x7='-0.5' y7='10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall4'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='7002.7670898438' bodyy='-135.05274963379' bodyw='20' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-10' y1='-10' x3='10' y3='-10' x5='10' y5='10' x7='-10' y7='10'  />
 </fixture>
 </component>
 </components>

@@ -120,7 +120,7 @@ function HeroController:Update( iDT )
                entity:GetTagByName( "isDashing" ) == "0" and
                entity:GetTagByName( "didDoubleJump" ) == "0"
                then
-                velY = -500
+                velY = -520
                 entity:AddTag( "didDoubleJump" )
             end
         end
@@ -133,7 +133,7 @@ function HeroController:Update( iDT )
                entity:GetTagByName( "didDoubleJump" ) == "1" and
                entity:GetTagByName( "didTripleJump" ) == "0"
                then
-                velY = -500
+                velY = -530
                 entity:AddTag( "didTripleJump" )
             end
         end
