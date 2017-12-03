@@ -52,7 +52,7 @@ function Level1:NewFromXML( iWorld )
     newLevel1:InitializeECS();
 
     bgZozo = love.graphics.newImage( "resources/Images/BGGRID.png" )
-    nAchievementsZozo = 6
+    nAchievementsZozo = 7
     sizeAchievementsZozo = 100
     paddingAchievementsZozo = 10
     scaleAchievementZozo = 0.5
@@ -81,6 +81,10 @@ function Level1:NewFromXML( iWorld )
     arrayAchievementsZozo[5].mOn = false;
     arrayAchievementsZozo[5].mImageOn = love.graphics.newImage( "resources/Images/Controls/doublejump_enabled.png" );
     arrayAchievementsZozo[5].mImageOff = love.graphics.newImage( "resources/Images/Controls/doublejump_disabled.png" );
+    arrayAchievementsZozo[6] = {}
+    arrayAchievementsZozo[6].mOn = false;
+    arrayAchievementsZozo[6].mImageOn = love.graphics.newImage( "resources/Images/Controls/triplejump_enabled.png" );
+    arrayAchievementsZozo[6].mImageOff = love.graphics.newImage( "resources/Images/Controls/triplejump_disabled.png" );
 
     targetx = 0
     targety = 0
