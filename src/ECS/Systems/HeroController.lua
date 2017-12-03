@@ -73,37 +73,37 @@ function HeroController:Update( iDT )
         --crouch
         if( GetObjectIndexInTable( userinput.mActions, "crouch" ) > -1 ) then
             --Not allowing crouch if dashing or in air
-            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isInAir" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
-                if entity:GetTagByName( "isCrouch" ) == 0 then
+            if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isInAir" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
+                if entity:GetTagByName( "isCrouch" ) == "0" then
                     entity:AddTag( "isCrouch" )
                     box2d = MakeCrouch( entity, box2d )
                 end
                 velX = crouchSpeed
-            elseif entity:GetTagByName( "isCrouch" ) == 1 then
+            elseif entity:GetTagByName( "isCrouch" ) == "1" then
                 entity:RemoveTag( "isCrouch" )
                 box2d = MakeNormal( entity, box2d )
             end
-        elseif entity:GetTagByName( "isCrouch" ) == 1 then
+        elseif entity:GetTagByName( "isCrouch" ) == "1" then
             entity:RemoveTag( "isCrouch" )
             box2d = MakeNormal( entity, box2d )
         end
-            
+
         --dash
         if( GetObjectIndexInTable( userinput.mActions, "dash" ) > -1 ) then
-            if entity:GetTagByName( "isDead" ) == 0 then
+            if entity:GetTagByName( "isDead" ) == "0" then
                 entity:AddTag( "isDashing" )
                 velX = dashSpeed
                 velY = 0.0
-            elseif entity:GetTagByName( "isDashing" ) == 1 then --TODO make it move a certain time
+            elseif entity:GetTagByName( "isDashing" ) == "1" then --TODO make it move a certain time
                 entity:RemoveTag( "isDashing" )
             end
-        elseif entity:GetTagByName( "isDashing" ) == 1 then --TODO make it move a certain time
+        elseif entity:GetTagByName( "isDashing" ) == "1" then --TODO make it move a certain time
             entity:RemoveTag( "isDashing" )
         end
 
         --jump
         if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1 ) then
-            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isInAir" ) == 0 and entity:GetTagByName( "isCrouch" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
+            if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isInAir" ) == "0" and entity:GetTagByName( "isCrouch" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 velY = -400
                 entity:AddTag( "isInAir" )
             end
@@ -135,20 +135,20 @@ function HeroController:Update( iDT )
         end
 
         -- Left vs Right
-        if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 or entity:GetTagByName( "isAutoRun" ) == 1 ) then
+        if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 or entity:GetTagByName( "isAutoRun" ) == "1" ) then
             direction.mDirectionH = "right";
-            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
+            if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 entity:AddTag( "isMoving" )
                 direction.mDirectionH = "right";
             end
         elseif( GetObjectIndexInTable( userinput.mActions, "moveleft" ) > -1 ) then
-            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
+            if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 entity:AddTag( "isMoving" )
                 direction.mDirectionH = "left";
             end
         else
             entity:RemoveTag( "isMoving" )
-            if entity:GetTagByName( "isDashing" ) == 0 then
+            if entity:GetTagByName( "isDashing" ) == "0" then
                 velX = 0.0
             end
         end
@@ -157,7 +157,7 @@ function HeroController:Update( iDT )
             velX = -velX
         end
 
-        if( entity:GetTagByName( "isDead" ) == 1 ) then
+        if( entity:GetTagByName( "isDead" ) == "1" ) then
             velX = 0.0
             velY = 0.0
         end
@@ -166,19 +166,19 @@ function HeroController:Update( iDT )
 
         ---------------------------------------------------------------------------Animations
 
-        if( entity:GetTagByName( "isDead" ) == 1 ) then
+        if( entity:GetTagByName( "isDead" ) == "1" ) then
             animations.mCurrentAnimationIndex = "death"
-        elseif entity:GetTagByName( "isDashing" ) == 1 then
+        elseif entity:GetTagByName( "isDashing" ) == "1" then
             animations.mCurrentAnimationIndex = "dash"
-        elseif entity:GetTagByName( "isInAir" ) == 1 then
+        elseif entity:GetTagByName( "isInAir" ) == "1" then
             animations.mCurrentAnimationIndex = "fall" --TODO: use jump/fall/land
-        elseif entity:GetTagByName( "isCrouch" ) == 1 then
-            if entity:GetTagByName( "isMoving" ) == 1 then
+        elseif entity:GetTagByName( "isCrouch" ) == "1" then
+            if entity:GetTagByName( "isMoving" ) == "1" then
                 animations.mCurrentAnimationIndex = "crawl"
             else
                 animations.mCurrentAnimationIndex = "crouch"
             end
-        elseif entity:GetTagByName( "isMoving" ) == 1 then
+        elseif entity:GetTagByName( "isMoving" ) == "1" then
             animations.mCurrentAnimationIndex = "move"
         else
             animations.mCurrentAnimationIndex = "idle"

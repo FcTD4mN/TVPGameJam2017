@@ -95,7 +95,7 @@ end
 
 function  Entity:AddTag( iTag )
 
-    self.mTags[ iTag ] = 1
+    self.mTags[ iTag ] = "1"
     -- Update systems observers/ groups
 
 end
@@ -103,7 +103,7 @@ end
 
 function  Entity:RemoveTag( iTag )
 
-    self.mTags[ iTag ] = 0
+    self.mTags[ iTag ] = "0"
 
 end
 
@@ -111,7 +111,7 @@ end
 function  Entity:GetTagByName( iTagName )
 
     if not self.mTags[ iTagName ] then
-        return  0        
+        return  "0"
     end
     return  self.mTags[ iTagName ]
 

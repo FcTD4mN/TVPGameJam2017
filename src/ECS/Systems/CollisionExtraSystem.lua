@@ -4,13 +4,22 @@ local DeadBody   = require 'src/ECS/Factory/DeadBody'
 
 function  Collision( iEntityA, iEntityB )
 
+    local iEA = iEntityA
+    local iEB = iEntityB
+
     -- Collision Killable/Killer
-    if iEntityA.Type() == "Entity" and iEntityB.Type() == "Entity" then
+    if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
 
-        if iEntityA:GetComponentByName( "killable" ) ~= nil and iEntityB:GetTagByName( "canKill" ) == 1 then
+        if iEB:GetComponentByName( "killable" ) ~= nil and iEA:GetTagByName( "canKill" ) == "1 "then
+            iEA = iEntityB
+            iEB = iEntityA
+        end
 
-            local  killable = iEntityA:GetComponentByName( "killable" )
-            local  box2d    = iEntityA:GetComponentByName( "box2d" )
+
+        if iEA:GetComponentByName( "killable" ) ~= nil and iEB:GetTagByName( "canKill" ) == "1" then
+
+            local  killable = iEA:GetComponentByName( "killable" )
+            local  box2d    = iEA:GetComponentByName( "box2d" )
 
             ECSWorld:AddEntity( DeadBody:New( gWorld, box2d.mBody:getX() - box2d.mBodyW/2 - 70, box2d.mBody:getY() - box2d.mBodyH/2 - 30 ) )
 
@@ -18,14 +27,14 @@ function  Collision( iEntityA, iEntityB )
             box2d.mBody:setX( 0 )
             box2d.mBody:setY( 100 )
 
-            iEntityA:RemoveTag( "isAutoRun" )
-            iEntityA:RemoveTag( "isInAir" )
-            iEntityA:RemoveTag( "isDead" )
-            iEntityA:RemoveTag( "isDashing" )
-            iEntityA:RemoveTag( "isMoving" )
-            iEntityA:RemoveTag( "isCrouch" )
-            iEntityA:RemoveTag( "didDoubleJump" )
-            iEntityA:RemoveTag( "didTripleJump" )
+            iEA:RemoveTag( "isAutoRun" )
+            iEA:RemoveTag( "isInAir" )
+            iEA:RemoveTag( "isDead" )
+            iEA:RemoveTag( "isDashing" )
+            iEA:RemoveTag( "isMoving" )
+            iEA:RemoveTag( "isCrouch" )
+            iEA:RemoveTag( "didDoubleJump" )
+            iEA:RemoveTag( "didTripleJump" )
 
             Shortcuts:Iterate()
         end

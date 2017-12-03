@@ -4,7 +4,9 @@ Shortcuts = {
 
     mShortcutTable = {};
     mModelShortcutTable = {};
-    mIteration = 1;
+    mModelShortcutTableINDEXER = {};
+    mIteration = 2;
+    mMaxShortcut = 0
 }
 
 
@@ -69,16 +71,21 @@ function  Shortcuts.Load( iFilePath )
 
     local shortcuts = io.open( filePath ):read( '*all' )
     local shortcutsSplit = SplitString( shortcuts, "\n" )
+    local counter = 1
 
     for k,v in pairs( shortcutsSplit ) do
 
         local subSplit = SplitString( v, ":" )
-        Shortcuts.Register( subSplit[ 1 ], subSplit[ 2 ] )
+        Shortcuts.Register( subSplit[ 1 ], subSplit[ 2 ], counter )
+        counter = counter + 1
     end
+
+    Shortcuts.mMaxShortcut = counter
 end
 
-function  Shortcuts.Register( action, key )
+function  Shortcuts.Register( action, key, iCounter )
         Shortcuts.mModelShortcutTable[ action ] = key
+        Shortcuts.mModelShortcutTableINDEXER[ iCounter ] = action
 end
 
 function  Shortcuts.Unregister( action, key )
@@ -92,23 +99,28 @@ function  Shortcuts.Cleanse()
 end
 
 function  Shortcuts.Iterate()
+
+    if( Shortcuts.mIteration >= Shortcuts.mMaxShortcut ) then
+        return;
+    end
+
+    local newAction = Shortcuts.mModelShortcutTableINDEXER[ Shortcuts.mIteration ]
+    Shortcuts.mShortcutTable[ newAction ] = Shortcuts.mModelShortcutTable[ newAction ]
+
     Shortcuts.mIteration = Shortcuts.mIteration + 1
-    Shortcuts.Sync()
+
 end
 
 function  Shortcuts.Sync()
-    local iteration = 1
-    print(  Shortcuts.mIteration  )
-    
-    for k,v in pairs( Shortcuts.mModelShortcutTable ) do
 
-        if iteration < Shortcuts.mIteration then
-            Shortcuts.mShortcutTable[ k ] = Shortcuts.mModelShortcutTable[k]
-        end
-        
-        iteration = iteration+1
+    for iteration = 1, Shortcuts.mIteration do
+
+        local newAction = Shortcuts.mModelShortcutTableINDEXER[ iteration ]
+        Shortcuts.mShortcutTable[ newAction ] = Shortcuts.mModelShortcutTable[ newAction ]
+
     end
 end
+
 
 
 return  Shortcuts
