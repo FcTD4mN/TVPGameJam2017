@@ -52,6 +52,8 @@ end
 
 function  AnimationRenderer:Draw( iCamera )
 
+    love.graphics.setColor( 255, 255, 255 )
+    
     for i = 1, #self.mEntityGroup do
 
         local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )

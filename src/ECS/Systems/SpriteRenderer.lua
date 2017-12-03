@@ -34,7 +34,7 @@ function  SpriteRenderer:Draw( iCamera )
 
         local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )
         local sprite = self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
-
+        love.graphics.setColor( 255, 255, 255 )
         local x, y = iCamera:MapToScreen( box2d.mBody:getX() - sprite.mImage:getWidth() / 2, box2d.mBody:getY() - sprite.mImage:getHeight() / 2 )
         --love.graphics.draw( sprite.mImage, box2d.mBody:getX() - sprite.mImage:getWidth() / 2, box2d.mBody:getY() - sprite.mImage:getHeight() / 2 )
         love.graphics.draw( sprite.mImage, x, y, 0, iCamera.mScale, iCamera.mScale )

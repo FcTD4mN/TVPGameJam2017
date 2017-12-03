@@ -228,6 +228,7 @@ function Level1:Draw( iCamera )
         end
     end
 
+    love.graphics.setColor(255,255,255,255);
     for i = 0, nAchievementsZozo -1, 1 do
         if( arrayAchievementsZozo[i].mOn == true ) then
             love.graphics.draw( arrayAchievementsZozo[i].mImageOn, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
