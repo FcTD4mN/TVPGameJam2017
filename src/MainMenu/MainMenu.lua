@@ -87,7 +87,12 @@ function  MainMenu:Initialize()
     back:SetCallback( function() MainMenu.currentPage = 1 end )
 
     -- Sounds
-    back:SetSound( love.audio.newSource( "resources/Audio/FXSound/Retour.mp3", "static" ) )
+    -- back:SetSound( love.audio.newSource( "resources/Audio/FXSound/Retour.mp3", "static" ) )
+    zozoStart = love.audio.newSource( "resources/Audio/Ko-Pain/MenuMusicBeginning.mp3", "static" )
+    zozoLoop = love.audio.newSource( "resources/Audio/Ko-Pain/MenuMusicLoop.mp3", "static" )
+
+    zozoLoop:setLooping( true )
+    love.audio.play( zozoLoop )
 
     -- Item building
     optionPage = MenuPage:New()
@@ -136,6 +141,20 @@ function  MainMenu:Initialize()
     imageZozo = love.graphics.newImage( "resources/Animation/Characters/Dummy/Dancing3.png" )
     animZozo = Animation:New( imageZozo, 0, 0, 30000/60, 506, 0, 60, 24, false, false )
     animZozo:Play( 0 )
+
+    runZozo = love.graphics.newImage( "resources/Animation/Characters/Dummy/run.png" )
+    animrunZozo = Animation:New( runZozo, 0, 0, 2600/13, 169, 0, 13, 24, false, false )
+    animrunZozo:Play( 0 )
+
+    nDummies = 25
+    dummies = {}
+    math.randomseed( os.time() )
+    for i=1, nDummies do
+      dummies[i] = {}
+      dummies[i].mx = math.random() * love.graphics.getWidth()
+      dummies[i].mspeed = math.random() * 6 + 6
+    end
+
 end
 
 function  MainMenu:AddPage( iPage )
@@ -144,7 +163,19 @@ end
 
 function MainMenu:Update( iDT )
     animZozo:Update( iDT, 0, 0, 30000/60, 506, 0 )
+    animrunZozo:Update( iDT, 0, 0, 2600/13, 169, 0 )
     self:HighlightItemUnderMouse()
+    for i=1, nDummies do
+      dummies[i].mx = dummies[i].mx + dummies[i].mspeed;
+      if dummies[i].mx > love.graphics.getWidth() + 2600/13 then
+        dummies[i].mx = - (2600/13) + math.random() * 200
+      end
+    end
+    
+    --nDummies = nDummies + 1
+    --dummies[nDummies] = {}
+    --dummies[nDummies].mx = - (2600/13)
+    --dummies[nDummies].mspeed = math.random() * 6 + 6
 end
 
 function MainMenu:HighlightItemUnderMouse()
@@ -152,14 +183,17 @@ function MainMenu:HighlightItemUnderMouse()
 end
 
 function MainMenu:Draw()
-    love.graphics.setColor( 200, 200, 200, 255 )
+    love.graphics.setColor( 255, 255, 255, 255 )
     love.graphics.draw( imageBG, 2 * love.graphics.getWidth() / 3 - imageBG:getWidth() /2, love.graphics.getHeight() / 2 - imageBG:getHeight() /2 )
     love.graphics.draw( imageLOGO, love.graphics.getWidth() / 3 + love.graphics.getWidth() / 3 - imageLOGO:getWidth()/2 , love.graphics.getHeight() / 3 - imageLOGO:getHeight()/2 )
 
 
     self.menuPages[ self.currentPage ]:Draw()
 
-    animZozo:Draw( camZozo, 0, 0 )
+    animZozo:Draw( camZozo, 50, love.graphics.getHeight() / 2 + imageBG:getHeight() / 2 - imageZozo:getHeight() )
+    for i=1, nDummies do
+      animrunZozo:Draw( camZozo, dummies[i].mx, love.graphics.getHeight() / 2 + imageBG:getHeight() / 2 - runZozo:getHeight() + 20 )
+    end
 end
 
 

@@ -60,7 +60,7 @@ end
 
 function Manager:Draw()
     love.graphics.setColor(255,255,255,255);
-    love.graphics.clear( 200, 200, 200, 255 )
+    love.graphics.clear( 0, 0, 0, 255 )
     Manager.screens[ #Manager.screens ]:Draw();
 end
 
