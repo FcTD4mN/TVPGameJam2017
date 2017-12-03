@@ -85,13 +85,14 @@ function  Level1:InitializeECS()
     self.mHero:AddComponent( box2DComponent )
 
     --TODO: hitbox system to know if we re in the air
-    self.mHero:AddTag( "isIdle" )
     self.mHero:AddTag( "isAutoRun" )
     --self.mHero:AddTag( "isDashing" )
     --self.mHero:AddTag( "isMoving" )
     --self.mHero:AddTag( "isInAir" ) -- true => fall, dash     false => jump, idle, move, land, crouch, crawl, dash
     --self.mHero:AddTag( "isCrouch" )
     --self.mHero:AddTag( "isDead" )
+    --self.mHero:AddTag( "didDoubleJump" )
+    --self.mHero:AddTag( "didTripleJump" )
 
     ECSWorld:AddEntity( self.mHero )
     ECSWorld:AddEntity( Spike:New( self.mWorld, 200, 150 ) )

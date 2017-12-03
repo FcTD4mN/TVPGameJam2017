@@ -109,6 +109,31 @@ function HeroController:Update( iDT )
             end
         end
 
+        if( GetObjectIndexInTable( userinput.mActions, "doublejump" ) > -1 ) then
+            if entity:GetTagByName( "isDead" ) == 0 and
+               entity:GetTagByName( "isInAir" ) == 1 and
+               entity:GetTagByName( "isCrouch" ) == 0 and
+               entity:GetTagByName( "isDashing" ) == 0 and
+               entity:GetTagByName( "didDoubleJump" ) == 0
+               then
+                velY = -400
+                entity:AddTag( "didDoubleJump" )
+            end
+        end
+
+        if( GetObjectIndexInTable( userinput.mActions, "triplejump" ) > -1 ) then
+            if entity:GetTagByName( "isDead" ) == 0 and
+               entity:GetTagByName( "isInAir" ) == 1 and
+               entity:GetTagByName( "isCrouch" ) == 0 and
+               entity:GetTagByName( "isDashing" ) == 0 and
+               entity:GetTagByName( "didDoubleJump" ) == 1 and
+               entity:GetTagByName( "didTripleJump" ) == 0
+               then
+                velY = -400
+                entity:AddTag( "didTripleJump" )
+            end
+        end
+
         -- Left vs Right
         if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 or entity:GetTagByName( "isAutoRun" ) == 1 ) then
             direction.mDirectionH = "right";

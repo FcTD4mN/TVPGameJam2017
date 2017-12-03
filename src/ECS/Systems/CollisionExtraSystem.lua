@@ -24,6 +24,8 @@ function  Collision( iEntityA, iEntityB )
             iEntityA:RemoveTag( "isDashing" )
             iEntityA:RemoveTag( "isMoving" )
             iEntityA:RemoveTag( "isCrouch" )
+            iEntityA:RemoveTag( "didDoubleJump" )
+            iEntityA:RemoveTag( "didTripleJump" )
 
             Shortcuts:Iterate()
         end
@@ -33,6 +35,8 @@ function  Collision( iEntityA, iEntityB )
     -- Collision Entity/Terrain to set the jump flag
     if( iEntityA.Type() == "Entity" ) then
         iEntityA:RemoveTag( "isInAir" )
+        iEntityA:RemoveTag( "didDoubleJump" )
+        iEntityA:RemoveTag( "didTripleJump" )
     end
 
 end
