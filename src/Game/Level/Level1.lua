@@ -44,6 +44,7 @@ function Level1:NewFromXML( iWorld )
     -- local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml'):read('*all')
     local doc = SLAXML:dom( xml )
     newLevel1:LoadLevelBaseECSXML( doc.root, iWorld )
+    gWorld = iWorld
 
     -- BACKGROUNDS
 
