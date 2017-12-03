@@ -18,13 +18,38 @@ function HeroController:Requirements()
     local requirements = {}
     table.insert( requirements, "userinput" )
     table.insert( requirements, "direction" )
-    table.insert( requirements, "state" )
     table.insert( requirements, "box2d" )
+    table.insert( requirements, "animations" )
 
     return  unpack( requirements )
 
 end
 
+function MakeCrouch( iEntity, iBox2d )
+    local box2DComponent = BasicComponents:NewBox2DComponent( iBox2d.mBody:getWorld(), iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 + iBox2d.mBodyH / 2, 45, iBox2d.mBodyH / 2, "dynamic", true, 1 )
+    local stickyShape    = love.physics.newRectangleShape( box2DComponent.mBodyW, box2DComponent.mBodyH )
+    local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( iEntity )
+    iEntity:RemoveComponentByName( "box2d" )
+    iEntity:AddComponent( box2DComponent )
+    iBox2d.mBody:destroy()
+
+    return box2DComponent
+end
+
+function MakeNormal( iEntity, iBox2d )
+    local box2DComponent = BasicComponents:NewBox2DComponent( iBox2d.mBody:getWorld(), iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 - iBox2d.mBodyH / 2, 45, iBox2d.mBodyH * 2, "dynamic", true, 1 )
+    local stickyShape    = love.physics.newRectangleShape( box2DComponent.mBodyW, box2DComponent.mBodyH )
+    local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
+    fixture:setFriction( 1.0 )
+    fixture:setUserData( iEntity )
+    iEntity:RemoveComponentByName( "box2d" )
+    iEntity:AddComponent( box2DComponent )
+    iBox2d.mBody:destroy()
+
+    return box2DComponent
+end
 
 function HeroController:Update( iDT )
 
@@ -32,53 +57,107 @@ function HeroController:Update( iDT )
 
         local entity = self.mEntityGroup[ i ]
         local userinput = entity:GetComponentByName( "userinput" )
-        local direction     = entity:GetComponentByName( "direction" )
-        local state     = entity:GetComponentByName( "state" )
+        local direction = entity:GetComponentByName( "direction" )
         local box2d     = entity:GetComponentByName( "box2d" )
+        local animations= entity:GetComponentByName( "animations" )
 
         local velX = 0.0
         local velY = 0.0
+        vX, velY = box2d.mBody:getLinearVelocity()
+        local crouchSpeed = 150;
+        local normalSpeed = 300;
+        local dashSpeed = 600;
 
-        vx, velY = box2d.mBody:getLinearVelocity()
+        velX = normalSpeed
 
-        if entity:GetTagByName( "isJumping" ) == 0 then
-            state.mState = "idle"
+        --crouch
+        if( GetObjectIndexInTable( userinput.mActions, "crouch" ) > -1 ) then
+            --Not allowing crouch if dashing or in air
+            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isInAir" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
+                if entity:GetTagByName( "isCrouch" ) == 0 then
+                    entity:AddTag( "isCrouch" )
+                    box2d = MakeCrouch( entity, box2d )
+                end
+                velX = crouchSpeed
+            elseif entity:GetTagByName( "isCrouch" ) == 1 then
+                entity:RemoveTag( "isCrouch" )
+                box2d = MakeNormal( entity, box2d )
+            end
+        elseif entity:GetTagByName( "isCrouch" ) == 1 then
+            entity:RemoveTag( "isCrouch" )
+            box2d = MakeNormal( entity, box2d )
+        end
+            
+        --dash
+        if( GetObjectIndexInTable( userinput.mActions, "dash" ) > -1 ) then
+            if entity:GetTagByName( "isDead" ) == 0 then
+                entity:AddTag( "isDashing" )
+                velX = dashSpeed
+                velY = 0.0
+            elseif entity:GetTagByName( "isDashing" ) == 1 then --TODO make it move a certain time
+                entity:RemoveTag( "isDashing" )
+            end
+        elseif entity:GetTagByName( "isDashing" ) == 1 then --TODO make it move a certain time
+            entity:RemoveTag( "isDashing" )
         end
 
-        if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 ) then
-            velX = velX + 300
+        --jump
+        if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1 ) then
+            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isInAir" ) == 0 and entity:GetTagByName( "isCrouch" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
+                velY = -400
+                entity:AddTag( "isInAir" )
+            end
+        end
 
+        -- Left vs Right
+        if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 or entity:GetTagByName( "isAutoRun" ) == 1 ) then
             direction.mDirectionH = "right";
-            if entity:GetTagByName( "isJumping" ) == 0 then
-                state.mState = "move"
+            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
+                entity:AddTag( "isMoving" )
+                direction.mDirectionH = "right";
+            end
+        elseif( GetObjectIndexInTable( userinput.mActions, "moveleft" ) > -1 ) then
+            if entity:GetTagByName( "isDead" ) == 0 and entity:GetTagByName( "isDashing" ) == 0 then
+                entity:AddTag( "isMoving" )
+                direction.mDirectionH = "left";
+            end
+        else
+            entity:RemoveTag( "isMoving" )
+            if entity:GetTagByName( "isDashing" ) == 0 then
+                velX = 0.0
             end
         end
 
-        if( GetObjectIndexInTable( userinput.mActions, "moveleft" ) > -1 ) then
-            velX = velX - 300
-            direction.mDirectionH = "left";
-            if entity:GetTagByName( "isJumping" ) == 0 then
-                state.mState = "move"
-            end
+        if direction.mDirectionH == "left" then
+            velX = -velX
         end
 
-        if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1
-            and entity:GetTagByName( "canJump" ) == 1
-            and entity:GetTagByName( "isJumping" ) == 0 ) then
-
-            entity:AddTag( "isJumping" )
-            velY = velY - 400
-
-            state.mState = "jump"
-        end
-
-        if( entity:GetTagByName( "autoRun" ) == 1 ) then
-
-            velX = 300
-
+        if( entity:GetTagByName( "isDead" ) == 1 ) then
+            velX = 0.0
+            velY = 0.0
         end
 
         box2d.mBody:setLinearVelocity( velX, velY )
+
+        ---------------------------------------------------------------------------Animations
+
+        if( entity:GetTagByName( "isDead" ) == 1 ) then
+            animations.mCurrentAnimationIndex = "death"
+        elseif entity:GetTagByName( "isDashing" ) == 1 then
+            animations.mCurrentAnimationIndex = "dash"
+        elseif entity:GetTagByName( "isInAir" ) == 1 then
+            animations.mCurrentAnimationIndex = "fall" --TODO: use jump/fall/land
+        elseif entity:GetTagByName( "isCrouch" ) == 1 then
+            if entity:GetTagByName( "isMoving" ) == 1 then
+                animations.mCurrentAnimationIndex = "crawl"
+            else
+                animations.mCurrentAnimationIndex = "crouch"
+            end
+        elseif entity:GetTagByName( "isMoving" ) == 1 then
+            animations.mCurrentAnimationIndex = "move"
+        else
+            animations.mCurrentAnimationIndex = "idle"
+        end
     end
 end
 

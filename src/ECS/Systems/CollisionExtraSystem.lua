@@ -18,7 +18,13 @@ function  Collision( iEntityA, iEntityB )
             box2d.mBody:setX( 0 )
             box2d.mBody:setY( 100 )
 
-            iEntityA:RemoveTag( "autoRun" )
+            iEntityA:RemoveTag( "isAutoRun" )
+            iEntityA:RemoveTag( "isInAir" )
+            iEntityA:RemoveTag( "isDead" )
+            iEntityA:RemoveTag( "isDashing" )
+            iEntityA:RemoveTag( "isMoving" )
+            iEntityA:RemoveTag( "isCrouch" )
+
             Shortcuts:Iterate()
         end
 
@@ -26,13 +32,7 @@ function  Collision( iEntityA, iEntityB )
 
     -- Collision Entity/Terrain to set the jump flag
     if( iEntityA.Type() == "Entity" ) then
-
-        if( iEntityA:GetTagByName( "canJump" ) == 1 ) then
-
-            iEntityA:RemoveTag( "isJumping" )
-
-        end
-
+        iEntityA:RemoveTag( "isInAir" )
     end
 
 end

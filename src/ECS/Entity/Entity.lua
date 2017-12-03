@@ -110,6 +110,9 @@ end
 
 function  Entity:GetTagByName( iTagName )
 
+    if not self.mTags[ iTagName ] then
+        return  0        
+    end
     return  self.mTags[ iTagName ]
 
 end

@@ -1,95 +1,95 @@
 <level>
 <terrain>
 <body type='static' x1='0' y1='0' gravity='1' fixedrotation='true'  >
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='9550' y1='680' x2='9600' y2='350'  />
+<fixture friction='0.20000000298023' sensor='false' >
+<shape type='edge' x1='-9.1049871444702' y1='263.43487548828' x2='600' y2='325'  />
 </fixture>
 <fixture friction='1' sensor='false' >
-<shape type='edge' x1='7880.0004882813' y1='700' x2='9550' y2='680'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='7650' y1='680' x2='7880.0004882813' y2='700'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='5600' y1='700' x2='7650' y2='680'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='5600' y1='660' x2='5600' y2='700'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='5300' y1='715' x2='5600' y2='660'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='5100' y1='700' x2='5300' y2='715'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='2029.9998779297' y1='700' x2='5100' y2='700'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='1460' y1='700' x2='2029.9998779297' y2='700'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='730' y1='650' x2='1460' y2='700'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='499.99996948242' y1='675' x2='730' y2='650'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='0' y1='675' x2='499.99996948242' y2='675'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='9600' y1='345' x2='9600' y2='0'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='8110.0004882813' y1='390' x2='9600' y2='345'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='7690.0004882813' y1='310' x2='8110.0004882813' y2='390'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='6800' y1='330' x2='7690.0004882813' y2='310'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='6115' y1='360' x2='6800' y2='330'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='5110' y1='360' x2='6115' y2='360'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='4715' y1='310' x2='5110' y2='360'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='4400' y1='360' x2='4715' y2='310'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='3370' y1='330' x2='3900' y2='330'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='2900' y1='365' x2='3370' y2='330'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='2180' y1='365' x2='2900' y2='365'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='1979.9997558594' y1='320' x2='2180' y2='365'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='1790' y1='320' x2='1979.9997558594' y2='320'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='1640' y1='375' x2='1790' y2='320'  />
-</fixture>
-<fixture friction='1' sensor='false' >
-<shape type='edge' x1='1250' y1='300' x2='1640' y2='375'  />
+<shape type='edge' x1='600' y1='325' x2='999.99993896484' y2='300'  />
 </fixture>
 <fixture friction='1' sensor='false' >
 <shape type='edge' x1='999.99993896484' y1='300' x2='1250' y2='300'  />
 </fixture>
 <fixture friction='1' sensor='false' >
-<shape type='edge' x1='600' y1='325' x2='999.99993896484' y2='300'  />
+<shape type='edge' x1='1250' y1='300' x2='1640' y2='375'  />
 </fixture>
-<fixture friction='0.20000000298023' sensor='false' >
-<shape type='edge' x1='-9.1049871444702' y1='263.43487548828' x2='600' y2='325'  />
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='1640' y1='375' x2='1790' y2='320'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='1790' y1='320' x2='1979.9997558594' y2='320'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='1979.9997558594' y1='320' x2='2180' y2='365'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='2180' y1='365' x2='2900' y2='365'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='2900' y1='365' x2='3370' y2='330'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='3370' y1='330' x2='3900' y2='330'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='4400' y1='360' x2='4715' y2='310'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='4715' y1='310' x2='5110' y2='360'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='5110' y1='360' x2='6115' y2='360'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='6115' y1='360' x2='6800' y2='330'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='6800' y1='330' x2='7690.0004882813' y2='310'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='7690.0004882813' y1='310' x2='8110.0004882813' y2='390'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='8110.0004882813' y1='390' x2='9600' y2='345'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='9600' y1='345' x2='9600' y2='0'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='0' y1='675' x2='499.99996948242' y2='675'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='499.99996948242' y1='675' x2='730' y2='650'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='730' y1='650' x2='1460' y2='700'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='1460' y1='700' x2='2029.9998779297' y2='700'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='2029.9998779297' y1='700' x2='5100' y2='700'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='5100' y1='700' x2='5300' y2='715'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='5300' y1='715' x2='5600' y2='660'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='5600' y1='660' x2='5600' y2='700'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='5600' y1='700' x2='7650' y2='680'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='7650' y1='680' x2='7880.0004882813' y2='700'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='7880.0004882813' y1='700' x2='9550' y2='680'  />
+</fixture>
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='9550' y1='680' x2='9600' y2='350'  />
 </fixture>
 </body>
 </terrain>
@@ -118,9 +118,9 @@
 <tags>
 </tags>
 <components>
-<component name='spike'  >
-</component>
 <component name='box2d' bodyx='558.41583251953' bodyy='417.42575073242' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+</component>
+<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -130,7 +130,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='999.01190185547' bodyy='299.60388183594' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='932.67510986328' bodyy='226.33668518066' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='50' y1='-50' x3='50' y3='50' x5='-50' y5='50' x7='-50' y7='-50'  />
 </fixture>
@@ -141,12 +141,12 @@
 <tags>
 </tags>
 <components>
-<component name='box2d' bodyx='1000.9896240234' bodyy='400.59408569336' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+<component name='spike'  >
+</component>
+<component name='box2d' bodyx='788.11810302734' bodyy='408.51486206055' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='50' y1='-50' x3='50' y3='50' x5='-50' y5='50' x7='-50' y7='-50'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>

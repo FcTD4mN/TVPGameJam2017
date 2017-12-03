@@ -36,25 +36,26 @@ function  BasicComponents:NewSimpleSprite( iFileName )
 end
 
 
-function  BasicComponents:NewAnimationsComponent( iAnimations )
+function  BasicComponents:NewAnimationsComponent( iAnimations, iDefaultAnimationIndex )
 
     local  newAnimations = {}
     newAnimations.mName = "animations"
     newAnimations.mAnimations = iAnimations
-
+    newAnimations.mDefaultAnimationIndex = iDefaultAnimationIndex
+    newAnimations.mCurrentAnimationIndex = iDefaultAnimationIndex
 
     return  newAnimations
 
 end
 
 
-function  BasicComponents:NewStateComponent( iState )
+function  BasicComponents:NewStateComponent( iState, iStateTransitions )
 
     local  newState = {}
     newState.mName = "state"
     newState.mState = iState
-
-
+    newState.mAllowedTransitions = iStateTransitions
+    
     return  newState
 
 end
@@ -159,7 +160,7 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
     elseif iComponent.mName == "animations" then
         local animations = {}
         xmlData = xmlData .. " >\n"
-        xmlData = xmlData .. "<animations>\n"
+        xmlData = xmlData .. "<animations default='"..iComponent.mDefaultAnimationIndex.."' >\n"
         for i = 1, #iComponent.mAnimations do
             xmlData =   xmlData .. "<animation "
             xmlData =   xmlData .. "name='" .. iComponent.mAnimations[i].mName .. "' " ..
@@ -193,6 +194,14 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
                     "state='" .. iComponent.mState .. "' " ..
                     " >\n"
+        for k1,v1 in pairs(iComponent.mAllowedTransitions) do
+            xmlData =   xmlData .. "<allowedtransitions '"
+            xmlData =   xmlData .. "state='" .. k1 .. "' "
+            for k2,v2 in pairs(iComponent.mAllowedTransitions[k1]) do
+                xmlData =   xmlData .. "state" .. k2 .."='" .. v2 .. "' "
+            end
+            xmlData =   xmlData .. " />\n"
+        end 
         xmlData = xmlData .. "</component>\n"
     elseif iComponent.mName == "direction" then
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
@@ -246,12 +255,20 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
         return  BasicComponents:NewSimpleSprite( iNode.attr[2].value )
     elseif name == "animations" then
         local animations = {}
+        local default = iNode.attr[1].value
         for i = 1, #iNode.el[1].el do
             animations[i] = Animation:New( iNode.el[1].el[i].attr[1].value, iNode.el[1].el[i].attr[2].value, iNode.el[1].el[i].attr[3].value, iNode.el[1].el[i].attr[4].value == "true", iNode.el[1].el[i].attr[5].value == "true", iNode.el[1].el[i].attr[6].value == "true" )
         end
-        return  BasicComponents:NewAnimationsComponent( animations )
+        return  BasicComponents:NewAnimationsComponent( animations, default )        
     elseif name == "state" then
-        return  BasicComponents:NewStateComponent( iNode.attr[2].value )
+        local allowedTransitions = {}
+        for i = 1, #iNode.el do
+            allowedTransitions[ iNode.el[i].attr[1] ] = {}
+            for j = 2, #iNode.el[i].attr do
+                allowedTransitions[ iNode.el[i].attr[1] ][j] = iNode.el[i].attr[j].value
+            end
+        end
+        return  BasicComponents:NewStateComponent( iNode.attr[2].value, allowedTransitions )        
     elseif name == "direction" then
         return  BasicComponents:NewDirectionComponent( iNode.attr[2].value, iNode.attr[3].value )
     elseif name == "userinput" then

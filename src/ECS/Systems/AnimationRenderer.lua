@@ -18,7 +18,6 @@ function AnimationRenderer:Requirements()
 
     local requirements = {}
     table.insert( requirements, "box2d" )
-    table.insert( requirements, "state" )
     table.insert( requirements, "animations" )
 
     return  unpack( requirements )
@@ -29,10 +28,9 @@ end
 function AnimationRenderer:Update( iDT )
     --does nothing
     for i = 1, #self.mEntityGroup do
-        local state = self.mEntityGroup[ i ]:GetComponentByName( "state" )
         local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animations" )
 
-        local animation = animationComponent.mAnimations[ state.mState ]
+        local animation = animationComponent.mAnimations[ animationComponent.mCurrentAnimationIndex ]
         if animation then
             if not animation.mIsPaused then
                 animation.mTime = animation.mTime + iDT
@@ -57,11 +55,10 @@ function  AnimationRenderer:Draw( iCamera )
     for i = 1, #self.mEntityGroup do
 
         local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )
-        local state = self.mEntityGroup[ i ]:GetComponentByName( "state" )
         local direction = self.mEntityGroup[ i ]:GetComponentByName( "direction" )
         local animationComponent = self.mEntityGroup[ i ]:GetComponentByName( "animations" )
 
-        local animation = animationComponent.mAnimations[ state.mState ]
+        local animation = animationComponent.mAnimations[ animationComponent.mCurrentAnimationIndex ]
         if animation then
             local x, y = iCamera:MapToScreen( box2d.mBody:getX() - animation.mQuadW / 2, box2d.mBody:getY() - animation.mQuadH / 2 )
 
