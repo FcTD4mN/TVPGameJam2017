@@ -243,13 +243,16 @@ end
 
 function  Level1:UpdateCamera()
 
+    -- fix
+    self.mCamera.mW = love.graphics.getWidth()
+    self.mCamera.mH = love.graphics.getHeight()
     if self.mHero ~= nil then
 
         self.mCamera.mX = self.mCamera.mX  + ( targetx - self.mCamera.mX ) / cameraSmooth
         self.mCamera.mY = self.mCamera.mY  + ( targety - self.mCamera.mY ) / cameraSmooth
 
         targetx = self.mHero:GetComponentByName( "box2d" ).mBody:getX() - self.mCamera.mW / 2
-        targety = ( self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH / 2 ) * 0.3
+        targety = ( self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH * 2/3 )
     end
 
 end
