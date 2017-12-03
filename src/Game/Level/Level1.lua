@@ -16,6 +16,7 @@ local Singe                 = require "src/Objects/Heros/Singe"
 local Terrain               = require "src/Objects/Terrain"
 local Tree                  = require "src/Objects/Environnement/Tree"
 local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
+Shortcuts = require "src/Application/Shortcuts"
 
 
 --TESTS
@@ -51,6 +52,35 @@ function Level1:NewFromXML( iWorld )
     newLevel1:InitializeECS();
 
     bgZozo = love.graphics.newImage( "resources/Images/BGGRID.png" )
+    nAchievementsZozo = 6
+    sizeAchievementsZozo = 100
+    paddingAchievementsZozo = 10
+    scaleAchievementZozo = 0.5
+    arrayAchievementsZozo = {}
+    arrayAchievementsZozo[0] = {}
+    arrayAchievementsZozo[0].mOn = false;
+    arrayAchievementsZozo[0].mImageOn = love.graphics.newImage( "resources/Images/Controls/jump_enabled.png" );
+    arrayAchievementsZozo[0].mImageOff = love.graphics.newImage( "resources/Images/Controls/jump_disabled.png" );
+    arrayAchievementsZozo[1] = {}
+    arrayAchievementsZozo[1].mOn = false;
+    arrayAchievementsZozo[1].mImageOn = love.graphics.newImage( "resources/Images/Controls/right_enabled.png" );
+    arrayAchievementsZozo[1].mImageOff = love.graphics.newImage( "resources/Images/Controls/right_disabled.png" );
+    arrayAchievementsZozo[2] = {}
+    arrayAchievementsZozo[2].mOn = false;
+    arrayAchievementsZozo[2].mImageOn = love.graphics.newImage( "resources/Images/Controls/left_enabled.png" );
+    arrayAchievementsZozo[2].mImageOff = love.graphics.newImage( "resources/Images/Controls/left_disabled.png" );
+    arrayAchievementsZozo[3] = {}
+    arrayAchievementsZozo[3].mOn = false;
+    arrayAchievementsZozo[3].mImageOn = love.graphics.newImage( "resources/Images/Controls/crawl_enabled.png" );
+    arrayAchievementsZozo[3].mImageOff = love.graphics.newImage( "resources/Images/Controls/crawl_disabled.png" );
+    arrayAchievementsZozo[4] = {}
+    arrayAchievementsZozo[4].mOn = false;
+    arrayAchievementsZozo[4].mImageOn = love.graphics.newImage( "resources/Images/Controls/dash_enabled.png" );
+    arrayAchievementsZozo[4].mImageOff = love.graphics.newImage( "resources/Images/Controls/dash_disabled.png" );
+    arrayAchievementsZozo[5] = {}
+    arrayAchievementsZozo[5].mOn = false;
+    arrayAchievementsZozo[5].mImageOn = love.graphics.newImage( "resources/Images/Controls/doublejump_enabled.png" );
+    arrayAchievementsZozo[5].mImageOff = love.graphics.newImage( "resources/Images/Controls/doublejump_disabled.png" );
 
     return  newLevel1
 end
@@ -147,6 +177,20 @@ function Level1:Draw( iCamera )
     love.graphics.setColor(255,255,255,255);
 
     self:DrawBase( iCamera )
+
+    if( Shortcuts.mIteration-2 <= nAchievementsZozo-1 ) then
+        for i = 0, Shortcuts.mIteration-2, 1 do
+            arrayAchievementsZozo[i].mOn = true
+        end
+    end
+
+    for i = 0, nAchievementsZozo -1, 1 do
+        if( arrayAchievementsZozo[i].mOn == true ) then
+            love.graphics.draw( arrayAchievementsZozo[i].mImageOn, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
+        else
+            love.graphics.draw( arrayAchievementsZozo[i].mImageOff, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )            
+        end
+    end
 end
 
 -- ==========================================Level1 functions
