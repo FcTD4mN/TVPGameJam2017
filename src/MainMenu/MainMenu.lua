@@ -17,9 +17,14 @@ local MainMenu = {
 function  MainMenu:Initialize()
 
     local spaceBetItems = 50
-    music = love.audio.newSource( "resources/Audio/Music/DaRealMenu.mp3", "stream" )
-    music:setVolume( 0 )
-    music:setLooping( true )
+
+    -- Sounds
+    -- back:SetSound( love.audio.newSource( "resources/Audio/FXSound/Retour.mp3", "static" ) )
+    zozoStart = love.audio.newSource( "resources/Audio/Ko-Pain/MenuMusicBeginning.mp3", "static" )
+    zozoLoop = love.audio.newSource( "resources/Audio/Ko-Pain/MenuMusicLoop.mp3", "static" )
+
+    zozoLoop:setLooping( true )
+    love.audio.play( zozoLoop )
 
     -- ============================ MAIN MAIN ===============================
     y = 300
@@ -46,11 +51,11 @@ function  MainMenu:Initialize()
     newTest.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newTest.rectangle.w /2
 
     -- Callbacks
-    newGame:SetCallback(    function() Manager:PushScreen( GameScreen:New() ); love.audio.stop( music ); end )
+    newGame:SetCallback(    function() Manager:PushScreen( GameScreen:New() ); love.audio.stop( zozoLoop ); end )
     options:SetCallback(    function() MainMenu.currentPage = 2 end )
     quit:SetCallback(       function() love.event.quit() end )
-    newSandBox:SetCallback( function() Manager:PushScreen( EditorScreen:New() ); love.audio.stop( music ); end )
-    newTest:SetCallback( function() Manager:PushScreen( TestScreen:New() ); love.audio.stop( music ); end )
+    newSandBox:SetCallback( function() Manager:PushScreen( EditorScreen:New() ); love.audio.stop( zozoLoop ); end )
+    newTest:SetCallback( function() Manager:PushScreen( TestScreen:New() ); love.audio.stop( zozoLoop ); end )
 
     -- Sounds
     newGame:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
@@ -86,13 +91,6 @@ function  MainMenu:Initialize()
     video:SetCallback( function() MainMenu.currentPage = 3 end )
     back:SetCallback( function() MainMenu.currentPage = 1 end )
 
-    -- Sounds
-    -- back:SetSound( love.audio.newSource( "resources/Audio/FXSound/Retour.mp3", "static" ) )
-    zozoStart = love.audio.newSource( "resources/Audio/Ko-Pain/MenuMusicBeginning.mp3", "static" )
-    zozoLoop = love.audio.newSource( "resources/Audio/Ko-Pain/MenuMusicLoop.mp3", "static" )
-
-    zozoLoop:setLooping( true )
-    love.audio.play( zozoLoop )
 
     -- Item building
     optionPage = MenuPage:New()
@@ -130,8 +128,6 @@ function  MainMenu:Initialize()
     self:AddPage( videoOptions )
 
     -- ================================ END =================================
-
-    love.audio.play( music )
 
     --Menu Images
     imageBG = love.graphics.newImage( "resources/Images/Backgrounds/BGGRID2000.png" )
@@ -172,7 +168,7 @@ function MainMenu:Update( iDT )
         dummies[i].mx = - (2600/13) + math.random() * 200
       end
     end
-    
+
     --nDummies = nDummies + 1
     --dummies[nDummies] = {}
     --dummies[nDummies].mx = - (2600/13)
