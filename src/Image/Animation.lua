@@ -1,6 +1,6 @@
 local Animation = {}
 
-function Animation:New( iFileName, iImageCount, iFPS, iLoop, iFlipX, iFlipY )
+function Animation:New( iFileName, iImageCount, iFPS, iLoop, iFlipX, iFlipY, iMaxTime )
     local newAnimation = {}
     setmetatable( newAnimation, self )
     self.__index = self
@@ -19,6 +19,7 @@ function Animation:New( iFileName, iImageCount, iFPS, iLoop, iFlipX, iFlipY )
     newAnimation.mCurrentQuadIndex = 1
     newAnimation.mPlayEndCB = nil
     newAnimation.mPlayEndCBArguments = nil
+    newAnimation.mMaxTime = iMaxTime
     
     for i = 0, newAnimation.mImageCount - 1, 1 do
         newAnimation.mQuads[i+1] = love.graphics.newQuad( newAnimation.mQuadW * i, 0, newAnimation.mQuadW, newAnimation.mQuadH, newAnimation.mImage:getWidth(), newAnimation.mImage:getHeight() )

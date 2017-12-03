@@ -35,9 +35,9 @@ function AnimationRenderer:Update( iDT )
             if not animation.mIsPaused then
                 animation.mTime = animation.mTime + iDT
                 animation.mCurrentQuadIndex =  math.floor( animation.mTime * animation.mFPS ) % animation.mImageCount
-                if animation.mLoop then
+                if animation.mLoop and animation.mMaxTime and animation.mTime <= animation.mMaxTime then
                     animation.mCurrentQuadIndex = animation.mCurrentQuadIndex % ( animation.mImageCount )
-                elseif animation.mCurrentQuadIndex >= animation.mImageCount then
+                elseif ( animation.mMaxTime and animation.mTime > animation.mMaxTime ) or ( not animation.mMaxTime and animation.mCurrentQuadIndex >= animation.mImageCount ) then
                     animation.mIsPaused = true
                     if animation.mPlayEndCB then
                         animation.mPlayEndCB( animation.mPlayEndCBArguments )

@@ -51,6 +51,14 @@ function MakeNormal( iEntity, iBox2d )
     return box2DComponent
 end
 
+function SetAnimation( iAnimations, iIndex )
+    if iAnimations.mCurrentAnimationIndex ~= iIndex then
+        iAnimations.mCurrentAnimationIndex = iIndex
+        iAnimations.mAnimations[ iAnimations.mCurrentAnimationIndex ].mTime = 0
+        iAnimations.mAnimations[ iAnimations.mCurrentAnimationIndex ].mIsPaused = false
+    end
+end
+
 function HeroController:Update( iDT )
 
     for i = 1, #self.mEntityGroup do
@@ -167,21 +175,21 @@ function HeroController:Update( iDT )
         ---------------------------------------------------------------------------Animations
 
         if( entity:GetTagByName( "isDead" ) == "1" ) then
-            animations.mCurrentAnimationIndex = "death"
+            SetAnimation( animations, "death" )
         elseif entity:GetTagByName( "isDashing" ) == "1" then
-            animations.mCurrentAnimationIndex = "dash"
+            SetAnimation( animations, "dash" )
         elseif entity:GetTagByName( "isInAir" ) == "1" then
-            animations.mCurrentAnimationIndex = "fall" --TODO: use jump/fall/land
+            SetAnimation( animations, "fall" ) --TODO: use jump/fall/land )
         elseif entity:GetTagByName( "isCrouch" ) == "1" then
             if entity:GetTagByName( "isMoving" ) == "1" then
-                animations.mCurrentAnimationIndex = "crawl"
+                SetAnimation( animations, "crawl" )
             else
-                animations.mCurrentAnimationIndex = "crouch"
+                SetAnimation( animations, "crouch" )
             end
         elseif entity:GetTagByName( "isMoving" ) == "1" then
-            animations.mCurrentAnimationIndex = "move"
+            SetAnimation( animations, "move" )
         else
-            animations.mCurrentAnimationIndex = "idle"
+            SetAnimation( animations, "idle" )
         end
     end
 end

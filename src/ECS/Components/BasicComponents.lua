@@ -185,7 +185,8 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
             else
                 xmlData =   xmlData .. "flipy='false' "
             end
-            xmlData =   xmlData .. " >\n"
+            xmlData =   xmlData .. "maxtime='" .. iComponent.mAnimations[i].mMaxTime .. "' " ..
+                        " >\n"
             xmlData =   xmlData .. "</animation>\n"
         end
         xmlData = xmlData .. "</animations>\n"
@@ -257,7 +258,7 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
         local animations = {}
         local default = iNode.attr[1].value
         for i = 1, #iNode.el[1].el do
-            animations[i] = Animation:New( iNode.el[1].el[i].attr[1].value, iNode.el[1].el[i].attr[2].value, iNode.el[1].el[i].attr[3].value, iNode.el[1].el[i].attr[4].value == "true", iNode.el[1].el[i].attr[5].value == "true", iNode.el[1].el[i].attr[6].value == "true" )
+            animations[i] = Animation:New( iNode.el[1].el[i].attr[1].value, iNode.el[1].el[i].attr[2].value, iNode.el[1].el[i].attr[3].value, iNode.el[1].el[i].attr[4].value == "true", iNode.el[1].el[i].attr[5].value == "true", iNode.el[1].el[i].attr[6].value == "true", iNode.el[1].el[i].attr[7].value )
         end
         return  BasicComponents:NewAnimationsComponent( animations, default )        
     elseif name == "state" then
