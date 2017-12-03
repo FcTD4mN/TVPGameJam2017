@@ -99,6 +99,36 @@ end
 function DashEnd( arg )
     arg:RemoveTag( "isDashing" )
     arg:AddTag( "didDash" )
+    arg:AddTag( "isInAir" )
+
+
+    --check if we have contect with ground
+    local box2d = arg:GetComponentByName( "box2d" )
+    if box2d then
+        for k,v in pairs( box2d.mBody:getContactList() ) do
+            fix1, fix2 = v:getFixtures()
+            if( fix1:getCategory() == 1 and fix2:getCategory() == 2 or
+                fix2:getCategory() == 1 and fix1:getCategory() == 2
+                ) then
+                local x1, y1, x2, y2  = v:getPositions()
+                if x1 and y1 then
+                    x1, y1 = box2d.mBody:getLocalPoint( x1, y1 )
+                    if y1 > box2d.mBodyH / 2 then
+                        arg:RemoveTag( "didDash" )
+                        arg:RemoveTag( "isInAir" )
+                    end
+                end
+                
+                if x2 and y2 then
+                    x2, y2 = box2d.mBody:getLocalPoint( x2, y2 )
+                    if y2 > box2d.mBodyH / 2 then
+                        arg:RemoveTag( "didDash" )
+                        arg:RemoveTag( "isInAir" )        
+                    end
+                end
+            end
+        end
+    end
 end
 
 -- ==========================================Type
