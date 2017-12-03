@@ -85,7 +85,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='2171.29296875' bodyy='-586.47406005859' bodyw='5000' bodyh='1000' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='2466.3239746094' bodyy='-667.21936035156' bodyw='5000' bodyh='1000' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='2500' y1='-499.99996948242' x3='2500' y3='499.99996948242' x5='-2500' y5='499.99996948242' x7='-2500' y7='-499.99996948242'  />
 </fixture>
@@ -311,7 +311,7 @@
 <components>
 <component name='box2d' bodyx='-92.449851989746' bodyy='595.78033447266' bodyw='80' bodyh='40' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
-<shape type='polygon' x1='-40' y1='-20' x3='40' y3='-20' x5='40' y5='20' x7='-40' y7='20'  />
+<shape type='polygon' x1='40' y1='-20' x3='40' y3='20' x5='-40' y5='20' x7='-40' y7='-20'  />
 </fixture>
 </component>
 <component name='spike'  >
@@ -325,10 +325,43 @@
 <components>
 <component name='box2d' bodyx='2904.3637695312' bodyy='515.35424804688' bodyw='300' bodyh='40' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
-<shape type='polygon' x1='-150' y1='-20' x3='150' y3='-20' x5='150' y5='20' x7='-150' y7='20'  />
+<shape type='polygon' x1='150' y1='-20' x3='150' y3='20' x5='-150' y5='20' x7='-150' y7='-20'  />
 </fixture>
 </component>
 <component name='spike'  >
+</component>
+</components>
+</entity>
+<entity id='Ribbon0'  >
+<tags>
+</tags>
+<components>
+<component name='sprite' filename='resources/Images/Decor/ruban_01.png'  >
+</component>
+<component name='box2d' bodyx='46.450820922852' bodyy='292.77728271484' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+</component>
+</components>
+</entity>
+<entity id='Ribbon0'  >
+<tags>
+</tags>
+<components>
+<component name='box2d' bodyx='3713.8615722656' bodyy='311.24176025391' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+</component>
+<component name='sprite' filename='resources/Images/Decor/ruban_02.png'  >
+</component>
+</components>
+</entity>
+<entity id='wall0'  >
+<tags>
+</tags>
+<components>
+<component name='wall'  >
+</component>
+<component name='box2d' bodyx='6263.6684570312' bodyy='-710.74938964844' bodyw='500' bodyh='1000' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-249.99998474121' y1='-499.99996948242' x3='249.99998474121' y3='-499.99996948242' x5='249.99998474121' y5='499.99996948242' x7='-249.99998474121' y7='499.99996948242'  />
+</fixture>
 </component>
 </components>
 </entity>

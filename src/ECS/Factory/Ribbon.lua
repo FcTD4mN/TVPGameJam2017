@@ -12,7 +12,7 @@ function Ribbon:New( iWorld, iX, iY, iPath )
     Ribbon.mId = Ribbon.mId + 1
 
     -- Components
-    local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 208, 169, "static", true, 1 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 283, 521, "static", true, 1 )
 
     entity:AddComponent( BasicComponents:NewSimpleSprite( iPath ) )
     entity:AddComponent( box2DComponent )

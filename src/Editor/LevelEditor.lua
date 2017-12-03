@@ -653,13 +653,11 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
             for k1,v1 in pairs( ECSWorld.mEntities ) do
                 for k2,v2 in pairs( v1.mComponents ) do
                     if v2.mName == "box2d" then
-                        for k3,v3 in pairs( v2.mBody:getFixtureList() ) do
-                            local x, y = v2.mBody:getLocalPoint( xMapped, yMapped )
-                            if v3:getShape():testPoint( 0, 0, 0, x, y ) then
+                            local rect = Rectangle:New( v2.mBody:getX() - v2.mBodyW/2, v2.mBody:getY() - v2.mBodyH/2, v2.mBodyW, v2.mBodyH )
+                            if rect:ContainsPoint( xMapped, yMapped ) then
                                 gCurrentEditedComponent = v2
                                 gCurrentEditedEntityIndex = k1
                             end
-                        end
                     end
                 end
             end

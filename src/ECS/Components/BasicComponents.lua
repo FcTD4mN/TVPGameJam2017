@@ -29,6 +29,7 @@ function  BasicComponents:NewSimpleSprite( iFileName )
     local  newSimpleSprite = {}
     newSimpleSprite.mName = "sprite"
 
+    newSimpleSprite.mFileName = iFileName
     newSimpleSprite.mImage = love.graphics.newImage( iFileName )
 
     return  newSimpleSprite
@@ -55,7 +56,7 @@ function  BasicComponents:NewStateComponent( iState, iStateTransitions )
     newState.mName = "state"
     newState.mState = iState
     newState.mAllowedTransitions = iStateTransitions
-    
+
     return  newState
 
 end
@@ -152,9 +153,9 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
         end
 
         xmlData = xmlData .. "</component>\n"
-    elseif iComponent.mName == "simplesprite" then
+    elseif iComponent.mName == "sprite" then
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
-                    "filename='" .. iComponent.mName .. "' " ..
+                    "filename='" .. iComponent.mFileName .. "' " ..
                     " >\n"
         xmlData = xmlData .. "</component>\n"
     elseif iComponent.mName == "animations" then
@@ -202,7 +203,7 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
                 xmlData =   xmlData .. "state" .. k2 .."='" .. v2 .. "' "
             end
             xmlData =   xmlData .. " />\n"
-        end 
+        end
         xmlData = xmlData .. "</component>\n"
     elseif iComponent.mName == "direction" then
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
@@ -252,7 +253,7 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
             fixture = LoadFixtureXML( iNode.el[ i ], component.mBody, iEntity )
         end
         return  component
-    elseif name == "simplesprite" then
+    elseif name == "sprite" then
         return  BasicComponents:NewSimpleSprite( iNode.attr[2].value )
     elseif name == "animations" then
         local animations = {}
@@ -260,7 +261,7 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
         for i = 1, #iNode.el[1].el do
             animations[i] = Animation:New( iNode.el[1].el[i].attr[1].value, iNode.el[1].el[i].attr[2].value, iNode.el[1].el[i].attr[3].value, iNode.el[1].el[i].attr[4].value == "true", iNode.el[1].el[i].attr[5].value == "true", iNode.el[1].el[i].attr[6].value == "true", iNode.el[1].el[i].attr[7].value )
         end
-        return  BasicComponents:NewAnimationsComponent( animations, default )        
+        return  BasicComponents:NewAnimationsComponent( animations, default )
     elseif name == "state" then
         local allowedTransitions = {}
         for i = 1, #iNode.el do
@@ -269,7 +270,7 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
                 allowedTransitions[ iNode.el[i].attr[1] ][j] = iNode.el[i].attr[j].value
             end
         end
-        return  BasicComponents:NewStateComponent( iNode.attr[2].value, allowedTransitions )        
+        return  BasicComponents:NewStateComponent( iNode.attr[2].value, allowedTransitions )
     elseif name == "direction" then
         return  BasicComponents:NewDirectionComponent( iNode.attr[2].value, iNode.attr[3].value )
     elseif name == "userinput" then
