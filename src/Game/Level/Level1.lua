@@ -101,6 +101,10 @@ function DashEnd( arg )
     arg:AddTag( "didDash" )
     arg:AddTag( "isInAir" )
 
+    local animationComponent = arg:GetComponentByName( "animations" )
+    animationComponent.mAnimations[ animationComponent.mCurrentAnimationIndex ].mTime = 0
+    animationComponent.mAnimations[ animationComponent.mCurrentAnimationIndex ].mIsPaused = false
+
 
     --check if we have contect with ground
     local box2d = arg:GetComponentByName( "box2d" )
@@ -137,7 +141,7 @@ function  Level1:InitializeECS()
     self.mHero = Entity:New( "hero" )
 
     -- Components
-    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 400, 45, 100, "dynamic", true, 1 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 400, 45, 100, "dynamic", true, 1, 19 )
         local stickyShape    = love.physics.newRectangleShape( 0, 0, 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 1.0 )

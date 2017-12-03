@@ -12,7 +12,7 @@ function DeadBody:New( iWorld, iX, iY )
     DeadBody.mId = DeadBody.mId + 1
 
     -- Components
-    local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 208, 169, "static", true, 1 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 208, 169, "static", true, 1, 50 )
 
     entity:AddComponent( BasicComponents:NewSimpleSprite( "resources/Animation/Characters/Dummy/corpse.png" ) )
     entity:AddComponent( box2DComponent )

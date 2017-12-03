@@ -26,7 +26,7 @@ function HeroController:Requirements()
 end
 
 function MakeCrouch( iEntity, iBox2d )
-    local box2DComponent = BasicComponents:NewBox2DComponent( iBox2d.mBody:getWorld(), iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 + iBox2d.mBodyH / 2, 45, iBox2d.mBodyH / 2, "dynamic", true, 1 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( iBox2d.mBody:getWorld(), iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 + iBox2d.mBodyH / 2, 45, iBox2d.mBodyH / 2, "dynamic", true, 1, 19 )
     local stickyShape    = love.physics.newRectangleShape( box2DComponent.mBodyW, box2DComponent.mBodyH )
     local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
     fixture:setFriction( 1.0 )
@@ -40,7 +40,7 @@ function MakeCrouch( iEntity, iBox2d )
 end
 
 function MakeNormal( iEntity, iBox2d )
-    local box2DComponent = BasicComponents:NewBox2DComponent( iBox2d.mBody:getWorld(), iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 - iBox2d.mBodyH / 2, 45, iBox2d.mBodyH * 2, "dynamic", true, 1 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( iBox2d.mBody:getWorld(), iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 - iBox2d.mBodyH / 2, 45, iBox2d.mBodyH * 2, "dynamic", true, 1, 19 )
     local stickyShape    = love.physics.newRectangleShape( box2DComponent.mBodyW, box2DComponent.mBodyH )
     local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
     fixture:setFriction( 1.0 )

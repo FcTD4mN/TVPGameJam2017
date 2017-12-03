@@ -60,7 +60,7 @@ function  AnimationRenderer:Draw( iCamera )
 
         local animation = animationComponent.mAnimations[ animationComponent.mCurrentAnimationIndex ]
         if animation then
-            local x, y = iCamera:MapToScreen( box2d.mBody:getX() - animation.mQuadW / 2, box2d.mBody:getY() - animation.mQuadH / 2 )
+            local x, y = iCamera:MapToScreen( box2d.mBody:getX() - animation.mQuadW / 2, box2d.mBody:getY() + box2d.mBodyH / 2 - animation.mQuadH + box2d.mOffsetY )
 
             local scaleX = iCamera.mScale
             local scaleY = iCamera.mScale

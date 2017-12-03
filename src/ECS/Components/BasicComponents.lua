@@ -6,7 +6,7 @@ function BasicComponents:NewFromXML( iNode, iWorld, iEntity )
 end
 
 
-function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType, iFixedRotation, iGravity )
+function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType, iFixedRotation, iGravity, iOffsetY )
 
     print( "NewBox2DComponent"..tostring(iWorld) )
     local  newBox2DComponent = {}
@@ -14,6 +14,7 @@ function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBo
 
     newBox2DComponent.mBodyW = iBodyW
     newBox2DComponent.mBodyH = iBodyH
+    newBox2DComponent.mOffsetY = iOffsetY
 
     newBox2DComponent.mBody = love.physics.newBody( iWorld, iBodyX + iBodyW / 2, iBodyY + iBodyH / 2, iPhysicType )
     newBox2DComponent.mBody:setFixedRotation( iFixedRotation )
