@@ -82,6 +82,11 @@ function Level1:NewFromXML( iWorld )
     arrayAchievementsZozo[5].mImageOn = love.graphics.newImage( "resources/Images/Controls/doublejump_enabled.png" );
     arrayAchievementsZozo[5].mImageOff = love.graphics.newImage( "resources/Images/Controls/doublejump_disabled.png" );
 
+    targetx = 0
+    targety = 0
+
+    cameraSmooth = 10
+
     return  newLevel1
 end
 
@@ -200,9 +205,11 @@ function  Level1:UpdateCamera()
 
     if self.mHero ~= nil then
 
-        self.mCamera.mX = self.mHero:GetComponentByName( "box2d" ).mBody:getX() - self.mCamera.mW / 2
-        self.mCamera.mY = ( self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH / 2 ) * 0.3
+        self.mCamera.mX = self.mCamera.mX  + ( targetx - self.mCamera.mX ) / cameraSmooth
+        self.mCamera.mY = self.mCamera.mY  + ( targety - self.mCamera.mY ) / cameraSmooth
 
+        targetx = self.mHero:GetComponentByName( "box2d" ).mBody:getX() - self.mCamera.mW / 2
+        targety = ( self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH / 2 )
     end
 
 end
