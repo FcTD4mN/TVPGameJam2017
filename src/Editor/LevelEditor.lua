@@ -68,6 +68,8 @@ function LevelEditor.Initialize( iLevel )
 
     gIntX = 0
     gIntY = 0
+    gIntW = 0
+    gIntH = 0
     gIntA = 0
     gFileName = "Save/Level1.xml" -- Just so it's quicker to debug
 
@@ -328,13 +330,45 @@ function LevelEditor.Draw()
                 imgui.Text( "Wall" );
                 imgui.SameLine()
                 if imgui.Button( "AddWall" ) then
-                    Wall:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                    imgui.OpenPopup( "WallSizes" )
+                end
+
+                if imgui.BeginPopupModal( "WallSizes", nil, { "AlwaysAutoResize", "NoResize", "NoTitleBar" } ) then
+
+                    xStatus, gIntW = imgui.InputInt( "W", gIntW )
+                    yStatus, gIntH = imgui.InputInt( "H", gIntH )
+
+                    if( imgui.Button( "Ok" ) ) then
+                        Wall:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, gIntW, gIntH )
+                        imgui.CloseCurrentPopup()
+                    end
+                    if( imgui.Button( "Cancel" ) ) then
+                        imgui.CloseCurrentPopup()
+                    end
+
+                    imgui.EndPopup()
                 end
 
                 imgui.Text( "Spike" );
                 imgui.SameLine()
                 if imgui.Button( "AddSpike" ) then
-                    Spike:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                    imgui.OpenPopup( "SpikeSize" )
+                end
+
+                if imgui.BeginPopupModal( "SpikeSize", nil, { "AlwaysAutoResize", "NoResize", "NoTitleBar" } ) then
+
+                    xStatus, gIntW = imgui.InputInt( "W", gIntW )
+                    yStatus, gIntH = imgui.InputInt( "H", gIntH )
+
+                    if( imgui.Button( "Ok" ) ) then
+                        Spike:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, gIntW, gIntH )
+                        imgui.CloseCurrentPopup()
+                    end
+                    if( imgui.Button( "Cancel" ) ) then
+                        imgui.CloseCurrentPopup()
+                    end
+
+                    imgui.EndPopup()
                 end
 
                 imgui.TreePop();

@@ -1,0 +1,18 @@
+<level>
+<terrain>
+<body type='static' x1='0' y1='0' gravity='1' fixedrotation='true'  >
+<fixture friction='1' sensor='false' >
+<shape type='edge' x1='1316.0524902344' y1='535.40155029297' x2='-186.16970825195' y2='535.40155029297'  />
+</fixture>
+</body>
+</terrain>
+<camera x='0' y='0' w='800' h='600' scale='1'  />
+<backgrounds>
+</backgrounds>
+<foregrounds>
+</foregrounds>
+<objectpool>
+</objectpool>
+<ecsworld>
+</ecsworld>
+</level>
