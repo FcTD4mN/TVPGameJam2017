@@ -22,6 +22,7 @@ local GrownTree     = require( "src/Objects/Environnement/GrownTree")
 local Object_Box    = require( "src/Objects/Environnement/Object_Box")
 local Tree          = require( "src/Objects/Environnement/Tree")
 local WaterPipe     = require( "src/Objects/Environnement/WaterPipe")
+local Ribbon        = require( "src/ECS/Factory/Ribbon")
 
 
 -- TODO: Add it in Base/Global
@@ -404,6 +405,30 @@ function LevelEditor.Draw()
                 imgui.SameLine()
                 if imgui.Button( "AddWaterPipe" ) then
                     WaterPipe:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2 )
+                end
+
+                imgui.Text( "Ribbon01" );
+                imgui.SameLine()
+                if imgui.Button( "Ribbon01" ) then
+                    Ribbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_01.png" )
+                end
+
+                imgui.Text( "Ribbon02" );
+                imgui.SameLine()
+                if imgui.Button( "Ribbon02" ) then
+                    Ribbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_02.png" )
+                end
+
+                imgui.Text( "Ribbon03" );
+                imgui.SameLine()
+                if imgui.Button( "Ribbon03" ) then
+                    Ribbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_03.png" )
+                end
+
+                imgui.Text( "Ribbon04" );
+                imgui.SameLine()
+                if imgui.Button( "Ribbon04" ) then
+                    Ribbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_04.png" )
                 end
 
                 imgui.TreePop();
