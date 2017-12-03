@@ -49,7 +49,7 @@ function Level1:NewFromXML( iWorld )
     -- BACKGROUNDS
 
     newLevel1:InitializeECS();
-    
+
     bgZozo = love.graphics.newImage( "resources/Images/BGGRID.png" )
 
     return  newLevel1
@@ -147,7 +147,7 @@ function  Level1:UpdateCamera()
     if self.mHero ~= nil then
 
         self.mCamera.mX = self.mHero:GetComponentByName( "box2d" ).mBody:getX() - self.mCamera.mW / 2
-        self.mCamera.mY = self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH / 2
+        self.mCamera.mY = ( self.mHero:GetComponentByName( "box2d" ).mBody:getY() - self.mCamera.mH / 2 ) * 0.3
 
     end
 
