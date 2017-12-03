@@ -1,7 +1,7 @@
 <level>
 <terrain>
 <body type='static' x1='0' y1='0' gravity='1' fixedrotation='true'  >
-<fixture friction='0.20000000298023' sensor='false' >
+<fixture friction='1' sensor='false' >
 <shape type='edge' x1='-9.1049871444702' y1='263.43487548828' x2='600' y2='325'  />
 </fixture>
 <fixture friction='1' sensor='false' >
@@ -110,7 +110,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='600' bodyy='360' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='600' bodyy='360' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 </component>
 </components>
 </entity>
@@ -118,7 +118,7 @@
 <tags>
 </tags>
 <components>
-<component name='box2d' bodyx='558.41583251953' bodyy='417.42575073242' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='558.41583251953' bodyy='417.42575073242' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 </component>
 <component name='spike'  >
 </component>
@@ -130,8 +130,8 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='932.67510986328' bodyy='226.33668518066' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
-<fixture friction='1' sensor='false' >
+<component name='box2d' bodyx='932.67510986328' bodyy='226.33668518066' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
 <shape type='polygon' x1='50' y1='-50' x3='50' y3='50' x5='-50' y5='50' x7='-50' y7='-50'  />
 </fixture>
 </component>
@@ -143,8 +143,8 @@
 <components>
 <component name='spike'  >
 </component>
-<component name='box2d' bodyx='788.11810302734' bodyy='408.51486206055' bodyw='100' bodyh='100' physictype='dynamic' fixedrotation='true' gravity='1'  >
-<fixture friction='1' sensor='false' >
+<component name='box2d' bodyx='788.11810302734' bodyy='408.51486206055' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
 <shape type='polygon' x1='50' y1='-50' x3='50' y3='50' x5='-50' y5='50' x7='-50' y7='-50'  />
 </fixture>
 </component>

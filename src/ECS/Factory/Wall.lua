@@ -15,7 +15,7 @@ function Wall:New( iWorld, iX, iY, iW, iH )
     local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, iW, iH, "static", true, 1 )
         local stickyShape    = love.physics.newRectangleShape( iW, iH )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
-        fixture:setFriction( 1.0 )
+        fixture:setFriction( 0.0 )
         fixture:setUserData( entity )
 
     local animations = {}
