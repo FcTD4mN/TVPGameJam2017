@@ -122,5 +122,13 @@ function  Shortcuts.Sync()
 end
 
 
+function  Shortcuts.RegisterAction( iAction )
+
+    print("TODO->REGISTER : " .. iAction )
+    -- Merge Clement's work here
+
+end
+
+
 
 return  Shortcuts

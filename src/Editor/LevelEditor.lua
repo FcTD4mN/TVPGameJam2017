@@ -84,8 +84,8 @@ end
 function LevelEditor.Draw()
 
     if( LevelEditor.mLevel ) then
-        
-        
+
+
         bgZozo = love.graphics.newImage( "resources/Images/BGGRID.png" )
         local camera = LevelEditor.mEditorCamera
         love.graphics.clear( 40, 40, 40 )
@@ -596,7 +596,6 @@ function  LevelEditor.LoadLevel( iFilePath )
 
     local xml = io.open( iFilePath ):read('*all')
     local doc = SLAXML:dom( xml )
-    print( "1:"..tostring(gWorld) )
     LevelEditor.Initialize( LevelBaseECS:NewFromXML( doc.root, gWorld ) )
 
 end

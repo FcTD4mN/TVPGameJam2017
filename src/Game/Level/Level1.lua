@@ -28,6 +28,8 @@ local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 local ECSIncludes       = require 'src/ECS/ECSIncludes'
 local Spike             = require 'src/ECS/Factory/Spike'
 
+local TeleporterActionGiverRibbon             = require 'src/ECS/Factory/TeleporterActionGiverRibbon'
+
 local Level1 = {}
 setmetatable( Level1, LevelBaseECS )
 LevelBaseECS.__index = LevelBaseECS
@@ -178,8 +180,17 @@ function  Level1:InitializeECS()
     --self.mHero:AddTag( "didDoubleJump" )
     --self.mHero:AddTag( "didTripleJump" )
     --self.mHero:AddTag( "didDash" )
+    self.mHero:AddTag( "teleportable" )
 
     ECSWorld:AddEntity( self.mHero )
+
+    --TEST
+
+    local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
+
+    --TEST
+
+
 end
 
 

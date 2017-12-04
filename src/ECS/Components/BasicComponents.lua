@@ -1,14 +1,12 @@
 local BasicComponents = {}
 
 function BasicComponents:NewFromXML( iNode, iWorld, iEntity )
-    print( "NewFromXML"..tostring(iWorld) )
     return  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
 end
 
 
 function  BasicComponents:NewBox2DComponent( iWorld, iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType, iFixedRotation, iGravity, iOffsetY )
 
-    print( "NewBox2DComponent"..tostring(iWorld) )
     local  newBox2DComponent = {}
     newBox2DComponent.mName = "box2d"
 
@@ -95,6 +93,31 @@ function  BasicComponents:NewKillable()
     newKillable.mDeathCount = 0
 
     return  newKillable
+
+end
+
+
+function  BasicComponents:NewTeleporter( iX, iY )
+
+    local  newTeleporter = {}
+    newTeleporter.mName = "teleporter"
+
+    newTeleporter.mTeleportPositionX = iX
+    newTeleporter.mTeleportPositionY = iY
+
+    return  newTeleporter
+
+end
+
+
+function  BasicComponents:NewActionGiver( iAction )
+
+    local  newActionGiver = {}
+    newActionGiver.mName = "actiongiver"
+
+    newActionGiver.mAction = iAction
+
+    return  newActionGiver
 
 end
 
@@ -219,9 +242,31 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
     elseif iComponent.mName == "killable" then
 
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    "teleportpositionx='" .. iComponent.mTeleportPositionX .. "' " ..
+                    "teleportpositiony='" .. iComponent.mTeleportPositionY .. "' " ..
+                    " >\n"
+        xmlData = xmlData .. "</component>\n"
+
+    elseif iComponent.mName == "teleporter" then
+
+        xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    "deathcount='" .. iComponent.mDeathCount .. "' " ..
                     "deathcount='" .. iComponent.mDeathCount .. "' " ..
                     " >\n"
         xmlData = xmlData .. "</component>\n"
+
+    elseif iComponent.mName == "actiongiver" then
+
+        xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    "action='" .. iComponent.mAction .. "' " ..
+                    " >\n"
+        xmlData = xmlData .. "</component>\n"
+
+
+
+
+
+
 
     elseif iComponent.mName == "spike" then
 
@@ -246,7 +291,6 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
     assert( iNode.name == "component" )
 
     local name = iNode.attr[1].value
-    print( "LoadBasicComponentsXML"..tostring(iWorld) )
 
     if name == "box2d" then
         local component = BasicComponents:NewBox2DComponent( iWorld, iNode.attr[2].value - iNode.attr[4].value / 2, iNode.attr[3].value - iNode.attr[5].value / 2, iNode.attr[4].value, iNode.attr[5].value, iNode.attr[6].value, iNode.attr[7].value == "true", iNode.attr[8].value )
@@ -279,6 +323,15 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
     elseif name == "killable" then
         local  killable = BasicComponents:NewKillable()
         killable.mDeathCount = iNode.attr[2].value
+    elseif name == "teleporter" then
+        local  teleporter = BasicComponents:newTeleporter()
+        killable.mTeleportPositionX = iNode.attr[2].value
+        killable.mTeleportPositionY = iNode.attr[3].value
+    elseif name == "actiongiver" then
+        local  teleporter = BasicComponents:newActionGiver()
+        killable.mAction = iNode.attr[2].value
+
+
     elseif name == "wall" then
         return  BasicComponents:NewWallComponent()
     elseif name == "spike" then

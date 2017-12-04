@@ -38,6 +38,7 @@ function  Collision( iEntityA, iEntityB )
             iEA:RemoveTag( "didDash" )
 
             Shortcuts:Iterate()
+            return
         end
 
     end
@@ -58,22 +59,51 @@ function  Collision( iEntityA, iEntityB )
                             iEntityA:RemoveTag( "isInAir" )
                             iEntityA:RemoveTag( "didDoubleJump" )
                             iEntityA:RemoveTag( "didTripleJump" )
-                            iEntityA:RemoveTag( "didDash" )        
+                            iEntityA:RemoveTag( "didDash" )
                         end
                     end
-                    
+
                     if x2 and y2 then
                         x2, y2 = box2d.mBody:getLocalPoint( x2, y2 )
                         if y2 > box2d.mBodyH / 2 then
                             iEntityA:RemoveTag( "isInAir" )
                             iEntityA:RemoveTag( "didDoubleJump" )
                             iEntityA:RemoveTag( "didTripleJump" )
-                            iEntityA:RemoveTag( "didDash" )        
+                            iEntityA:RemoveTag( "didDash" )
                         end
                     end
                 end
             end
+             --> Optimisation, but not possible atm :: require more tests : type hero and type terrain
         end
     end
+
+
+    -- Collision Entity/Teleporter
+    if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
+
+        if iEA.mID == "hero" and iEB:GetComponentByName( "teleporter" ) ~= nil then
+
+            local box2d         = iEA:GetComponentByName( "box2d" )
+            local teleporter    = iEB:GetComponentByName( "teleporter" )
+
+            box2d.mBody:setX( teleporter.mTeleportPositionX )
+            box2d.mBody:setY( teleporter.mTeleportPositionY )
+        end
+
+    end
+
+    -- Collision Entity/ActionGiver
+    if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
+
+        if iEA.mID == "hero" and iEB:GetComponentByName( "actiongiver" ) ~= nil then
+
+            local actiongiver    = iEB:GetComponentByName( "actiongiver" )
+
+            Shortcuts.RegisterAction( actiongiver.mAction )
+        end
+
+    end
+
 
 end
