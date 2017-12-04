@@ -1502,11 +1502,11 @@
 <tags>
 </tags>
 <components>
-<component name='checkpoint' checkpoint='6'  >
+<component name='checkpoint' checkpoint='5'  >
 </component>
-<component name='sprite' filename='resources/Images/Decor/ruban_06.png'  >
+<component name='sprite' filename='resources/Images/Decor/ruban_05.png'  >
 </component>
-<component name='checkpointsetter' checkpoint='6'  >
+<component name='checkpointsetter' checkpoint='5'  >
 </component>
 <component name='box2d' bodyx='825.36376953125' bodyy='-5556.466796875' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='false' >
