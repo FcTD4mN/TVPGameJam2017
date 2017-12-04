@@ -99,7 +99,7 @@ function  Shortcuts.RegisterActionWithRandomKey( iAction )
     
     print("_")
     print("Function:RegisterActionWithRandomKey")
-    if( ActionIsRegistered == true ) then
+    if( Shortcuts.ActionIsRegistered( iAction ) == true ) then
         print("Alerady Registered")
         return
     end
@@ -109,20 +109,19 @@ function  Shortcuts.RegisterActionWithRandomKey( iAction )
 end
 
 function  Shortcuts.KeyIsRegistered( iKey )
-    if ( Shortcuts.mShortcutTable[ k ] == nil  ) then
-        return false
+    for k,v in pairs( Shortcuts.mShortcutTable ) do
+        if ( v == iKey  ) then
+            return true
+        end
     end
-    return  true
+    return  false
 end
 
 function  Shortcuts.ActionIsRegistered( iAction )
-    for k,v in pairs( Shortcuts.mShortcutTable ) do
-        if ( Shortcuts.mShortcutTable[ k ] == iAction ) then
-            return  true;
-        end
+    if ( Shortcuts.mShortcutTable[ iAction ] == nil ) then
+        return  false;
     end
-
-    return false
+    return true
 end
 
 return  Shortcuts
