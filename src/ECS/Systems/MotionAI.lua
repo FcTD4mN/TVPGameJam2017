@@ -53,17 +53,23 @@ function MotionAI:Update( iDT )
 
             local x = 0
             local y = 0
+            local vx = 0
+            local vy = 0
             if point1 == point2 or point1["time"] == point2["time"] then
                 x = point1["x"]
                 y = point1["y"]
+                v = 0
             else
                 lineTime = ( motion.mCurrentTime - point1["time"] ) / ( point2["time"] - point1["time"] )
                 x = point1["x"] + ( point2["x"] - point1["x"] ) * lineTime
                 y = point1["y"] + ( point2["y"] - point1["y"] ) * lineTime
+                vx = ( point2["x"] - point1["x"] ) / ( point2["time"] - point1["time"] )
+                vy = ( point2["y"] - point1["y"] ) / ( point2["time"] - point1["time"] )
             end
-
-            box2d.mBody:setX( x )
-            box2d.mBody:setY( y )
+            --box2d.mBody:setX( x )
+            --box2d.mBody:setY( y )
+            motion.mJoint = love.physics.newPrismaticJoint( point1["body"], box2d.mBody, box2d.mBody:getX(), box2d.mBody:getY(), vx, vy, false )
+            box2d.mBody:setLinearVelocity( vx, vy )
         end
     end
 end
