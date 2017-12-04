@@ -1479,6 +1479,8 @@
 </component>
 <component name='teleporter' teleportpositionx='825' teleportpositiony='-5556'  >
 </component>
+<component name='actiongiver' action='dash'  >
+</component>
 </components>
 </entity>
 <entity id='Ribbon0'  >
