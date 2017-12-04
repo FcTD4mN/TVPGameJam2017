@@ -17,7 +17,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='5798.1655273438' bodyy='-6862.521484375' bodyw='80' bodyh='110' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='1082.3781738281' bodyy='-6096.41796875' bodyw='80' bodyh='110' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='40' y1='-55' x3='40' y3='55' x5='-40' y5='55' x7='-40' y7='-55'  />
 </fixture>
@@ -146,12 +146,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='1601.9488525391' bodyy='590.99255371094' bodyw='80' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='40' y1='-50' x3='40' y3='50' x5='-40' y5='50' x7='-40' y7='-50'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -160,12 +160,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='2001.3828125' bodyy='590.99230957031' bodyw='120' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='60' y1='-50' x3='60' y3='50' x5='-60' y5='50' x7='-60' y7='-50'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -174,12 +174,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='2341.2397460938' bodyy='590.99212646484' bodyw='160' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='80' y1='-50' x3='80' y3='50' x5='-80' y5='50' x7='-80' y7='-50'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -188,12 +188,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='2682.5861816406' bodyy='590.28314208984' bodyw='220' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='110' y1='-50' x3='110' y3='50' x5='-110' y5='50' x7='-110' y7='-50'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -202,12 +202,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='3033.5085449219' bodyy='589.57360839844' bodyw='180' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='90' y1='-50' x3='90' y3='50' x5='-90' y5='50' x7='-90' y7='-50'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -217,14 +217,14 @@
 <components>
 <component name='checkpoint' checkpoint='2'  >
 </component>
-<component name='actiongiver' action='moveright'  >
-</component>
-<component name='sprite' filename='resources/Images/Decor/ruban_02.png'  >
-</component>
 <component name='box2d' bodyx='3525.2687988281' bodyy='259.3249206543' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
 <shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
+</component>
+<component name='sprite' filename='resources/Images/Decor/ruban_02.png'  >
+</component>
+<component name='actiongiver' action='moveright'  >
 </component>
 <component name='checkpointsetter' checkpoint='2'  >
 </component>
@@ -505,12 +505,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
-<component name='spike'  >
-</component>
 <component name='box2d' bodyx='83.074089050293' bodyy='-1044.2728271484' bodyw='200' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='100' y1='-50' x3='100' y3='50' x5='-100' y5='50' x7='-100' y7='-50'  />
 </fixture>
+</component>
+<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -519,12 +519,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
-<component name='spike'  >
-</component>
 <component name='box2d' bodyx='1044.7205810547' bodyy='-1020.0392456055' bodyw='220' bodyh='50' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='110' y1='-25' x3='110' y3='25' x5='-110' y5='25' x7='-110' y7='-25'  />
 </fixture>
+</component>
+<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -533,12 +533,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
-<component name='spike'  >
-</component>
 <component name='box2d' bodyx='1729.5133056641' bodyy='-1018.9967041016' bodyw='100' bodyh='50' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='50' y1='-25' x3='50' y3='25' x5='-50' y5='25' x7='-50' y7='-25'  />
 </fixture>
+</component>
+<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -547,12 +547,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
-<component name='spike'  >
-</component>
 <component name='box2d' bodyx='2353.4731445313' bodyy='-1020.0385742188' bodyw='100' bodyh='50' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='50' y1='-25' x3='50' y3='25' x5='-50' y5='25' x7='-50' y7='-25'  />
 </fixture>
+</component>
+<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -560,16 +560,16 @@
 <tags>
 </tags>
 <components>
-<component name='actiongiver' action='moveleft'  >
+<component name='box2d' bodyx='3048.5427246094' bodyy='-1553.23828125' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
+</fixture>
 </component>
 <component name='sprite' filename='resources/Images/Decor/ruban_03.png'  >
 </component>
 <component name='teleporter' teleportpositionx='-361' teleportpositiony='-3039'  >
 </component>
-<component name='box2d' bodyx='3048.5427246094' bodyy='-1553.23828125' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
-<fixture friction='0.20000000298023' sensor='true' >
-<shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
-</fixture>
+<component name='actiongiver' action='moveleft'  >
 </component>
 </components>
 </entity>
@@ -668,16 +668,16 @@
 <tags>
 </tags>
 <components>
-<component name='actiongiver' action='crouch'  >
+<component name='box2d' bodyx='1914.7548828125' bodyy='-3081.6213378906' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
+</fixture>
 </component>
 <component name='sprite' filename='resources/Images/Decor/ruban_04.png'  >
 </component>
 <component name='teleporter' teleportpositionx='-52' teleportpositiony='-4110'  >
 </component>
-<component name='box2d' bodyx='1914.7548828125' bodyy='-3081.6213378906' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
-<fixture friction='0.20000000298023' sensor='true' >
-<shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
-</fixture>
+<component name='actiongiver' action='crouch'  >
 </component>
 </components>
 </entity>
@@ -803,12 +803,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='1488.8887939453' bodyy='-3047.8620605469' bodyw='250' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='124.99999237061' y1='-10' x3='124.99999237061' y3='10' x5='-124.99999237061' y5='10' x7='-124.99999237061' y7='-10'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -895,12 +895,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='1607.4279785156' bodyy='-3855.8522949219' bodyw='150' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='75' y1='-10' x3='75' y3='10' x5='-75' y5='10' x7='-75' y7='-10'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -935,12 +935,12 @@
 <tag name='canKill' value='1'  />
 </tags>
 <components>
+<component name='spike'  >
+</component>
 <component name='box2d' bodyx='911.62933349609' bodyy='-3955.8786621094' bodyw='200' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='1' sensor='false' >
 <shape type='polygon' x1='100' y1='-10' x3='100' y3='10' x5='-100' y5='10' x7='-100' y7='-10'  />
 </fixture>
-</component>
-<component name='spike'  >
 </component>
 </components>
 </entity>
@@ -1327,7 +1327,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='1340.6076660156' bodyy='-5991.9682617188' bodyw='50' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='1337.7336425781' bodyy='-6038.8344726563' bodyw='50' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='25' y1='-10' x3='25' y3='10' x5='-25' y5='10' x7='-25' y7='-10'  />
 </fixture>
@@ -1353,7 +1353,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='680.2890625' bodyy='-5943.677734375' bodyw='50' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='681.92840576172' bodyy='-5973.1826171875' bodyw='50' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='25' y1='-10' x3='25' y3='10' x5='-25' y5='10' x7='-25' y7='-10'  />
 </fixture>
@@ -1418,7 +1418,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='933.88214111328' bodyy='-6131.275390625' bodyw='20' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='940.43951416016' bodyy='-6196.8422851563' bodyw='20' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='10' y1='-10' x3='10' y3='10' x5='-10' y5='10' x7='-10' y7='-10'  />
 </fixture>
@@ -1457,12 +1457,12 @@
 <components>
 <component name='sprite' filename='resources/Images/Decor/ruban_06.png'  >
 </component>
+<component name='teleporter' teleportpositionx='0' teleportpositiony='0'  >
+</component>
 <component name='box2d' bodyx='557.26251220703' bodyy='-6555.1020507813' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
 <shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
-</component>
-<component name='teleporter' teleportpositionx='0' teleportpositiony='0'  >
 </component>
 </components>
 </entity>
@@ -1470,16 +1470,16 @@
 <tags>
 </tags>
 <components>
+<component name='actiongiver' action='dash'  >
+</component>
 <component name='sprite' filename='resources/Images/Decor/ruban_05.png'  >
+</component>
+<component name='teleporter' teleportpositionx='825' teleportpositiony='-5556'  >
 </component>
 <component name='box2d' bodyx='2282.3447265625' bodyy='-4102.4233398438' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
 <shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
-</component>
-<component name='teleporter' teleportpositionx='825' teleportpositiony='-5556'  >
-</component>
-<component name='actiongiver' action='dash'  >
 </component>
 </components>
 </entity>
