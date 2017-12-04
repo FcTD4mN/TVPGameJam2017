@@ -137,7 +137,7 @@ function  BasicComponents:NewMotionComponent( iPath, iLoop )
     --          \-- ["time"]  --Time is the time in second at which the point is reached
     --      \-- ...
     --      \-- [n]
-    newMotion.mPath = iPath 
+    newMotion.mPath = iPath
     newMotion.mLoop = iLoop -- Should the motion loop ( this does not mean the path goes in loop, only the motion )
 
     --runtime -- not saved
@@ -253,16 +253,15 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
     elseif iComponent.mName == "killable" then
 
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
-                    "teleportpositionx='" .. iComponent.mTeleportPositionX .. "' " ..
-                    "teleportpositiony='" .. iComponent.mTeleportPositionY .. "' " ..
+                    "deathcount='" .. iComponent.mDeathCount .. "' " ..
                     " >\n"
         xmlData = xmlData .. "</component>\n"
 
     elseif iComponent.mName == "teleporter" then
 
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
-                    "deathcount='" .. iComponent.mDeathCount .. "' " ..
-                    "deathcount='" .. iComponent.mDeathCount .. "' " ..
+                    "teleportpositionx='" .. iComponent.mTeleportPositionX .. "' " ..
+                    "teleportpositiony='" .. iComponent.mTeleportPositionY .. "' " ..
                     " >\n"
         xmlData = xmlData .. "</component>\n"
 
@@ -350,13 +349,16 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
     elseif name == "killable" then
         local  killable = BasicComponents:NewKillable()
         killable.mDeathCount = iNode.attr[2].value
+        return  killable
     elseif name == "teleporter" then
-        local  teleporter = BasicComponents:newTeleporter()
-        killable.mTeleportPositionX = iNode.attr[2].value
-        killable.mTeleportPositionY = iNode.attr[3].value
+        local  teleporter = BasicComponents:NewTeleporter()
+        teleporter.mTeleportPositionX = iNode.attr[2].value
+        teleporter.mTeleportPositionY = iNode.attr[3].value
+        return  teleporter
     elseif name == "actiongiver" then
-        local  teleporter = BasicComponents:newActionGiver()
-        killable.mAction = iNode.attr[2].value
+        local  actiongiver = BasicComponents:NewActionGiver()
+        actiongiver.mAction = iNode.attr[2].value
+        return  actiongiver
     elseif name == "path" then
         local path = {}
         path[ "points" ] = {}

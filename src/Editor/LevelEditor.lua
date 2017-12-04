@@ -22,7 +22,8 @@ local GrownTree     = require( "src/Objects/Environnement/GrownTree")
 local Object_Box    = require( "src/Objects/Environnement/Object_Box")
 local Tree          = require( "src/Objects/Environnement/Tree")
 local WaterPipe     = require( "src/Objects/Environnement/WaterPipe")
-local Ribbon        = require( "src/ECS/Factory/Ribbon")
+local Ribbon            = require( "src/ECS/Factory/Ribbon")
+local TeleporterRibbon  = require( "src/ECS/Factory/TeleporterRibbon")
 
 
 -- TODO: Add it in Base/Global
@@ -452,6 +453,30 @@ function LevelEditor.Draw()
                 imgui.SameLine()
                 if imgui.Button( "Ribbon04" ) then
                     Ribbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_04.png" )
+                end
+
+                imgui.Text( "TELERibbon01" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon01" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_01.png", 0, 0 )
+                end
+
+                imgui.Text( "TELERibbon02" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon02" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_02.png", 0, 0 )
+                end
+
+                imgui.Text( "TELERibbon03" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon03" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_03.png", 0, 0 )
+                end
+
+                imgui.Text( "TELERibbon04" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon04" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_04.png", 0, 0 )
                 end
 
                 imgui.TreePop();

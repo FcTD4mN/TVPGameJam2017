@@ -81,7 +81,10 @@ function  Collision( iEntityA, iEntityB )
     -- Collision Entity/Teleporter
     if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
 
+        print("LOL")
+
         if iEA.mID == "hero" and iEB:GetComponentByName( "teleporter" ) ~= nil then
+            print("TELE")
 
             local box2d         = iEA:GetComponentByName( "box2d" )
             local teleporter    = iEB:GetComponentByName( "teleporter" )
