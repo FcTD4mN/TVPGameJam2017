@@ -24,8 +24,14 @@ function  Collision( iEntityA, iEntityB )
             ECSWorld:AddEntity( DeadBody:New( gWorld, box2d.mBody:getX() - box2d.mBodyW/2 - 70, box2d.mBody:getY() - box2d.mBodyH/2 - 30 ) )
 
             killable.mDeathCount = killable.mDeathCount + 1
-            box2d.mBody:setX( 0 )
-            box2d.mBody:setY( 500 )
+
+            if iEA.mID == "hero" then
+                local a = iEA.mCheckPoints[iEA.mCheckPoint]
+                local x = a.mBody:getX()
+                local aw = a.mBodyW
+                box2d.mBody:setX( x - aw / 2 - box2d.mBodyW - 20 )
+                box2d.mBody:setY( iEA.mCheckPoints[iEA.mCheckPoint].mBody:getY() )
+            end
 
             -- iEA:RemoveTag( "isAutoRun" )
             iEA:RemoveTag( "isInAir" )
@@ -102,6 +108,34 @@ function  Collision( iEntityA, iEntityB )
 
             Shortcuts.RegisterActionWithRandomKey( actiongiver.mAction )
             iEA:RemoveTag( "isAutoRun" )
+
+        end
+
+    end
+
+
+    -- Collision Hero/checkpoint
+    if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
+
+        if iEA.mID == "hero" and iEB:GetComponentByName( "checkpointsetter" ) ~= nil then
+
+            local checkpointsetter = iEB:GetComponentByName( "checkpointsetter" )
+            print( "youpi" )
+            iEA.mCheckPoint = checkpointsetter.mCheckPoint
+
+        end
+
+    end
+
+    if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
+
+        if iEA.mID == "hero" and iEB:GetComponentByName( "checkpoint" ) ~= nil then
+
+            local checkpoint = iEB:GetComponentByName( "checkpoint" )
+            local box2d = iEB:GetComponentByName( "box2d" )
+            if GetObjectIndexInTable( iEA.mCheckPoints, box2d ) == -1 then
+                iEA.mCheckPoints[ checkpoint.mCheckPoint ] = box2d
+            end
 
         end
 

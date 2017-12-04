@@ -122,6 +122,30 @@ function  BasicComponents:NewActionGiver( iAction )
 end
 
 
+function  BasicComponents:NewCheckPointSetter( iCheckPoint )
+
+    local  newCheckPointSetter = {}
+    
+    newCheckPointSetter.mName = "checkpointsetter"
+    newCheckPointSetter.mCheckPoint = 0
+    
+    return  newCheckPointSetter
+
+end
+
+
+function  BasicComponents:NewCheckPoint( iCheckPoint )
+
+    local  newCheckPoint = {}
+    
+    newCheckPoint.mName = "checkpoint"
+    newCheckPoint.mCheckPoint = 0
+    
+    return  newCheckPoint
+
+end
+
+
 function  BasicComponents:NewMotionComponent( iPath, iLoop )
 
     local  newMotion = {}
@@ -288,6 +312,18 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
         xmlData = xmlData .. "<Path/>\n" --Path
         xmlData = xmlData .. "</component>\n"
 
+    elseif iComponent.mName == "checkpointsetter" then
+        xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    "checkpoint='" .. iComponent.mCheckPoint .. "' " ..
+                    " >\n"
+        xmlData = xmlData .. "</component>\n"
+
+    elseif iComponent.mName == "checkpoint" then
+        xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    "checkpoint='" .. iComponent.mCheckPoint .. "' " ..
+                    " >\n"
+        xmlData = xmlData .. "</component>\n"
+
 
 
 
@@ -328,7 +364,7 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
         return  BasicComponents:NewSimpleSprite( iNode.attr[2].value )
     elseif name == "animations" then
         local animations = {}
-        local default = iNode.attr[1].value
+        local default = iNode.attr[2].value
         for i = 1, #iNode.el[1].el do
             animations[i] = Animation:New( iNode.el[1].el[i].attr[1].value, iNode.el[1].el[i].attr[2].value, iNode.el[1].el[i].attr[3].value, iNode.el[1].el[i].attr[4].value == "true", iNode.el[1].el[i].attr[5].value == "true", iNode.el[1].el[i].attr[6].value == "true", iNode.el[1].el[i].attr[7].value )
         end
@@ -368,7 +404,15 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
             path[ "points" ][i]["y"] = iNode.el[0].el[0].el[i].attr[2]
             path[ "points" ][i]["time"] = iNode.el[0].el[0].el[i].attr[3]
         end
-        return  BasicComponents:NewPathComponent( path, toboolean(iNode.attr[1]) )
+        return  BasicComponents:NewPathComponent( path, toboolean(iNode.attr[2]) )
+    elseif name == "checkpointsetter" then
+        local  checkpointsetter = BasicComponents:NewCheckPointSetter()
+        checkpointsetter.mCheckPoint = iNode.attr[2].value
+        return checkpointsetter
+    elseif name == "checkpoint" then
+        local  checkpoint = BasicComponents:NewCheckPoint()
+        checkpoint.mCheckPoint = iNode.attr[2].value
+        return checkpoint
     elseif name == "wall" then
         return  BasicComponents:NewWallComponent()
     elseif name == "spike" then

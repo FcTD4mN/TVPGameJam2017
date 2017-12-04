@@ -143,7 +143,10 @@ end
 -- ==========================================Type
 
 function  Level1:InitializeECS()
+
     self.mHero = Entity:New( "hero" )
+    self.mHero.mCheckPoints = {}
+    self.mHero.mCheckPoint = -1
 
     -- Components
     -- local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, -361, -3039, 45, 100, "dynamic", true, 1, 19 )
