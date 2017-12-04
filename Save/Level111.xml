@@ -569,6 +569,8 @@
 </component>
 <component name='teleporter' teleportpositionx='-361' teleportpositiony='-3039'  >
 </component>
+<component name='actiongiver' action='moveleft'  >
+</component>
 </components>
 </entity>
 <entity id='wall1'  >
@@ -675,7 +677,7 @@
 </component>
 <component name='teleporter' teleportpositionx='-361' teleportpositiony='-3039'  >
 </component>
-<component name='actiongiver' action='moveleft'  >
+<component name='actiongiver' action='crouch'  >
 </component>
 </components>
 </entity>
