@@ -1477,7 +1477,7 @@
 <shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
 </component>
-<component name='teleporter' teleportpositionx='-825' teleportpositiony='-5556'  >
+<component name='teleporter' teleportpositionx='825' teleportpositiony='-5556'  >
 </component>
 </components>
 </entity>

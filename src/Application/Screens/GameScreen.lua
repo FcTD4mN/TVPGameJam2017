@@ -102,7 +102,7 @@ end
 function GameScreen:Draw()
 
     level1:Draw()
-    DEBUGWorldHITBOXESDraw( world, level1.mCamera, "all" )
+    -- DEBUGWorldHITBOXESDraw( world, level1.mCamera, "all" )
 
 end
 
