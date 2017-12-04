@@ -277,7 +277,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='2066.9289550781' bodyy='-945.04833984375' bodyw='2500' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='2066.5153808594' bodyy='-944.21984863281' bodyw='2500' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='1250' y1='-50' x3='1250' y3='50' x5='-1250' y5='50' x7='-1250' y7='-50'  />
 </fixture>
@@ -303,7 +303,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='-904.94549560547' bodyy='-944.66485595703' bodyw='3000' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='-904.94555664063' bodyy='-941.69354248047' bodyw='3000' bodyh='100' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='1500' y1='-50' x3='1500' y3='50' x5='-1500' y5='50' x7='-1500' y7='-50'  />
 </fixture>
@@ -1249,7 +1249,7 @@
 <components>
 <component name='wall'  >
 </component>
-<component name='box2d' bodyx='1868.3602294922' bodyy='-5797.767578125' bodyw='200' bodyh='1000' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='1879.3453369141' bodyy='-5794.7407226563' bodyw='200' bodyh='1000' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0' sensor='false' >
 <shape type='polygon' x1='100' y1='-499.99996948242' x3='100' y3='499.99996948242' x5='-100' y5='499.99996948242' x7='-100' y7='-499.99996948242'  />
 </fixture>
@@ -1510,7 +1510,7 @@
 </component>
 <component name='checkpointsetter' checkpoint='5'  >
 </component>
-<component name='box2d' bodyx='825.36376953125' bodyy='-5556.466796875' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<component name='box2d' bodyx='830.12567138672' bodyy='-5561.228515625' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
 <shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
@@ -1530,6 +1530,71 @@
 <component name='box2d' bodyx='-366.19232177734' bodyy='-3037.1904296875' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
 <shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='triggercheckpoint0'  >
+<tags>
+</tags>
+<components>
+<component name='checkpointsetter' checkpoint='1'  >
+</component>
+<component name='box2d' bodyx='-1111.1756591797' bodyy='-390.51202392578' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='-5000' y1='-499.99996948242' x3='5000' y3='-499.99996948242' x5='5000' y5='499.99996948242' x7='-5000' y7='499.99996948242'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='triggercheckpoint1'  >
+<tags>
+</tags>
+<components>
+<component name='checkpointsetter' checkpoint='2'  >
+</component>
+<component name='box2d' bodyx='-842.55334472656' bodyy='-2213.3957519531' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='-5000' y1='-499.99996948242' x3='5000' y3='-499.99996948242' x5='5000' y5='499.99996948242' x7='-5000' y7='499.99996948242'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='triggercheckpoint2'  >
+<tags>
+</tags>
+<components>
+<component name='checkpointsetter' checkpoint='3'  >
+</component>
+<component name='box2d' bodyx='-1069.8265380859' bodyy='-3295.2143554688' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='-5000' y1='-499.99996948242' x3='5000' y3='-499.99996948242' x5='5000' y5='499.99996948242' x7='-5000' y7='499.99996948242'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='triggercheckpoint3'  >
+<tags>
+</tags>
+<components>
+<component name='checkpointsetter' checkpoint='4'  >
+</component>
+<component name='box2d' bodyx='-1097.0986328125' bodyy='-4331.5810546875' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='-5000' y1='-499.99996948242' x3='5000' y3='-499.99996948242' x5='5000' y5='499.99996948242' x7='-5000' y7='499.99996948242'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='triggercheckpoint4'  >
+<tags>
+</tags>
+<components>
+<component name='checkpointsetter' checkpoint='5'  >
+</component>
+<component name='box2d' bodyx='-739.87249755859' bodyy='-6760.2758789063' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='-5000' y1='-499.99996948242' x3='5000' y3='-499.99996948242' x5='5000' y5='499.99996948242' x7='-5000' y7='499.99996948242'  />
 </fixture>
 </component>
 </components>

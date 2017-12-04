@@ -13,7 +13,7 @@ function TriggerCheckPoint:New( iWorld, iX, iY, iCheckPoint )
 
     -- Components
     local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 283, 521, "static", true, 1 )
-        local shape       = love.physics.newRectangleShape( 100, 521 )
+        local shape       = love.physics.newRectangleShape( 10000, 1000 )
         local fixture     = love.physics.newFixture( box2DComponent.mBody, shape )
         fixture:setUserData( entity )
         fixture:setSensor( true )
