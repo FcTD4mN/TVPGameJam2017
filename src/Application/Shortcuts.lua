@@ -1,19 +1,15 @@
 -- The shortcut map thing
 
 Shortcuts = {
-
     mShortcutTable = {};
-    mModelShortcutTable = {};
-    mModelShortcutTableINDEXER = {};
-    mIteration = 2;
-    mMaxShortcut = 0
+    mShortcutMap = {}
 }
-
 
 function Shortcuts.Initialize()
 
-    Shortcuts.Load();
-    Shortcuts.Sync();
+    --Shortcuts.Load();
+    Shortcuts.LoadShortcutMap();
+    math.randomseed( os.time() )
 end
 
 
@@ -43,53 +39,37 @@ function  Shortcuts.GetActionForKey( iKey )
 end
 
 
-function  Shortcuts.Save( iFilePath )
+--function  Shortcuts.Save()
+--    filePath = "Config/keybinds.ini"
+--    local keybindsData = ""
 
-    local filePath = iFilePath
-    if filePath == nil then
-        filePath = "Config/keybinds.ini"
-    end
+--    for k,v in pairs( Shortcuts.mShortcutTable ) do
+--        keybindsData = keybindsData .. k .. ":" .. v .. "\n"
+--    end
 
-    local keybindsData = ""
-
-    for k,v in pairs( Shortcuts.mShortcutTable ) do
-        keybindsData = keybindsData .. k .. ":" .. v .. "\n"
-    end
-
-    local file = io.open( filePath, "w" )
-    file:write( keybindsData )
-
-end
+--    local file = io.open( filePath, "w" )
+--    file:write( keybindsData )
+--end
 
 
-function  Shortcuts.Load( iFilePath )
-
-    local filePath = iFilePath
-    if filePath == nil then
-        filePath = "Config/keybinds.ini"
-    end
-
+function  Shortcuts.LoadShortcutMap()
+    filePath = "Config/shortcutmap.ini"
     local shortcuts = io.open( filePath ):read( '*all' )
     local shortcutsSplit = SplitString( shortcuts, "\n" )
     local counter = 1
 
     for k,v in pairs( shortcutsSplit ) do
-
-        local subSplit = SplitString( v, ":" )
-        Shortcuts.Register( subSplit[ 1 ], subSplit[ 2 ], counter )
+        Shortcuts.mShortcutMap[ counter ] = v
         counter = counter + 1
     end
-
-    Shortcuts.mMaxShortcut = counter
 end
 
-function  Shortcuts.Register( action, key, iCounter )
-        Shortcuts.mModelShortcutTable[ action ] = key
-        Shortcuts.mModelShortcutTableINDEXER[ iCounter ] = action
+function  Shortcuts.Register( action, key )
+        Shortcuts.mShortcutTable[ action ] = key
 end
 
 function  Shortcuts.Unregister( action, key )
-        Shortcuts.mModelShortcutTable[ action ] = nil
+        Shortcuts.mShortcutTable[ action ] = nil
 end
 
 function  Shortcuts.Cleanse()
@@ -98,37 +78,48 @@ function  Shortcuts.Cleanse()
     end
 end
 
-function  Shortcuts.Iterate()
+function  Shortcuts.SeekRandomKey()
+    local size = #Shortcuts.mShortcutMap
+    local key
+    local isRegistered
+    repeat
+        local index = math.floor( love.math.random() * ( size - 1 ) ) + 1
+        key = Shortcuts.mShortcutMap[ index ] 
+        isRegistered = Shortcuts.KeyIsRegistered( key )
+    until isRegistered == false
+    
+    return key
+end
 
-    if( Shortcuts.mIteration >= Shortcuts.mMaxShortcut ) then
-        return;
+function  Shortcuts.RegisterActionWithRandomKey( iAction )
+
+    
+    print("_")
+    print("Function:RegisterActionWithRandomKey")
+    if( ActionIsRegistered == true ) then
+        print("Alerady Registered")
+        return
+    end
+    key = Shortcuts.SeekRandomKey()
+    Shortcuts.Register( iAction, key )
+    print("Registered: " .. iAction .. " | " .. key )
+end
+
+function  Shortcuts.KeyIsRegistered( iKey )
+    if ( Shortcuts.mShortcutTable[ k ] == nil  ) then
+        return false
+    end
+    return  true
+end
+
+function  Shortcuts.ActionIsRegistered( iAction )
+    for k,v in pairs( Shortcuts.mShortcutTable ) do
+        if ( Shortcuts.mShortcutTable[ k ] == iAction ) then
+            return  true;
+        end
     end
 
-    local newAction = Shortcuts.mModelShortcutTableINDEXER[ Shortcuts.mIteration ]
-    Shortcuts.mShortcutTable[ newAction ] = Shortcuts.mModelShortcutTable[ newAction ]
-
-    Shortcuts.mIteration = Shortcuts.mIteration + 1
-
+    return false
 end
-
-function  Shortcuts.Sync()
-
-    for iteration = 1, Shortcuts.mIteration do
-
-        local newAction = Shortcuts.mModelShortcutTableINDEXER[ iteration ]
-        Shortcuts.mShortcutTable[ newAction ] = Shortcuts.mModelShortcutTable[ newAction ]
-
-    end
-end
-
-
-function  Shortcuts.RegisterAction( iAction )
-
-    print("TODO->REGISTER : " .. iAction )
-    -- Merge Clement's work here
-
-end
-
-
 
 return  Shortcuts

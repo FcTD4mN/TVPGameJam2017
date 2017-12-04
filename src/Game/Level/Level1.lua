@@ -189,6 +189,8 @@ function  Level1:InitializeECS()
     -- local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
     --TEST
 
+    Shortcuts.RegisterActionWithRandomKey( "jump" )
+    Shortcuts.RegisterActionWithRandomKey( "dash" )
 end
 
 
@@ -231,11 +233,11 @@ function Level1:Draw( iCamera )
 
     self:DrawBase( iCamera )
 
-    if( Shortcuts.mIteration-2 <= nAchievementsZozo-1 ) then
-        for i = 0, Shortcuts.mIteration-2, 1 do
-            arrayAchievementsZozo[i].mOn = true
-        end
-    end
+    --if( Shortcuts.mIteration-2 <= nAchievementsZozo-1 ) then
+    --    for i = 0, Shortcuts.mIteration-2, 1 do
+    --        arrayAchievementsZozo[i].mOn = true
+    --    end
+    --end
 
     love.graphics.setColor(255,255,255,255);
     for i = 0, nAchievementsZozo -1, 1 do

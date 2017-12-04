@@ -36,8 +36,7 @@ function  Collision( iEntityA, iEntityB )
             iEA:RemoveTag( "didDoubleJump" )
             iEA:RemoveTag( "didTripleJump" )
             iEA:RemoveTag( "didDash" )
-
-            Shortcuts:Iterate()
+            
             return
         end
 
@@ -100,7 +99,7 @@ function  Collision( iEntityA, iEntityB )
 
             local actiongiver    = iEB:GetComponentByName( "actiongiver" )
 
-            Shortcuts.RegisterAction( actiongiver.mAction )
+            Shortcuts.RegisterActionWithRandomKey( actiongiver.mAction )
             iEA:RemoveTag( "isAutoRun" )
 
         end
