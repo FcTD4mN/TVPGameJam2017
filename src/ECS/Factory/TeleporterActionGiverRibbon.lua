@@ -13,7 +13,7 @@ function TeleporterActionGiverRibbon:New( iWorld, iX, iY, iPath, iTelX, iTelY, i
 
     -- Components
     local box2DComponent = BasicComponents:NewBox2DComponent( iWorld, iX, iY, 283, 521, "static", true, 1 )
-        local shape       = love.physics.newRectangleShape( 283, 521 )
+        local shape       = love.physics.newRectangleShape( 100, 521 )
         local fixture     = love.physics.newFixture( box2DComponent.mBody, shape )
         fixture:setUserData( entity )
         fixture:setSensor( true )
