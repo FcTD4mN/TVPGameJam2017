@@ -14,7 +14,7 @@ ShortcutsDisplay = {
     mBorderRadius = 2;
     mInnerPadding = 5;
     mYShift = 2;
-    mXShift = 4;
+    mXShift = 2;
 }
 
 function ShortcutsDisplay.AddEntry( iAction, iKey )
