@@ -27,7 +27,7 @@ function  Collision( iEntityA, iEntityB )
             box2d.mBody:setX( 0 )
             box2d.mBody:setY( 500 )
 
-            iEA:RemoveTag( "isAutoRun" )
+            -- iEA:RemoveTag( "isAutoRun" )
             iEA:RemoveTag( "isInAir" )
             iEA:RemoveTag( "isDead" )
             iEA:RemoveTag( "isDashing" )
@@ -101,6 +101,8 @@ function  Collision( iEntityA, iEntityB )
             local actiongiver    = iEB:GetComponentByName( "actiongiver" )
 
             Shortcuts.RegisterAction( actiongiver.mAction )
+            iEA:RemoveTag( "isAutoRun" )
+
         end
 
     end
