@@ -16,6 +16,7 @@
     -- Singletons Objects =============================================
     Manager   = require "src/Application/Manager"
     Shortcuts = require "src/Application/Shortcuts"
+    ShortcutsDisplay = require "src/Application/ShortcutsDisplay"
 
     -- Other Dependencies =============================================
     ColorRGBA   = require "src/Image/ColorRGBA"

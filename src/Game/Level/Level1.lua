@@ -16,7 +16,9 @@ local Singe                 = require "src/Objects/Heros/Singe"
 local Terrain               = require "src/Objects/Terrain"
 local Tree                  = require "src/Objects/Environnement/Tree"
 local WaterPipe             = require "src/Objects/Environnement/WaterPipe"
-Shortcuts = require "src/Application/Shortcuts"
+Shortcuts                   = require "src/Application/Shortcuts"
+ShortcutsDisplay            = require( "src/Application/ShortcutsDisplay" )
+
 
 
 --TESTS
@@ -238,14 +240,16 @@ function Level1:Draw( iCamera )
     --    end
     --end
 
-    love.graphics.setColor(255,255,255,255);
-    for i = 0, nAchievementsZozo -1, 1 do
-        if( arrayAchievementsZozo[i].mOn == true ) then
-            love.graphics.draw( arrayAchievementsZozo[i].mImageOn, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
-        else
-            love.graphics.draw( arrayAchievementsZozo[i].mImageOff, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
-        end
-    end
+    --love.graphics.setColor(255,255,255,255);
+    --for i = 0, nAchievementsZozo -1, 1 do
+    --    if( arrayAchievementsZozo[i].mOn == true ) then
+    --        love.graphics.draw( arrayAchievementsZozo[i].mImageOn, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
+    --    else
+    --        love.graphics.draw( arrayAchievementsZozo[i].mImageOff, scaleAchievementZozo * paddingAchievementsZozo, scaleAchievementZozo * paddingAchievementsZozo + scaleAchievementZozo * i * ( sizeAchievementsZozo + paddingAchievementsZozo ), 0, scaleAchievementZozo, scaleAchievementZozo )
+    --    end
+    --end
+
+    ShortcutsDisplay.Draw()
 end
 
 -- ==========================================Level1 functions

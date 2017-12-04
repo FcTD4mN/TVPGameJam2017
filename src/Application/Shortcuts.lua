@@ -1,3 +1,5 @@
+local ShortcutsDisplay = require( "src/Application/ShortcutsDisplay" )
+
 -- The shortcut map thing
 
 Shortcuts = {
@@ -66,6 +68,7 @@ end
 
 function  Shortcuts.Register( action, key )
         Shortcuts.mShortcutTable[ action ] = key
+        ShortcutsDisplay.AddEntry( action, key )
 end
 
 function  Shortcuts.Unregister( action, key )
@@ -84,7 +87,7 @@ function  Shortcuts.SeekRandomKey()
     local isRegistered
     repeat
         local index = math.floor( love.math.random() * ( size - 1 ) ) + 1
-        key = Shortcuts.mShortcutMap[ index ] 
+        key = Shortcuts.mShortcutMap[ index ]
         isRegistered = Shortcuts.KeyIsRegistered( key )
     until isRegistered == false
     
