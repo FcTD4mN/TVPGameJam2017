@@ -94,10 +94,11 @@ end
 function  Camera:SetScale( iScale )
 
     scale = iScale
-    if( scale < 0 ) then scale = 0.001 end
+    if( scale < 0.05 ) then
+        scale = 0.05
+    end
 
     self.mScale = scale
-
 
 end
 

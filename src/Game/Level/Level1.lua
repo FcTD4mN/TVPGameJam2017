@@ -44,7 +44,7 @@ function Level1:NewFromXML( iWorld )
     setmetatable( newLevel1, Level1 )
     Level1.__index = Level1
 
-    local xml = io.open('Save/Level11.xml'):read('*all')
+    local xml = io.open('Save/Level111.xml'):read('*all')
     -- local xml = io.open('/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml'):read('*all')
     local doc = SLAXML:dom( xml )
     newLevel1:LoadLevelBaseECSXML( doc.root, iWorld )
@@ -185,8 +185,8 @@ function  Level1:InitializeECS()
 
     ECSWorld:AddEntity( self.mHero )
     --TEST
-    ECSWorld:AddEntity( MovingPlatform:New( self.mWorld, 0, 400, 200, 50 ) )
-    local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
+    -- ECSWorld:AddEntity( MovingPlatform:New( self.mWorld, 0, 400, 200, 50 ) )
+    -- local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
     --TEST
 
 end
