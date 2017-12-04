@@ -146,7 +146,8 @@ function  Level1:InitializeECS()
     self.mHero = Entity:New( "hero" )
 
     -- Components
-    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 400, 45, 100, "dynamic", true, 1, 19 )
+    local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, -361, -3039, 45, 100, "dynamic", true, 1, 19 )
+    -- local box2DComponent = BasicComponents:NewBox2DComponent( self.mWorld, 0, 400, 45, 100, "dynamic", true, 1, 19 )
         local stickyShape    = love.physics.newRectangleShape( 0, 0, 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 100 )
