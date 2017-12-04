@@ -46,16 +46,16 @@ function  MainMenu:Initialize()
     y = y + spaceBetItems
     newSandBox.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newSandBox.rectangle.w /2
 
-    newTest    = MenuItem:New( "Test", 2 * love.graphics.getWidth() / 3, y )
-    y = y + spaceBetItems
-    newTest.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newTest.rectangle.w /2
+    -- newTest    = MenuItem:New( "Test", 2 * love.graphics.getWidth() / 3, y )
+    -- y = y + spaceBetItems
+    -- newTest.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newTest.rectangle.w /2
 
     -- Callbacks
     newGame:SetCallback(    function() Manager:PushScreen( GameScreen:New() ); love.audio.stop( zozoLoop ); end )
     options:SetCallback(    function() MainMenu.currentPage = 2 end )
     quit:SetCallback(       function() love.event.quit() end )
     newSandBox:SetCallback( function() Manager:PushScreen( EditorScreen:New() ); love.audio.stop( zozoLoop ); end )
-    newTest:SetCallback( function() Manager:PushScreen( TestScreen:New() ); love.audio.stop( zozoLoop ); end )
+    -- newTest:SetCallback( function() Manager:PushScreen( TestScreen:New() ); love.audio.stop( zozoLoop ); end )
 
     -- Sounds
     newGame:SetSound( love.audio.newSource( "resources/Audio/FXSound/Valider.mp3", "static" ) )
