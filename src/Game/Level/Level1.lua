@@ -190,7 +190,6 @@ function  Level1:InitializeECS()
     --TEST
 
     Shortcuts.RegisterActionWithRandomKey( "jump" )
-    Shortcuts.RegisterActionWithRandomKey( "dash" )
 end
 
 
