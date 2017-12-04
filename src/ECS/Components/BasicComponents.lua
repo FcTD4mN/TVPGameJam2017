@@ -127,7 +127,7 @@ function  BasicComponents:NewCheckPointSetter( iCheckPoint )
     local  newCheckPointSetter = {}
     
     newCheckPointSetter.mName = "checkpointsetter"
-    newCheckPointSetter.mCheckPoint = 0
+    newCheckPointSetter.mCheckPoint = iCheckPoint
     
     return  newCheckPointSetter
 
@@ -139,7 +139,7 @@ function  BasicComponents:NewCheckPoint( iCheckPoint )
     local  newCheckPoint = {}
     
     newCheckPoint.mName = "checkpoint"
-    newCheckPoint.mCheckPoint = 0
+    newCheckPoint.mCheckPoint = iCheckPoint
     
     return  newCheckPoint
 

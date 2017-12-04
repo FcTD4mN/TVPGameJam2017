@@ -24,6 +24,7 @@ local Tree          = require( "src/Objects/Environnement/Tree")
 local WaterPipe     = require( "src/Objects/Environnement/WaterPipe")
 local Ribbon            = require( "src/ECS/Factory/Ribbon")
 local TeleporterRibbon  = require( "src/ECS/Factory/TeleporterRibbon")
+local TriggerCheckPoint  = require( "src/ECS/Factory/TriggerCheckPoint")
 
 
 -- TODO: Add it in Base/Global
@@ -454,6 +455,73 @@ function LevelEditor.Draw()
                 if imgui.Button( "Ribbon04" ) then
                     Ribbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_04.png" )
                 end
+                
+                imgui.Text( "TriggerCheckPoint01" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint01" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 1 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint02" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint02" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 2 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint03" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint03" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 3 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint04" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint04" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 4 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint05" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint05" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 5 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint06" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint06" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 6 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint07" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint07" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 7 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint08" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint08" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 8 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint09" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint09" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 9 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint10" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint10" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 10 )
+                end
+                
+                imgui.Text( "TriggerCheckPoint11" );
+                imgui.SameLine()
+                if imgui.Button( "TriggerCheckPoint11" ) then
+                    TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 11 )
+                end
+                
 
                 imgui.Text( "TELERibbon01" );
                 imgui.SameLine()

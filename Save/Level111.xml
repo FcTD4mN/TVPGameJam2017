@@ -215,20 +215,16 @@
 <tags>
 </tags>
 <components>
-<component name='actiongiver' action='moveright'  >
-</component>
-<component name='checkpoint' checkpoint='0' >
-</component>
-<component name='checkpointsetter' checkpoint='0' >
+<component name='teleporter' teleportpositionx='-767' teleportpositiony='-1254'  >
 </component>
 <component name='sprite' filename='resources/Images/Decor/ruban_02.png'  >
-</component>
-<component name='teleporter' teleportpositionx='-767' teleportpositiony='-1254'  >
 </component>
 <component name='box2d' bodyx='3525.2687988281' bodyy='259.3249206543' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
 <shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
+</component>
+<component name='actiongiver' action='moveright'  >
 </component>
 </components>
 </entity>
@@ -405,15 +401,15 @@
 <tags>
 </tags>
 <components>
-<component name='checkpoint' checkpoint='0' >
-</component>
-<component name='checkpointsetter' checkpoint='0' >
-</component>
 <component name='sprite' filename='resources/Images/Decor/ruban_02.png'  >
+</component>
+<component name='checkpoint' checkpoint='2'  >
+</component>
+<component name='checkpointsetter' checkpoint='2'  >
 </component>
 <component name='box2d' bodyx='-767.67565917969' bodyy='-1254.0321044922' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
-<shape type='polygon' x1='-50' y1='-260.5' x3='50' y3='-260.5' x5='50' y5='260.5' x7='-50' y7='260.5'  />
+<shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
 </component>
 </components>
@@ -487,15 +483,15 @@
 <tags>
 </tags>
 <components>
-<component name='checkpoint' checkpoint='1' >
-</component>
-<component name='checkpointsetter' checkpoint='1' >
-</component>
 <component name='sprite' filename='resources/Images/Decor/ruban_01.png'  >
+</component>
+<component name='checkpoint' checkpoint='1'  >
+</component>
+<component name='checkpointsetter' checkpoint='1'  >
 </component>
 <component name='box2d' bodyx='258.76885986328' bodyy='376.37933349609' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 <fixture friction='0.20000000298023' sensor='true' >
-<shape type='polygon' x1='-50' y1='-260.5' x3='50' y3='-260.5' x5='50' y5='260.5' x7='-50' y7='260.5'  />
+<shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
 </fixture>
 </component>
 </components>
@@ -698,6 +694,10 @@
 <tags>
 </tags>
 <components>
+<component name='checkpoint' checkpoint='3'  >
+</component>
+<component name='checkpointsetter' checkpoint='3'  >
+</component>
 <component name='box2d' bodyx='-361.14901733398' bodyy='-3039.5339355469' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 </component>
 <component name='sprite' filename='resources/Images/Decor/ruban_03.png'  >

@@ -29,7 +29,7 @@ function  Collision( iEntityA, iEntityB )
                 local a = iEA.mCheckPoints[iEA.mCheckPoint]
                 local x = a.mBody:getX()
                 local aw = a.mBodyW
-                box2d.mBody:setX( x - aw / 2 - box2d.mBodyW - 20 )
+                box2d.mBody:setX( iEA.mCheckPoints[iEA.mCheckPoint].mBody:getX() )
                 box2d.mBody:setY( iEA.mCheckPoints[iEA.mCheckPoint].mBody:getY() )
             end
 
@@ -113,20 +113,6 @@ function  Collision( iEntityA, iEntityB )
 
     end
 
-
-    -- Collision Hero/checkpoint
-    if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
-
-        if iEA.mID == "hero" and iEB:GetComponentByName( "checkpointsetter" ) ~= nil then
-
-            local checkpointsetter = iEB:GetComponentByName( "checkpointsetter" )
-            print( "youpi" )
-            iEA.mCheckPoint = checkpointsetter.mCheckPoint
-
-        end
-
-    end
-
     if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
 
         if iEA.mID == "hero" and iEB:GetComponentByName( "checkpoint" ) ~= nil then
@@ -136,6 +122,19 @@ function  Collision( iEntityA, iEntityB )
             if GetObjectIndexInTable( iEA.mCheckPoints, box2d ) == -1 then
                 iEA.mCheckPoints[ checkpoint.mCheckPoint ] = box2d
             end
+
+        end
+
+    end
+
+
+    -- Collision Hero/checkpoint
+    if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
+
+        if iEA.mID == "hero" and iEB:GetComponentByName( "checkpointsetter" ) ~= nil then
+
+            local checkpointsetter = iEB:GetComponentByName( "checkpointsetter" )
+            iEA.mCheckPoint = checkpointsetter.mCheckPoint
 
         end
 
