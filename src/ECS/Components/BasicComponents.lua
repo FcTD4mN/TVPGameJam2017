@@ -122,6 +122,31 @@ function  BasicComponents:NewActionGiver( iAction )
 end
 
 
+function  BasicComponents:NewMotionComponent( iPath, iLoop )
+
+    local  newMotion = {}
+
+    newMotion.mName = "motion"
+
+    -- mPath contains points with there attributes
+    -- mPath
+    -- \-- ["points"]
+    --      \-- [1]
+    --          \-- ["x"] --in world ?
+    --          \-- ["y"] --in world ?
+    --          \-- ["time"]  --Time is the time in second at which the point is reached
+    --      \-- ...
+    --      \-- [n]
+    newMotion.mPath = iPath 
+    newMotion.mLoop = iLoop -- Should the motion loop ( this does not mean the path goes in loop, only the motion )
+
+    --runtime -- not saved
+    newMotion.mCurrentTime = 0
+
+    return  newMotion
+
+end
+
 -- ==========================================Dummy components
 
 
@@ -153,6 +178,11 @@ function  BasicComponents:SaveXML( iComponent )
 end
 
 
+function toboolean( iValue )
+    return  iValue == "true"
+end
+
+
 function  BasicComponents:SaveBasicComponentsXML( iComponent )
     xmlData = "<component "
 
@@ -162,13 +192,9 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
                     "bodyy='" .. iComponent.mBody:getY() .. "' " ..
                     "bodyw='" .. iComponent.mBodyW .. "' " ..
                     "bodyh='" .. iComponent.mBodyH .. "' " ..
-                    "physictype='" .. iComponent.mBody:getType() .. "' "
-        if iComponent.mBody:isFixedRotation() then
-            xmlData =   xmlData .. "fixedrotation='true' "
-        else
-            xmlData =   xmlData .. "fixedrotation='false' "
-        end
-        xmlData =   xmlData .. "gravity='" .. iComponent.mBody:getGravityScale() .. "' " ..
+                    "physictype='" .. iComponent.mBody:getType() .. "' " ..
+                    "fixedrotation='" .. tostring(iComponent.mBody:isFixedRotation()) .. "' " ..
+                    "gravity='" .. iComponent.mBody:getGravityScale() .. "' " ..
         " >\n"
 
         fixtures = iComponent.mBody:getFixtureList()
@@ -191,26 +217,11 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
             xmlData =   xmlData .. "name='" .. iComponent.mAnimations[i].mName .. "' " ..
                         "filename='" .. iComponent.mAnimations[i].mName .. "' " ..
                         "imagecount='" .. iComponent.mAnimations[i].mImageCount .. "' " ..
-                        "fps='" .. iComponent.mAnimations[i].mFPS .. "' "
-
-            if iComponent.mAnimations[i].mLoop then
-                xmlData =   xmlData .. "loop='true' "
-            else
-                xmlData =   xmlData .. "loop='false' "
-            end
-
-            if iComponent.mAnimations[i].mFlipX then
-                xmlData =   xmlData .. "flipx='true' "
-            else
-                xmlData =   xmlData .. "flipx='false' "
-            end
-
-            if iComponent.mAnimations[i].mFlipY then
-                xmlData =   xmlData .. "flipy='true' "
-            else
-                xmlData =   xmlData .. "flipy='false' "
-            end
-            xmlData =   xmlData .. "maxtime='" .. iComponent.mAnimations[i].mMaxTime .. "' " ..
+                        "fps='" .. iComponent.mAnimations[i].mFPS .. "' " ..
+                        "loop='" .. tostring(iComponent.mAnimations[i].mLoop) .. "' " ..
+                        "flipx='" .. tostring(iComponent.mAnimations[i].mFlipX) .. "' " ..
+                        "flipy='" .. tostring(iComponent.mAnimations[i].mFlipY) .. "' " ..
+                        "maxtime='" .. iComponent.mAnimations[i].mMaxTime .. "' " ..
                         " >\n"
             xmlData =   xmlData .. "</animation>\n"
         end
@@ -260,6 +271,22 @@ function  BasicComponents:SaveBasicComponentsXML( iComponent )
         xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
                     "action='" .. iComponent.mAction .. "' " ..
                     " >\n"
+        xmlData = xmlData .. "</component>\n"
+    elseif iComponent.mName == "path" then
+        xmlData =   xmlData .. "name='" .. iComponent.mName .. "' " ..
+                    "loop='" .. tostring(iComponent.mLoop) .. "' " ..
+                    " >\n"
+        xmlData =   xmlData .. "<Path>\n"
+            xmlData =   xmlData .. "<Points>\n"
+                for i = 0, #iComponent.mPath["points"] do
+                    xmlData =   xmlData .. "<Point \n"
+                    xmlData =   xmlData ..  "x='" .. iComponent.mPath["points"][i]["x"] .. "' " ..
+                                            "y='" .. iComponent.mPath["points"][i]["y"] .. "' " ..
+                                            "time='" .. iComponent.mPath["points"][i]["time"] .. "' " ..
+                                            " />\n"
+                end
+            xmlData = xmlData .. "</Points>\n"
+        xmlData = xmlData .. "<Path/>\n" --Path
         xmlData = xmlData .. "</component>\n"
 
 
@@ -330,8 +357,16 @@ function  BasicComponents:LoadBasicComponentsXML( iNode, iWorld, iEntity )
     elseif name == "actiongiver" then
         local  teleporter = BasicComponents:newActionGiver()
         killable.mAction = iNode.attr[2].value
-
-
+    elseif name == "path" then
+        local path = {}
+        path[ "points" ] = {}
+        for i = 1, #iNode.el[0].el[0].el do --<path><points><i>
+            path[ "points" ][i] = {}
+            path[ "points" ][i]["x"] = iNode.el[0].el[0].el[i].attr[1]
+            path[ "points" ][i]["y"] = iNode.el[0].el[0].el[i].attr[2]
+            path[ "points" ][i]["time"] = iNode.el[0].el[0].el[i].attr[3]
+        end
+        return  BasicComponents:NewPathComponent( path, toboolean(iNode.attr[1]) )
     elseif name == "wall" then
         return  BasicComponents:NewWallComponent()
     elseif name == "spike" then

@@ -8,9 +8,7 @@ SystemBase.__index = SystemBase
 function  AnimationRenderer:Initialize()
 
     self.mEntityGroup = {}
-
-    self.mTime = 0
-    self.mTime = 0
+    
 end
 
 

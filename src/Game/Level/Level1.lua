@@ -27,6 +27,7 @@ local SLAXML            = require 'src/ExtLibs/XML/SLAXML/slaxdom'
 
 local ECSIncludes       = require 'src/ECS/ECSIncludes'
 local Spike             = require 'src/ECS/Factory/Spike'
+local MovingPlatform    = require 'src/ECS/Factory/MovingPlatform'
 
 local TeleporterActionGiverRibbon             = require 'src/ECS/Factory/TeleporterActionGiverRibbon'
 
@@ -183,13 +184,10 @@ function  Level1:InitializeECS()
     self.mHero:AddTag( "teleportable" )
 
     ECSWorld:AddEntity( self.mHero )
-
     --TEST
-
+    ECSWorld:AddEntity( MovingPlatform:New( self.mWorld, 0, 400, 200, 50 ) )
     local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
-
     --TEST
-
 
 end
 

@@ -154,6 +154,7 @@ function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
     self:AddSystem( HeroController )
     self:AddSystem( WallDrawer )
     self:AddSystem( SpikeDrawer )
+    self:AddSystem( MotionAI )
 end
 
 return  ECSWorld

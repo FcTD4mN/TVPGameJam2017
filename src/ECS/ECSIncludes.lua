@@ -14,6 +14,7 @@ RectangleDrawer   = require "src/ECS/Systems/RectangleDrawer"
 SpikeDrawer       = require "src/ECS/Systems/SpikeDrawer"
 SpriteRenderer    = require "src/ECS/Systems/SpriteRenderer"
 WallDrawer        = require "src/ECS/Systems/WallDrawer"
+MotionAI        = require "src/ECS/Systems/MotionAI"
 
 
 SystemTest    = require "src/ECS/Systems/SystemTest"
