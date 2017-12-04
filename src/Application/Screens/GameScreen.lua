@@ -88,13 +88,13 @@ function GameScreen:Update( dt )
 
     level1:Update( dt )
 
-    if love.keyboard.isDown( "o" )  then
-        level1.mCamera.mScale = level1.mCamera.mScale + 0.01
-    elseif love.keyboard.isDown( "l" )  then
-        level1.mCamera.mScale = level1.mCamera.mScale - 0.01
-    elseif love.keyboard.isDown( "p" )  then
-        level1.mCamera.mScale = 1.0
-    end
+    -- if love.keyboard.isDown( "o" )  then
+    --     level1.mCamera.mScale = level1.mCamera.mScale + 0.01
+    -- elseif love.keyboard.isDown( "l" )  then
+    --     level1.mCamera.mScale = level1.mCamera.mScale - 0.01
+    -- elseif love.keyboard.isDown( "p" )  then
+    --     level1.mCamera.mScale = 1.0
+    -- end
 
 end
 
