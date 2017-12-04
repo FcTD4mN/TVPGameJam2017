@@ -479,5 +479,6 @@
 <component name='box2d' bodyx='258.76885986328' bodyy='376.37933349609' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1'  >
 </component>
 </components>
+</entity>
 </ecsworld>
 </level>

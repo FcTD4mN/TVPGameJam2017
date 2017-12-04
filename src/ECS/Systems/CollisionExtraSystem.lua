@@ -36,7 +36,7 @@ function  Collision( iEntityA, iEntityB )
             iEA:RemoveTag( "didDoubleJump" )
             iEA:RemoveTag( "didTripleJump" )
             iEA:RemoveTag( "didDash" )
-            
+
             return
         end
 
@@ -80,8 +80,6 @@ function  Collision( iEntityA, iEntityB )
 
     -- Collision Entity/Teleporter
     if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
-
-        print("LOL")
 
         if iEA.mID == "hero" and iEB:GetComponentByName( "teleporter" ) ~= nil then
             print("TELE")
