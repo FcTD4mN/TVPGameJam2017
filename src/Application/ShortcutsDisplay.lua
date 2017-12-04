@@ -3,10 +3,10 @@
 ShortcutsDisplay = {
     mAvailableShortcuts = {};
     mLast = 0;
-    mFont = love.graphics.newFont("resources/Fonts/tahoma.ttf", 10 );
+    mFont = love.graphics.newFont("resources/Fonts/tahoma.ttf", 15 );
     mPadding = 10;
     mSpace = 2;
-    mLineHeight = 15;
+    mLineHeight = 20;
 }
 
 function ShortcutsDisplay.AddEntry( iAction, iKey )

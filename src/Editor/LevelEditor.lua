@@ -479,6 +479,35 @@ function LevelEditor.Draw()
                     TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_04.png", 0, 0 )
                 end
 
+                imgui.Text( "TELERibbon05" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon05" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_05.png", 0, 0 )
+                end
+
+                imgui.Text( "TELERibbon06" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon06" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_06.png", 0, 0 )
+                end
+                imgui.Text( "TELERibbon07" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon07" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_07.png", 0, 0 )
+                end
+
+                imgui.Text( "TELERibbon08" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbon08" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_08.png", 0, 0 )
+                end
+
+                imgui.Text( "TELERibbonwin" );
+                imgui.SameLine()
+                if imgui.Button( "TELERibbonwin" ) then
+                    TeleporterRibbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_win.png", 0, 0 )
+                end
+
                 imgui.TreePop();
             end
 
