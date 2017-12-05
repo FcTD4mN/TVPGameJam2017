@@ -157,6 +157,11 @@ function SplitString( iString, iSeparator )
 
 end
 
+-- Converts a string to a boolean, returns true if iValue == "true"
+function ToBoolean( iValue )
+    return  iValue == "true"
+end
+
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Base
