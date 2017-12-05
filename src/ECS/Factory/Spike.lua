@@ -18,9 +18,7 @@ function Spike:New( iWorld, iX, iY, iW, iH )
         fixture:setFriction( 1.0 )
         fixture:setUserData( entity )
 
-    local animations = {}
-
-    entity:AddComponent( BasicComponents:NewSpikeComponent( animations ) )
+    entity:AddComponent( BasicComponents:NewSpikeComponent() )
     entity:AddComponent( box2DComponent )
 
     entity:AddTag( "canKill" )

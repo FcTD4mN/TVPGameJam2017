@@ -147,7 +147,7 @@ function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
     for i = 1, #iNode.el do
         self:AddEntity( Entity:NewFromXML( iNode.el[ i ], iWorld ) )
     end
-    
+
     self:AddSystem( SpriteRenderer )
     self:AddSystem( InputConverter )
     self:AddSystem( AnimationRenderer )
@@ -155,6 +155,7 @@ function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
     self:AddSystem( WallDrawer )
     self:AddSystem( SpikeDrawer )
     self:AddSystem( MotionAI )
+    self:AddSystem( HangingBallRenderer )
 end
 
 return  ECSWorld

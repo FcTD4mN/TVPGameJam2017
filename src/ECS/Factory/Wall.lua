@@ -18,9 +18,7 @@ function Wall:New( iWorld, iX, iY, iW, iH )
         fixture:setFriction( 0.0 )
         fixture:setUserData( entity )
 
-    local animations = {}
-
-    entity:AddComponent( BasicComponents:NewWallComponent( animations ) )
+    entity:AddComponent( BasicComponents:NewWallComponent() )
     entity:AddComponent( box2DComponent )
     ECSWorld:AddEntity( entity )
 

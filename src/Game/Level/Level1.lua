@@ -31,7 +31,7 @@ local ECSIncludes       = require 'src/ECS/ECSIncludes'
 local Spike             = require 'src/ECS/Factory/Spike'
 local MovingPlatform    = require 'src/ECS/Factory/MovingPlatform'
 
-local TeleporterActionGiverRibbon             = require 'src/ECS/Factory/TeleporterActionGiverRibbon'
+local SpikeBall             = require 'src/ECS/Factory/SpikeBall'
 
 local Level1 = {}
 setmetatable( Level1, LevelBaseECS )
@@ -191,7 +191,7 @@ function  Level1:InitializeECS()
 
     ECSWorld:AddEntity( self.mHero )
     --TEST
-    -- ECSWorld:AddEntity( MovingPlatform:New( self.mWorld, 0, 400, 200, 50 ) )
+    ECSWorld:AddEntity( SpikeBall:New( self.mWorld, 600, 100 ) )
     -- local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
     --TEST
 

@@ -125,10 +125,10 @@ end
 function  BasicComponents:NewCheckPointSetter( iCheckPoint )
 
     local  newCheckPointSetter = {}
-    
+
     newCheckPointSetter.mName = "checkpointsetter"
     newCheckPointSetter.mCheckPoint = iCheckPoint
-    
+
     return  newCheckPointSetter
 
 end
@@ -137,10 +137,10 @@ end
 function  BasicComponents:NewCheckPoint( iCheckPoint )
 
     local  newCheckPoint = {}
-    
+
     newCheckPoint.mName = "checkpoint"
     newCheckPoint.mCheckPoint = iCheckPoint
-    
+
     return  newCheckPoint
 
 end
@@ -171,10 +171,26 @@ function  BasicComponents:NewMotionComponent( iPath, iLoop )
 
 end
 
+
+function  BasicComponents:NewRopeOrigin( iWorld, iRopeOriginX, iRopeOriginY )
+
+    local  newRopeOrigin = {}
+
+    newRopeOrigin.mName = "ropeorigin"
+
+    newRopeOrigin.mBody = love.physics.newBody( iWorld, iRopeOriginX, iRopeOriginY, "static" )
+    newRopeOrigin.mBody:setFixedRotation( true )
+    newRopeOrigin.mBody:setGravityScale( 0 )
+
+    return  newRopeOrigin
+
+end
+
+
 -- ==========================================Dummy components
 
 
-function  BasicComponents:NewWallComponent( iWall )
+function  BasicComponents:NewWallComponent()
 
     local  newWall = {}
     newWall.mName = "wall"
@@ -184,7 +200,7 @@ function  BasicComponents:NewWallComponent( iWall )
 end
 
 
-function  BasicComponents:NewSpikeComponent( iSpike )
+function  BasicComponents:NewSpikeComponent()
 
     local  newSpike = {}
     newSpike.mName = "spike"
