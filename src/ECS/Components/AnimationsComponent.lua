@@ -39,6 +39,18 @@ function AnimationsComponent:NewFromXML( iNode, iWorld, iEntity )
     return newAnimationsComponent
 end
 
+--=== Accessors Modifiers ===--
+
+function AnimationsComponent:Play( iAnimationIndex )
+    if iAnimationIndex == self.mCurrentAnimationIndex then 
+        return
+    end
+
+    self.mAnimations[ self.mCurrentAnimationIndex ]:Reset()
+    self.mCurrentAnimationIndex = iAnimationIndex
+end
+
+--=== XML ===--
 
 function  AnimationsComponent:SaveXML()
     return  self:SaveAnimationsComponentXML()

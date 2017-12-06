@@ -25,6 +25,8 @@ function HeroController:Requirements()
 
 end
 
+--TODO: find a way to move some MakeCrouch and MakeNormal equivalent in Box2dComponent or something like this
+
 function MakeCrouch( iEntity, iBox2d )
     local box2DComponent = Box2DComponent:New( iBox2d.mBody:getWorld(), iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 + iBox2d.mBodyH / 2, 45, iBox2d.mBodyH / 2, "dynamic", true, 1, 19 )
     local stickyShape    = love.physics.newRectangleShape( box2DComponent.mBodyW, box2DComponent.mBodyH )
@@ -51,14 +53,6 @@ function MakeNormal( iEntity, iBox2d )
     iBox2d.mBody:destroy()
 
     return box2DComponent
-end
-
-function SetAnimation( iAnimations, iIndex )
-    if iAnimations.mCurrentAnimationIndex ~= iIndex then
-        iAnimations.mCurrentAnimationIndex = iIndex
-        iAnimations.mAnimations[ iAnimations.mCurrentAnimationIndex ].mTime = 0
-        iAnimations.mAnimations[ iAnimations.mCurrentAnimationIndex ].mIsPaused = false
-    end
 end
 
 function HeroController:Update( iDT )
@@ -173,21 +167,21 @@ function HeroController:Update( iDT )
         ---------------------------------------------------------------------------Animations
 
         if( entity:GetTagByName( "isDead" ) == "1" ) then
-            SetAnimation( animations, "death" )
+            animations:Play( "death" )
         elseif entity:GetTagByName( "isDashing" ) == "1" then
-            SetAnimation( animations, "dash" )
+            animations:Play( "dash" )
         elseif entity:GetTagByName( "isInAir" ) == "1" then
-            SetAnimation( animations, "fall" ) --TODO: use jump/fall/land )
+            animations:Play( "fall" ) --TODO: use jump/fall/land )
         elseif entity:GetTagByName( "isCrouch" ) == "1" then
             if entity:GetTagByName( "isMoving" ) == "1" then
-                SetAnimation( animations, "crawl" )
+                animations:Play( "crawl" )
             else
-                SetAnimation( animations, "crouch" )
+                animations:Play( "crouch" )
             end
         elseif entity:GetTagByName( "isMoving" ) == "1" then
-            SetAnimation( animations, "move" )
+            animations:Play( "move" )
         else
-            SetAnimation( animations, "idle" )
+            animations:Play( "idle" )
         end
     end
 end

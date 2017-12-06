@@ -33,4 +33,10 @@ function  Animation:Type()
     return  "Animation"
 end
 
+function  Animation:Reset()
+    self.mIsPaused = false
+    self.mTime = 0
+    self.mCurrentQuadIndex = 1
+end
+
 return Animation
