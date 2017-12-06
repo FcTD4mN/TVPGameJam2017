@@ -18,7 +18,7 @@ function Wall:New( iWorld, iX, iY, iW, iH )
         fixture:setFriction( 0.0 )
         fixture:setUserData( entity )
 
-    entity:AddComponent( BasicComponents:NewWallComponent() )
+    entity:AddTag( "wall" )
     entity:AddComponent( box2DComponent )
     ECSWorld:AddEntity( entity )
 

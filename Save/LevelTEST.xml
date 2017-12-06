@@ -1,0 +1,64 @@
+<level>
+<terrain>
+<body type='static' x1='0' y1='0' gravity='1' fixedrotation='true'  >
+</body>
+</terrain>
+<camera x='0' y='0' w='800' h='600' scale='1'  />
+<backgrounds>
+</backgrounds>
+<foregrounds>
+</foregrounds>
+<objectpool>
+</objectpool>
+<ecsworld>
+<entity id='wall0'  >
+<tags>
+<tag name='wall' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='494.55523681641' bodyy='585.84185791016' bodyw='1100' bodyh='20' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-550' y1='-10' x3='550' y3='-10' x5='550' y5='10' x7='-550' y7='10'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall1'  >
+<tags>
+<tag name='wall' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='801.48516845703' bodyy='551.33807373047' bodyw='500' bodyh='50' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-249.99998474121' y1='-25' x3='249.99998474121' y3='-25' x5='249.99998474121' y5='25' x7='-249.99998474121' y7='25'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='wall2'  >
+<tags>
+<tag name='wall' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='948.02001953125' bodyy='500.84255981445' bodyw='500' bodyh='50' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-249.99998474121' y1='-25' x3='249.99998474121' y3='-25' x5='249.99998474121' y5='25' x7='-249.99998474121' y7='25'  />
+</fixture>
+</component>
+</components>
+</entity>
+<entity id='spike0'  >
+<tags>
+<tag name='canKill' value='1'  />
+<tag name='spike' value='1'  />
+</tags>
+<components>
+<component name='box2d' bodyx='737.12866210938' bodyy='255.29689025879' bodyw='500' bodyh='50' physictype='static' fixedrotation='true' gravity='1'  >
+<fixture friction='1' sensor='false' >
+<shape type='polygon' x1='-249.99998474121' y1='-25' x3='249.99998474121' y3='-25' x5='249.99998474121' y5='25' x7='-249.99998474121' y7='25'  />
+</fixture>
+</component>
+</components>
+</entity>
+</ecsworld>
+</level>

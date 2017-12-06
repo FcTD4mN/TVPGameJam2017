@@ -80,7 +80,7 @@ function  Entity:MatchComponentsName( ... )
     for i = 1, select( "#", ... ) do
 
         local componentName = select( i, ... )
-        if self:GetComponentByName( componentName ) == nil then
+        if self:GetComponentByName( componentName ) == nil and self:GetTagByName( componentName ) == "0" then
             return  false
         end
     end
