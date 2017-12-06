@@ -47,18 +47,5 @@
 </component>
 </components>
 </entity>
-<entity id='spike0'  >
-<tags>
-<tag name='canKill' value='1'  />
-<tag name='spike' value='1'  />
-</tags>
-<components>
-<component name='box2d' bodyx='737.12866210938' bodyy='255.29689025879' bodyw='500' bodyh='50' physictype='static' fixedrotation='true' gravity='1'  >
-<fixture friction='1' sensor='false' >
-<shape type='polygon' x1='-249.99998474121' y1='-25' x3='249.99998474121' y3='-25' x5='249.99998474121' y5='25' x7='-249.99998474121' y7='25'  />
-</fixture>
-</component>
-</components>
-</entity>
 </ecsworld>
 </level>

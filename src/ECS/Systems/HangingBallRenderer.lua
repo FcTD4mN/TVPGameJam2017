@@ -59,6 +59,36 @@ function  HangingBallRenderer:Draw( iCamera )
                 love.graphics.line( ropeOriginX+1, ropeOriginY+1, ballX+1, ballY+1 )
 
                 if( entity:GetTagByName( "canKill" ) == "1" ) then
+
+                    love.graphics.setColor( 200,10,10 )
+
+                    local  nbSpikes = 8
+                    local  angles = 2*math.pi / nbSpikes
+                    local  shift = 0.2
+
+                    for pos = 0, nbSpikes, angles do
+
+                        local  sinPrev = math.sin( pos + shift )
+                        local  sinNext = math.sin( pos - shift )
+                        local  cosPrev = math.cos( pos + shift )
+                        local  cosNext = math.cos( pos - shift )
+
+                        local  sin = math.sin( pos )
+                        local  cos = math.cos( pos )
+
+
+                        local endX = ballX + cos * 50
+                        local endY = ballY + sin * 50
+
+                        local firstX = ballX + cosPrev * 30
+                        local firstY = ballY + sinPrev * 30
+
+                        local secondX = ballX + cosNext * 30
+                        local secondY = ballY + sinNext * 30
+
+                        love.graphics.polygon( "fill", endX, endY, firstX, firstY, secondX, secondY )
+
+                    end
                     -- Draw spikes !
                 end
 
