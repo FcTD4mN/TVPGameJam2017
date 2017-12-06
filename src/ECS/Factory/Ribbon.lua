@@ -20,7 +20,7 @@ function Ribbon:New( iWorld, iX, iY, iPath )
 
     entity:AddComponent( SpriteComponent:New( iPath ) )
     entity:AddComponent( CheckPointSetterComponent:New( 1 ) )
-    entity:AddComponent( CheckPointComponent:New( 0 ) )
+    entity:AddComponent( CheckPointComponent:New( 1 ) )
     entity:AddComponent( box2DComponent )
 
     ECSWorld:AddEntity( entity )
