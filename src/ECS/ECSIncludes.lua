@@ -4,7 +4,20 @@ ECSWorld          = require "src/ECS/ECSWorld"
 Entity            = require "src/ECS/Entity/Entity"
 
 
-BasicComponents   = require "src/ECS/Components/BasicComponents"
+Component                   = require "src/ECS/Components/Component"
+AnimationsComponent         = require "src/ECS/Components/AnimationsComponent"
+Box2DComponent              = require "src/ECS/Components/Box2DComponent"
+CheckPointComponent         = require "src/ECS/Components/CheckPointComponent"
+CheckPointSetterComponent   = require "src/ECS/Components/CheckPointSetterComponent"
+DirectionComponent          = require "src/ECS/Components/DirectionComponent"
+KillableComponent           = require "src/ECS/Components/KillableComponent"
+MotionComponent             = require "src/ECS/Components/MotionComponent"
+SpikeComponent              = require "src/ECS/Components/SpikeComponent"
+SpriteComponent             = require "src/ECS/Components/SpriteComponent"
+TeleporterComponent         = require "src/ECS/Components/TeleporterComponent"
+UserInputComponent          = require "src/ECS/Components/UserInputComponent"
+WallComponent               = require "src/ECS/Components/WallComponent"
+
 
 
 AnimationRenderer   = require "src/ECS/Systems/AnimationRenderer"

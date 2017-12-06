@@ -143,7 +143,7 @@ function  Entity:SaveEntityXML()
 
     xmlData = xmlData .. "<components>\n"
     for k,v in pairs( self.mComponents ) do
-        xmlData = xmlData .. BasicComponents:SaveXML( v )
+        xmlData = xmlData .. v:SaveXML()
     end
     xmlData = xmlData .. "</components>\n"
     xmlData = xmlData .. "</entity>\n"
@@ -163,9 +163,10 @@ function  Entity:LoadEntityXML( iNode, iWorld )
     end
 
     for i = 1, #iNode.el[2].el do
-        local component = BasicComponents:NewFromXML( iNode.el[2].el[i], iWorld, self )
+        local component = ObjectRegistry.CreateFromRegistry( iNode.el[2].el[i], iWorld, self )
         self.mComponents[component.mName] = component
     end
+
 end
 
 

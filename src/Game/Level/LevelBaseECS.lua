@@ -214,16 +214,7 @@ function  LevelBaseECS:SaveLevelBaseECSXML()
                 xmlData = xmlData .. v:SaveXML()
             end
         xmlData = xmlData .. "</foregrounds>\n"
-
-        -- OBJECTS
-        xmlData = xmlData .. "<objectpool>\n"
-            for i = 1, ObjectPool.Count() do
-
-                local obj = ObjectPool.ObjectAtIndex( i )
-                xmlData = xmlData .. obj:SaveXML()
-
-            end
-        xmlData = xmlData .. "</objectpool>\n"
+        
         xmlData = xmlData .. self.mWorldECS:SaveXML()
     xmlData = xmlData .. "</level>\n"
 
@@ -262,16 +253,6 @@ function  LevelBaseECS:LoadLevelBaseECSXML( iNode, iWorld )
     -- Node <foregrounds>
     for k,v in pairs( iNode.el[ elIndex ].el ) do
         table.insert( self.mForegrounds, Background:NewFromXML( v ) )
-    end
-    elIndex = elIndex + 1
-
-    -- Node <objectpool>
-    for k,v in pairs( iNode.el[ elIndex ].el ) do
-        local obj = ObjectRegistry.CreateFromRegistry( v.name, v, iWorld )
-        -- TODO: shouldn't heros ne only in pool as well ? and shouldn't pool forward all events to all objects ?
-        if obj:Type() == "Singe" or obj:Type() == "Lapin" then
-            table.insert( self.mHeros, obj )
-        end
     end
     elIndex = elIndex + 1
 

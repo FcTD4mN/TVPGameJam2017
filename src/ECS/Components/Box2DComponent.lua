@@ -1,8 +1,9 @@
-Component = require "src/ECS/Components/Component"
+local Component = require "src/ECS/Components/Component"
+local ComponentRegistry = require "src/ECS/Components/ComponentRegistry"
 
 local Box2DComponent = {}
-setmetatable( Box2DComponent, Object )
-Object.__index = Component
+setmetatable( Box2DComponent, Component )
+Component.__index = Component
 
 ComponentRegistry.Register( "box2dcomponent", Box2DComponent )
 
@@ -52,7 +53,7 @@ function  Box2DComponent:SaveBox2DComponentXML()
     
     xmlData = "<box2dcomponent>"
     xmlData = xmlData .. self:SaveComponentXML()
-    xmlData = xmlData .. "<attributes " ..
+    xmlData = xmlData .. "<attributes "
     xmlData = xmlData .. "bodyx='" .. self.mBody:getX() .. "' " ..
                          "bodyy='" .. self.mBody:getY() .. "' " ..
                          "bodyw='" .. self.mBodyW .. "' " ..
@@ -88,7 +89,7 @@ function  Box2DComponent:LoadBox2DComponentXML( iNode, iWorld, iEntity )
     self.mBody:setGravityScale( iNode.el[2].attr[6].value )
 
     for i = 1, #iNode.el[2].el do
-        fixture = LoadFixtureXML( iNode.el[2][ i ], self.mBody, iEntity )
+        LoadFixtureXML( iNode.el[2][ i ], self.mBody, iEntity )
     end
 end
 

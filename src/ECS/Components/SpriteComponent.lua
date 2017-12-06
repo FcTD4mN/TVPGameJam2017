@@ -1,8 +1,9 @@
-Component = require "src/ECS/Components/Component"
+local Component = require "src/ECS/Components/Component"
+local ComponentRegistry = require "src/ECS/Components/ComponentRegistry"
 
 local SpriteComponent = {}
-setmetatable( SpriteComponent, Object )
-Object.__index = Component
+setmetatable( SpriteComponent, Component )
+Component.__index = Component
 
 ComponentRegistry.Register( "spritecomponent", SpriteComponent )
 
@@ -48,9 +49,9 @@ function  SpriteComponent:SaveSpriteComponentXML()
     xmlData = "<spritecomponent>"
 
     xmlData = xmlData .. self:SaveComponentXML()
-    xmlData = xmlData .. "<attributes " ..
+    xmlData = xmlData .. "<attributes "
     xmlData = xmlData .. "filename='" .. iComponent.mFileName .. "' " ..
-                         " >\n"
+                         " />\n"
 
     xmlData = xmlData .. "<spritecomponent />\n"
     
