@@ -89,7 +89,7 @@ function  HangingBallRenderer:Draw( iCamera )
                         love.graphics.polygon( "fill", endX, endY, firstX, firstY, secondX, secondY )
 
                     end
-                    -- Draw spikes !
+
                 end
 
         end

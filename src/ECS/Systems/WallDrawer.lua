@@ -42,6 +42,27 @@ function  WallDrawer:Draw( iCamera )
 
             love.graphics.setColor( 255, 255, 255 )
             love.graphics.rectangle( "line", x1, y1, box2d.mBodyW * iCamera.mScale, box2d.mBodyH * iCamera.mScale )
+
+            if( self.mEntityGroup[ i ]:GetTagByName( "canKill" ) == "1" ) then
+
+                local spikeW = 20 * iCamera.mScale
+
+                local x1, y1 = iCamera:MapToScreen( box2d.mBody:getX() - box2d.mBodyW / 2, box2d.mBody:getY() - box2d.mBodyH / 2 )
+                local spikeHeight = 10
+                y1 = y1 - 10
+
+                love.graphics.setColor( 0, 0, 0 )
+                for x = x1, x1 + box2d.mBodyW * iCamera.mScale - spikeW, spikeW do
+                    love.graphics.polygon( "fill", x, y1 + spikeHeight * iCamera.mScale, x + spikeW / 2, y1, x + spikeW, y1 + spikeHeight * iCamera.mScale )
+                end
+
+                love.graphics.setColor( 255, 0, 0 )
+                for x = x1, x1 + box2d.mBodyW * iCamera.mScale - spikeW, spikeW do
+                    love.graphics.polygon( "line", x, y1 + spikeHeight * iCamera.mScale, x + spikeW / 2, y1, x + spikeW, y1 + spikeHeight * iCamera.mScale )
+                end
+
+            end
+
         end
 
     end
