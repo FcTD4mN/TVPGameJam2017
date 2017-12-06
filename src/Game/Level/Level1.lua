@@ -149,8 +149,8 @@ function  Level1:InitializeECS()
     self.mHero.mCheckPoint = -1
 
     -- Components
-    -- local box2DComponent = Box2DComponent:NewBox2DComponent( self.mWorld, -361, -3039, 45, 100, "dynamic", true, 1, 19 )
-    local box2DComponent = Box2DComponent:NewBox2DComponent( self.mWorld, 0, 400, 45, 100, "dynamic", true, 1, 19 )
+    -- local box2DComponent = Box2DComponent:NewBox2DComponent( self.mWorld, -361, -3039, 45, 100, "dynamic", true, 1, 19, 0 )
+    local box2DComponent = Box2DComponent:New( self.mWorld, 0, 400, 45, 100, "dynamic", true, 1, 19, 0 )
         local stickyShape    = love.physics.newRectangleShape( 0, 0, 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 100 )
@@ -171,10 +171,10 @@ function  Level1:InitializeECS()
     animations[ "dash" ].mPlayEndCB = DashEnd
     animations[ "dash" ].mPlayEndCBArguments = self.mHero
 
-    self.mHero:AddComponent( UserInputComponent:NewUserInputComponent() )
-    self.mHero:AddComponent( KillableComponent:NewKillableComponent() )
-    self.mHero:AddComponent( DirectionComponent:NewDirectionComponent( "right", "up" ) )
-    self.mHero:AddComponent( AnimationsComponent:NewAnimationsComponent( animations, "idle" ) )
+    self.mHero:AddComponent( UserInputComponent:New() )
+    self.mHero:AddComponent( KillableComponent:New() )
+    self.mHero:AddComponent( DirectionComponent:New( "right", "up" ) )
+    self.mHero:AddComponent( AnimationsComponent:New( animations, "idle" ) )
     self.mHero:AddComponent( box2DComponent )
 
     --TODO: hitbox system to know if we re in the air

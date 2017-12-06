@@ -45,15 +45,15 @@ end
 
 function  ActionGiverComponent:SaveActionGiverComponentXML()
     
-    xmlData = "<actiongivercomponent>"
+    xmlData = "<actiongivercomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
     xmlData = xmlData .. "<attributes "
-    xmlData = xmlData .. "action='" .. iComponent.mAction .. "' " ..
+    xmlData = xmlData .. "action='" .. self.mAction .. "' " ..
               " />\n"
 
-    xmlData = xmlData .. "<actionGivercomponent />\n"
+    xmlData = xmlData .. "</actiongivercomponent>\n"
     
     return  xmlData
 
@@ -62,7 +62,7 @@ end
 
 function  ActionGiverComponent:LoadActionGiverComponentXML( iNode, iWorld, iEntity )
 
-    assert( iNode.name == "actionGivercomponent" )
+    assert( iNode.name == "actiongivercomponent" )
 
     self:LoadComponentXML( iNode.el[1] )
     self.mAction = iNode.el[2].attr[1].value

@@ -12,6 +12,7 @@ CheckPointSetterComponent   = require "src/ECS/Components/CheckPointSetterCompon
 DirectionComponent          = require "src/ECS/Components/DirectionComponent"
 KillableComponent           = require "src/ECS/Components/KillableComponent"
 MotionComponent             = require "src/ECS/Components/MotionComponent"
+RopeOriginComponent         = require "src/ECS/Components/RopeOriginComponent"
 SpikeComponent              = require "src/ECS/Components/SpikeComponent"
 SpriteComponent             = require "src/ECS/Components/SpriteComponent"
 TeleporterComponent         = require "src/ECS/Components/TeleporterComponent"

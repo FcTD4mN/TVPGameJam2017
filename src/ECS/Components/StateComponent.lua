@@ -46,24 +46,24 @@ end
 
 function  StateComponent:SaveStateComponentXML()
     
-    xmlData = "<statecomponent>"
+    xmlData = "<statecomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
     xmlData = xmlData .. "<attributes "
-    xmlData = xmlData .. "state='" .. iComponent.mState .. "' " ..
+    xmlData = xmlData .. "state='" .. self.mState .. "' " ..
               " >\n"
-    for k1,v1 in pairs(iComponent.mAllowedTransitions) do
+    for k1,v1 in pairs(self.mAllowedTransitions) do
         xmlData =   xmlData .. "<allowedtransitions '"
         xmlData =   xmlData .. "state='" .. k1 .. "' "
-        for k2,v2 in pairs(iComponent.mAllowedTransitions[k1]) do
+        for k2,v2 in pairs(self.mAllowedTransitions[k1]) do
             xmlData =   xmlData .. "state" .. k2 .."='" .. v2 .. "' "
         end
         xmlData =   xmlData .. " />\n"
     end
     xmlData = xmlData .. "</attributes>\n" ..
 
-    xmlData = xmlData .. "<statecomponent />\n"
+    xmlData = xmlData .. "</statecomponent>\n"
     
     return  xmlData
 

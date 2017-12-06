@@ -47,31 +47,30 @@ end
 
 function  AnimationsComponent:SaveAnimationsComponentXML()
     
-    xmlData = "<animationscomponent>"
+    xmlData = "<animationscomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
     local animations = {}
-    xmlData = xmlData .. " >\n"
-    xmlData = xmlData .. "<attributes default='" .. iComponent.mDefaultAnimationIndex.."' >\n"
+    xmlData = xmlData .. "<attributes default='" .. self.mDefaultAnimationIndex.."' >\n"
     xmlData = xmlData .. "<animations>\n"
-    for i = 1, #iComponent.mAnimations do
+    for i = 1, #self.mAnimations do
         xmlData =   xmlData .. "<animation "
-        xmlData =   xmlData .. "name='" .. iComponent.mAnimations[i].mName .. "' " ..
-                    "filename='" .. iComponent.mAnimations[i].mFileName .. "' " ..
-                    "imagecount='" .. iComponent.mAnimations[i].mImageCount .. "' " ..
-                    "fps='" .. iComponent.mAnimations[i].mFPS .. "' " ..
-                    "loop='" .. tostring(iComponent.mAnimations[i].mLoop) .. "' " ..
-                    "flipx='" .. tostring(iComponent.mAnimations[i].mFlipX) .. "' " ..
-                    "flipy='" .. tostring(iComponent.mAnimations[i].mFlipY) .. "' " ..
-                    "maxtime='" .. iComponent.mAnimations[i].mMaxTime .. "' " ..
+        xmlData =   xmlData .. "name='" .. self.mAnimations[i].mName .. "' " ..
+                    "filename='" .. self.mAnimations[i].mFileName .. "' " ..
+                    "imagecount='" .. self.mAnimations[i].mImageCount .. "' " ..
+                    "fps='" .. self.mAnimations[i].mFPS .. "' " ..
+                    "loop='" .. tostring(self.mAnimations[i].mLoop) .. "' " ..
+                    "flipx='" .. tostring(self.mAnimations[i].mFlipX) .. "' " ..
+                    "flipy='" .. tostring(self.mAnimations[i].mFlipY) .. "' " ..
+                    "maxtime='" .. self.mAnimations[i].mMaxTime .. "' " ..
                     " >\n"
         xmlData =   xmlData .. "</animation>\n"
     end
     xmlData = xmlData .. "</animations>\n"
     xmlData = xmlData .. "</attributes>\n"
 
-    xmlData = xmlData .. "<animationscomponent />\n"
+    xmlData = xmlData .. "</animationscomponent>\n"
     
     return  xmlData
 

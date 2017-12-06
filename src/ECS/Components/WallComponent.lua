@@ -43,13 +43,13 @@ end
 
 function  WallComponent:SaveWallComponentXML()
     
-    xmlData = "<wallcomponent>"
+    xmlData = "<wallcomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
-    xmlData = xmlData .. "<attributes/>\n"
+    xmlData = xmlData .. "<attributes> </attributes>\n"
 
-    xmlData = xmlData .. "<wallcomponent />\n"
+    xmlData = xmlData .. "</wallcomponent>\n"
     
     return  xmlData
 

@@ -45,15 +45,15 @@ end
 
 function  CheckPointSetterComponent:SaveCheckPointSetterComponentXML()
     
-    xmlData = "<checkpointsettercomponent>"
+    xmlData = "<checkpointsettercomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
     xmlData = xmlData .. "<attributes "
-    xmlData = xmlData .. "checkpoint='" .. iComponent.mCheckPoint .. "' " ..
+    xmlData = xmlData .. "checkpoint='" .. self.mCheckPoint .. "' " ..
               " />\n"
 
-    xmlData = xmlData .. "<checkpointsettercomponent />\n"
+    xmlData = xmlData .. "</checkpointsettercomponent>\n"
     
     return  xmlData
 

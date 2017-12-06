@@ -12,9 +12,9 @@ function DeadBody:New( iWorld, iX, iY )
     DeadBody.mId = DeadBody.mId + 1
 
     -- Components
-    local box2DComponent = Box2DComponent:NewBox2DComponent( iWorld, iX, iY, 208, 169, "static", true, 1, 19 )
+    local box2DComponent = Box2DComponent:New( iWorld, iX, iY, 208, 169, "static", true, 1, 19 )
 
-    entity:AddComponent( SpriteComponent:NewSpriteComponent( "resources/Animation/Characters/Dummy/corpse.png" ) )
+    entity:AddComponent( SpriteComponent:New( "resources/Animation/Characters/Dummy/corpse.png" ) )
     entity:AddComponent( box2DComponent )
 
     ECSWorld:AddEntity( entity )

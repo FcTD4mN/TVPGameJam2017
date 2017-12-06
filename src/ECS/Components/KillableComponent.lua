@@ -5,7 +5,7 @@ local KillableComponent = {}
 setmetatable( KillableComponent, Component )
 Component.__index = Component
 
-ComponentRegistry.Register( "Killablecomponent", KillableComponent )
+ComponentRegistry.Register( "killablecomponent", KillableComponent )
 
 
 -- ==========================================Constructor/Destructor
@@ -45,13 +45,13 @@ end
 
 function  KillableComponent:SaveKillableComponentXML()
     
-    xmlData = "<killablecomponent>"
+    xmlData = "<killablecomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
-    xmlData = xmlData .. "<attributes/>\n"
+    xmlData = xmlData .. "<attributes> </attributes>\n"
 
-    xmlData = xmlData .. "<killablecomponent />\n"
+    xmlData = xmlData .. "</killablecomponent>\n"
     
     return  xmlData
 

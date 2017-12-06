@@ -46,16 +46,16 @@ end
 
 function  DirectionComponent:SaveDirectionComponentXML()
     
-    xmlData = "<directioncomponent>"
+    xmlData = "<directioncomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
     xmlData = xmlData .. "<attributes "
-    xmlData = xmlData .. "directionh='" .. iComponent.mDirectionH .. "' "
-    xmlData = xmlData .. "directionv='" .. iComponent.mDirectionV .. "' "..
+    xmlData = xmlData .. "directionh='" .. self.mDirectionH .. "' "
+    xmlData = xmlData .. "directionv='" .. self.mDirectionV .. "' "..
               " />\n"
 
-    xmlData = xmlData .. "<directioncomponent />\n"
+    xmlData = xmlData .. "</directioncomponent>\n"
     
     return  xmlData
 

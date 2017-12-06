@@ -12,7 +12,7 @@ function MovingPlatform:New( iWorld, iX, iY, iW, iH )
     MovingPlatform.mId = MovingPlatform.mId + 1
 
     -- Components
-    local box2DComponent = Box2DComponent:NewBox2DComponent( iWorld, iX, iY, iW, iH, "kinematic", true, 1 )
+    local box2DComponent = Box2DComponent:New( iWorld, iX, iY, iW, iH, "kinematic", true, 1, 0 )
         local stickyShape    = love.physics.newRectangleShape( iW, iH )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 100 )
@@ -52,8 +52,8 @@ function MovingPlatform:New( iWorld, iX, iY, iW, iH )
     
     
 
-    entity:AddComponent( MotionComponent:NewMotionComponent( path, true ) )
-    entity:AddComponent( WallComponent:NewWallComponent() )
+    entity:AddComponent( MotionComponent:New( path, true ) )
+    entity:AddComponent( WallComponent:New() )
     entity:AddComponent( box2DComponent )
     ECSWorld:AddEntity( entity )
 

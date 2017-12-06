@@ -82,7 +82,7 @@ function  LoadFixtureXML( iNode, iBody, iObject )
 
     fixture    = love.physics.newFixture( iBody, shape )
     fixture:setFriction( friction )
-    fixture:setSensor( sensor == 'true' )
+    fixture:setSensor( ToBoolean( sensor ) )
     fixture:setUserData( iObject )
 
     return  fixture

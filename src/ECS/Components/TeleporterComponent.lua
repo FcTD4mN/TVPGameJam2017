@@ -46,16 +46,16 @@ end
 
 function  TeleporterComponent:SaveTeleporterComponentXML()
     
-    xmlData = "<teleportercomponent>"
+    xmlData = "<teleportercomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
     xmlData = xmlData .. "<attributes "
-    xmlData = xmlData .. "teleporterx='" .. iComponent.mTeleporterX .. "' "
-    xmlData = xmlData .. "teleportery='" .. iComponent.mTeleporterY .. "' " ..
+    xmlData = xmlData .. "teleporterx='" .. self.mTeleporterX .. "' "
+    xmlData = xmlData .. "teleportery='" .. self.mTeleporterY .. "' " ..
               " />\n"
 
-    xmlData = xmlData .. "<teleportercomponent />\n"
+    xmlData = xmlData .. "</teleportercomponent>\n"
     
     return  xmlData
 

@@ -12,13 +12,13 @@ function TriggerCheckPoint:New( iWorld, iX, iY, iCheckPoint )
     TriggerCheckPoint.mId = TriggerCheckPoint.mId + 1
 
     -- Components
-    local box2DComponent = Box2DComponent:NewBox2DComponent( iWorld, iX, iY, 283, 521, "static", true, 1 )
+    local box2DComponent = Box2DComponent:New( iWorld, iX, iY, 283, 521, "static", true, 1, 0 )
         local shape       = love.physics.newRectangleShape( 10000, 50 )
         local fixture     = love.physics.newFixture( box2DComponent.mBody, shape )
         fixture:setUserData( entity )
         fixture:setSensor( true )
 
-    entity:AddComponent( CheckPointSetterComponent:NewCheckPointSetterComponent( iCheckPoint ) )
+    entity:AddComponent( CheckPointSetterComponent:New( iCheckPoint ) )
     entity:AddComponent( box2DComponent )
 
     ECSWorld:AddEntity( entity )

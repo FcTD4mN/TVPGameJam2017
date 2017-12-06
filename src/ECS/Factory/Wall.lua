@@ -12,7 +12,7 @@ function Wall:New( iWorld, iX, iY, iW, iH )
     Wall.mId = Wall.mId + 1
 
     -- Components
-    local box2DComponent = Box2DComponent:NewBox2DComponent( iWorld, iX, iY, iW, iH, "static", true, 1 )
+    local box2DComponent = Box2DComponent:New( iWorld, iX, iY, iW, iH, "static", true, 1, 0 )
         local stickyShape    = love.physics.newRectangleShape( iW, iH )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 0.0 )

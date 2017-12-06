@@ -46,13 +46,13 @@ end
 
 function  UserInputComponent:SaveUserInputComponentXML()
     
-    xmlData = "<userinputcomponent>"
+    xmlData = "<userinputcomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
-    xmlData = xmlData .. "<attributes/>\n"
+    xmlData = xmlData .. "<attributes> </attributes>\n"
 
-    xmlData = xmlData .. "<UserInputcomponent />\n"
+    xmlData = xmlData .. "</userinputcomponent>\n"
     
     return  xmlData
 
@@ -61,7 +61,7 @@ end
 
 function  UserInputComponent:LoadUserInputComponentXML( iNode, iWorld, iEntity )
 
-    assert( iNode.name == "UserInputcomponent" )
+    assert( iNode.name == "userinputcomponent" )
 
     self:LoadComponentXML( iNode.el[1] )
 end

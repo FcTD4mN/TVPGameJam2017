@@ -1,3 +1,5 @@
+local ComponentRegistry = require "src/ECS/Components/ComponentRegistry"
+
 local Entity = {}
 
 
@@ -158,12 +160,12 @@ function  Entity:LoadEntityXML( iNode, iWorld )
 
     self.mID = iNode.attr[1].value
 
-    for i = 1, #iNode.el[1].el do
+    for i = 1, #iNode.el[1].el do --<tags><tag ...>
         self.mTags[ iNode.el[1].el[i].attr[ 1 ].value ] = iNode.el[1].el[i].attr[2].value
     end
 
-    for i = 1, #iNode.el[2].el do
-        local component = ObjectRegistry.CreateFromRegistry( iNode.el[2].el[i], iWorld, self )
+    for i = 1, #iNode.el[2].el do --<components><XXXcomponent ...>
+        local component = ComponentRegistry.CreateFromRegistry( iNode.el[2].el[i].name, iNode.el[2].el[i], iWorld, self )
         self.mComponents[component.mName] = component
     end
 

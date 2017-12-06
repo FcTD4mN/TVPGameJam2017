@@ -59,27 +59,28 @@ end
 
 function  MotionComponent:SaveMotionComponentXML()
     
-    xmlData = "<motioncomponent>"
+    xmlData = "<motioncomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
     xmlData = xmlData .. "<attributes "
-
-    xmlData =   xmlData .. "loop='" .. tostring(self.mLoop) .. "' " ..
+    xmlData = xmlData .. "loop='" .. tostring(self.mLoop) .. "' " ..
                 " >\n"
+
     xmlData =   xmlData .. "<Path>\n"
         xmlData =   xmlData .. "<Points>\n"
             for i = 0, #self.mPath["points"] do
-                xmlData =   xmlData .. "<Point \n"
+                xmlData =   xmlData .. "<Point "
                 xmlData =   xmlData ..  "x='" .. self.mPath["points"][i]["x"] .. "' " ..
                                         "y='" .. self.mPath["points"][i]["y"] .. "' " ..
                                         "time='" .. self.mPath["points"][i]["time"] .. "' " ..
                                         " />\n"
             end
         xmlData = xmlData .. "</Points>\n"
-    xmlData = xmlData .. "<Path/>\n" --Path
+    xmlData = xmlData .. "</Path>\n" --Path
 
-    xmlData = xmlData .. "<motioncomponent />\n"
+    xmlData = xmlData .. "</attributes>\n"
+    xmlData = xmlData .. "</motioncomponent>\n"
     
     return  xmlData
 

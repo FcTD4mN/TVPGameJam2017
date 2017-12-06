@@ -43,13 +43,13 @@ end
 
 function  SpikeComponent:SaveSpikeComponentXML()
     
-    xmlData = "<spikecomponent>"
+    xmlData = "<spikecomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
 
-    xmlData = xmlData .. "<attributes/>\n"
+    xmlData = xmlData .. "<attributes> </attributes>\n"
 
-    xmlData = xmlData .. "<spikecomponent />\n"
+    xmlData = xmlData .. "</spikecomponent>\n"
     
     return  xmlData
 

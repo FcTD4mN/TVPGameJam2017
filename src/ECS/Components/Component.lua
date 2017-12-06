@@ -5,6 +5,8 @@ function Component:New()
     setmetatable( newComponent, Component )
     Component.__index = Component
 
+    newComponent.mName = ""
+
     return newComponent
 end
 
@@ -12,7 +14,7 @@ end
 
 
 function  Component:SaveComponentXML()
-    xmlData = "<component name=" .. self.mName " />"
+    xmlData = "<component name='" .. self.mName .. "' />\n"
     return  xmlData
 end
 

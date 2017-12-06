@@ -12,15 +12,15 @@ function Ribbon:New( iWorld, iX, iY, iPath )
     Ribbon.mId = Ribbon.mId + 1
 
     -- Components
-    local box2DComponent = Box2DComponent:NewBox2DComponent( iWorld, iX, iY, 283, 521, "static", true, 1 )
+    local box2DComponent = Box2DComponent:New( iWorld, iX, iY, 283, 521, "static", true, 1, 0 )
         local shape       = love.physics.newRectangleShape( 100, 521 )
         local fixture     = love.physics.newFixture( box2DComponent.mBody, shape )
         fixture:setUserData( entity )
         fixture:setSensor( true )
 
-    entity:AddComponent( SpriteComponent:NewSpriteComponent( iPath ) )
-    entity:AddComponent( CheckPointSetterComponents:NewCheckPointSetterComponent( 1 ) )
-    entity:AddComponent( CheckPointComponent:NewCheckPointComponent( 0 ) )
+    entity:AddComponent( SpriteComponent:New( iPath ) )
+    entity:AddComponent( CheckPointSetterComponent:New( 1 ) )
+    entity:AddComponent( CheckPointComponent:New( 0 ) )
     entity:AddComponent( box2DComponent )
 
     ECSWorld:AddEntity( entity )

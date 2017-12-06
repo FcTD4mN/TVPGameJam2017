@@ -12,11 +12,12 @@ function ComponentRegistry.Register( iComponentString, iComponent )
 end
 
 
-function  ComponentRegistry.CreateFromRegistry( iComponentString, iNode, iWorld )
+function  ComponentRegistry.CreateFromRegistry( iComponentString, iNode, iWorld, iEntity )
 
+    print( iComponentString )
     for k,v in pairs( ComponentRegistry.references ) do
         if k == iComponentString then
-            return  v:NewFromXML( iNode, iWorld )
+            return  v:NewFromXML( iNode, iWorld, iEntity )
         end
     end
 

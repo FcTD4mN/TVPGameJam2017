@@ -46,14 +46,14 @@ end
 
 function  SpriteComponent:SaveSpriteComponentXML()
     
-    xmlData = "<spritecomponent>"
+    xmlData = "<spritecomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
     xmlData = xmlData .. "<attributes "
-    xmlData = xmlData .. "filename='" .. iComponent.mFileName .. "' " ..
+    xmlData = xmlData .. "filename='" .. self.mFileName .. "' " ..
                          " />\n"
 
-    xmlData = xmlData .. "<spritecomponent />\n"
+    xmlData = xmlData .. "</spritecomponent>\n"
     
     return  xmlData
 

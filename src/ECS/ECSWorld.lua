@@ -142,6 +142,7 @@ end
 
 function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
 
+    print( iNode.name )
     assert( iNode.name == "ecsworld" )
 
     for i = 1, #iNode.el do

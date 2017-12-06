@@ -12,13 +12,13 @@ function SpikeBall:New( iWorld, iX, iY )
     SpikeBall.mId = SpikeBall.mId + 1
 
     -- Components
-    local box2DComponent    = BasicComponents:NewBox2DComponent( iWorld, iX + 300, iY, 40, 40, "dynamic", true, 1 )
+    local box2DComponent    = Box2DComponent:New( iWorld, iX + 300, iY, 40, 40, "dynamic", true, 1, 0 )
         local hitBox    = love.physics.newRectangleShape( 40, 40 )
         local fixture   = love.physics.newFixture( box2DComponent.mBody, hitBox )
         fixture:setFriction( 1.0 )
         fixture:setUserData( entity )
 
-    local ropeComp          = BasicComponents:NewRopeOrigin( iWorld, iX, iY )
+    local ropeComp          = RopeOriginComponent:New( iWorld, iX, iY )
         local fixedPart = love.physics.newBody( iWorld, iX, iY, "static" )
         fixedPart:setFixedRotation( true )
         fixedPart:setGravityScale( 0 )
