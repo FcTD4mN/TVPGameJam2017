@@ -53,8 +53,10 @@ function MovingPlatform:New( iWorld, iX, iY, iW, iH )
     
 
     entity:AddComponent( MotionComponent:New( path, true ) )
-    entity:AddComponent( WallComponent:New() )
     entity:AddComponent( box2DComponent )
+
+    entity:AddTag( "wall" )
+
     ECSWorld:AddEntity( entity )
 
     return  entity
