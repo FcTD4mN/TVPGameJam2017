@@ -12,15 +12,21 @@ function  HangingBallRenderer:Initialize()
 end
 
 
-function HangingBallRenderer:Requirements()
+function HangingBallRenderer:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "ropeorigin" )
-    table.insert( requirements, "box2d" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local ropeorigin = iEntity:GetComponentByName( "ropeorigin" )
+    local box2d = iEntity:GetComponentByName( "box2d" )
+
+    if box2d and ropeorigin then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
+
 
 
 function HangingBallRenderer:Update( iDT )

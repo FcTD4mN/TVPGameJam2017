@@ -13,15 +13,20 @@ function  HeroController:Initialize()
 end
 
 
-function HeroController:Requirements()
+function HeroController:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "userinput" )
-    table.insert( requirements, "direction" )
-    table.insert( requirements, "box2d" )
-    table.insert( requirements, "animations" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local userinput = iEntity:GetComponentByName( "userinput" )
+    local box2d = iEntity:GetComponentByName( "box2d" )
+    local direction = iEntity:GetComponentByName( "direction" )
+    local animations = iEntity:GetComponentByName( "animations" )
+
+    if box2d and userinput and direction and animations then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 

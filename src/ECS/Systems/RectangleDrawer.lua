@@ -12,13 +12,18 @@ function  RectangleDrawer:Initialize()
 end
 
 
-function RectangleDrawer:Requirements()
+function RectangleDrawer:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "body" )
-    table.insert( requirements, "color" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local body = iEntity:GetComponentByName( "body" )
+    local color = iEntity:GetComponentByName( "color" )
+
+    if color and body then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 

@@ -12,13 +12,18 @@ function  WallDrawer:Initialize()
 end
 
 
-function WallDrawer:Requirements()
+function WallDrawer:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "wall" )
-    table.insert( requirements, "box2d" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local wall = iEntity:GetTagByName( "wall" )
+    local box2d = iEntity:GetComponentByName( "box2d" )
+
+    if box2d and wall == "1" then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 

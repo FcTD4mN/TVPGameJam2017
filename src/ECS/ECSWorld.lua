@@ -9,7 +9,7 @@ function  ECSWorld:AddEntity( iEntity )
     table.insert( self.mEntities, iEntity )
 
     self:UpdateWorldForEntity( iEntity )
-    iEntity.mLoaded = true
+    -- iEntity.mLoaded = true -- Needs thinking before actually using this
 
 end
 
@@ -30,22 +30,7 @@ function  ECSWorld:AddSystem( iSystem )
     for i = 1, #self.mEntities do
 
         local entity = self.mEntities[ i ]
-        if entity:MatchAllComponentsName( iSystem:Requirements() ) then
-
-            table.insert( iSystem.mEntityGroup, entity )
-            table.insert( entity.mObserverSystems, iSystem )
-
-            iSystem:EntityAdded( entity )
-
-        end
-        if entity:MatchAnyComponentsName( iSystem:WatchOver() ) then
-
-            table.insert( iSystem.mEntityGroup, entity )
-            table.insert( entity.mObserverSystems, iSystem )
-
-            iSystem:EntityAdded( entity )
-
-        end
+        iSystem:IncomingEntity( entity )
 
     end
 
@@ -57,20 +42,7 @@ function  ECSWorld:UpdateWorldForEntity( iEntity )
     for i = 1, #self.mSystems do
 
         local system = self.mSystems[ i ]
-        if iEntity:MatchAllComponentsName( system:Requirements() ) then
-
-            table.insert( system.mEntityGroup, iEntity )
-            table.insert( iEntity.mObserverSystems, system )
-
-        end
-        if iEntity:MatchAnyComponentsName( system:WatchOver() ) then
-
-            table.insert( system.mEntityGroup, entity )
-            table.insert( iEntity.mObserverSystems, system )
-
-        end
-
-        system:EntityAdded( iEntity )
+        system:IncomingEntity( iEntity )
 
     end
 

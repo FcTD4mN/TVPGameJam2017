@@ -12,13 +12,18 @@ function  AnimationRenderer:Initialize()
 end
 
 
-function AnimationRenderer:Requirements()
+function AnimationRenderer:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "box2d" )
-    table.insert( requirements, "animations" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local box2d = iEntity:GetComponentByName( "box2d" )
+    local animations = iEntity:GetComponentByName( "animations" )
+
+    if animations and box2d then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 

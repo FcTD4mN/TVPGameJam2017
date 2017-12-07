@@ -13,12 +13,17 @@ function  InputConverter:Initialize()
 end
 
 
-function InputConverter:Requirements()
+function InputConverter:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "userinput" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local userinput = iEntity:GetComponentByName( "userinput" )
+
+    if userinput then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 

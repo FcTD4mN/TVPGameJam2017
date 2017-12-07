@@ -12,13 +12,18 @@ function  SpikeDrawer:Initialize()
 end
 
 
-function SpikeDrawer:Requirements()
+function SpikeDrawer:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "spike" )
-    table.insert( requirements, "box2d" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local spike = iEntity:GetTagByName( "spike" )
+    local box2d = iEntity:GetComponentByName( "box2d" )
+
+    if box2d and spike == "1" then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 

@@ -14,18 +14,21 @@ function  SwapSystem:Initialize()
 end
 
 
-function  SwapSystem:EntityAdded( iEntity )
+function SwapSystem:IncomingEntity( iEntity )
 
     local userinput = iEntity:GetComponentByName( "userinput" )
 
     if userinput then
         table.insert( self.mUserInputs, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
     end
     if iEntity:GetTagByName( "swapable" ) == "1" then
         table.insert( self.mSwapables, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
     end
 
 end
+
 
 function  SwapSystem:EntityLost( iEntity )
 
@@ -38,26 +41,6 @@ function  SwapSystem:EntityLost( iEntity )
     if (index2 > -1 ) then
         table.remove( self.mSwapables, index )
     end
-
-end
-
-
-function SwapSystem:Requirements()
-
-    local requirements = {}
-    table.insert( requirements, "userinput" )
-
-    return  unpack( requirements )
-
-end
-
-
-function SwapSystem:WatchOver()
-
-    local watching = {}
-    table.insert( watching, "swapable" )
-
-    return  unpack( watching )
 
 end
 

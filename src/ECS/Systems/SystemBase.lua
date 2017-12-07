@@ -4,30 +4,13 @@ local SystemBase = {
 }
 
 
-function SystemBase:RemoveEntity( iEntity )
+function  SystemBase:EntityLost( iEntity )
 
     local index = GetObjectIndexInTable( self.mEntityGroup, iEntity )
+
     if index > 0 then
         table.remove( self.mEntityGroup, index )
     end
-
-end
-
-
-function  SystemBase:EntityAdded( iEntity )
-
-end
-
-
-function  SystemBase:EntityLost( iEntity )
-
-end
-
-
-function SystemBase:WatchOver()
-
-    local watching = {}
-    return  unpack( watching )
 
 end
 

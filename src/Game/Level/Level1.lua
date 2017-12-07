@@ -178,7 +178,8 @@ function  Level1:InitializeECS()
     self.mHero:AddComponent( box2DComponent )
 
     --TODO: hitbox system to know if we re in the air
-    self.mHero:AddTag( "isAutoRun" )
+    -- self.mHero:AddTag( "isAutoRun" )
+
     --self.mHero:AddTag( "isDashing" )
     --self.mHero:AddTag( "isMoving" )
     --self.mHero:AddTag( "isInAir" ) -- true => fall, dash     false => jump, idle, move, land, crouch, crawl, dash
@@ -199,6 +200,8 @@ function  Level1:InitializeECS()
 
     Shortcuts.RegisterActionWithRandomKey( "jump" )
     Shortcuts.RegisterActionWithRandomKey( "swapCanKill" )
+    Shortcuts.RegisterActionWithRandomKey( "moveright" )
+    Shortcuts.RegisterActionWithRandomKey( "moveleft" )
 end
 
 

@@ -12,13 +12,18 @@ function  SpriteRenderer:Initialize()
 end
 
 
-function SpriteRenderer:Requirements()
+function SpriteRenderer:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "box2d" )
-    table.insert( requirements, "sprite" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local sprite = iEntity:GetComponentByName( "sprite" )
+    local box2d = iEntity:GetComponentByName( "box2d" )
+
+    if box2d and sprite then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 

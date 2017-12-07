@@ -12,13 +12,18 @@ function  MotionAI:Initialize()
 end
 
 
-function MotionAI:Requirements()
+function MotionAI:IncomingEntity( iEntity )
 
-    local requirements = {}
-    table.insert( requirements, "box2d" )
-    table.insert( requirements, "motion" )
+    -- Here we decide if we are interested by iEntity or not
+    -- =====================================================
 
-    return  unpack( requirements )
+    local motion = iEntity:GetComponentByName( "motion" )
+    local box2d = iEntity:GetComponentByName( "box2d" )
+
+    if box2d and motion then
+        table.insert( self.mEntityGroup, iEntity )
+        table.insert( iEntity.mObserverSystems, self )
+    end
 
 end
 
