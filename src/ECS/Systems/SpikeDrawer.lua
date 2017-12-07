@@ -28,7 +28,7 @@ end
 
 
 function SpikeDrawer:DrawSpikeUp( iCamera, iBox2d )
-    
+
     local spikeW = 20 * iCamera.mScale
 
     local x1, y1 = iCamera:MapToScreen( iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 )
@@ -46,7 +46,7 @@ end
 
 
 function SpikeDrawer:DrawSpikeDown( iCamera, iBox2d )
-    
+
     local spikeW = 20 * iCamera.mScale
 
     local x1, y1 = iCamera:MapToScreen( iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 )
@@ -59,12 +59,12 @@ function SpikeDrawer:DrawSpikeDown( iCamera, iBox2d )
     for x = x1, x1 + iBox2d.mBodyW * iCamera.mScale - spikeW, spikeW do
         love.graphics.polygon( "line", x, y1, x + spikeW / 2, y1 + iBox2d.mBodyH * iCamera.mScale, x + spikeW, y1 )
     end
-    
+
 end
 
 
 function SpikeDrawer:DrawSpikeLeft( iCamera, iBox2d )
-    
+
     local spikeH = 20 * iCamera.mScale
 
     local x1, y1 = iCamera:MapToScreen( iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 )
@@ -82,7 +82,7 @@ end
 
 
 function SpikeDrawer:DrawSpikeRight( iCamera, iBox2d )
-    
+
     local spikeH = 20 * iCamera.mScale
 
     local x1, y1 = iCamera:MapToScreen( iBox2d.mBody:getX() - iBox2d.mBodyW / 2, iBox2d.mBody:getY() - iBox2d.mBodyH / 2 )
@@ -95,7 +95,7 @@ function SpikeDrawer:DrawSpikeRight( iCamera, iBox2d )
     for x = x1, x1 + iBox2d.mBodyW * iCamera.mScale - spikeW, spikeW do
         love.graphics.polygon( "fill", x1, y, x1 + iBox2d.mBodyW * iCamera.mScale, y + spikeH / 2, x1, y + spikeH )
     end
-    
+
 end
 
 
@@ -119,7 +119,7 @@ function  SpikeDrawer:Draw( iCamera )
         else
             self:DrawSpikeUp( iCamera, box2d )
         end
-        
+
     end
 
 end

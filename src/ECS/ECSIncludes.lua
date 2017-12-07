@@ -20,15 +20,12 @@ UserInputComponent          = require "src/ECS/Components/UserInputComponent"
 
 
 AnimationRenderer   = require "src/ECS/Systems/AnimationRenderer"
-HeroController      = require "src/ECS/Systems/HeroController"
 InputConverter      = require "src/ECS/Systems/InputConverter"
+MotionAI            = require "src/ECS/Systems/MotionAI"
+HangingBallRenderer = require "src/ECS/Systems/HangingBallRenderer"
+HeroController      = require "src/ECS/Systems/HeroController"
 RectangleDrawer     = require "src/ECS/Systems/RectangleDrawer"
 SpikeDrawer         = require "src/ECS/Systems/SpikeDrawer"
 SpriteRenderer      = require "src/ECS/Systems/SpriteRenderer"
+SwapSystem          = require "src/ECS/Systems/SwapSystem"
 WallDrawer          = require "src/ECS/Systems/WallDrawer"
-MotionAI            = require "src/ECS/Systems/MotionAI"
-HangingBallRenderer = require "src/ECS/Systems/HangingBallRenderer"
-
-
-SystemTest    = require "src/ECS/Systems/SystemTest"
-SystemTest2    = require "src/ECS/Systems/SystemTest2"

@@ -13,6 +13,7 @@ function  Entity:New( iID )
     newEntity.mComponents = {}
     newEntity.mTags = {}        -- Tags are "boolean" components, to avoid creating objects with no data. Gives a property such as lootable, or killable
     newEntity.mDestroy = false
+    newEntity.mLoaded = false
 
     newEntity.mObserverSystems = {} -- Entity knows which systems are observing, when destroyed, an entity can remove itself from system directly -> fast
 
@@ -30,6 +31,7 @@ function Entity:NewFromXML( iNode, iWorld )
     newEntity.mComponents = {}
     newEntity.mObserverSystems = {}
     newEntity:LoadEntityXML( iNode, iWorld )
+    newEntity.mLoaded = false -- This prevents initial stage when you build your entity, doing shit ton of addComponent, to update systems every time
 
     return newEntity
 end
@@ -40,6 +42,7 @@ function  Entity:Destroy()
     self.mDestroy = true
     for i = 1, #self.mObserverSystems do
         self.mObserverSystems[ i ]:RemoveEntity( self )
+        self.mObserverSystems[ i ]:EntityLost( self )
     end
 
 end
@@ -60,12 +63,25 @@ function  Entity:AddComponent( iComponent )
 
     self.mComponents[ iComponent.mName ] = iComponent
 
+    if loaded then
+        ECSWorld:UpdateWorldForEntity( self )
+    end
+
 end
 
 
 function  Entity:RemoveComponentByName( iComponentName )
 
     self.mComponents[ iComponentName ] = nil
+
+    for i = 1, #self.mObserverSystems do
+        local system = self.mObserverSystems[ i ]
+        if not ( self:MatchAllComponentsName( system:Requirements() ) )
+        and not ( self:MatchAnyComponentsName( system:WatchOver() ) ) then
+            system:RemoveEntity( self )
+            system:EntityLost( self )
+        end
+    end
 
 end
 
@@ -77,7 +93,7 @@ function  Entity:GetComponentByName( iComponentName )
 end
 
 
-function  Entity:MatchComponentsName( ... )
+function  Entity:MatchAllComponentsName( ... )
 
     for i = 1, select( "#", ... ) do
 
@@ -92,13 +108,31 @@ function  Entity:MatchComponentsName( ... )
 end
 
 
+function  Entity:MatchAnyComponentsName( ... )
+
+    for i = 1, select( "#", ... ) do
+
+        local componentName = select( i, ... )
+        if self:GetComponentByName( componentName ) ~= nil or self:GetTagByName( componentName ) == "1" then
+            return  true
+        end
+    end
+
+    return  false
+
+end
+
+
 --TAGS MANAGEMENT----------------------------------------------------
 
 
 function  Entity:AddTag( iTag )
 
     self.mTags[ iTag ] = "1"
-    -- Update systems observers/ groups
+
+    if loaded then
+        ECSWorld:UpdateWorldForEntity( self )
+    end
 
 end
 
@@ -106,6 +140,15 @@ end
 function  Entity:RemoveTag( iTag )
 
     self.mTags[ iTag ] = "0"
+
+    for i = 1, #self.mObserverSystems do
+        local system = self.mObserverSystems[ i ]
+        if not ( self:MatchAllComponentsName( system:Requirements() ) )
+        and not ( self:MatchAnyComponentsName( system:WatchOver() ) ) then
+            system:RemoveEntity( self )
+            system:EntityLost( self )
+        end
+    end
 
 end
 

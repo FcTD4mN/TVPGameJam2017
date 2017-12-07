@@ -8,7 +8,7 @@ SystemBase.__index = SystemBase
 function  AnimationRenderer:Initialize()
 
     self.mEntityGroup = {}
-    
+
 end
 
 
@@ -51,7 +51,7 @@ end
 function  AnimationRenderer:Draw( iCamera )
 
     love.graphics.setColor( 255, 255, 255 )
-    
+
     for i = 1, #self.mEntityGroup do
 
         local box2d = self.mEntityGroup[ i ]:GetComponentByName( "box2d" )
@@ -64,7 +64,7 @@ function  AnimationRenderer:Draw( iCamera )
 
             local scaleX = iCamera.mScale
             local scaleY = iCamera.mScale
-            
+
             if animation.mFlipX then
                 scaleX = -scaleX
             end
@@ -73,10 +73,10 @@ function  AnimationRenderer:Draw( iCamera )
             end
 
             if direction then
-                if direction.mDirectionH == "left" then 
+                if direction.mDirectionH == "left" then
                     scaleX = -scaleX
                 end
-                if direction.mDirectionV == "down" then 
+                if direction.mDirectionV == "down" then
                     scaleY = -scaleY
                 end
             end

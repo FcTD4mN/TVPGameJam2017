@@ -90,13 +90,13 @@ function  Shortcuts.SeekRandomKey()
         key = Shortcuts.mShortcutMap[ index ]
         isRegistered = Shortcuts.KeyIsRegistered( key )
     until isRegistered == false
-    
+
     return key
 end
 
 function  Shortcuts.RegisterActionWithRandomKey( iAction )
 
-    
+
     print("_")
     print("Function:RegisterActionWithRandomKey")
     if( Shortcuts.ActionIsRegistered( iAction ) == true ) then

@@ -14,6 +14,24 @@ function SystemBase:RemoveEntity( iEntity )
 end
 
 
+function  SystemBase:EntityAdded( iEntity )
+
+end
+
+
+function  SystemBase:EntityLost( iEntity )
+
+end
+
+
+function SystemBase:WatchOver()
+
+    local watching = {}
+    return  unpack( watching )
+
+end
+
+
 -- ==========================================Type
 
 
