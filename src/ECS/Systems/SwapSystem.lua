@@ -8,8 +8,8 @@ SystemBase.__index = SystemBase
 function  SwapSystem:Initialize()
 
     self.mEntityGroup = {}
-    self.mUserInputs ={}
-    self.mSwapables ={}
+    self.mUserInputs = nil
+    self.mSwapables = {}
 
 end
 
@@ -18,8 +18,8 @@ function SwapSystem:IncomingEntity( iEntity )
 
     local userinput = iEntity:GetComponentByName( "userinput" )
 
-    if userinput then
-        table.insert( self.mUserInputs, iEntity )
+    if userinput and self.mUserInputs == nil then
+        self.mUserInputs = iEntity
         table.insert( iEntity.mObserverSystems, self )
     end
     if iEntity:GetTagByName( "swapable" ) == "1" then
@@ -32,13 +32,12 @@ end
 
 function  SwapSystem:EntityLost( iEntity )
 
-    local index = GetObjectIndexInTable( self.mUserInputs, iEntity )
-    local index2 = GetObjectIndexInTable( self.mSwapables, iEntity )
+    local index = GetObjectIndexInTable( self.mSwapables, iEntity )
 
-    if( index > -1 ) then
-        table.remove( self.mUserInputs, index )
+    if self.mUserInputs == iEntity then
+        self.mUserInputs = nil
     end
-    if (index2 > -1 ) then
+    if( index > -1 ) then
         table.remove( self.mSwapables, index )
     end
 
@@ -48,30 +47,25 @@ end
 function SwapSystem:Update( iDT )
 
     local swapablesCountAtInstant = #self.mSwapables
-    if swapablesCountAtInstant == 0 then return end
-    for i = 1, #self.mUserInputs do
+    if swapablesCountAtInstant == 0 then
+        return
+    end
 
-        local userinput = self.mUserInputs[ i ]:GetComponentByName( "userinput" )
+    if( self.mUserInputs ) then
+
+        local userinput = self.mUserInputs:GetComponentByName( "userinput" )
+
         if GetObjectIndexInTable( userinput.mActions, "swapCanKill" ) > -1 then
+            for j = 1, swapablesCountAtInstant do
 
-            local swapable = self.mSwapables[ 1 ]
-            if swapable:GetTagByName( "canKill" ) == "1" then
-                swapable:RemoveTag( "canKill" )
-            else
-                swapable:AddTag( "canKill" )
+                local swapable = self.mSwapables[ 1 ]
+                if swapable:GetTagByName( "canKill" ) == "1" then
+                    swapable:RemoveTag( "canKill" )
+                else
+                    swapable:AddTag( "canKill" )
+                end
+
             end
-            -- for j = 1, swapablesCountAtInstant do
-
-            --     local swapable = self.mSwapables[ j ]
-            --     if swapable:GetTagByName( "canKill" ) == "1" then
-            --         swapable:RemoveTag( "canKill" )
-            --     else
-            --         swapable:AddTag( "canKill" )
-            --     end
-
-            -- end
-
-            break
         end
 
     end

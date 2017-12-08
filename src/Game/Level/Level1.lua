@@ -191,10 +191,14 @@ function  Level1:InitializeECS()
     self.mHero:AddTag( "teleportable" )
 
     ECSWorld:AddEntity( self.mHero )
+
+
+
     --TEST
     local spikeBall = SpikeBall:New( self.mWorld, 600, 100 )
     spikeBall:AddTag( "swapable" )
-    ECSWorld:AddEntity( spikeBall )
+    local spikeBall2 = SpikeBall:New( self.mWorld, 600, 0 )
+    spikeBall2:AddTag( "swapable" )
     -- local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
     --TEST
 
@@ -202,6 +206,7 @@ function  Level1:InitializeECS()
     Shortcuts.RegisterActionWithRandomKey( "swapCanKill" )
     Shortcuts.RegisterActionWithRandomKey( "moveright" )
     Shortcuts.RegisterActionWithRandomKey( "moveleft" )
+
 end
 
 

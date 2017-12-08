@@ -9,7 +9,7 @@ function  ECSWorld:AddEntity( iEntity )
     table.insert( self.mEntities, iEntity )
 
     self:UpdateWorldForEntity( iEntity )
-    iEntity.mLoaded = true -- Needs thinking before actually using this
+    iEntity.mLoaded = true
 
 end
 
@@ -39,6 +39,7 @@ end
 
 function  ECSWorld:UpdateWorldForEntity( iEntity )
 
+    print("UPDATE")
     for i = 1, #self.mSystems do
 
         local system = self.mSystems[ i ]
