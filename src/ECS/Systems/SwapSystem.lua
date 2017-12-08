@@ -47,21 +47,29 @@ end
 
 function SwapSystem:Update( iDT )
 
+    local swapablesCountAtInstant = #self.mSwapables
+    if swapablesCountAtInstant == 0 then return end
     for i = 1, #self.mUserInputs do
 
         local userinput = self.mUserInputs[ i ]:GetComponentByName( "userinput" )
         if GetObjectIndexInTable( userinput.mActions, "swapCanKill" ) > -1 then
 
-            for j = 1, #self.mSwapables do
-
-                local swapable = self.mSwapables[ j ]
-                if swapable:GetTagByName( "canKill" ) == "1" then
-                    swapable:RemoveTag( "canKill" )
-                else
-                    swapable:AddTag( "canKill" )
-                end
-
+            local swapable = self.mSwapables[ 1 ]
+            if swapable:GetTagByName( "canKill" ) == "1" then
+                swapable:RemoveTag( "canKill" )
+            else
+                swapable:AddTag( "canKill" )
             end
+            -- for j = 1, swapablesCountAtInstant do
+
+            --     local swapable = self.mSwapables[ j ]
+            --     if swapable:GetTagByName( "canKill" ) == "1" then
+            --         swapable:RemoveTag( "canKill" )
+            --     else
+            --         swapable:AddTag( "canKill" )
+            --     end
+
+            -- end
 
             break
         end

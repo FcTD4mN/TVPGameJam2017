@@ -30,6 +30,17 @@ function HeroController:IncomingEntity( iEntity )
 
 end
 
+
+function  HeroController:EntityLost( iEntity )
+
+    local index = GetObjectIndexInTable( self.mEntityGroup, iEntity )
+
+    if index > 0 then
+        table.remove( self.mEntityGroup, index )
+    end
+
+end
+
 --TODO: find a way to move some MakeCrouch and MakeNormal equivalent in Box2dComponent or something like this
 
 function MakeCrouch( iEntity, iBox2d )

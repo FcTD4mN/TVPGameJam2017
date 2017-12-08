@@ -69,12 +69,17 @@ end
 
 function  Entity:AddComponent( iComponent )
 
+    if( self.mComponents[ iComponent.mName ] ~= nil ) then
+        return;
+    end
+
     self.mComponents[ iComponent.mName ] = iComponent
 
     if self.mLoaded then
-        -- This will eventually call IncomingEntity, but system could still have the entity, as it is not removed (EntityLost) before.
-        -- Then system have to check if they already have this entity ? Maybe a dictionnary would make it ok ? mEntityGroup[ iEntity.mID ] = iEntity kinda thing
+
+        self:QuitSystems()
         ECSWorld:UpdateWorldForEntity( self )
+
     end
 
 end
@@ -82,14 +87,17 @@ end
 
 function  Entity:RemoveComponentByName( iComponentName )
 
+    if( self.mComponents[ iComponent.mName ] == nil ) then
+        return;
+    end
+
     self.mComponents[ iComponentName ] = nil
 
-    -- Might be too cost heavy as well ..
-    for i = 1, #self.mObserverSystems do
-        -- Entity gets removed, then comes again. System will be cleared of this entity, then see if it
-        -- correspond to what it need or not
-        system:EntityLost( self )
-        system:IncomingEntity( self )
+    if self.mLoaded then
+
+        self:QuitSystems()
+        ECSWorld:UpdateWorldForEntity( self )
+
     end
 
 end
@@ -137,31 +145,36 @@ end
 
 function  Entity:AddTag( iTag )
 
+    if( self.mTags[ iTag ] == "1" ) then
+        return;
+    end
+
     self.mTags[ iTag ] = "1"
-    -- Don't update world as tags are very common : isRunning, isJumping are tags atm
-    -- Don't update world as tags are very common : isRunning, isJumping are tags atm
-    -- Don't update world as tags are very common : isRunning, isJumping are tags atm
-    -- ==> Ca rame du cul avec ca !!
+
+    if self.mLoaded then
+
+        self:QuitSystems()
+        ECSWorld:UpdateWorldForEntity( self )
+
+    end
 
 end
 
 
 function  Entity:RemoveTag( iTag )
 
+    if( self.mTags[ iTag ] == "0" or self.mTags[ iTag ] == nil ) then
+        return;
+    end
+
     self.mTags[ iTag ] = "0"
 
-    -- Don't update world as tags are very common : isRunning, isJumping are tags atm
-    -- Don't update world as tags are very common : isRunning, isJumping are tags atm
-    -- Don't update world as tags are very common : isRunning, isJumping are tags atm
-    -- ==> Ca rame du cul avec ca !!
+    if self.mLoaded then
 
-    -- for i = 1, #self.mObserverSystems do
-    --     local system = self.mObserverSystems[ i ]
-    --     -- Entity gets removed, then comes again. System will be cleared of this entity, then see if it
-    --     -- correspond to what it need or not
-    --     system:EntityLost( self )
-    --     system:IncomingEntity( self )
-    -- end
+        self:QuitSystems()
+        ECSWorld:UpdateWorldForEntity( self )
+
+    end
 
 end
 
@@ -172,6 +185,20 @@ function  Entity:GetTagByName( iTagName )
         return  "0"
     end
     return  self.mTags[ iTagName ]
+
+end
+
+
+function  Entity:QuitSystems()
+
+    for i = 1, #self.mObserverSystems  do
+
+        -- Removes entity from systems
+        local system = self.mObserverSystems[ 1 ]
+        system:EntityLost( self )
+        table.remove( self.mObserverSystems, 1 )
+
+    end
 
 end
 

@@ -9,7 +9,7 @@ function  ECSWorld:AddEntity( iEntity )
     table.insert( self.mEntities, iEntity )
 
     self:UpdateWorldForEntity( iEntity )
-    -- iEntity.mLoaded = true -- Needs thinking before actually using this
+    iEntity.mLoaded = true -- Needs thinking before actually using this
 
 end
 
@@ -133,7 +133,6 @@ end
 
 function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
 
-    print( iNode.name )
     assert( iNode.name == "ecsworld" )
 
     for i = 1, #iNode.el do
