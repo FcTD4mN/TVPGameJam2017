@@ -55,7 +55,9 @@ function SwapSystem:Update( iDT )
 
         local userinput = self.mUserInputs:GetComponentByName( "userinput" )
 
-        if GetObjectIndexInTable( userinput.mActions, "swapCanKill" ) > -1 then
+        if userinput.mActions[ "swapCanKill" ] == "pending" then
+
+            userinput.mActions[ "swapCanKill" ] = "processed" -- Action is a one tap action, can't be repeated, so here we processed the action then we notice that we used it
             for j = 1, swapablesCountAtInstant do
 
                 local swapable = self.mSwapables[ 1 ]

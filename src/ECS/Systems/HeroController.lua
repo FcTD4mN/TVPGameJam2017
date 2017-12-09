@@ -80,7 +80,7 @@ function HeroController:Update( iDT )
         velX = normalSpeed
 
         --crouch
-        if( GetObjectIndexInTable( userinput.mActions, "crouch" ) > -1 ) then
+        if( userinput.mActions[ "crouch" ] ~= nil ) then
             --Not allowing crouch if dashing or in air
             if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isInAir" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 if entity:GetTagByName( "isCrouch" ) == "0" then
@@ -98,7 +98,7 @@ function HeroController:Update( iDT )
         end
 
         --dash
-        if( GetObjectIndexInTable( userinput.mActions, "dash" ) > -1 or entity:GetTagByName( "isDashing" ) == "1" ) then
+        if( userinput.mActions[ "dash" ] ~= nil or entity:GetTagByName( "isDashing" ) == "1" ) then
             if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isCrouch" ) == "0" and entity:GetTagByName( "didDash" ) == "0" then
                 entity:AddTag( "isDashing" )
                 velX = dashSpeed
@@ -107,14 +107,14 @@ function HeroController:Update( iDT )
         end
 
         --jump
-        if( GetObjectIndexInTable( userinput.mActions, "jump" ) > -1 ) then
+        if( userinput.mActions[ "jump" ] ~= nil ) then
             if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isInAir" ) == "0" and entity:GetTagByName( "isCrouch" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 velY = -460
                 entity:AddTag( "isInAir" )
             end
         end
 
-        if( GetObjectIndexInTable( userinput.mActions, "doublejump" ) > -1 ) then
+        if( userinput.mActions[ "doublejump" ] ~= nil ) then
             if entity:GetTagByName( "isDead" ) == "0" and
                entity:GetTagByName( "isInAir" ) == "1" and
                entity:GetTagByName( "isCrouch" ) == "0" and
@@ -126,7 +126,7 @@ function HeroController:Update( iDT )
             end
         end
 
-        if( GetObjectIndexInTable( userinput.mActions, "triplejump" ) > -1 ) then
+        if( userinput.mActions[ "triplejump" ] ~= nil ) then
             if entity:GetTagByName( "isDead" ) == "0" and
                entity:GetTagByName( "isInAir" ) == "1" and
                entity:GetTagByName( "isCrouch" ) == "0" and
@@ -140,13 +140,13 @@ function HeroController:Update( iDT )
         end
 
         -- Left vs Right
-        if( GetObjectIndexInTable( userinput.mActions, "moveright" ) > -1 or entity:GetTagByName( "isAutoRun" ) == "1" ) then
+        if( userinput.mActions[ "moveright" ] ~= nil or entity:GetTagByName( "isAutoRun" ) == "1" ) then
             direction.mDirectionH = "right";
             if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 entity:AddTag( "isMoving" )
                 direction.mDirectionH = "right";
             end
-        elseif( GetObjectIndexInTable( userinput.mActions, "moveleft" ) > -1 ) then
+        elseif( userinput.mActions[ "moveleft" ] ~= nil ) then
             if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 entity:AddTag( "isMoving" )
                 direction.mDirectionH = "left";

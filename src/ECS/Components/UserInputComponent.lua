@@ -15,7 +15,7 @@ function UserInputComponent:New()
     local newUserInputComponent = {}
     setmetatable( newUserInputComponent, UserInputComponent )
     UserInputComponent.__index = UserInputComponent
-    
+
     newUserInputComponent.mName = "userinput"
 
     newUserInputComponent.mActions = {}
@@ -45,7 +45,7 @@ end
 
 
 function  UserInputComponent:SaveUserInputComponentXML()
-    
+
     xmlData = "<userinputcomponent>\n"
 
     xmlData = xmlData .. self:SaveComponentXML()
@@ -53,7 +53,7 @@ function  UserInputComponent:SaveUserInputComponentXML()
     xmlData = xmlData .. "<attributes> </attributes>\n"
 
     xmlData = xmlData .. "</userinputcomponent>\n"
-    
+
     return  xmlData
 
 end

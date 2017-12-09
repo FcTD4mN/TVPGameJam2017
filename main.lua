@@ -9,7 +9,6 @@ local  MenuScreen   = require( "src/Application/Screens/MenuScreen" )
 function love.load( args )
 
     Manager:PushScreen( MenuScreen:New() )
-
 end
 
 

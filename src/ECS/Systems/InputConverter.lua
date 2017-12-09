@@ -54,7 +54,8 @@ function InputConverter:KeyPressed( iKey, iScancode, iIsRepeat )
     for i = 1, #self.mEntityGroup do
 
         local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
-        table.insert( userInput.mActions, Shortcuts.GetActionForKey( iKey ) )
+        local action = Shortcuts.GetActionForKey( iKey )
+        userInput.mActions[ action ] = "pending"
 
     end
 
@@ -67,13 +68,7 @@ function InputConverter:KeyReleased( iKey, iScancode )
     for i = 1, #self.mEntityGroup do
 
         local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
-        for i = 1, #userInput.mActions do
-
-            if( userInput.mActions[ i ] == action ) then
-                table.remove( userInput.mActions, i )
-            end
-
-        end
+        userInput.mActions[ action ] = nil
 
     end
 
