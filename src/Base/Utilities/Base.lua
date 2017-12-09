@@ -144,6 +144,20 @@ function GetObjectIndexInTable( iTable, iObject )
     return  -1
 
 end
+-- Gets index of iObject in iTable
+function TableContains( iTable, iObject )
+
+    for i = 1, #iTable do
+
+        if iTable[i] == iObject then
+            return  true
+        end
+
+    end
+
+    return  false
+
+end
 
 
 -- Hey, lua doesn't have built in spliter, we need to do it ourselves ...

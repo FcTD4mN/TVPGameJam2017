@@ -756,7 +756,19 @@ function LevelEditor.KeyPressed( iKey, iScancode, iIsRepeat )
         LevelEditor.mState = "propedition"
     elseif iKey == "u" and LevelEditor.mState == "placingterrain" then
         LevelEditor.mLevel.mTerrain:RemoveLastSegment()
-    end
+    elseif iKey == "delete" then
+
+        for i = #ECSWorld.mEntities, 1, -1 do
+
+            local box2d  = ECSWorld.mEntities[i]:GetComponentByName( "box2d" )
+
+            if box2d and TableContains( LevelEditor.mSelectedObjects, box2d )  then
+                table.remove( ECSWorld.mEntities, i )
+            end
+        end
+
+        ClearTable( LevelEditor.mSelectedObjects )
+end
 
 end
 
