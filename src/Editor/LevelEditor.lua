@@ -35,7 +35,14 @@ LevelEditor = {
     mLevel = nil,
     mState = "uninitialized",
     mEditorCamera = nil,
-    mLevelPropertiesGUIRect = nil
+    mLevelPropertiesGUIRect = nil,
+
+    mDoingMultiselection = false,
+    mSelectedObjects = {},
+    mSelectionInitialPositionX = nil,
+    mSelectionInitialPositionY = nil,
+
+    mSelectionRectangle = Rectangle:New( 0, 0, 0, 0 )
 }
 
 
@@ -45,7 +52,6 @@ local dragMode = false
 local xStartingMouse, yStartingMouse = 0, 0
 local xCurrentMouse, yCurrentMouse = 0, 0
 
-local gCurrentEditedAsset = nil
 local gCurrentEditedComponent = nil
 local gCurrentEditedEntityIndex = -1
 local gInPopup = false
@@ -74,7 +80,7 @@ function LevelEditor.Initialize( iLevel )
     gIntW = 0
     gIntH = 0
     gIntA = 0
-    gFileName = "Save/Level111.xml" -- Just so it's quicker to debug
+    gFileName = "Save/LevelTEST.xml" -- Just so it's quicker to debug
 
     gFixedBGFile = "test"
 
@@ -455,73 +461,73 @@ function LevelEditor.Draw()
                 if imgui.Button( "Ribbon04" ) then
                     Ribbon:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, "resources/Images/Decor/ruban_04.png" )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint01" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint01" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 1 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint02" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint02" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 2 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint03" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint03" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 3 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint04" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint04" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 4 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint05" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint05" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 5 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint06" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint06" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 6 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint07" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint07" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 7 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint08" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint08" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 8 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint09" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint09" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 9 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint10" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint10" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 10 )
                 end
-                
+
                 imgui.Text( "TriggerCheckPoint11" );
                 imgui.SameLine()
                 if imgui.Button( "TriggerCheckPoint11" ) then
                     TriggerCheckPoint:New( gWorld, x + LevelEditor.mEditorCamera.mW / 2, y + LevelEditor.mEditorCamera.mH / 2, 11 )
                 end
-                
+
 
                 imgui.Text( "TELERibbon01" );
                 imgui.SameLine()
@@ -632,15 +638,10 @@ function LevelEditor.Draw()
 
             if( imgui.Button( "Delete" ) ) then
                 imgui.CloseCurrentPopup()
-                if( gCurrentEditedAsset ) then
-                    gCurrentEditedAsset:Destroy()
-                    ObjectPool.Update( 0 )
-                end
                 if( gCurrentEditedComponent ) then
                     table.remove( ECSWorld.mEntities, gCurrentEditedEntityIndex )
                 end
                 gInPopup = false
-                gCurrentEditedAsset = nil
                 gCurrentEditedComponent = nil
                 gCurrentEditedEntityIndex = -1
             end
@@ -648,7 +649,6 @@ function LevelEditor.Draw()
             if( imgui.Button( "Cancel" ) ) then
                 imgui.CloseCurrentPopup()
                 gInPopup = false
-                gCurrentEditedAsset = nil
                 gCurrentEditedComponent = nil
                 gCurrentEditedEntityIndex = -1
             end
@@ -661,6 +661,23 @@ function LevelEditor.Draw()
 
     if renderPreviewLine then
         love.graphics.line( xStartingMouse, yStartingMouse, xCurrentMouse, yCurrentMouse )
+    end
+
+    if LevelEditor.mDoingMultiselection then
+
+        love.graphics.setColor( 100, 50, 255, 100 )
+        love.graphics.rectangle( "fill", LevelEditor.mSelectionRectangle.x, LevelEditor.mSelectionRectangle.y, LevelEditor.mSelectionRectangle.w, LevelEditor.mSelectionRectangle.h )
+    end
+
+    for i = 1, #LevelEditor.mSelectedObjects do
+
+        local box2d = LevelEditor.mSelectedObjects[i]
+        local rectX, rectY = LevelEditor.mEditorCamera:MapToScreen( box2d.mBody:getX() - box2d.mBodyW/2, box2d.mBody:getY() - box2d.mBodyH/2 )
+        local rectW, rectH = box2d.mBodyW * LevelEditor.mEditorCamera.mScale, box2d.mBodyH * LevelEditor.mEditorCamera.mScale
+
+        love.graphics.setColor( 150, 100, 255, 100 )
+        love.graphics.rectangle( "fill", rectX, rectY, rectW, rectH )
+
     end
 
 end
@@ -769,25 +786,26 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
     elseif LevelEditor.mState == "propedition" and not gInPopup and not LevelEditor.mLevelPropertiesGUIRect:ContainsPoint( iX, iY ) then
 
         xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
-        gCurrentEditedAsset = ObjectPool.ObjectAtCoordinates( xMapped, yMapped )
-        if not gCurrentEditedAsset then
-            for k1,v1 in pairs( ECSWorld.mEntities ) do
-                for k2,v2 in pairs( v1.mComponents ) do
-                    if v2.mName == "box2d" then
-                            local rect = Rectangle:New( v2.mBody:getX() - v2.mBodyW/2, v2.mBody:getY() - v2.mBodyH/2, v2.mBodyW, v2.mBodyH )
-                            if rect:ContainsPoint( xMapped, yMapped ) then
-                                gCurrentEditedComponent = v2
-                                gCurrentEditedEntityIndex = k1
-                            end
-                    end
+        for k,v in pairs( ECSWorld.mEntities ) do
+            local box2d  = v:GetComponentByName( "box2d" )
+            if box2d then
+                local rect = Rectangle:New( box2d.mBody:getX() - box2d.mBodyW/2, box2d.mBody:getY() - box2d.mBodyH/2, box2d.mBodyW, box2d.mBodyH )
+                if rect:ContainsPoint( xMapped, yMapped ) then
+                    gCurrentEditedComponent = box2d
+                    -- table.insert( LevelEditor.mSelectedObjects, box2d )
+                    gCurrentEditedEntityIndex = k
                 end
             end
         end
 
 
-        if gCurrentEditedAsset or gCurrentEditedComponent then
+        if gCurrentEditedComponent then
             dragMode = true
             previousX, previousY = iX, iY
+        else -- We clicked on void : start multiselection
+            LevelEditor.mDoingMultiselection = true
+            LevelEditor.mSelectionInitialPositionX = iX
+            LevelEditor.mSelectionInitialPositionY = iY
         end
 
         -- HUD Event forwarding
@@ -825,19 +843,36 @@ function LevelEditor.MouseMoved( iX, iY )
 
     elseif LevelEditor.mState == "propedition" then
 
-        if( gCurrentEditedAsset or gCurrentEditedComponent ) then
-            local  speedX = ( iX - previousX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
-            local  speedY = ( iY - previousY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+        if( gCurrentEditedComponent ) then
+            local  deltaX = ( iX - previousX ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
+            local  deltaY = ( iY - previousY ) *  ( 1 / ( LevelEditor.mEditorCamera.mScale + 0.01 ) )
 
             if( gCurrentEditedComponent ) then
-                gCurrentEditedComponent.mBody:setX( gCurrentEditedComponent.mBody:getX() + speedX )
-                gCurrentEditedComponent.mBody:setY( gCurrentEditedComponent.mBody:getY() + speedY )
+                gCurrentEditedComponent.mBody:setX( gCurrentEditedComponent.mBody:getX() + deltaX )
+                gCurrentEditedComponent.mBody:setY( gCurrentEditedComponent.mBody:getY() + deltaY )
             end
-            if( gCurrentEditedAsset ) then
-                gCurrentEditedAsset:SetX( gCurrentEditedAsset:GetX() + speedX )
-                gCurrentEditedAsset:SetY( gCurrentEditedAsset:GetY() + speedY )
+
+            -- SELECTION MINUS gCurrentEditedComponent, which is moved above
+            for i = 1, #LevelEditor.mSelectedObjects do
+
+                local box2d = LevelEditor.mSelectedObjects[i]
+                if box2d ~= gCurrentEditedComponent then -- Because we already moved it
+                    box2d.mBody:setX( box2d.mBody:getX() + deltaX )
+                    box2d.mBody:setY( box2d.mBody:getY() + deltaY )
+                end
+
             end
+
             previousX, previousY = iX, iY
+        end
+
+        if LevelEditor.mDoingMultiselection then
+
+            LevelEditor.mSelectionRectangle:SetX( LevelEditor.mSelectionInitialPositionX )
+            LevelEditor.mSelectionRectangle:SetY( LevelEditor.mSelectionInitialPositionY )
+            LevelEditor.mSelectionRectangle:SetX2( iX )
+            LevelEditor.mSelectionRectangle:SetY2( iY )
+
         end
 
         -- HUD Event forwarding
@@ -888,13 +923,41 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 
     elseif LevelEditor.mState == "propedition" then
 
-        if iButton == 2 and ( gCurrentEditedAsset or gCurrentEditedComponent )then
+        if iButton == 2 and gCurrentEditedComponent then
             gInPopup = true
         elseif not gInPopup then
-            gCurrentEditedAsset = nil
+
+            if LevelEditor.mDoingMultiselection then
+
+                ClearTable( LevelEditor.mSelectedObjects )
+
+                local xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
+
+                local rectX, rectY = LevelEditor.mEditorCamera:MapToScreen( LevelEditor.mSelectionRectangle.x, LevelEditor.mSelectionRectangle.y )
+                local rectW = LevelEditor.mSelectionRectangle.w * LevelEditor.mEditorCamera.mScale
+                local rectH = LevelEditor.mSelectionRectangle.h * LevelEditor.mEditorCamera.mScale
+                local rectangleMapped = Rectangle:New( rectX, rectY, rectW, rectH )
+
+                for k,v in pairs( ECSWorld.mEntities ) do
+                    local box2d  =  v:GetComponentByName( "box2d" )
+                    if box2d then
+                        local rect = Rectangle:New( box2d.mBody:getX() - box2d.mBodyW/2, box2d.mBody:getY() - box2d.mBodyH/2, box2d.mBodyW, box2d.mBodyH )
+                        if rectangleMapped:ContainsRectangleEntirely( rect ) then
+                            table.insert( LevelEditor.mSelectedObjects, box2d )
+                        end
+                    end
+                end
+
+            end
+
             gCurrentEditedComponent = nil
             gCurrentEditedEntityIndex = -1
         end
+
+        LevelEditor.mDoingMultiselection = false
+        LevelEditor.mSelectionInitialPositionX = nil
+        LevelEditor.mSelectionInitialPositionY = nil
+        LevelEditor.mSelectionRectangle:Clear()
         dragMode = false
 
         -- HUD Event forwarding

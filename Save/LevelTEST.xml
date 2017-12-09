@@ -16,56 +16,44 @@
 <components>
 <box2dcomponent>
 <component name='box2d' />
-<attributes bodyx='956.4345703125' bodyy='479.05963134766' bodyw='2000' bodyh='50' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
+<attributes bodyx='449.00994873047' bodyy='434.75253295898' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
 <fixtures>
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='999.99993896484' y1='-25' x3='999.99993896484' y3='25' x5='-999.99993896484' y5='25' x7='-999.99993896484' y7='-25'  />
+<shape type='polygon' x1='-50' y1='-50' x3='50' y3='-50' x5='50' y5='50' x7='-50' y7='50'  />
 </fixture>
 </fixtures>
 </attributes>
 </box2dcomponent>
 </components>
 </entity>
-<entity id='spike0'  >
+<entity id='wall1'  >
 <tags>
-<tag name='canKill' value='1'  />
-<tag name='spike' value='1'  />
+<tag name='wall' value='1'  />
 </tags>
 <components>
 <box2dcomponent>
 <component name='box2d' />
-<attributes bodyx='562.62353515625' bodyy='444.25765991211' bodyw='50' bodyh='20' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
+<attributes bodyx='586.63348388672' bodyy='431.7822265625' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
 <fixtures>
-<fixture friction='1' sensor='false' >
-<shape type='polygon' x1='25' y1='-10' x3='25' y3='10' x5='-25' y5='10' x7='-25' y7='-10'  />
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-50' y1='-50' x3='50' y3='-50' x5='50' y5='50' x7='-50' y7='50'  />
 </fixture>
 </fixtures>
 </attributes>
 </box2dcomponent>
 </components>
 </entity>
-<entity id='Ribbon0'  >
+<entity id='wall2'  >
 <tags>
+<tag name='wall' value='1'  />
 </tags>
 <components>
-<checkpointcomponent>
-<component name='checkpoint' />
-<attributes checkpoint='1'  />
-</checkpointcomponent>
-<spritecomponent>
-<component name='sprite' />
-<attributes filename='resources/Images/Decor/ruban_01.png'  />
-</spritecomponent>
-<checkpointsettercomponent>
-<component name='checkpointsetter' />
-<attributes checkpoint='1'  />
-</checkpointsettercomponent>
 <box2dcomponent>
 <component name='box2d' />
-<attributes bodyx='75.163291931152' bodyy='206.63876342773' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
+<attributes bodyx='744.05932617188' bodyy='430.79217529297' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
 <fixtures>
-<fixture friction='0.20000000298023' sensor='true' >
-<shape type='polygon' x1='50' y1='-260.5' x3='50' y3='260.5' x5='-50' y5='260.5' x7='-50' y7='-260.5'  />
+<fixture friction='0' sensor='false' >
+<shape type='polygon' x1='-50' y1='-50' x3='50' y3='-50' x5='50' y5='50' x7='-50' y7='50'  />
 </fixture>
 </fixtures>
 </attributes>
