@@ -1,26 +1,24 @@
-local ShortcutsDisplay = require( "src/Application/ShortcutsDisplay" )
-
 -- The shortcut map thing
 
 Shortcuts = {
-    mShortcutTable = {};
-    mShortcutMap = {}
+    mShortcutTable = {},
+    mActiveShortcuts = {},
+    mLoaded = false
 }
 
 function Shortcuts.Initialize()
 
-    --Shortcuts.Load();
-    Shortcuts.LoadShortcutMap();
-    math.randomseed( os.time() )
+    Shortcuts.Load();
+    Shortcuts.mLoaded = true
+
 end
 
 
 function  Shortcuts.GetKeyForAction( iAction )
 
-    if( Shortcuts.mShortcutTable[ iAction ] ~= nil ) then
-        return  Shortcuts.mShortcutTable[ iAction ]
+    if( Shortcuts.mActiveShortcuts[ iAction ] ~= nil ) then
+        return  Shortcuts.mActiveShortcuts[ iAction ]
     end
-
     return  nil
 
 end
@@ -28,88 +26,85 @@ end
 
 function  Shortcuts.GetActionForKey( iKey )
 
-    for k, v in pairs( Shortcuts.mShortcutTable ) do
-
+    for k, v in pairs( Shortcuts.mActiveShortcuts ) do
         if v == iKey then
             return  k
         end
-
     end
-
     return  "none"
 
 end
 
 
---function  Shortcuts.Save()
---    filePath = "Config/keybinds.ini"
---    local keybindsData = ""
+--==============================================
 
---    for k,v in pairs( Shortcuts.mShortcutTable ) do
---        keybindsData = keybindsData .. k .. ":" .. v .. "\n"
---    end
+function  Shortcuts.Save()
+   filePath = "Config/keybinds.ini"
+   local keybindsData = ""
 
---    local file = io.open( filePath, "w" )
---    file:write( keybindsData )
---end
+   for k,v in pairs( Shortcuts.mShortcutTable ) do
+       keybindsData = keybindsData .. k .. ":" .. v .. "\n"
+   end
+
+   local file = io.open( filePath, "w" )
+   file:write( keybindsData )
+   file:flush()
+   file:close()
+end
 
 
-function  Shortcuts.LoadShortcutMap()
-    filePath = "Config/shortcutmap.ini"
-    local shortcuts = io.open( filePath ):read( '*all' )
+function  Shortcuts.Load()
+
+    filePath = "Config/keybinds.ini"
+    local file = io.open( filePath )
+    local shortcuts = file:read( '*all' )
     local shortcutsSplit = SplitString( shortcuts, "\n" )
-    local counter = 1
 
     for k,v in pairs( shortcutsSplit ) do
-        Shortcuts.mShortcutMap[ counter ] = v
-        counter = counter + 1
+
+        local subSplit = SplitString( v, ":" )
+        Shortcuts.mShortcutTable[ subSplit[ 1 ] ] = subSplit[ 2 ]
+
     end
+    file:close()
+
 end
 
-function  Shortcuts.Register( action, key )
-        Shortcuts.mShortcutTable[ action ] = key
-        ShortcutsDisplay.AddEntry( action, key )
-end
 
-function  Shortcuts.Unregister( action, key )
-        Shortcuts.mShortcutTable[ action ] = nil
-end
+--==============================================
 
-function  Shortcuts.Cleanse()
+function  Shortcuts.RegisterAllActions()
     for k,v in pairs( Shortcuts.mShortcutTable ) do
-        Shortcuts.mShortcutTable[ k ] = nil
+        Shortcuts.mActiveShortcuts[ k ] = v
     end
 end
 
-function  Shortcuts.SeekRandomKey()
-    local size = #Shortcuts.mShortcutMap
-    local key
-    local isRegistered
-    repeat
-        local index = math.floor( love.math.random() * ( size - 1 ) ) + 1
-        key = Shortcuts.mShortcutMap[ index ]
-        isRegistered = Shortcuts.KeyIsRegistered( key )
-    until isRegistered == false
-
-    return key
-end
-
-function  Shortcuts.RegisterActionWithRandomKey( iAction )
-
-
-    print("_")
-    print("Function:RegisterActionWithRandomKey")
-    if( Shortcuts.ActionIsRegistered( iAction ) == true ) then
-        print("Alerady Registered")
-        return
+function  Shortcuts.UnregisterAllActions()
+    for k,v in pairs( Shortcuts.mActiveShortcuts ) do
+        Shortcuts.mActiveShortcuts[ k ] = nil
     end
-    key = Shortcuts.SeekRandomKey()
-    Shortcuts.Register( iAction, key )
-    print("Registered: " .. iAction .. " | " .. key )
 end
 
-function  Shortcuts.KeyIsRegistered( iKey )
-    for k,v in pairs( Shortcuts.mShortcutTable ) do
+
+--==============================================
+
+function  Shortcuts.RegisterAction( iAction )
+        Shortcuts.mActiveShortcuts[ iAction ] = Shortcuts.mShortcutTable[ iAction ]
+end
+
+function  Shortcuts.RegisterActionWithKey( iAction, iKey )
+        Shortcuts.mActiveShortcuts[ iAction ] = iKey
+end
+
+function  Shortcuts.UnregisterAction( iAction )
+        Shortcuts.mActiveShortcuts[ iAction ] = nil
+end
+
+
+--==============================================
+
+function  Shortcuts.IsKeyRegistered( iKey )
+    for k,v in pairs( Shortcuts.mActiveShortcuts ) do
         if ( v == iKey  ) then
             return true
         end
@@ -117,8 +112,8 @@ function  Shortcuts.KeyIsRegistered( iKey )
     return  false
 end
 
-function  Shortcuts.ActionIsRegistered( iAction )
-    if ( Shortcuts.mShortcutTable[ iAction ] == nil ) then
+function  Shortcuts.IsActionRegistered( iAction )
+    if ( Shortcuts.mActiveShortcuts[ iAction ] == nil ) then
         return  false;
     end
     return true

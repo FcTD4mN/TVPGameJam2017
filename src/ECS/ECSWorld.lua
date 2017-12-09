@@ -39,7 +39,6 @@ end
 
 function  ECSWorld:UpdateWorldForEntity( iEntity )
 
-    print("UPDATE")
     for i = 1, #self.mSystems do
 
         local system = self.mSystems[ i ]
