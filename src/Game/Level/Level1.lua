@@ -122,6 +122,7 @@ function  Level1:InitializeECS()
         local stickyShape    = love.physics.newRectangleShape( 0, 0, 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 100 )
+        fixture:setRestitution( 0 )
         fixture:setCategory( 2 ) --shape detecting collision with decor
         fixture:setUserData( self.mHero )
 

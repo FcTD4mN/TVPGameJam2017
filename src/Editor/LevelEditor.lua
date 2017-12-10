@@ -639,7 +639,7 @@ function LevelEditor.Draw()
             if( imgui.Button( "Delete" ) ) then
                 imgui.CloseCurrentPopup()
                 if( gCurrentEditedComponent ) then
-                    table.remove( ECSWorld.mEntities, gCurrentEditedEntityIndex )
+                    ECSWorld.mEntities[ gCurrentEditedEntityIndex ]:Destroy()
                 end
                 gInPopup = false
                 gCurrentEditedComponent = nil
@@ -760,10 +760,9 @@ function LevelEditor.KeyPressed( iKey, iScancode, iIsRepeat )
 
         for i = #ECSWorld.mEntities, 1, -1 do
 
-            local box2d  = ECSWorld.mEntities[i]:GetComponentByName( "box2d" )
-
+            local box2d  = ECSWorld.mEntities[ i ]:GetComponentByName( "box2d" )
             if box2d and TableContains( LevelEditor.mSelectedObjects, box2d )  then
-                table.remove( ECSWorld.mEntities, i )
+                ECSWorld.mEntities[ i ]:Destroy()
             end
         end
 

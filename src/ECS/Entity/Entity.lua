@@ -45,12 +45,16 @@ function  Entity:Destroy()
         self.mObserverSystems[ i ] = nil
     end
 
-    for i = 1, #self.mComponents do
-        self.mComponents[ i ] = nil
+    for k, v in pairs( self.mComponents ) do
+        -- This is a very specific case, as box2d requires its own destruction method
+        if k == "box2d" then
+            v.mBody:destroy()
+        end
+        self.mComponents[ k ] = nil
     end
 
-    for i = 1, #self.mTags do
-        self.mTags[ i ] = nil
+    for k, v in pairs( self.mTags ) do
+        self.mTags[ k ] = nil
     end
 
 end

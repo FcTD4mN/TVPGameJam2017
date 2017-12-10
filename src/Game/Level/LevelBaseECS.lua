@@ -52,7 +52,7 @@ function  LevelBaseECS:BuildLevelBaseECS( iWorld, iCamera )
     self.mForegrounds           = {}
 
     self.mHeros                 = {}
-    
+
 end
 
 -- ==========================================Type
@@ -98,7 +98,7 @@ end
 
 
 function  LevelBaseECS:DrawBase( iCamera )
-    
+
     local camera = self.mCamera
     if( iCamera ) then
         camera = iCamera
@@ -131,7 +131,7 @@ function  LevelBaseECS:DrawBase( iCamera )
         ObjectPool.DrawToMiniMap( self.mMiniMap )
 
     end
-end 
+end
 
 function  LevelBaseECS:Draw( iCamera )
     self:DrawBase( iCamera )
@@ -214,7 +214,7 @@ function  LevelBaseECS:SaveLevelBaseECSXML()
                 xmlData = xmlData .. v:SaveXML()
             end
         xmlData = xmlData .. "</foregrounds>\n"
-        
+
         xmlData = xmlData .. self.mWorldECS:SaveXML()
     xmlData = xmlData .. "</level>\n"
 
