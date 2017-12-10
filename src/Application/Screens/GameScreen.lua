@@ -40,27 +40,60 @@ function beginContact( a, b, coll )
         return
     end
 
-    if a:getUserData().needDestroy or b:getUserData().needDestroy then
+    if a:getUserData().mDestroy or b:getUserData().mDestroy then
         return
     end
 
-    CollidePool.AddCollision( a:getUserData(), b:getUserData() )
-    CollidePool.AddCollision( b:getUserData(), a:getUserData() )
+    CollidePool.AddCollisionBeginning( a:getUserData(), b:getUserData() )
+    CollidePool.AddCollisionBeginning( b:getUserData(), a:getUserData() )
 
 end
 
 
 function endContact( a, b, coll )
 
+    if a:getUserData() == nil or b:getUserData() == nil then
+        return
+    end
+
+    if a:getUserData().mDestroy or b:getUserData().mDestroy then
+        return
+    end
+
+    CollidePool.AddCollisionEnding( a:getUserData(), b:getUserData() )
+    CollidePool.AddCollisionEnding( b:getUserData(), a:getUserData() )
+
 end
 
 
 function preSolve( a, b, coll )
 
+    if a:getUserData() == nil or b:getUserData() == nil then
+        return
+    end
+
+    if a:getUserData().mDestroy or b:getUserData().mDestroy then
+        return
+    end
+
+    CollidePool.AddCollisionPre( a:getUserData(), b:getUserData() )
+    CollidePool.AddCollisionPre( b:getUserData(), a:getUserData() )
+
 end
 
 
 function postSolve( a, b, coll, normalimpulse, tangentimpulse )
+
+    if a:getUserData() == nil or b:getUserData() == nil then
+        return
+    end
+
+    if a:getUserData().mDestroy or b:getUserData().mDestroy then
+        return
+    end
+
+    CollidePool.AddCollisionPost( a:getUserData(), b:getUserData(), normalimpulse, tangentimpulse )
+    CollidePool.AddCollisionPost( b:getUserData(), a:getUserData(), normalimpulse, tangentimpulse )
 
 end
 

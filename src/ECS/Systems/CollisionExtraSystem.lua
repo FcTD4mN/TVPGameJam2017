@@ -2,19 +2,13 @@ local Shortcuts = require( "src/Application/Shortcuts" )
 local DeadBody   = require 'src/ECS/Factory/DeadBody'
 
 
-function  Collision( iEntityA, iEntityB )
+function  CollisionBeginning( iEntityA, iEntityB )
 
     local iEA = iEntityA
     local iEB = iEntityB
 
     -- Collision Killable/Killer
     if iEA.Type() == "Entity" and iEB.Type() == "Entity" then
-
-        if iEB:GetComponentByName( "killable" ) ~= nil and iEA:GetTagByName( "canKill" ) == "1 "then
-            iEA = iEntityB
-            iEB = iEntityA
-        end
-
 
         if iEA:GetComponentByName( "killable" ) ~= nil and iEB:GetTagByName( "canKill" ) == "1" then
 
@@ -33,7 +27,6 @@ function  Collision( iEntityA, iEntityB )
                 box2d.mBody:setY( iEA.mCheckPoints[iEA.mCheckPoint].mBody:getY() )
             end
 
-            -- iEA:RemoveTag( "isAutoRun" )
             iEA:RemoveTag( "isInAir" )
             iEA:RemoveTag( "isDead" )
             iEA:RemoveTag( "isDashing" )
@@ -141,3 +134,16 @@ function  Collision( iEntityA, iEntityB )
 
 
 end
+
+function  CollisionEnding( iEntityA, iEntityB )
+end
+
+function  CollisionPre( iEntityA, iEntityB )
+end
+
+function  CollisionPost( iEntityA, iEntityB )
+end
+
+
+
+
