@@ -803,7 +803,6 @@ function LevelEditor.MousePressed( iX, iY, iButton, iIsTouch )
                 local rect = Rectangle:New( box2d.mBody:getX() - box2d.mBodyW/2, box2d.mBody:getY() - box2d.mBodyH/2, box2d.mBodyW, box2d.mBodyH )
                 if rect:ContainsPoint( xMapped, yMapped ) then
                     gCurrentEditedComponent = box2d
-                    -- table.insert( LevelEditor.mSelectedObjects, box2d )
                     gCurrentEditedEntityIndex = k
                 end
             end
@@ -942,11 +941,9 @@ function LevelEditor.MouseReleased( iX, iY, iButton, iIsTouch )
 
                 ClearTable( LevelEditor.mSelectedObjects )
 
-                local xMapped, yMapped = LevelEditor.mEditorCamera:MapToWorld( iX, iY )
-
-                local rectX, rectY = LevelEditor.mEditorCamera:MapToScreen( LevelEditor.mSelectionRectangle.x, LevelEditor.mSelectionRectangle.y )
-                local rectW = LevelEditor.mSelectionRectangle.w * LevelEditor.mEditorCamera.mScale
-                local rectH = LevelEditor.mSelectionRectangle.h * LevelEditor.mEditorCamera.mScale
+                local rectX, rectY = LevelEditor.mEditorCamera:MapToWorld( LevelEditor.mSelectionRectangle.x, LevelEditor.mSelectionRectangle.y )
+                local rectW = LevelEditor.mSelectionRectangle.w / LevelEditor.mEditorCamera.mScale
+                local rectH = LevelEditor.mSelectionRectangle.h / LevelEditor.mEditorCamera.mScale
                 local rectangleMapped = Rectangle:New( rectX, rectY, rectW, rectH )
 
                 for k,v in pairs( ECSWorld.mEntities ) do
