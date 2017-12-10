@@ -11,15 +11,33 @@
 <ecsworld>
 <entity id='wall0'  >
 <tags>
+</tags>
+<components>
+</components>
+</entity>
+<entity id='wall1'  >
+<tags>
+</tags>
+<components>
+</components>
+</entity>
+<entity id='wall2'  >
+<tags>
+</tags>
+<components>
+</components>
+</entity>
+<entity id='wall0'  >
+<tags>
 <tag name='wall' value='1'  />
 </tags>
 <components>
 <box2dcomponent>
 <component name='box2d' />
-<attributes bodyx='449.00994873047' bodyy='434.75253295898' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
+<attributes bodyx='500.98971557617' bodyy='473.11892700195' bodyw='1000' bodyh='50' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
 <fixtures>
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-50' x3='50' y3='-50' x5='50' y5='50' x7='-50' y7='50'  />
+<shape type='polygon' x1='499.99996948242' y1='-25' x3='499.99996948242' y3='25' x5='-499.99996948242' y5='25' x7='-499.99996948242' y7='-25'  />
 </fixture>
 </fixtures>
 </attributes>
@@ -33,10 +51,10 @@
 <components>
 <box2dcomponent>
 <component name='box2d' />
-<attributes bodyx='586.63348388672' bodyy='431.7822265625' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
+<attributes bodyx='561.88049316406' bodyy='422.62384033203' bodyw='100' bodyh='50' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
 <fixtures>
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-50' x3='50' y3='-50' x5='50' y5='50' x7='-50' y7='50'  />
+<shape type='polygon' x1='50' y1='-25' x3='50' y3='25' x5='-50' y5='25' x7='-50' y7='-25'  />
 </fixture>
 </fixtures>
 </attributes>
@@ -50,14 +68,46 @@
 <components>
 <box2dcomponent>
 <component name='box2d' />
-<attributes bodyx='744.05932617188' bodyy='430.79217529297' bodyw='100' bodyh='100' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
+<attributes bodyx='743.06988525391' bodyy='355.29663085938' bodyw='100' bodyh='50' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
 <fixtures>
 <fixture friction='0' sensor='false' >
-<shape type='polygon' x1='-50' y1='-50' x3='50' y3='-50' x5='50' y5='50' x7='-50' y7='50'  />
+<shape type='polygon' x1='50' y1='-25' x3='50' y3='25' x5='-50' y5='25' x7='-50' y7='-25'  />
 </fixture>
 </fixtures>
 </attributes>
 </box2dcomponent>
+</components>
+</entity>
+<entity id='teleporterribbon0'  >
+<tags>
+</tags>
+<components>
+<spritecomponent>
+<component name='sprite' />
+<attributes filename='resources/Images/Decor/ruban_01.png'  />
+</spritecomponent>
+<box2dcomponent>
+<component name='box2d' />
+<attributes bodyx='60.311916351318' bodyy='187.82670593262' bodyw='283' bodyh='521' physictype='static' fixedrotation='true' gravity='1' offsety='0'  >
+<fixtures>
+<fixture friction='0.20000000298023' sensor='true' >
+<shape type='polygon' x1='-50' y1='-260.5' x3='50' y3='-260.5' x5='50' y5='260.5' x7='-50' y7='260.5'  />
+</fixture>
+</fixtures>
+</attributes>
+</box2dcomponent>
+<teleportercomponent>
+<component name='teleporter' />
+<attributes teleporterx='0' teleportery='0'  />
+</teleportercomponent>
+<checkpointsettercomponent>
+<component name='checkpointsetter' />
+<attributes checkpoint='1'  />
+</checkpointsettercomponent>
+<checkpointcomponent>
+<component name='checkpoint' />
+<attributes checkpoint='1'  />
+</checkpointcomponent>
 </components>
 </entity>
 </ecsworld>

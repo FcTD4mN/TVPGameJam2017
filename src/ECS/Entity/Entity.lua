@@ -91,7 +91,7 @@ end
 
 function  Entity:RemoveComponentByName( iComponentName )
 
-    if( self.mComponents[ iComponent.mName ] == nil ) then
+    if( self.mComponents[ iComponentName ] == nil ) then
         return;
     end
 

@@ -92,8 +92,8 @@ function  Collision( iEntityA, iEntityB )
             local box2d         = iEA:GetComponentByName( "box2d" )
             local teleporter    = iEB:GetComponentByName( "teleporter" )
 
-            box2d.mBody:setX( teleporter.mTeleportPositionX )
-            box2d.mBody:setY( teleporter.mTeleportPositionY )
+            box2d.mBody:setX( teleporter.mTeleporterX )
+            box2d.mBody:setY( teleporter.mTeleporterY )
         end
 
     end

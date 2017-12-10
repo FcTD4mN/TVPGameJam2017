@@ -32,7 +32,7 @@ local ECSIncludes       = require 'src/ECS/ECSIncludes'
 local Spike             = require 'src/ECS/Factory/Spike'
 local MovingPlatform    = require 'src/ECS/Factory/MovingPlatform'
 
-local SpikeBall             = require 'src/ECS/Factory/SpikeBall'
+local SpikeBall         = require 'src/ECS/Factory/SpikeBall'
 
 local Level1 = {}
 setmetatable( Level1, LevelBaseECS )
@@ -118,7 +118,7 @@ function  Level1:InitializeECS()
 
     -- Components
     -- local box2DComponent = Box2DComponent:NewBox2DComponent( self.mWorld, -361, -3039, 45, 100, "dynamic", true, 1, 19, 0 )
-    local box2DComponent = Box2DComponent:New( self.mWorld, 0, 400, 45, 100, "dynamic", true, 1, 19, 0 )
+    local box2DComponent = Box2DComponent:New( self.mWorld, 0, 200, 45, 100, "dynamic", true, 1, 19, 0 )
         local stickyShape    = love.physics.newRectangleShape( 0, 0, 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 100 )
@@ -173,11 +173,11 @@ function  Level1:InitializeECS()
 
     KOPainShortcutsEngine.Initialize()
 
-    KOPainShortcutsEngine.RegisterActionWithRandomKey( "jump" )
-    KOPainShortcutsEngine.RegisterActionWithRandomKey( "swapCanKill" )
-    KOPainShortcutsEngine.RegisterActionWithRandomKey( "moveright" )
-    KOPainShortcutsEngine.RegisterActionWithRandomKey( "moveleft" )
-    -- Shortcuts.RegisterAllActions()
+    -- KOPainShortcutsEngine.RegisterActionWithRandomKey( "jump" )
+    -- KOPainShortcutsEngine.RegisterActionWithRandomKey( "swapCanKill" )
+    -- KOPainShortcutsEngine.RegisterActionWithRandomKey( "moveright" )
+    -- KOPainShortcutsEngine.RegisterActionWithRandomKey( "moveleft" )
+    Shortcuts.RegisterAllActions()
 
 end
 
