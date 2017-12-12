@@ -121,7 +121,7 @@ function  Level1:InitializeECS()
     local box2DComponent = Box2DComponent:New( self.mWorld, 0, 200, 45, 100, "dynamic", true, 1, 19, 0 )
         local stickyShape    = love.physics.newRectangleShape( 0, 0, 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
-        fixture:setFriction( 100 )
+        fixture:setFriction( 1 )
         fixture:setRestitution( 0 )
         fixture:setCategory( 2 ) --shape detecting collision with decor
         fixture:setUserData( self.mHero )
@@ -164,6 +164,8 @@ function  Level1:InitializeECS()
 
 
     --TEST
+    local movingPlatform = MovingPlatform:New( self.mWorld, -400, 400, 50, 20 )
+
     local spikeBall = SpikeBall:New( self.mWorld, 600, 100 )
     spikeBall:AddTag( "swapable" )
     local spikeBall2 = SpikeBall:New( self.mWorld, 600, 0 )

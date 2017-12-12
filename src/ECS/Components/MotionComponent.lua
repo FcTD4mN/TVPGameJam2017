@@ -12,7 +12,7 @@ ComponentRegistry.Register( "motioncomponent", MotionComponent )
 -- ==========================================Constructor/Destructor
 
 
-function MotionComponent:New()
+function MotionComponent:New( iPath, iLoop )
     local newMotionComponent = {}
     setmetatable( newMotionComponent, MotionComponent )
     MotionComponent.__index = MotionComponent
@@ -33,6 +33,7 @@ function MotionComponent:New()
 
     --runtime -- not saved
     newMotionComponent.mCurrentTime = 0
+    newMotionComponent.mCurrentPoint = 0
 
     return  newMotionComponent
 

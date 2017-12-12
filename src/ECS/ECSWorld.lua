@@ -147,6 +147,7 @@ function  ECSWorld:LoadECSWorldXML( iNode, iWorld )
     self:AddSystem( SpikeDrawer )
     self:AddSystem( MotionAI )
     self:AddSystem( HangingBallRenderer )
+    self:AddSystem( MotionPathDrawer )
 
     self:AddSystem( SwapSystem )
 end
