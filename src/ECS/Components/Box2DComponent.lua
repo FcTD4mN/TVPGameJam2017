@@ -20,7 +20,7 @@ function Box2DComponent:New( iWorld, iBodyX, iBodyY, iBodyW, iBodyH, iPhysicType
 
     newBox2DComponent.mBodyW = iBodyW
     newBox2DComponent.mBodyH = iBodyH
-    newBox2DComponent.mOffsetY = iOffsetY
+    newBox2DComponent.mOffsetY = iOffsetY -- ZAP: is for animation offseting, add a position in animation
 
     newBox2DComponent.mBody = love.physics.newBody( iWorld, iBodyX + iBodyW / 2, iBodyY + iBodyH / 2, iPhysicType )
     newBox2DComponent.mBody:setFixedRotation( iFixedRotation )

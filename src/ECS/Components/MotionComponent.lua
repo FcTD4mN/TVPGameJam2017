@@ -12,7 +12,7 @@ ComponentRegistry.Register( "motioncomponent", MotionComponent )
 -- ==========================================Constructor/Destructor
 
 
-function MotionComponent:New( iPath, iLoop )
+function MotionComponent:New( iLoop )
     local newMotionComponent = {}
     setmetatable( newMotionComponent, MotionComponent )
     MotionComponent.__index = MotionComponent
@@ -21,14 +21,14 @@ function MotionComponent:New( iPath, iLoop )
 
     -- mPath contains points with there attributes
     -- mPath
-    -- \-- ["points"]
+    -- \-- .mPoints
     --      \-- [1]
-    --          \-- ["x"] --in world ?
-    --          \-- ["y"] --in world ?
-    --          \-- ["time"]  --Time is the time in second at which the point is reached
+    --          \-- mBody
+    --          \-- mTime  --Time is the time in second at which the point is reached
     --      \-- ...
     --      \-- [n]
-    newMotionComponent.mPath = iPath
+    newMotionComponent.mPath = {}
+    newMotionComponent.mPath.mPoints= {}
     newMotionComponent.mLoop = iLoop -- Should the motion loop ( this does not mean the path goes in loop, only the motion )
 
     --runtime -- not saved
@@ -52,6 +52,12 @@ function MotionComponent:NewFromXML( iNode, iWorld, iEntity )
     return newMotionComponent
 end
 
+function MotionComponent:AddPoint( iWorld, iX, iY, iTime )
+    local i = #self.mPath.mPoints + 1
+    self.mPath.mPoints[i] = {}
+    self.mPath.mPoints[i].mBody = love.physics.newBody( iWorld, iX, iY, "static" )
+    self.mPath.mPoints[i].mTime = iTime
+end
 
 function  MotionComponent:SaveXML()
     return  self:SaveMotionComponentXML()
@@ -70,11 +76,11 @@ function  MotionComponent:SaveMotionComponentXML()
 
     xmlData =   xmlData .. "<Path>\n"
         xmlData =   xmlData .. "<Points>\n"
-            for i = 0, #self.mPath["points"] do
-                xmlData =   xmlData .. "<Point "
-                xmlData =   xmlData ..  "x='" .. self.mPath["points"][i]["x"] .. "' " ..
-                                        "y='" .. self.mPath["points"][i]["y"] .. "' " ..
-                                        "time='" .. self.mPath["points"][i]["time"] .. "' " ..
+            for i = 0, #self.mPath.mPoints do
+                xmlData =   xmlData ..  "<Point " ..
+                                        "bodyx='" .. self.mPath.mPoints[i].mBody:getX() .. "' " ..
+                                        "bodyy='" .. self.mPath.mPoints[i].mBody:getY() .. "' " ..
+                                        "time='" .. self.mPath.mPoints[i].Time .. "' " ..
                                         " />\n"
             end
         xmlData = xmlData .. "</Points>\n"
@@ -95,12 +101,11 @@ function  MotionComponent:LoadMotionComponentXML( iNode, iWorld, iEntity )
     self:LoadComponentXML( iNode.el[1] )
 
     self.mPath = {}
-    self.mPath[ "points" ] = {}
-    for i = 1, #iNode.el[2].el[0].el[0].el do --<attributes><path><points><i>
-        self.mPath[ "points" ][i] = {}
-        self.mPath[ "points" ][i]["x"] = iNode.el[2].el[0].el[0].el[i].attr[1]
-        self.mPath[ "points" ][i]["y"] = iNode.el[2].el[0].el[0].el[i].attr[2]
-        self.mPath[ "points" ][i]["time"] = iNode.el[2].el[0].el[0].el[i].attr[3]
+    self.mPath.mPoints = {}
+    for i = 1, #iNode.el[2].el[1].el[1].el do --<attributes><path><points><i>
+        self.mPath.mPoints[i] = {}
+        self.mPath.mPoints[i].mBody = love.physics.newBody( iWorld, iNode.el[2].el[1].el[1].el[i].attr[1], iNode.el[2].el[1].el[1].el[i].attr[2], "static" )
+        self.mPath.mPoints[i].mTime = iNode.el[2].el[1].el[1].el[i].attr[3]
     end
     self.mLoop = ToBoolean(iNode.el[2].attr[1])
 end

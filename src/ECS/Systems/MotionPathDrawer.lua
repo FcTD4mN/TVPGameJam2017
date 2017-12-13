@@ -38,8 +38,8 @@ function  MotionPathDrawer:Draw( iCamera )
 
         local x1 = nil
         local y1 = nil
-        for i=1, #motion.mPath["points"] do
-            local x2, y2 = iCamera:MapToScreen( motion.mPath["points"][i]["body"]:getX(), motion.mPath["points"][i]["body"]:getY() )
+        for i=1, #motion.mPath.mPoints do
+            local x2, y2 = iCamera:MapToScreen( motion.mPath.mPoints[i].mBody:getX(), motion.mPath.mPoints[i].mBody:getY() )
             if x1 and y1 then
                 love.graphics.setColor( 0, 0, 255 )
                 love.graphics.line( x1, y1, x2, y2 )
