@@ -114,6 +114,7 @@ function HeroController:Update( iDT )
             end
         end
 
+        --doublejump
         if( userinput.mActions[ "doublejump" ] ~= nil ) then
             if entity:GetTagByName( "isDead" ) == "0" and
                entity:GetTagByName( "isInAir" ) == "1" and
@@ -126,6 +127,7 @@ function HeroController:Update( iDT )
             end
         end
 
+        --triplejump
         if( userinput.mActions[ "triplejump" ] ~= nil ) then
             if entity:GetTagByName( "isDead" ) == "0" and
                entity:GetTagByName( "isInAir" ) == "1" and
@@ -141,7 +143,6 @@ function HeroController:Update( iDT )
 
         -- Left vs Right
         if( userinput.mActions[ "moveright" ] ~= nil or entity:GetTagByName( "isAutoRun" ) == "1" ) then
-            direction.mDirectionH = "right";
             if entity:GetTagByName( "isDead" ) == "0" and entity:GetTagByName( "isDashing" ) == "0" then
                 entity:AddTag( "isMoving" )
                 direction.mDirectionH = "right";
@@ -151,10 +152,13 @@ function HeroController:Update( iDT )
                 entity:AddTag( "isMoving" )
                 direction.mDirectionH = "left";
             end
-        else
+        elseif entity:GetTagByName( "isDashing" ) == "0" and entity:GetTagByName( "isMoving" ) == "1" then
             entity:RemoveTag( "isMoving" )
-            if entity:GetTagByName( "isDashing" ) == "0" then
-                velX = 0.0
+            velX = 0.0
+        elseif entity:GetTagByName( "isDashing" ) == "0" then
+            velX = vX
+            if direction.mDirectionH == "left" then --#BalanceTonPatch
+                velX = -velX
             end
         end
 
