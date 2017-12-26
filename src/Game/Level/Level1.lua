@@ -47,7 +47,7 @@ function Level1:NewFromXML( iWorld )
     setmetatable( newLevel1, Level1 )
     Level1.__index = Level1
 
-    local xml = io.open('Save/LevelTEST.xml'):read('*all')
+    local xml = io.open('Save/LevelTutorial.xml'):read('*all')
     -- local xml = io.open('Save/Level111.xml'):read('*all')
     local doc = SLAXML:dom( xml )
     newLevel1:LoadLevelBaseECSXML( doc.root, iWorld )
@@ -114,11 +114,11 @@ function  Level1:InitializeECS()
 
     self.mHero = Entity:New( "hero" )
     self.mHero.mCheckPoints = {}
-    self.mHero.mCheckPoint = -1
+    self.mHero.mCheckPoint = 1
 
     -- Components
-    -- local box2DComponent = Box2DComponent:NewBox2DComponent( self.mWorld, -361, -3039, 45, 100, "dynamic", true, 1, 19, 0 )
-    local box2DComponent = Box2DComponent:New( self.mWorld, 0, 200, 45, 100, "dynamic", true, 1, 19, 0 )
+    -- local box2DComponent = Box2DComponent:New( self.mWorld, 0, -250, 45, 100, "dynamic", true, 1, 19, 0 )
+    local box2DComponent = Box2DComponent:New( self.mWorld, 455, -6025, 45, 100, "dynamic", true, 1, 19, 0 )
         local stickyShape    = love.physics.newRectangleShape( 0, 0, 45, 100 )
         local fixture  = love.physics.newFixture( box2DComponent.mBody, stickyShape )
         fixture:setFriction( 1.0 )
@@ -164,12 +164,12 @@ function  Level1:InitializeECS()
 
 
     --TEST
-    local movingPlatform = MovingPlatform:New( self.mWorld, 200, 500, 150, 20 )
+    -- local movingPlatform = MovingPlatform:New( self.mWorld, 200, 500, 150, 20 )
 
-    local spikeBall = SpikeBall:New( self.mWorld, 600, 100 )
-    spikeBall:AddTag( "swapable" )
-    local spikeBall2 = SpikeBall:New( self.mWorld, 600, 0 )
-    spikeBall2:AddTag( "swapable" )
+    -- local spikeBall = SpikeBall:New( self.mWorld, 600, 100 )
+    -- spikeBall:AddTag( "swapable" )
+    -- local spikeBall2 = SpikeBall:New( self.mWorld, 600, 0 )
+    -- spikeBall2:AddTag( "swapable" )
     -- local ent = TeleporterActionGiverRibbon:New( self.mWorld, 600, 200, "resources/Images/Decor/ruban_04.png", 5000, 200, "actiondewinnance" )
     --TEST
 

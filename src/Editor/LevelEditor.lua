@@ -80,7 +80,7 @@ function LevelEditor.Initialize( iLevel )
     gIntW = 0
     gIntH = 0
     gIntA = 0
-    gFileName = "Save/LevelTEST.xml" -- Just so it's quicker to debug
+    gFileName = "Save/LevelTutorial.xml" -- Just so it's quicker to debug
 
     gFixedBGFile = "test"
 
@@ -640,6 +640,7 @@ function LevelEditor.Draw()
                 imgui.CloseCurrentPopup()
                 if( gCurrentEditedComponent ) then
                     ECSWorld.mEntities[ gCurrentEditedEntityIndex ]:Destroy()
+                    ECSWorld:RemoveEntity( ECSWorld.mEntities[ gCurrentEditedEntityIndex ] )
                 end
                 gInPopup = false
                 gCurrentEditedComponent = nil
@@ -763,6 +764,7 @@ function LevelEditor.KeyPressed( iKey, iScancode, iIsRepeat )
             local box2d  = ECSWorld.mEntities[ i ]:GetComponentByName( "box2d" )
             if box2d and TableContains( LevelEditor.mSelectedObjects, box2d )  then
                 ECSWorld.mEntities[ i ]:Destroy()
+                ECSWorld:RemoveEntity( ECSWorld.mEntities[ i ] )
             end
         end
 
