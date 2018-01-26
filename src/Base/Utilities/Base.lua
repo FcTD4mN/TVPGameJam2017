@@ -176,6 +176,22 @@ function ToBoolean( iValue )
     return  iValue == "true"
 end
 
+function DeepCopyTable( iTable )
+    local iTable_type = type(iTable)
+    local copy
+    if iTable_type == 'table' then
+        copy = {}
+        for iTable_key, iTable_value in next, iTable, nil do
+            copy[deepcopy(iTable_key)] = deepcopy(iTable_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(iTable)))
+    else -- number, string, boolean, etc
+        copy = iTable
+    end
+    return copy
+end
+
+
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Base
