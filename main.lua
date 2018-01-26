@@ -2,7 +2,7 @@ io.stdout:setvbuf('no')
 
 require "src/Application/Global"
 
-local  MenuScreen   = require( "src/Application/Screens/MenuScreen" )
+local  MenuScreen   = require( "src/CommOp1/Application/Screens/MenuScreen" )
 
 
 -- First setup of my game, called at launch
