@@ -204,7 +204,7 @@ function MainMenu:KeyReleased( key, scancode )
 end
 
 
-function MainMenu:mousepressed( iX, iY, iButton, iIsTouch )
+function MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
     itemUM = self.menuPages[ self.currentPage ]:GetItemUnderMouse()
     if( itemUM ~= "none" ) then
         itemUM:Click();
