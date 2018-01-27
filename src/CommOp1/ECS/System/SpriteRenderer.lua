@@ -35,19 +35,22 @@ end
 
 function  SpriteRenderer:Draw( iCamera )
 
-    local xRadius = 10 * iCamera.mScale
-    local yRadius = 5 * iCamera.mScale
-
     for i = 1, #self.mEntityGroup do
 
         local position = self.mEntityGroup[ i ]:GetComponentByName( "position" )
         local sprite = self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
         local simpleT = self.mEntityGroup[ i ]:GetComponentByName( "simpletransformation" )
-
         local selectable = self.mEntityGroup[ i ]:GetComponentByName( "selectable" )
 
+        local isCameraFree = self.mEntityGroup[ i ]:GetTagByName( "camerafree" ) == "1"
+
         local  rotation = 0
-        local  scale = iCamera.mScale
+        
+        local  scale = 1.0
+        if not isCameraFree then
+            scale = iCamera.mScale
+        end
+
         if simpleT then
 
             rotation = simpleT.mRotation
@@ -55,11 +58,23 @@ function  SpriteRenderer:Draw( iCamera )
 
         end
 
-
-        local x, y = iCamera:MapToScreen( position.mX, position.mY )
-        local w,h = sprite.mImage:getWidth() * iCamera.mScale, sprite.mImage:getHeight() * iCamera.mScale
+        local x, y = position.mX, position.mY
+        local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+        if not isCameraFree then
+            x, y = iCamera:MapToScreen( position.mX, position.mY )
+            w,h = sprite.mImage:getWidth() * iCamera.mScale, sprite.mImage:getHeight() * iCamera.mScale
+        end
 
         if selectable and selectable.mSelected then
+            
+            local xRadius = 10
+            local yRadius = 5
+
+            if not isCameraFree then
+                xRadius = 10 * iCamera.mScale
+                yRadius = 5 * iCamera.mScale
+            end
+            
 
             love.graphics.setColor( 50, 255, 50 )
             love.graphics.ellipse( "line", x + w/2, y + h-7, xRadius, yRadius )

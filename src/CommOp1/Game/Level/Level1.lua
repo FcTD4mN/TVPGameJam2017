@@ -1,4 +1,5 @@
 local  LevelBase       = require "src/CommOp1/Game/Level/LevelBase"
+local  ECSIncludes     = require "src/CommOp1/ECS/ECSIncludes"
 
 
 local Level1 = {}
@@ -18,6 +19,22 @@ function  Level1:New()
     return  newLevel1
 end
 
+function Level1:ActionPrint1()
+    print( "Action 1 !" )
+end
+
+function Level1:ActionPrint2()
+    print( "Action 2 !" )
+end
+
+function Level1:ActionPrint3()
+    print( "Action 3 !" )
+end
+
+function Level1:ActionPrint4()
+    print( "Action 4 !" )
+end
+
 function  Level1:InitializeLevel1()
 
     self:InitializeLevelBase( "resources/CommOp1/Maps/maptest.csv", "resources/CommOp1/Maps/TileSet.png", "resources/CommOp1/Maps/maptestType.csv" )
@@ -28,6 +45,13 @@ function  Level1:InitializeLevel1()
     Shortcuts.RegisterAllActions()
 
     TestsPerso();
+
+    local skillbar = SkillBar:New()
+    local skilllist = skillbar:GetComponentByName( "skilllist" )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionPrint1 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionPrint2 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionPrint3 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionPrint4 ) )
 
 end
 
