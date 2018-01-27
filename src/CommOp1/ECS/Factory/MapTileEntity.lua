@@ -1,7 +1,7 @@
 ECSIncludes  = require "src/ECS/ECSIncludes"
 
-MapTileA  = require "src/CommOp1/ECS/Factory/MapTileA"
-MapTileR  = require "src/CommOp1/ECS/Factory/MapTileR"
+MapTileBasic  = require "src/CommOp1/ECS/Factory/MapTileBasic"
+MapTileWalkable  = require "src/CommOp1/ECS/Factory/MapTileWalkable"
 
 local MapTileEntity = {}
 MapTileEntity.mTypes = {}
@@ -10,13 +10,13 @@ MapTileEntity.mTypes = {}
 -- ==========================================Build/Destroy
 
 function MapTileEntity:Init()
-    self:RegisterMapTileClass( MapTileA )
-    self:RegisterMapTileClass( MapTileR )
+    self:RegisterMapTileClass( MapTileBasic )
+    self:RegisterMapTileClass( MapTileWalkable )
 end
 
 function MapTileEntity:New( iTile )
 
-    local class = MapTileEntity.mTypes[ iTile.mType ]
+    local class = MapTileEntity.mTypes[ iTile.mTypeSetIndex ]
     local entity = class:New( iTile )
 
     return  entity
@@ -24,7 +24,7 @@ function MapTileEntity:New( iTile )
 end
 
 function MapTileEntity:RegisterMapTileClass( iClass )
-    MapTileEntity.mTypes[iClass.mType] = iClass
+    MapTileEntity.mTypes[iClass.mTypeSetIndex] = iClass
 end
 
 return  MapTileEntity

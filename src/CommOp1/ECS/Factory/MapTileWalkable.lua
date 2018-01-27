@@ -1,16 +1,16 @@
 ECSIncludes  = require "src/ECS/ECSIncludes"
 
-local MapTileR = {}
-MapTileR.mId = 0
-MapTileR.mType = "1"
-MapTileR.mPathPrefix = ""
-MapTileR.mPathSuffix = ".png"
+local MapTileWalkable = {}
+MapTileWalkable.mId = 0
+MapTileWalkable.mTypeSetIndex = "1"
+MapTileWalkable.mPathPrefix = ""
+MapTileWalkable.mPathSuffix = ".png"
 
 -- ==========================================Build/Destroy
 
-function MapTileR:New( iTile )
-    local entity = Entity:New( "MapTileR".. MapTileR.mId )
-    MapTileR.mId = MapTileR.mId + 1
+function MapTileWalkable:New( iTile )
+    local entity = Entity:New( "MapTileWalkable".. MapTileWalkable.mId )
+    MapTileWalkable.mId = MapTileWalkable.mId + 1
     
     entity:AddComponent( PositionComponent:New( iTile.mX, iTile.mY ) )
     quad = love.graphics.newQuad( iTile.mXInTileSet, iTile.mYInTileSet, iTile.mW, iTile.mH, iTile.mTileSetImage:getWidth(), iTile.mTileSetImage:getHeight() )
@@ -19,4 +19,8 @@ function MapTileR:New( iTile )
     return  entity
 end
 
-return  MapTileR
+function MapTileBasic:Type()
+    return  "Walkable"
+end
+
+return  MapTileWalkable

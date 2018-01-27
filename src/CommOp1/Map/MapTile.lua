@@ -19,7 +19,7 @@ function MapTile:New( iType, iX, iY, iTileSetImage, iW, iH, iTileNum )
     setmetatable( newMapTile, self )
     self.__index = self
 
-    newMapTile.mType = iType
+    newMapTile.mTypeSetIndex = iType
     newMapTile.mX = iX
     newMapTile.mY = iY
     newMapTile.mTileSetImage = iTileSetImage

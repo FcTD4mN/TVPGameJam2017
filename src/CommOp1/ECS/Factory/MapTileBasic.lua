@@ -1,16 +1,16 @@
 ECSIncludes  = require "src/ECS/ECSIncludes"
 
-local MapTileA = {}
-MapTileA.mId = 0
-MapTileA.mType = "0"
-MapTileA.mPathPrefix = ""
-MapTileA.mPathSuffix = ".png"
+local MapTileBasic = {}
+MapTileBasic.mId = 0
+MapTileBasic.mTypeSetIndex = "0"
+MapTileBasic.mPathPrefix = ""
+MapTileBasic.mPathSuffix = ".png"
 
 -- ==========================================Build/Destroy
 
-function MapTileA:New( iTile )
-    local entity = Entity:New( "MapTileA".. MapTileA.mId )
-    MapTileA.mId = MapTileA.mId + 1
+function MapTileBasic:New( iTile )
+    local entity = Entity:New( "MapTileBasic".. MapTileBasic.mId )
+    MapTileBasic.mId = MapTileBasic.mId + 1
     
     entity:AddComponent( PositionComponent:New( iTile.mX, iTile.mY ) )
 
@@ -20,4 +20,8 @@ function MapTileA:New( iTile )
     return  entity
 end
 
-return  MapTileA
+function MapTileBasic:Type()
+    return  "Basic"
+end
+
+return  MapTileBasic
