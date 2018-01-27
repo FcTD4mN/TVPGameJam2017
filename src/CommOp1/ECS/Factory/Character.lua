@@ -1,22 +1,29 @@
 ECSIncludes  = require "src/ECS/ECSIncludes"
 
-local LambdaCharacter = {}
-LambdaCharacter.mId = 0
+local Character = {}
+Character.mId = 0
 
 
 -- ==========================================Build/Destroy
 
 
-function LambdaCharacter:New( iX, iY )
-    local entity = Entity:New( "LambdaCharacter"..LambdaCharacter.mId )
-    LambdaCharacter.mId = LambdaCharacter.mId + 1
+function Character:New( iFaction, iX, iY )
+    local entity = Entity:New( "Character"..Character.mId )
+    Character.mId = Character.mId + 1
+
+
 
     -- Components
-    entity:AddComponent( SpriteComponent:NewFromFile( "resources/CommOp1/RecherchesGraphiques/landaman.png" ) )
+    local factionComponent = FactionComponent:New( iFaction )
+
+    entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( DestinationComponent:New() )
     entity:AddComponent( UserInputComponent:New() )
     entity:AddComponent( SelectableComponent:New() )
+    entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
+
+
     entity:GetComponentByName( "selectable" ).mSelected = true
 
 
@@ -25,4 +32,5 @@ function LambdaCharacter:New( iX, iY )
     return  entity
 end
 
-return  LambdaCharacter
+
+return  Character

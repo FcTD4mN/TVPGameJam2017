@@ -8,6 +8,7 @@ UserInputComponent     = require "src/CommOp1/ECS/Component/UserInputComponent"
 DestinationComponent     = require "src/CommOp1/ECS/Component/DestinationComponent"
 SelectableComponent     = require "src/CommOp1/ECS/Component/SelectableComponent"
 ActionComponent     = require "src/CommOp1/ECS/Component/ActionComponent"
+FactionComponent     = require "src/CommOp1/ECS/Component/FactionComponent"
 ClickBoxComponent     = require "src/CommOp1/ECS/Component/ClickBoxComponent"
 SkillListComponent     = require "src/CommOp1/ECS/Component/SkillListComponent"
 
@@ -24,6 +25,6 @@ SkillBarLayoutSystem   = require "src/CommOp1/ECS/System/SkillBarLayoutSystem"
 
 
 -- ====== FACTORIES
-LambdaCharacter = require "src/CommOp1/ECS/Factory/LambdaCharacter"
+Character = require "src/CommOp1/ECS/Factory/Character"
 Skill = require "src/CommOp1/ECS/Factory/Skill"
 SkillBar = require "src/CommOp1/ECS/Factory/SkillBar"

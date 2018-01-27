@@ -18,10 +18,13 @@ function  MainMenu:Initialize()
     -- ============================ MAIN MAIN ===============================
     y = 300
     dz = 0
-    newGame = MenuItem:New( "NewGame", 2 * love.graphics.getWidth() / 3, y )
+    newGameCapi = MenuItem:New( "PLAY CAPITALISM", 2 * love.graphics.getWidth() / 3, y )
     y = y + verticalSpacing
-    newGame.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newGame.rectangle.w /2
+    newGameCapi.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newGameCapi.rectangle.w /2
 
+    newGameComm = MenuItem:New( "PLAY COMMUNISM", 2 * love.graphics.getWidth() / 3, y )
+    y = y + verticalSpacing
+    newGameComm.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newGameComm.rectangle.w /2
 
     options = MenuItem:New( "Options", 2 * love.graphics.getWidth() / 3, y )
     y = y + verticalSpacing
@@ -36,19 +39,22 @@ function  MainMenu:Initialize()
     -- newSandBox.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newSandBox.rectangle.w /2
 
     -- Callbacks
-    newGame:SetCallback(    function() Manager:PushScreen( GameScreen:New() ); end )
+    newGameCapi:SetCallback( function() Manager:PushScreen( GameScreen:New( 0 ) ); end )
+    newGameComm:SetCallback( function() Manager:PushScreen( GameScreen:New( 1 ) ); end )
     options:SetCallback(    function() MainMenu.currentPage = 2 end )
     quit:SetCallback(       function() love.event.quit() end )
     -- newSandBox:SetCallback( function() Manager:PushScreen( EditorScreen:New() ); love.audio.stop( zozoLoop ); end )
     -- newTest:SetCallback( function() Manager:PushScreen( TestScreen:New() ); love.audio.stop( zozoLoop ); end )
 
     -- Sounds
-    newGame:SetSound( love.audio.newSource( "resources/CommOp1/Audio/FXSound/Valider.mp3", "static" ) )
+    newGameCapi:SetSound( love.audio.newSource( "resources/CommOp1/Audio/FXSound/Valider.mp3", "static" ) )
+    newGameComm:SetSound( love.audio.newSource( "resources/CommOp1/Audio/FXSound/Valider.mp3", "static" ) )
     options:SetSound( love.audio.newSource( "resources/CommOp1/Audio/FXSound/Valider.mp3", "static" ) )
 
     -- Item building
     mainPage = MenuPage:New()
-    mainPage:AddItem( newGame )
+    mainPage:AddItem( newGameCapi )
+    mainPage:AddItem( newGameComm )
     mainPage:AddItem( options )
     mainPage:AddItem( quit )
     -- mainPage:AddItem( newSandBox )

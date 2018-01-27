@@ -13,12 +13,12 @@ LevelBase.__index = LevelBase
 
 -- ==========================================Build/Destroy
 
-function  Level1:New()
+function  Level1:New( iMode )
     newLevel1 = {}
     setmetatable( newLevel1, Level1 )
     Level1.__index = Level1
 
-    newLevel1:InitializeLevel1()
+    newLevel1:InitializeLevel1( iMode )
 
     return  newLevel1
 end
@@ -39,7 +39,7 @@ function Level1:ActionPrint4()
     print( "Action 4 !" )
 end
 
-function  Level1:InitializeLevel1()
+function  Level1:InitializeLevel1( iMode )
 
     self:InitializeLevelBase( "resources/CommOp1/Maps/Level1Image.csv", "resources/CommOp1/Maps/Level1TileSet.png", "resources/CommOp1/Maps/Level1Type.csv" )
 
@@ -218,8 +218,6 @@ function  Level1:InitializeLevel1()
     end
     Shortcuts.RegisterAllActions()
 
-    TestsPerso();
-
     local skillbar = SkillBar:New()
     local skilllist = skillbar:GetComponentByName( "skilllist" )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionPrint1 ) )
@@ -227,7 +225,16 @@ function  Level1:InitializeLevel1()
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionPrint3 ) )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionPrint4 ) )
 
+    --Add characters ( 5-90-5 )%
+    local nbpersos = 5000
+    local capitalists = math.ceil( nbpersos * 0.05 )
+    local communists = math.ceil( nbpersos * 0.05 )
+    local neutrals = nbpersos - capitalists - communists
+    self:AddCharacters( neutrals, "neutral" )
+    self:AddCharacters( capitalists, "capitalist" )
+    self:AddCharacters( communists, "communist" )
 end
+
 
 -- ==========================================Type
 
@@ -254,16 +261,16 @@ function  Level1:Draw()
 end
 
 
+function Level1:AddCharacters( iCount, iType )
 
--- ===========TEST============TEST============
-
-function TestsPerso()
-
-    LambdaCharacter:New( 10, 10 )
-    LambdaCharacter:New( 100, 100 )
-    LambdaCharacter:New( 100, 110 )
-    LambdaCharacter:New( 100, 120 )
-    LambdaCharacter:New( 110, 110 )
+    math.randomseed( love.timer.getTime() )
+    local ecartx = self.mMap.mW - 1
+    local ecarty = self.mMap.mH - 1
+    for i=0, iCount do
+        local x = math.random( ecartx )
+        local y = math.random( ecarty )
+        Character:New( iType, x, y )
+    end
 
 end
 

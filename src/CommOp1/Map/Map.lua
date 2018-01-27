@@ -15,6 +15,8 @@ function Map:NewFromFile( iFile, iTileSetFile, iTypeSetFile, iTileW, iTileH )
     self.__index = self
 
     newMap.mTiles = {}
+    newMap.mW = 0
+    newMap.mH = 0
 
     newMap:LoadFromFile( iFile, iTileSetFile, iTypeSetFile, iTileW, iTileH )
 
@@ -69,10 +71,12 @@ function Map:LoadFromFile( iMapFile, iTileSetFile, iTypeSetFile, iTileW, iTileH 
             end
             x = x + iTileW
         end
+        self.mW = x
         x = 0
         y = y + iTileH
         table.insert( self.mTiles, tiles )
     end
+    self.mH = y
     mapfile:close()
     typesetfile:close()
 end

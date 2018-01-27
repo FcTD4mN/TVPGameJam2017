@@ -17,13 +17,16 @@ local Level1 = require "src/CommOp1/Game/Level/Level1"
 local GameScreen = {}
 setmetatable( GameScreen, Screen )
 Screen.__index = Screen
+Screen.mMode = nil
 
 
 -- Constructor
-function GameScreen:New()
+function GameScreen:New( iMode )
     local newGameScreen = {}
     setmetatable( newGameScreen, self )
     self.__index = self
+
+    newGameScreen.mMode = iMode
 
     return newGameScreen
 end
@@ -38,7 +41,7 @@ end
 function GameScreen:Initialize()
     MapTileEntity:Init()
 
-    self.mLevel = Level1:New()
+    self.mLevel = Level1:New( self.mMode )
 end
 
 
