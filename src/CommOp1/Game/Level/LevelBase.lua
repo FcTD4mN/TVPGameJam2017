@@ -16,6 +16,13 @@ function  LevelBase:InitializeLevelBase( iMapFile, iVisualType )
 
     self.mWorldECS              = ECSWorld
     self.mCamera                = Camera:New( 0, 0, 800, 600, 1.0 )
+    self.mEditCamera            = false
+    self.mEditCameraOrigin      = {}
+    self.mEditCameraOrigin.mX   = 0
+    self.mEditCameraOrigin.mY   = 0
+    self.mEditCameraDelta       = {}
+    self.mEditCameraDelta.mX    = 0
+    self.mEditCameraDelta.mY    = 0
     self.mMap                   = Map:NewFromFile( iMapFile, 80, 80 )
 
     self.mWorldECS:AddSystem( SpriteRenderer )
@@ -37,7 +44,11 @@ end
 
 
 function  LevelBase:UpdateLevelBase( iDT )
-
+    
+    if self.mEditCamera then
+        self.mCamera.mX = self.mCamera.mX + self.mEditCameraDelta.mX * iDT
+        self.mCamera.mY = self.mCamera.mY + self.mEditCameraDelta.mY * iDT
+    end
     self.mWorldECS:Update( iDT )
 
 end
@@ -69,21 +80,42 @@ end
 
 
 function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
-    self.mWorldECS:KeyReleased( iKey, iScancode )
+    if iButton == 2 then
+        self.mEditCamera = true
+        self.mEditCameraOrigin.mX = iX
+        self.mEditCameraOrigin.mY = iY
+        self.mEditCameraDelta.mX = 0
+        self.mEditCameraDelta.mY = 0
+    end
+    self.mWorldECS:MousePressed( iKey, iScancode )
 end
 
 
 function LevelBase:MouseMoved( iX, iY )
+    if self.mEditCamera then
+        self.mEditCameraDelta.mX = ( iX - self.mEditCameraOrigin.mX ) / self.mCamera.mScale
+        self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / self.mCamera.mScale
+    end
     self.mWorldECS:MouseMoved( iX, iY )
 end
 
 
 function LevelBase:MouseReleased( iX, iY, iButton, iIsTouch )
+    if iButton == 2 then
+        self.mEditCamera = false
+    end
+
     self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 
 function LevelBase:WheelMoved( iX, iY )
+    print( "===" )
+    print( iX )
+    print( iY )
+    print( self.mCamera.mScale )
+    self.mCamera.mScale = self.mCamera.mScale * math.pow( 1.05, iY )
+    print( self.mCamera.mScale )
     self.mWorldECS:WheelMoved( iX, iY )
 end
 
