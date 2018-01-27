@@ -17,12 +17,29 @@ nodeD = Node:New( "D", Vector:New( 200, 70 ) )
 VertexCover:AddConnection( nodeA, nodeB, VertexCover:Distance( nodeA, nodeB ) )
 VertexCover:AddConnection( nodeA, nodeC, VertexCover:Distance( nodeA, nodeC ) )
 VertexCover:AddConnection( nodeB, nodeO, VertexCover:Distance( nodeA, nodeO ) )
-VertexCover:AddConnection( nodeO, nodeD, VertexCover:Distance( nodeA, nodeO ) )
+VertexCover:AddConnection( nodeO, nodeD, VertexCover:Distance( nodeO, nodeD ) )
 VertexCover:AddConnection( nodeB, nodeD, VertexCover:Distance( nodeB, nodeD ) )
 VertexCover:AddConnection( nodeC, nodeD, VertexCover:Distance( nodeC, nodeD ) )
 local result = VertexCover:FindPaths( nodeA, nodeD )
 
 Base:log(#result)
+Base:separator()
+for i=1, #result do
+    Base:separator()
+    Base:log( "solution n:" )
+    Base:log( i )
+    Base:log( "steps:" )
+    Base:log( #result[i] )
+    for j=1, #result[i] do
+        Base:log( result[i][j].mName )
+    end
+    local sum = 0;
+    for k=2, #result[i] do
+        --sum = sum + result[i][k]:GetWeightForNode( result[i][k-1] )
+    end
+    Base:log( "sum:" )
+    Base:log( sum )
+end
 
 
 -- First setup of my game, called at launch
@@ -72,7 +89,7 @@ end
 
 
 function  love.mousepressed( iX, iY, iButton, iIsTouch )
-    Manager:MousePressed( iX, iY, iButton, iIsTouch )
+    Manager:mousepressed( iX, iY, iButton, iIsTouch )
 end
 
 
