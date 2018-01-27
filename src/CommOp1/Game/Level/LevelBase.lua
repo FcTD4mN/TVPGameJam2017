@@ -84,32 +84,43 @@ end
 
 
 function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
+    if self.mWorldECS:MousePressed( iX, iY, iButton, iIsTouch ) then
+        return  true
+    end
     if iButton == 2 then
         self.mEditCamera = true
         self.mEditCameraOrigin.mX = iX
         self.mEditCameraOrigin.mY = iY
         self.mEditCameraDelta.mX = 0
         self.mEditCameraDelta.mY = 0
+        return  true
     end
-    self.mWorldECS:MousePressed( iX, iY, iButton, iIsTouch )
+    return  false
 end
 
 
 function LevelBase:MouseMoved( iX, iY )
+    
     if self.mEditCamera then
         self.mEditCameraDelta.mX = ( iX - self.mEditCameraOrigin.mX ) / gCamera.mScale
         self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / gCamera.mScale
+        return  true
     end
-    self.mWorldECS:MouseMoved( iX, iY )
+    
+    if self.mWorldECS:MouseMoved( iX, iY ) then
+        return  true
+    end
+
+    return  false
 end
 
 
 function LevelBase:MouseReleased( iX, iY, iButton, iIsTouch )
+
+    self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
     if iButton == 2 then
         self.mEditCamera = false
     end
-
-    self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 
