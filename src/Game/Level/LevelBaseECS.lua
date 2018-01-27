@@ -51,8 +51,6 @@ function  LevelBaseECS:BuildLevelBaseECS( iWorld, iCamera )
     self.mBackgrounds           = {}
     self.mForegrounds           = {}
 
-    self.mHeros                 = {}
-
 end
 
 -- ==========================================Type
@@ -240,7 +238,6 @@ function  LevelBaseECS:LoadLevelBaseECSXML( iNode, iWorld )
         elIndex = elIndex + 1
     end
 
-    self.mHeros         = {}
     self.mBackgrounds   = {}
     self.mForegrounds   = {}
 

@@ -9,6 +9,9 @@
 -- INCLUDES ===========================================================
 local Screen        = require "src/Application/Screens/Screen"
 
+local MapTileEntity = require "src/CommOp1/ECS/Factory/MapTileEntity"
+local Level1 = require "src/CommOp1/Game/Level/Level1"
+
 
 -- OBJECT INITIALISATION ==============================================
 local GameScreen = {}
@@ -23,7 +26,6 @@ function GameScreen:New()
     self.__index = self
 
     return newGameScreen
-
 end
 
 
@@ -34,18 +36,20 @@ end
 
 -- Called by Global Manager only on SetScreen.
 function GameScreen:Initialize()
+    MapTileEntity:Init()
 
+    self.mLevel = Level1:New()
 end
 
 
 -- OBJECT FUNCTIONS ===================================================
 function GameScreen:Update( dt )
-
+    self.mLevel:Update( dt )
 end
 
 
 function GameScreen:Draw()
-
+    self.mLevel:Draw()
 end
 
 
@@ -58,10 +62,12 @@ end
 
 
 function GameScreen:KeyPressed( iKey, iScancode, iIsRepeat )
+    self.mLevel:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function GameScreen:KeyReleased( iKey, iScancode )
+    self.mLevel:KeyReleased( iKey, iScancode )
 end
 
 
@@ -71,6 +77,7 @@ end
 
 
 function GameScreen:mousepressed( iX, iY, iButton, iIsTouch )
+    self.mLevel:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 

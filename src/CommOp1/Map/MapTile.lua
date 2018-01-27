@@ -1,20 +1,24 @@
 ImageLoader = require "src/Image/ImageLoader"
 
 local MapTile = {}
-MapTile.mIndex = ""
-MapTile.mImage = nil
+MapTile.mType = ""
+MapTile.mSubType = ""
+MapTile.mX = 0
+MapTile.mY = 0
 
 
 -- ==========================================Build/Destroy
 
 
-function MapTile:NewFromIndex( iIndex )
+function MapTile:New( iType, iSubType, iX, iY )
     local newMapTile = {}
     setmetatable( newMapTile, self )
     self.__index = self
 
-    newMapTile.mIndex = iIndex
-    newMapTile.mImage = ImageLoader.LoadSimpleImage( "resources/CommOp1/MapTiles/"..iIndex..".png" )
+    newMapTile.mType = iType
+    newMapTile.mSubType = iSubType
+    newMapTile.mX = iX
+    newMapTile.mY = iY
 
     return  newMapTile
 end
