@@ -298,6 +298,8 @@ function Level1:InitializeNodePath()
     table.insert( gNodeList, gNodeAU )
     table.insert( gNodeList, gNodeAV )
 
+    -- BUILDING THE ARRAY, UNCOMMENT IF THE NODE CHANGED AND YOU WANT TO UPDATE THE FILE
+    
     --for i=1, #gNodeList do
     --    local nodeA = gNodeList[i]
     --
@@ -315,6 +317,7 @@ function Level1:InitializeNodePath()
     --end
 --
     --self:SavePrecomputedNodeSequences()
+
     self:LoadPrecomputedNodeSequences()
 end
 
@@ -378,11 +381,24 @@ function  Level1:LoadPrecomputedNodeSequences()
         local stringKey = subSplitEntry[ 1 ]
         local stringArray = subSplitEntry[ 2 ]
         local subSliptArray = SplitString( stringArray, "," )
-        gPrecomputedNodeSequences[ stringKey ] = subSliptArray
         Base:log( stringArray )
+        gPrecomputedNodeSequences[ stringKey ] = self:BuildNodeArrayFromStringArray( subSliptArray )
     end
     file:close()
 
+end
+
+function  Level1:BuildNodeArrayFromStringArray( iStringArray )
+
+    local nodeArray = {}
+    for i=1, #iStringArray do
+        for j=1, #gNodeList do
+            if( iStringArray[i] == gNodeList[j].mName ) then
+                table.insert( nodeArray, gNodeList[j] )
+            end
+        end
+    end
+    return nodeArray
 end
 
 return  Level1
