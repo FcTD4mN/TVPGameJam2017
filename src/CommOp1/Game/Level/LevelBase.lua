@@ -100,6 +100,8 @@ function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
         self.mEditCameraOriginY = gCamera.mY
         self.mClickOriginX = iX
         self.mClickOriginY = iY
+        self.mClickPosX = iX
+        self.mClickPosY = iY
     end
     return  false
 end
