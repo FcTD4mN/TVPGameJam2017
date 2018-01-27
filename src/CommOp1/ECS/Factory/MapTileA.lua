@@ -2,24 +2,22 @@ ECSIncludes  = require "src/ECS/ECSIncludes"
 
 local MapTileA = {}
 MapTileA.mId = 0
-MapTileA.mType = "A"
+MapTileA.mType = "0"
 MapTileA.mPathPrefix = ""
 MapTileA.mPathSuffix = ".png"
 
 -- ==========================================Build/Destroy
 
-function MapTileA:New( iSubType, iX, iY )
+function MapTileA:New( iTile )
     local entity = Entity:New( "MapTileA".. MapTileA.mId )
     MapTileA.mId = MapTileA.mId + 1
     
-    entity:AddComponent( PositionComponent:New( iX, iY ) )
-    entity:AddComponent( SpriteComponent:New( MapTileA.mPathPrefix..MapTileA.mType..iSubType..MapTileA.mPathSuffix ) )
+    entity:AddComponent( PositionComponent:New( iTile.mX, iTile.mY ) )
+
+    local quad = love.graphics.newQuad( iTile.mXInTileSet, iTile.mYInTileSet, iTile.mW, iTile.mH, iTile.mTileSetImage:getWidth(), iTile.mTileSetImage:getHeight() )
+    entity:AddComponent( SpriteComponent:NewFromImage( iTile.mTileSetImage, quad ) )
 
     return  entity
-end
-
-function MapTileA:SetVisualType( iVisualType )
-    MapTileA.mPathPrefix = "resources/CommOp1/Tiles/"..iVisualType.."/"
 end
 
 return  MapTileA

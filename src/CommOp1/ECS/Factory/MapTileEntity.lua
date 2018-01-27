@@ -14,23 +14,13 @@ function MapTileEntity:Init()
     self:RegisterMapTileClass( MapTileR )
 end
 
-function MapTileEntity:New( iType, iSubType, iX, iY )
+function MapTileEntity:New( iTile )
 
-    local class = MapTileEntity.mTypes[iType]
-    local entity = class:New( iSubType, iX, iY )
+    local class = MapTileEntity.mTypes[ iTile.mType ]
+    local entity = class:New( iTile )
 
     return  entity
 
-end
-
-function MapTileEntity:SetGlobalVisualType( iVisualType )
-    for k,v in pairs( MapTileEntity.mTypes ) do
-        v:SetVisualType( iVisualType )
-    end
-end
-
-function MapTileEntity:SetVisualTypeForTileType( iVisualType, iTileType )
-    MapTileEntity.mTypes[ iTileType ]:SetVisualType( iVisualType )
 end
 
 function MapTileEntity:RegisterMapTileClass( iClass )

@@ -52,7 +52,9 @@ function  SpriteRenderer:Draw( iCamera )
 
         love.graphics.setColor( 255, 255, 255 )
         local x, y = iCamera:MapToScreen( position.mX, position.mY )
-        love.graphics.draw( sprite.mImage, x, y, rotation, scale, scale )
+        sprite.mImage:setFilter( "nearest", "nearest" )
+        
+        love.graphics.draw( sprite.mImage, sprite.mQuad, x, y, rotation, scale, scale )
     end
 
 end

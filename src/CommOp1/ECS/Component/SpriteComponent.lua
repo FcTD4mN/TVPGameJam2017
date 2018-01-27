@@ -11,20 +11,39 @@ ComponentRegistry.Register( "spritecomponent", SpriteComponent )
 -- ==========================================Constructor/Destructor
 
 
-function SpriteComponent:New( iFileName )
+function SpriteComponent:NewFromFile( iFileName, iQuad )
     local newSpriteComponent = {}
     setmetatable( newSpriteComponent, SpriteComponent )
     SpriteComponent.__index = SpriteComponent
     
     newSpriteComponent.mName = "sprite"
-
-    newSpriteComponent.mFileName = iFileName
     newSpriteComponent.mImage = love.graphics.newImage( iFileName )
+    newSpriteComponent.mQuad = iQuad
+    if not newSpriteComponent.mQuad then
+        newSpriteComponent.mQuad = love.graphics.newQuad( 0, 0, newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight(), newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight() )
+    end
 
     return  newSpriteComponent
 
 end
 
+
+function SpriteComponent:NewFromImage( iImage, iQuad )
+
+    local newSpriteComponent = {}
+    setmetatable( newSpriteComponent, SpriteComponent )
+    SpriteComponent.__index = SpriteComponent
+    
+    newSpriteComponent.mName = "sprite"
+    newSpriteComponent.mImage = iImage
+    newSpriteComponent.mQuad = iQuad
+    if not newSpriteComponent.mQuad then
+        newSpriteComponent.mQuad = love.graphics.newQuad( 0, 0, newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight(), newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight() )
+    end
+
+    return  newSpriteComponent
+
+end
 
 function SpriteComponent:NewFromXML( iNode, iWorld, iEntity )
     local newSpriteComponent = {}

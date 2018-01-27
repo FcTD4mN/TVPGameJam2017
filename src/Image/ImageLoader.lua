@@ -34,7 +34,7 @@ end
 -- This method is used to load a simple love.graphics.newImage
 function  ImageLoader.LoadSimpleImage( iFileName )
 
-    assert( #mSimpleImages == #mSimpleImageFileNames )
+    assert( #ImageLoader.mSimpleImages == #ImageLoader.mSimpleImageFileNames )
 
     for k,v in pairs( ImageLoader.mSimpleImageFileNames ) do
         if( v == iFileName ) then

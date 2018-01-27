@@ -20,7 +20,7 @@ end
 
 function  Level1:InitializeLevel1()
 
-    self:InitializeLevelBase( "resources/CommOp1/Maps/testmap.csv", "Level1" )
+    self:InitializeLevelBase( "resources/CommOp1/Maps/maptest.csv", "resources/CommOp1/Maps/TileSet.png", "resources/CommOp1/Maps/maptestType.csv" )
 
     if not Shortcuts.mLoaded then
         Shortcuts.Load();

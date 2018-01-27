@@ -12,7 +12,7 @@ local LevelBase = {}
 -- ==========================================Build/Destroy
 
 
-function  LevelBase:InitializeLevelBase( iMapFile, iVisualType )
+function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
 
     self.mWorldECS              = ECSWorld
     gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
@@ -23,14 +23,12 @@ function  LevelBase:InitializeLevelBase( iMapFile, iVisualType )
     self.mEditCameraDelta       = {}
     self.mEditCameraDelta.mX    = 0
     self.mEditCameraDelta.mY    = 0
-    self.mMap                   = Map:NewFromFile( iMapFile, 80, 80 )
+    self.mMap                   = Map:NewFromFile( iMapFile, iTileSetFile, iTypeSetFile, 80, 80 )
 
     self.mWorldECS:AddSystem( SpriteRenderer )
     self.mWorldECS:AddSystem( InputConverter )
     self.mWorldECS:AddSystem( CharacterController )
     self.mWorldECS:AddSystem( DestinationDrawer )
-
-    MapTileEntity:SetGlobalVisualType( iVisualType )
     self:GenerateMapEntities()
 
 end
@@ -113,9 +111,6 @@ end
 
 
 function LevelBase:WheelMoved( iX, iY )
-    print( "===" )
-    print( iX )
-    print( iY )
     print( gCamera.mScale )
     gCamera.mScale = gCamera.mScale * math.pow( 1.05, iY )
     print( gCamera.mScale )
@@ -129,7 +124,7 @@ function  LevelBase:GenerateMapEntities()
         local line = self.mMap.mTiles[i]
         for j=1, #line do
             local tile = line[j]
-            local entity = MapTileEntity:New( tile.mType, tile.mSubType, tile.mX, tile.mY )
+            local entity = MapTileEntity:New( tile )
             self.mWorldECS:AddEntity( entity )
         end
     end
