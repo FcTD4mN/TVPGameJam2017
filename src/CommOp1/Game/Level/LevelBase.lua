@@ -18,6 +18,8 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
     gNodes                      = {}
     gGameSpeed                  = 1
+    gNodeList                   = {}
+    gPrecomputedNodeSequences   = {}
     self.mEditCameraState       = 0
     self.mEditCameraDownTime    = 0
 

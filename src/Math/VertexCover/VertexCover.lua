@@ -30,33 +30,23 @@ end
 -- MODULE FUNCTIONS ===================================================
 
 
-function deepCopy(object)
-    local lookup_table = {}
-    local function _copy(object)
-        if type(object) ~= "table" then
-            return object
-        elseif lookup_table[object] then
-            return lookup_table[object]
+function VertexCover:FindShortestPath( iNodeA, iNodeB )
+    
+    local solutions = VertexCover:FindPaths( iNodeA, iNodeB )
+    local smallestWeight = 9999999999999999999999999999999999999999
+    local smallestIndex = -1
+    for i=1, #solutions do
+        local sum = VertexCover:ComputePathWeight( solutions[ i ] )
+        
+        if( sum < smallestWeight ) then
+            smallestWeight = sum
+            smallestIndex = i
         end
-        local new_table = {}
-        lookup_table[object] = new_table
-        for index, value in pairs(object) do
-            new_table[_copy(index)] = _copy(value)
-        end
-        return setmetatable(new_table, getmetatable(object))
+
     end
-    return _copy(object)
-end
 
-function shallowCopy (t) -- shallow-copy a table
-    if type(t) ~= "table" then return t end
-    local meta = getmetatable(t)
-    local target = {}
-    for k, v in pairs(t) do target[k] = v end
-    setmetatable(target, meta)
-    return target
+    return solutions[i]
 end
-
 
 function VertexCover:FindPaths( iNodeA, iNodeB )
     local nodeHistory = {}
@@ -122,6 +112,11 @@ function  VertexCover:ComputePathWeight( iPath )
     end
     return  weight
 
+end
+
+
+function VertexCover:StringKey( iNodeA, iNodeB )
+    return iNodeA.mName .. "-" .. iNodeB.mName
 end
 
 

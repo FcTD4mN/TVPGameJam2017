@@ -45,7 +45,73 @@ function  Level1:InitializeLevel1( iMode )
 
     SoundEngine.Init()
     --
-    table.insert( gNodes, 0)
+
+    self:InitializeNodePath()
+
+    if not Shortcuts.mLoaded then
+        Shortcuts.Load();
+    end
+    Shortcuts.RegisterAllActions()
+
+    local skillbar = SkillBar:New()
+    local skilllist = skillbar:GetComponentByName( "skilllist" )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionPrint1 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionPrint2 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionPrint3 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionPrint4 ) )
+
+    --Add characters ( 5-90-5 )%
+    self.mMode = iMode
+
+    local nbpersos = 5000
+    local capitalists = math.ceil( nbpersos * 0.05 )
+    local communists = math.ceil( nbpersos * 0.05 )
+    local neutrals = nbpersos - capitalists - communists
+    self:AddCharacters( neutrals, "neutral" )
+    self:AddCharacters( capitalists, "capitalist" )
+    self:AddCharacters( communists, "communist" )
+end
+
+
+-- ==========================================Type
+
+
+function  Level1.Type()
+    return "Level1"
+end
+
+
+-- ==========================================Update/Draw
+
+
+function  Level1:Update( iDT )
+
+    self:UpdateLevelBase( iDT )
+
+end
+
+
+function  Level1:Draw()
+
+    self:DrawLevelBase()
+
+end
+
+
+function Level1:AddCharacters( iCount, iType )
+
+    math.randomseed( love.timer.getTime() )
+    local ecartx = self.mMap.mW - 1
+    local ecarty = self.mMap.mH - 1
+    for i=0, iCount do
+        local x = math.random( ecartx )
+        local y = math.random( ecarty )
+        Character:New( iType, x, y, self.mMode == iType )
+    end
+
+end
+
+function Level1:InitializeNodePath()
 
     gNodeA  = Node:New( "A",    Vector:New(     680,        600 ) )
     gNodeB  = Node:New( "B",    Vector:New(     680,        2440 ) )
@@ -158,59 +224,67 @@ function  Level1:InitializeLevel1( iMode )
     VertexCover:AddConnection( gNodeAR, gNodeAU,  VertexCover:Distance( gNodeAR, gNodeAU ) )
     VertexCover:AddConnection( gNodeAU, gNodeAV,  VertexCover:Distance( gNodeAU, gNodeAV ) )
 
-    table.insert( gNodes, gNodeA )
-    table.insert( gNodes, gNodeB  )
-    table.insert( gNodes, gNodeC  )
-    table.insert( gNodes, gNodeD  )
-    table.insert( gNodes, gNodeE  )
-    table.insert( gNodes, gNodeF  )
-    table.insert( gNodes, gNodeG  )
-    table.insert( gNodes, gNodeH  )
-    table.insert( gNodes, gNodeI  )
-    table.insert( gNodes, gNodeJ  )
-    table.insert( gNodes, gNodeK  )
-    table.insert( gNodes, gNodeL  )
-    table.insert( gNodes, gNodeM  )
-    table.insert( gNodes, gNodeN  )
-    table.insert( gNodes, gNodeO  )
-    table.insert( gNodes, gNodeP  )
-    table.insert( gNodes, gNodeQ  )
-    table.insert( gNodes, gNodeR  )
-    table.insert( gNodes, gNodeS  )
-    table.insert( gNodes, gNodeT  )
-    table.insert( gNodes, gNodeU  )
-    table.insert( gNodes, gNodeV  )
-    table.insert( gNodes, gNodeW  )
-    table.insert( gNodes, gNodeX  )
-    table.insert( gNodes, gNodeY  )
-    table.insert( gNodes, gNodeZ  )
-    table.insert( gNodes, gNodeAA )
-    table.insert( gNodes, gNodeAB )
-    table.insert( gNodes, gNodeAC )
-    table.insert( gNodes, gNodeAD )
-    table.insert( gNodes, gNodeAE )
-    table.insert( gNodes, gNodeAF )
-    table.insert( gNodes, gNodeAG )
-    table.insert( gNodes, gNodeAH )
-    table.insert( gNodes, gNodeAI )
-    table.insert( gNodes, gNodeAJ )
-    table.insert( gNodes, gNodeAK )
-    table.insert( gNodes, gNodeAL )
-    table.insert( gNodes, gNodeAM )
-    table.insert( gNodes, gNodeAN )
-    table.insert( gNodes, gNodeAO )
-    table.insert( gNodes, gNodeAP )
-    table.insert( gNodes, gNodeAQ )
-    table.insert( gNodes, gNodeAR )
-    table.insert( gNodes, gNodeAS )
-    table.insert( gNodes, gNodeAT )
-    table.insert( gNodes, gNodeAU )
-    table.insert( gNodes, gNodeAV )
+    table.insert( gNodeList, gNodeA )
+    table.insert( gNodeList, gNodeB  )
+    table.insert( gNodeList, gNodeC  )
+    table.insert( gNodeList, gNodeD  )
+    table.insert( gNodeList, gNodeE  )
+    table.insert( gNodeList, gNodeF  )
+    table.insert( gNodeList, gNodeG  )
+    table.insert( gNodeList, gNodeH  )
+    table.insert( gNodeList, gNodeI  )
+    table.insert( gNodeList, gNodeJ  )
+    table.insert( gNodeList, gNodeK  )
+    table.insert( gNodeList, gNodeL  )
+    table.insert( gNodeList, gNodeM  )
+    table.insert( gNodeList, gNodeN  )
+    table.insert( gNodeList, gNodeO  )
+    table.insert( gNodeList, gNodeP  )
+    table.insert( gNodeList, gNodeQ  )
+    table.insert( gNodeList, gNodeR  )
+    table.insert( gNodeList, gNodeS  )
+    table.insert( gNodeList, gNodeT  )
+    table.insert( gNodeList, gNodeU  )
+    table.insert( gNodeList, gNodeV  )
+    table.insert( gNodeList, gNodeW  )
+    table.insert( gNodeList, gNodeX  )
+    table.insert( gNodeList, gNodeY  )
+    table.insert( gNodeList, gNodeZ  )
+    table.insert( gNodeList, gNodeAA )
+    table.insert( gNodeList, gNodeAB )
+    table.insert( gNodeList, gNodeAC )
+    table.insert( gNodeList, gNodeAD )
+    table.insert( gNodeList, gNodeAE )
+    table.insert( gNodeList, gNodeAF )
+    table.insert( gNodeList, gNodeAG )
+    table.insert( gNodeList, gNodeAH )
+    table.insert( gNodeList, gNodeAI )
+    table.insert( gNodeList, gNodeAJ )
+    table.insert( gNodeList, gNodeAK )
+    table.insert( gNodeList, gNodeAL )
+    table.insert( gNodeList, gNodeAM )
+    table.insert( gNodeList, gNodeAN )
+    table.insert( gNodeList, gNodeAO )
+    table.insert( gNodeList, gNodeAP )
+    table.insert( gNodeList, gNodeAQ )
+    table.insert( gNodeList, gNodeAR )
+    table.insert( gNodeList, gNodeAS )
+    table.insert( gNodeList, gNodeAT )
+    table.insert( gNodeList, gNodeAU )
+    table.insert( gNodeList, gNodeAV )
 
-    local result = VertexCover:FindPaths( gNodeA, gNodeAT )
+    for i=1, #gNodeList do
+        local nodeA = gNodeList[i]
+    
+        for j=1, #gNodeList do
 
-    for i=1, #result do
-        local sum = VertexCover:ComputePathWeight( result[ i ] )
+            local nodeB = gNodeList[j]
+            local stringKeyAB = VertexCover:StringKey( nodeA, nodeB )
+            local result = VertexCover:FindShortestPath( nodeA, nodeB )
+            SubSplitResult( result )
+            --gPrecomputedNodeSequences[ stringKeyAB ] = result
+            
+        end
     end
 
     if not Shortcuts.mLoaded then
@@ -238,43 +312,29 @@ function  Level1:InitializeLevel1( iMode )
 end
 
 
--- ==========================================Type
 
+function Level1:SubSplitResult( iResult )
 
-function  Level1.Type()
-    return "Level1"
-end
+    local table = {}
+    --local startIndex = 1
+    local endIndex   = #iResult
 
+    for i=1, #iResult do
 
--- ==========================================Update/Draw
+        local localResultTable = {}
+        table.insert( localResultTable, iResult[i] )
 
-
-function  Level1:Update( iDT )
-
-    self:UpdateLevelBase( iDT )
-
-end
-
-
-function  Level1:Draw()
-
-    self:DrawLevelBase()
-
-end
-
-
-function Level1:AddCharacters( iCount, iType )
-
-    math.randomseed( love.timer.getTime() )
-    local ecartx = self.mMap.mW - 1
-    local ecarty = self.mMap.mH - 1
-    for i=0, iCount do
-        local x = math.random( ecartx )
-        local y = math.random( ecarty )
-        Character:New( iType, x, y, self.mMode == iType )
+        for j=i+1, j <= #iResult do
+        
+            table.insert( localResultTable, iResult[j] ) 
+            local stringKeyAB = VertexCover:StringKey( localResultTable[1], localResultTable[#localResultTable] )
+            local stringKeyBA = VertexCover:StringKey( localResultTable[#localResultTable], localResultTable[1] )
+            gPrecomputedNodeSequences[ stringKeyAB ] = {}
+            gPrecomputedNodeSequences[ stringKeyBA ] = {}
+            gPrecomputedNodeSequences[ stringKeyAB ] = shallowCopy( localResultTable )
+            gPrecomputedNodeSequences[ stringKeyBA ] = shallowCopy( localResultTable )
+        end
     end
-
 end
-
 
 return  Level1
