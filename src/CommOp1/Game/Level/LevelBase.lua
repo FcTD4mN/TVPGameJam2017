@@ -20,6 +20,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     gGameSpeed                  = 1
     gNodeList                   = {}
     gPrecomputedNodeSequences   = {}
+    gTileSize                   = 80
     self.mEditCameraState       = 0
     self.mEditCameraDownTime    = 0
 
@@ -38,6 +39,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS:AddSystem( CharacterController )
 
     self.mWorldECS:AddSystem( SpriteRenderer )
+    self.mWorldECS:AddSystem( SelectionDrawer )
     self.mWorldECS:AddSystem( RadiusDrawer )
     self.mWorldECS:AddSystem( SelectionSystem ) --renders itself so it needs to be after Sprite renderer
     self.mWorldECS:AddSystem( DestinationDrawer )

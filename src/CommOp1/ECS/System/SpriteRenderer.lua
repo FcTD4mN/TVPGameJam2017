@@ -45,7 +45,7 @@ function  SpriteRenderer:Draw( iCamera )
         local isCameraFree = self.mEntityGroup[ i ]:GetTagByName( "camerafree" ) == "1"
 
         local  rotation = 0
-        
+
         local  scale = 1.0
         if not isCameraFree then
             scale = iCamera.mScale
@@ -63,22 +63,6 @@ function  SpriteRenderer:Draw( iCamera )
         if not isCameraFree then
             x, y = iCamera:MapToScreen( position.mX, position.mY )
             w,h = sprite.mImage:getWidth() * iCamera.mScale, sprite.mImage:getHeight() * iCamera.mScale
-        end
-
-        if selectable and selectable.mSelected then
-            
-            local xRadius = 10
-            local yRadius = 5
-
-            if not isCameraFree then
-                xRadius = 10 * iCamera.mScale
-                yRadius = 5 * iCamera.mScale
-            end
-            
-
-            love.graphics.setColor( 50, 255, 50 )
-            love.graphics.ellipse( "line", x + w/2, y + h-7, xRadius, yRadius )
-
         end
 
         love.graphics.setColor( 255, 255, 255 )

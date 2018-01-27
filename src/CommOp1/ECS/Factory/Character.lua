@@ -30,6 +30,7 @@ function Character:New( iFaction, iX, iY, iSelectable )
     entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
 
     entity:AddComponent( RadiusComponent:New( 50 ) )
+    entity:AddTag( "character" )
 
     ECSWorld:AddEntity( entity )
 

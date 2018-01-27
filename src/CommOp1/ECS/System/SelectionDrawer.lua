@@ -1,27 +1,26 @@
 local SystemBase = require( "src/ECS/Systems/SystemBase" )
 
-local  RadiusDrawer = {}
-setmetatable( RadiusDrawer, SystemBase )
+local  SelectionDrawer = {}
+setmetatable( SelectionDrawer, SystemBase )
 SystemBase.__index = SystemBase
 
 
-function  RadiusDrawer:Initialize()
+function  SelectionDrawer:Initialize()
 
     self.mEntityGroup = {}
 
 end
 
 
-function RadiusDrawer:IncomingEntity( iEntity )
+function SelectionDrawer:IncomingEntity( iEntity )
 
     -- Here we decide if we are interested by iEntity or not
     -- =====================================================
 
     local position = iEntity:GetComponentByName( "position" )
-    local radius = iEntity:GetComponentByName( "radius" )
     local selectable = iEntity:GetComponentByName( "selectable" )
 
-    if position and radius and selectable then
+    if position and selectable then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -29,37 +28,39 @@ function RadiusDrawer:IncomingEntity( iEntity )
 end
 
 
-function RadiusDrawer:Update( iDT )
+function SelectionDrawer:Update( iDT )
 
 end
 
 
-function  RadiusDrawer:Draw( iCamera )
+function  SelectionDrawer:Draw( iCamera )
 
     for i = 1, #self.mEntityGroup do
 
         local entity = self.mEntityGroup[ i ]
         local position = entity:GetComponentByName( "position" )
-        local sprite = entity:GetComponentByName( "sprite" )
-        local radius = entity:GetComponentByName( "radius" )
         local selectable = entity:GetComponentByName( "selectable" )
 
         if selectable.mSelected then
 
-            local x, y = gCamera:MapToScreen( position.mX, position.mY )
+            local x,y = iCamera:MapToScreen( position.mX, position.mY )
             local w,h = 0, 0
+
+            local sprite = entity:GetComponentByName( "sprite" )
             if sprite then
                 w,h = sprite.mImage:getWidth() * gCamera.mScale, sprite.mImage:getHeight() * gCamera.mScale
             end
-            local radiusValue = radius.mRadius * gCamera.mScale
+            local size = entity:GetComponentByName( "size" )
+            if size then
+                w,h = size.mW * gCamera.mScale, size.mH * gCamera.mScale
+                love.graphics.setLineWidth( w / 40 )
+            end
 
-            love.graphics.setColor( 255, 50, 50, 90 )
-            love.graphics.circle( "fill", x + w/2, y + h/2, radiusValue )
-            love.graphics.setColor( 255, 50, 50 )
-            love.graphics.circle( "line", x + w/2, y + h/2, radiusValue )
+            love.graphics.setColor( 10, 100, 10 )
+            love.graphics.rectangle( "line", x, y, w, h )
+            love.graphics.setLineWidth( 1 )
 
         end
-
 
     end
 
@@ -69,9 +70,9 @@ end
 -- ==========================================Type
 
 
-function RadiusDrawer:Type()
-    return "RadiusDrawer"
+function SelectionDrawer:Type()
+    return "SelectionDrawer"
 end
 
 
-return  RadiusDrawer
+return  SelectionDrawer

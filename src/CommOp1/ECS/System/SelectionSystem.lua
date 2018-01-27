@@ -26,8 +26,10 @@ function SelectionSystem:IncomingEntity( iEntity )
     local selectable = iEntity:GetComponentByName( "selectable" )
     local sprite = iEntity:GetComponentByName( "sprite" )
     local position = iEntity:GetComponentByName( "position" )
+    local size = iEntity:GetComponentByName( "size" )
 
-    if selectable and sprite and position then
+    if selectable and position and ( sprite or size ) then
+
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -98,8 +100,9 @@ function SelectionSystem:MouseReleased( iX, iY, iButton, iIsTouch )
 
             local entity = self.mEntityGroup[ i ]
             local selectable = entity:GetComponentByName( "selectable" )
-            local sprite = entity:GetComponentByName( "sprite" )
             local position = entity:GetComponentByName( "position" )
+            local sprite = entity:GetComponentByName( "sprite" )
+            local size = entity:GetComponentByName( "size" )
 
             selectable.mSelected = false
 
@@ -110,12 +113,25 @@ function SelectionSystem:MouseReleased( iX, iY, iButton, iIsTouch )
 
             local x,y = gCamera:MapToScreen( position.mX, position.mY )
 
-            local rectangleSprite = Rectangle:New( x, y, sprite.mImage:getWidth() * gCamera.mScale, sprite.mImage:getHeight() * gCamera.mScale )
+            local rectangleSprite = Rectangle:New( x, y, 0, 0 )
+
+            if sprite then
+                rectangleSprite:SetW( sprite.mImage:getWidth() * gCamera.mScale )
+                rectangleSprite:SetH( sprite.mImage:getHeight() * gCamera.mScale )
+            elseif size then
+                rectangleSprite:SetW( size.mW * gCamera.mScale )
+                rectangleSprite:SetH( size.mH * gCamera.mScale )
+            end
+
             if (rectangleSprite:ContainsRectangleEntirely( self.mRectangle ))
                 or (self.mRectangle:ContainsRectangleEntirely( rectangleSprite )) then
 
                     selectable.mSelected = true
-                    SoundEngine:PlaySelection()
+                    if entity:GetTagByName( "character" ) ~= "0" then
+                        SoundEngine:PlaySelection()
+                    else
+                        -- Building
+                    end
                     table.insert( gSelection, entity )
 
             end

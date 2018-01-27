@@ -92,6 +92,8 @@ function  Level1:InitializeLevel1( iMode )
     self:AddCharacters( neutrals, "neutral" )
     self:AddCharacters( capitalists, "capitalist" )
     self:AddCharacters( communists, "communist" )
+
+    WacDo:New( "neutral", 160, 400 )
 end
 
 

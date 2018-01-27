@@ -13,6 +13,7 @@ FactionComponent     = require "src/CommOp1/ECS/Component/FactionComponent"
 ClickBoxComponent     = require "src/CommOp1/ECS/Component/ClickBoxComponent"
 SkillListComponent     = require "src/CommOp1/ECS/Component/SkillListComponent"
 RadiusComponent     = require "src/CommOp1/ECS/Component/RadiusComponent"
+SizeComponent     = require "src/CommOp1/ECS/Component/SizeComponent"
 
 
 -- ====== SYSTEMS
@@ -25,9 +26,11 @@ SelectionSystem   = require "src/CommOp1/ECS/System/SelectionSystem"
 ClickableSystem   = require "src/CommOp1/ECS/System/ClickableSystem"
 SkillBarLayoutSystem   = require "src/CommOp1/ECS/System/SkillBarLayoutSystem"
 RadiusDrawer   = require "src/CommOp1/ECS/System/RadiusDrawer"
+SelectionDrawer   = require "src/CommOp1/ECS/System/SelectionDrawer"
 
 
 -- ====== FACTORIES
 Character = require "src/CommOp1/ECS/Factory/Character"
 Skill = require "src/CommOp1/ECS/Factory/Skill"
 SkillBar = require "src/CommOp1/ECS/Factory/SkillBar"
+WacDo = require "src/CommOp1/ECS/Factory/WacDo"
