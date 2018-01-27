@@ -192,6 +192,20 @@ function DeepCopyTable( iTable )
 end
 
 
+function  ReverseTable( iTable )
+
+    local reversedTable = {}
+    for i=#iTable, 1, -1 do
+
+        table.insert( reversedTable, iTable[i] )
+
+    end
+
+    return  reversedTable
+
+end
+
+
 
 -- RETURN CHUNK AS GLOBAL OBJECT ======================================
 return Base
