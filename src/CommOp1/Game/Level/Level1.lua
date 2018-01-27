@@ -23,20 +23,20 @@ function  Level1:New( iMode )
     return  newLevel1
 end
 
-function Level1:ActionPrint1()
-    print( "Action 1 !" )
+function Level1:ActionGameSpeed1()
+    gGameSpeed = 1
 end
 
-function Level1:ActionPrint2()
-    print( "Action 2 !" )
+function Level1:ActionGameSpeed2()
+    gGameSpeed = 2
 end
 
-function Level1:ActionPrint3()
-    print( "Action 3 !" )
+function Level1:ActionGameSpeed3()
+    gGameSpeed = 4
 end
 
-function Level1:ActionPrint4()
-    print( "Action 4 !" )
+function Level1:ActionGameSpeed3()
+    gGameSpeed = 8
 end
 
 function  Level1:InitializeLevel1( iMode )

@@ -20,6 +20,10 @@ function Character:New( iFaction, iX, iY, iSelectable )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( DestinationComponent:New() )
     entity:AddComponent( UserInputComponent:New() )
+
+    local minspeed = 3
+    local maxspeed = 5
+    entity:AddComponent( SpeedComponent:New( math.random() * ( maxspeed - minspeed ) + minspeed ) )
     if iSelectable then
         entity:AddComponent( SelectableComponent:New() )
     end

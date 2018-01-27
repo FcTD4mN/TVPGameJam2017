@@ -17,6 +17,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS              = ECSWorld
     gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
     gNodes                      = {}
+    gGameSpeed                  = 1
     self.mEditCameraState       = 0
     self.mEditCameraDownTime    = 0
 
