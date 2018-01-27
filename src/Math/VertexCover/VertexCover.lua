@@ -45,7 +45,7 @@ function VertexCover:FindShortestPath( iNodeA, iNodeB )
 
     end
 
-    return solutions[i]
+    return solutions[smallestIndex]
 end
 
 function VertexCover:FindPaths( iNodeA, iNodeB )

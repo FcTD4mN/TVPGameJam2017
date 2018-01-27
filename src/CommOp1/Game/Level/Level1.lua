@@ -280,9 +280,11 @@ function Level1:InitializeNodePath()
 
             local nodeB = gNodeList[j]
             local stringKeyAB = VertexCover:StringKey( nodeA, nodeB )
-            local result = VertexCover:FindShortestPath( nodeA, nodeB )
-            SubSplitResult( result )
-            --gPrecomputedNodeSequences[ stringKeyAB ] = result
+
+            if( gPrecomputedNodeSequences[ stringKeyAB ] == nil ) then
+                local result = VertexCover:FindShortestPath( nodeA, nodeB )
+                self:SubSplitResult( result )
+            end
             
         end
     end
@@ -315,7 +317,6 @@ end
 
 function Level1:SubSplitResult( iResult )
 
-    local table = {}
     --local startIndex = 1
     local endIndex   = #iResult
 
@@ -324,7 +325,7 @@ function Level1:SubSplitResult( iResult )
         local localResultTable = {}
         table.insert( localResultTable, iResult[i] )
 
-        for j=i+1, j <= #iResult do
+        for j=i+1, #iResult do
         
             table.insert( localResultTable, iResult[j] ) 
             local stringKeyAB = VertexCover:StringKey( localResultTable[1], localResultTable[#localResultTable] )
@@ -332,7 +333,7 @@ function Level1:SubSplitResult( iResult )
             gPrecomputedNodeSequences[ stringKeyAB ] = {}
             gPrecomputedNodeSequences[ stringKeyBA ] = {}
             gPrecomputedNodeSequences[ stringKeyAB ] = shallowCopy( localResultTable )
-            gPrecomputedNodeSequences[ stringKeyBA ] = shallowCopy( localResultTable )
+            gPrecomputedNodeSequences[ stringKeyBA ] = ReverseTable( localResultTable )
         end
     end
 end
