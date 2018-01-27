@@ -204,46 +204,11 @@ function  Level1:InitializeLevel1()
     table.insert( gNodes, gNodeAU )
     table.insert( gNodes, gNodeAV )
 
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:log( " Start path finder ")
-
     local result = VertexCover:FindPaths( gNodeA, gNodeAT )
-    Base:log(#result)
-    Base:separator()
+ 
     for i=1, #result do
-        Base:separator()
-        Base:log( "solution n:" )
-        Base:log( i )
-        Base:log( "steps:" )
-        Base:log( #result[i] )
-        for j=1, #result[i] do
-            Base:log( result[i][j].mName )
-        end
         local sum = VertexCover:ComputePathWeight( result[ i ] )
-        Base:log( "sum:" )
-        Base:log( sum )
     end
-
-    
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
-    Base:separator()
 
     if not Shortcuts.mLoaded then
         Shortcuts.Load();
