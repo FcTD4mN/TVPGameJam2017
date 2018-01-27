@@ -45,6 +45,28 @@ function  Level1:InitializeLevel1( iMode )
 
     SoundEngine.Init()
     --
+    if not Shortcuts.mLoaded then
+        Shortcuts.Load();
+    end
+    Shortcuts.RegisterAllActions()
+
+    local skillbar = SkillBar:New()
+    local skilllist = skillbar:GetComponentByName( "skilllist" )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionGameSpeed1 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionGameSpeed2 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionGameSpeed3 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionGameSpeed4 ) )
+
+    --Add characters ( 5-90-5 )%
+    self.mMode = iMode
+
+    local nbpersos = 5000
+    local capitalists = math.ceil( nbpersos * 0.05 )
+    local communists = math.ceil( nbpersos * 0.05 )
+    local neutrals = nbpersos - capitalists - communists
+    self:AddCharacters( neutrals, "neutral" )
+    self:AddCharacters( capitalists, "capitalist" )
+    self:AddCharacters( communists, "communist" )
 
     self:InitializeNodePath()
 
@@ -273,44 +295,24 @@ function Level1:InitializeNodePath()
     table.insert( gNodeList, gNodeAU )
     table.insert( gNodeList, gNodeAV )
 
-    for i=1, #gNodeList do
-        local nodeA = gNodeList[i]
-    
-        for j=1, #gNodeList do
-
-            local nodeB = gNodeList[j]
-            local stringKeyAB = VertexCover:StringKey( nodeA, nodeB )
-
-            if( gPrecomputedNodeSequences[ stringKeyAB ] == nil ) then
-                local result = VertexCover:FindShortestPath( nodeA, nodeB )
-                self:SubSplitResult( result )
-            end
-            
-        end
-    end
-
-    if not Shortcuts.mLoaded then
-        Shortcuts.Load();
-    end
-    Shortcuts.RegisterAllActions()
-
-    local skillbar = SkillBar:New()
-    local skilllist = skillbar:GetComponentByName( "skilllist" )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionGameSpeed1 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionGameSpeed2 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionGameSpeed3 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionGameSpeed4 ) )
-
-    --Add characters ( 5-90-5 )%
-    self.mMode = iMode
-
-    local nbpersos = 5000
-    local capitalists = math.ceil( nbpersos * 0.05 )
-    local communists = math.ceil( nbpersos * 0.05 )
-    local neutrals = nbpersos - capitalists - communists
-    self:AddCharacters( neutrals, "neutral" )
-    self:AddCharacters( capitalists, "capitalist" )
-    self:AddCharacters( communists, "communist" )
+    --for i=1, #gNodeList do
+    --    local nodeA = gNodeList[i]
+    --
+    --    for j=1, #gNodeList do
+--
+    --        local nodeB = gNodeList[j]
+    --        local stringKeyAB = VertexCover:StringKey( nodeA, nodeB )
+    --        Base:log( stringKeyAB )
+    --        if( gPrecomputedNodeSequences[ stringKeyAB ] == nil ) then
+    --            local result = VertexCover:FindShortestPath( nodeA, nodeB )
+    --            self:SubSplitResult( result )
+    --        end
+    --        
+    --    end
+    --end
+--
+    --self:SavePrecomputedNodeSequences()
+    self:LoadPrecomputedNodeSequences()
 end
 
 
@@ -336,6 +338,48 @@ function Level1:SubSplitResult( iResult )
             gPrecomputedNodeSequences[ stringKeyBA ] = ReverseTable( localResultTable )
         end
     end
+end
+
+
+function  Level1:SavePrecomputedNodeSequences()
+   filePath = "Config/nodePattern.ini"
+   local fileData = ""
+        for k,v in pairs( gPrecomputedNodeSequences ) do
+
+            fileData = fileData .. k .. ":"
+
+            for j=1, #v do
+                fileData = fileData .. v[j].mName .. ","
+            end
+            
+            fileData = fileData .. "\n"
+            
+        end
+   local file = io.open( filePath, "w" )
+   file:write( fileData )
+   file:flush()
+   file:close()
+end
+
+
+function  Level1:LoadPrecomputedNodeSequences()
+
+    filePath = "Config/nodePattern.ini"
+    local file = io.open( filePath )
+    local fileData = file:read( '*all' )
+    local fileDataSplit = SplitString( fileData, "\n" )
+
+    for k,v in pairs( fileDataSplit ) do
+
+        local subSplitEntry = SplitString( v, ":" )
+        local stringKey = subSplitEntry[ 1 ]
+        local stringArray = subSplitEntry[ 2 ]
+        local subSliptArray = SplitString( stringArray, "," )
+        gPrecomputedNodeSequences[ stringKey ] = subSliptArray
+        Base:log( stringArray )
+    end
+    file:close()
+
 end
 
 return  Level1
