@@ -29,6 +29,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS:AddSystem( InputConverter )
     self.mWorldECS:AddSystem( CharacterController )
     self.mWorldECS:AddSystem( DestinationDrawer )
+    self.mWorldECS:AddSystem( SelectionSystem )
     self:GenerateMapEntities()
 
 end

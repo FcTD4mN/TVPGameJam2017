@@ -11,7 +11,7 @@ ComponentRegistry.Register( "DestinationComponent", DestinationComponent )
 -- ==========================================Constructor/Destructor
 
 
-function DestinationComponent:New( iX, iY )
+function DestinationComponent:New()
     local newDestinationComponent = {}
     setmetatable( newDestinationComponent, DestinationComponent )
     DestinationComponent.__index = DestinationComponent
@@ -20,8 +20,7 @@ function DestinationComponent:New( iX, iY )
 
     newDestinationComponent.mX = {}
     newDestinationComponent.mY = {}
-    newDestinationComponent.mIndex = {}
-    newDestinationComponent.mActive = false
+    newDestinationComponent.mIndex = 0
 
     return  newDestinationComponent
 

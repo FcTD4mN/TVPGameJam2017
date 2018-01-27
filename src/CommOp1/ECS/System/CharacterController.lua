@@ -38,6 +38,7 @@ function CharacterController:Update( iDT )
         local position      = entity:GetComponentByName( "position" )
         local destination   = entity:GetComponentByName( "destination" )
         local sprite        = entity:GetComponentByName( "sprite" )
+        local selectable        = entity:GetComponentByName( "selectable" )
 
         --jump
         if( userinput.mActions[ "moverandom" ] ~= nil ) then
@@ -46,18 +47,21 @@ function CharacterController:Update( iDT )
         end
 
         --Move to clickLocation
-        if( userinput.mActions[ "movetolocation" ] == "pending" ) then
+        if( ( userinput.mActions[ "movetolocation" ] == "pending" ) ) and  ( selectable.mSelected ) then
             userinput.mActions[ "movetolocation" ] = nil
+            print ("OUAI")
+
             if( destination ) then
                 local x,y = gCamera:MapToWorld( love.mouse.getPosition() )
                 local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
 
-                --ClearTable( destination.mX )
-                --ClearTable( destination.mY )
+                ClearTable( destination.mX )
+                ClearTable( destination.mY )
 
                 table.insert( destination.mX, x - w/2 )
                 table.insert( destination.mY, y - h/2 )
             end
+
         end
 
         if #destination.mX > 0 then

@@ -14,8 +14,11 @@ function LambdaCharacter:New( iX, iY )
     -- Components
     entity:AddComponent( SpriteComponent:NewFromFile( "resources/CommOp1/RecherchesGraphiques/landaman.png" ) )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
-    entity:AddComponent( DestinationComponent:New( iX, iY ) )
+    entity:AddComponent( DestinationComponent:New() )
     entity:AddComponent( UserInputComponent:New() )
+    entity:AddComponent( SelectableComponent:New() )
+    entity:GetComponentByName( "selectable" ).mSelected = true
+
 
     ECSWorld:AddEntity( entity )
 

@@ -68,7 +68,7 @@ function  DestinationDrawer:Draw( iCamera )
 
                 if( sprite ) then
 
-                    local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+                    w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
                     originX = originX + w/2
                     originY = originY + h/2
                     destX = destX + w/2

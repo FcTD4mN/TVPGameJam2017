@@ -35,11 +35,16 @@ end
 
 function  SpriteRenderer:Draw( iCamera )
 
+    local xRadius = 10 * iCamera.mScale
+    local yRadius = 5 * iCamera.mScale
+
     for i = 1, #self.mEntityGroup do
 
         local position = self.mEntityGroup[ i ]:GetComponentByName( "position" )
         local sprite = self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
         local simpleT = self.mEntityGroup[ i ]:GetComponentByName( "simpletransformation" )
+
+        local selectable = self.mEntityGroup[ i ]:GetComponentByName( "selectable" )
 
         local  rotation = 0
         local  scale = iCamera.mScale
@@ -50,10 +55,20 @@ function  SpriteRenderer:Draw( iCamera )
 
         end
 
-        love.graphics.setColor( 255, 255, 255 )
+
         local x, y = iCamera:MapToScreen( position.mX, position.mY )
+        local w,h = sprite.mImage:getWidth() * iCamera.mScale, sprite.mImage:getHeight() * iCamera.mScale
+
+        if selectable and selectable.mSelected then
+
+            love.graphics.setColor( 50, 255, 50 )
+            love.graphics.ellipse( "line", x + w/2, y + h-7, xRadius, yRadius )
+
+        end
+
+        love.graphics.setColor( 255, 255, 255 )
         sprite.mImage:setFilter( "nearest", "nearest" )
-        
+
         love.graphics.draw( sprite.mImage, sprite.mQuad, x, y, rotation, scale, scale )
     end
 
