@@ -24,6 +24,9 @@ function Character:New( iFaction, iX, iY, iSelectable )
         entity:AddComponent( SelectableComponent:New() )
     end
     entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
+
+    entity:AddComponent( RadiusComponent:New( 50 ) )
+
     ECSWorld:AddEntity( entity )
 
     return  entity

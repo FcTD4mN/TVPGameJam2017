@@ -35,6 +35,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS:AddSystem( CharacterController )
 
     self.mWorldECS:AddSystem( SpriteRenderer )
+    self.mWorldECS:AddSystem( RadiusDrawer )
     self.mWorldECS:AddSystem( SelectionSystem ) --renders itself so it needs to be after Sprite renderer
     self.mWorldECS:AddSystem( DestinationDrawer )
     self.mWorldECS:AddSystem( SpriteRendererGUI )
