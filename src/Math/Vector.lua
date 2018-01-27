@@ -56,6 +56,13 @@ function  Vector:Sub( iVector )
 end
 
 
+function  Vector:SubstractionResult( iVector )
+    local x = self.x - iVector.x
+    local y = self.y - iVector.y
+    return  Vector:New( x, y )
+end
+
+
 function Vector:Draw()
     love.graphics.line( 0, 0, self.x, self.y )
 end

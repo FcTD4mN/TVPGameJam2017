@@ -4,6 +4,24 @@ require "src/Application/Global"
 
 local  MenuScreen   = require( "src/CommOp1/Application/Screens/MenuScreen" )
 
+Node = require "src/Math/VertexCover/Node"
+VertexCover = require "src/Math/VertexCover/VertexCover"
+Vector = require "src/Math/Vector"
+
+nodeA = Node:New( "A", Vector:New( 0, 0 ) )
+nodeB = Node:New( "B", Vector:New( 50, 50 ) )
+nodeC = Node:New( "C", Vector:New( 80, 20 ) )
+nodeD = Node:New( "D", Vector:New( 200, 70 ) )
+
+VertexCover:AddConnection( nodeA, nodeB, VertexCover:Distance( nodeA, nodeB ) )
+VertexCover:AddConnection( nodeA, nodeC, VertexCover:Distance( nodeA, nodeC ) )
+VertexCover:AddConnection( nodeB, nodeD, VertexCover:Distance( nodeB, nodeD ) )
+VertexCover:AddConnection( nodeC, nodeD, VertexCover:Distance( nodeC, nodeD ) )
+
+local result = VertexCover:FindPaths( nodeA, nodeD )
+
+Base:log(#result)
+
 
 -- First setup of my game, called at launch
 function love.load( args )
