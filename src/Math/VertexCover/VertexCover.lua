@@ -51,6 +51,11 @@ end
 
 function VertexCover:FindPaths( iNodeA, iNodeB )
 
+    Base:separator()
+    Base:separator()
+    Base:separator()
+    Base:log( "FindPaths " .. iNodeA.mName .. " -> " .. iNodeB.mName )
+
     local nodeHistory = {}
     local solutions = {}
     VertexCover:ExplorePathRecursive( iNodeA, iNodeB, nodeHistory, solutions )
@@ -58,14 +63,20 @@ function VertexCover:FindPaths( iNodeA, iNodeB )
 end
 
 function VertexCover:ExplorePathRecursive( iCurrentNode, iDestinationNode, iNodeHistory, iSolutions )
+    
+
+    Base:separator()
+    Base:log( "ExplorePathRecursive" .. iCurrentNode.mName .. " -> " .. iDestinationNode.mName )
+    Base:log( "History size at start " .. #iNodeHistory )
 
     local nodeHistory = deepCopy( iNodeHistory )
-    table.insert( nodeHistory, iCurrentNode )
 
     if( iCurrentNode == iDestinationNode ) then
         table.insert( iSolutions, nodeHistory )
         return
     end
+
+    table.insert( nodeHistory, iCurrentNode )
 
     for i = 1, #iCurrentNode.mConnections do
         local nextExploreNode = iCurrentNode.mConnections[i]

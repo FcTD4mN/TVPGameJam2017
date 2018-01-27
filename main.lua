@@ -11,13 +11,15 @@ Vector = require "src/Math/Vector"
 nodeA = Node:New( "A", Vector:New( 0, 0 ) )
 nodeB = Node:New( "B", Vector:New( 50, 50 ) )
 nodeC = Node:New( "C", Vector:New( 80, 20 ) )
+nodeO = Node:New( "O", Vector:New( -0, 2890 ) )
 nodeD = Node:New( "D", Vector:New( 200, 70 ) )
 
 VertexCover:AddConnection( nodeA, nodeB, VertexCover:Distance( nodeA, nodeB ) )
 VertexCover:AddConnection( nodeA, nodeC, VertexCover:Distance( nodeA, nodeC ) )
+VertexCover:AddConnection( nodeB, nodeO, VertexCover:Distance( nodeA, nodeO ) )
+VertexCover:AddConnection( nodeO, nodeD, VertexCover:Distance( nodeA, nodeO ) )
 VertexCover:AddConnection( nodeB, nodeD, VertexCover:Distance( nodeB, nodeD ) )
 VertexCover:AddConnection( nodeC, nodeD, VertexCover:Distance( nodeC, nodeD ) )
-
 local result = VertexCover:FindPaths( nodeA, nodeD )
 
 Base:log(#result)
