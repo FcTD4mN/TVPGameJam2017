@@ -19,18 +19,21 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     gNodes                      = {}
     self.mEditCameraState       = 0
     self.mEditCameraDownTime    = 0
+
     self.mEditCameraOrigin      = {}
-    self.mEditCameraOrigin.mX   = 0
-    self.mEditCameraOrigin.mY   = 0
-    self.mEditCameraDelta       = {}
-    self.mEditCameraDelta.mX    = 0
-    self.mEditCameraDelta.mY    = 0
+    self.mEditCameraOriginX   = 0
+    self.mEditCameraOriginY   = 0
+    self.mClickOriginX   = 0
+    self.mClickOriginY   = 0
+    self.mClickPosX   = 0
+    self.mClickPosY   = 0
+
     self.mMap                   = Map:NewFromFile( iMapFile, iTileSetFile, iTypeSetFile, 80, 80 )
 
     self.mWorldECS:AddSystem( SkillBarLayoutSystem )
     self.mWorldECS:AddSystem( ClickableSystem )
     self.mWorldECS:AddSystem( CharacterController )
-    
+
     self.mWorldECS:AddSystem( SpriteRenderer )
     self.mWorldECS:AddSystem( SelectionSystem ) --renders itself so it needs to be after Sprite renderer
     self.mWorldECS:AddSystem( DestinationDrawer )
@@ -53,8 +56,8 @@ end
 function  LevelBase:UpdateLevelBase( iDT )
 
     if self.mEditCameraState > 0 then
-        gCamera.mX = gCamera.mX + self.mEditCameraDelta.mX * iDT
-        gCamera.mY = gCamera.mY + self.mEditCameraDelta.mY * iDT
+        gCamera.mX = self.mEditCameraOriginX - (self.mClickPosX - self.mClickOriginX ) / gCamera.mScale
+        gCamera.mY = self.mEditCameraOriginY - (self.mClickPosY - self.mClickOriginY) / gCamera.mScale
     end
     self.mWorldECS:Update( iDT )
 
@@ -93,23 +96,27 @@ function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
     if iButton == 2 then
         self.mEditCameraState = 1
         self.mEditCameraDownTime = love.timer.getTime()
-        self.mEditCameraOrigin.mX = iX
-        self.mEditCameraOrigin.mY = iY
-        self.mEditCameraDelta.mX = 0
-        self.mEditCameraDelta.mY = 0
+        self.mEditCameraOriginX = gCamera.mX
+        self.mEditCameraOriginY = gCamera.mY
+        self.mClickOriginX = iX
+        self.mClickOriginY = iY
     end
     return  false
 end
 
 
 function LevelBase:MouseMoved( iX, iY )
-    
-    if self.mEditCameraState > 0 then
-        self.mEditCameraDelta.mX = ( iX - self.mEditCameraOrigin.mX ) / gCamera.mScale
-        self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / gCamera.mScale
 
-        if self.mEditCameraState > 1 or love.timer.getTime() - self.mEditCameraDownTime > 0.25 or math.abs( self.mEditCameraDelta.mX ) > 20 or math.abs( self.mEditCameraDelta.mY ) > 20 then
-            self.mEditCameraState = 2 
+    if self.mEditCameraState > 0 then
+        self.mClickPosX = iX
+        self.mClickPosY = iY
+
+        if (self.mEditCameraState > 1)
+            or (love.timer.getTime() - self.mEditCameraDownTime > 0.25)
+            or (math.abs( self.mClickPosX - self.mClickOriginX ) > 20)
+            or (math.abs( self.mClickPosY - self.mClickOriginY ) > 20) then
+
+            self.mEditCameraState = 2
             return  true
         end
 
