@@ -226,6 +226,8 @@ function  Level1:InitializeLevel1( iMode )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionPrint4 ) )
 
     --Add characters ( 5-90-5 )%
+    self.mMode = iMode
+
     local nbpersos = 5000
     local capitalists = math.ceil( nbpersos * 0.05 )
     local communists = math.ceil( nbpersos * 0.05 )
@@ -269,7 +271,7 @@ function Level1:AddCharacters( iCount, iType )
     for i=0, iCount do
         local x = math.random( ecartx )
         local y = math.random( ecarty )
-        Character:New( iType, x, y )
+        Character:New( iType, x, y, self.mMode == iType )
     end
 
 end

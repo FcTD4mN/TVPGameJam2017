@@ -39,8 +39,8 @@ function  MainMenu:Initialize()
     -- newSandBox.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newSandBox.rectangle.w /2
 
     -- Callbacks
-    newGameCapi:SetCallback( function() Manager:PushScreen( GameScreen:New( 0 ) ); end )
-    newGameComm:SetCallback( function() Manager:PushScreen( GameScreen:New( 1 ) ); end )
+    newGameCapi:SetCallback( function() Manager:PushScreen( GameScreen:New( "capitalist" ) ); end )
+    newGameComm:SetCallback( function() Manager:PushScreen( GameScreen:New( "communist" ) ); end )
     options:SetCallback(    function() MainMenu.currentPage = 2 end )
     quit:SetCallback(       function() love.event.quit() end )
     -- newSandBox:SetCallback( function() Manager:PushScreen( EditorScreen:New() ); love.audio.stop( zozoLoop ); end )

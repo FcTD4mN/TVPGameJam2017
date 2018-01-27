@@ -21,8 +21,9 @@ function CharacterController:IncomingEntity( iEntity )
 
     local userinput = iEntity:GetComponentByName( "userinput" )
     local position = iEntity:GetComponentByName( "position" )
+    local selectable = iEntity:GetComponentByName( "selectable" )
 
-    if userinput and position then
+    if userinput and position and selectable then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
