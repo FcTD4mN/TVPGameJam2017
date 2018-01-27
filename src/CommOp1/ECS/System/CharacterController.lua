@@ -1,5 +1,6 @@
 local SystemBase = require( "src/ECS/Systems/SystemBase" )
 local Shortcuts = require( "src/Application/Shortcuts" )
+local  SoundEngine = require "src/CommOp1/SoundSystem/SoundMachine"
 
 local  CharacterController = {}
 setmetatable( CharacterController, SystemBase )
@@ -68,7 +69,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
 
         --Move to clickLocation
         if iButton == 2 and  selectable.mSelected then
-            
+
             local x,y = gCamera:MapToWorld( iX, iY )
             local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
 
@@ -92,6 +93,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
                 end
 
             end
+            SoundEngine:PlayOrder()
 
         end
     end

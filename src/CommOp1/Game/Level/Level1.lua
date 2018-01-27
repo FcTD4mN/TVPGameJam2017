@@ -4,6 +4,8 @@ local  Node = require "src/Math/VertexCover/Node"
 local  VertexCover = require "src/Math/VertexCover/VertexCover"
 local  Vector = require "src/Math/Vector"
 
+local  SoundEngine = require "src/CommOp1/SoundSystem/SoundMachine"
+
 local Level1 = {}
 setmetatable( Level1, LevelBase )
 LevelBase.__index = LevelBase
@@ -41,9 +43,10 @@ function  Level1:InitializeLevel1()
 
     self:InitializeLevelBase( "resources/CommOp1/Maps/Level1Image.csv", "resources/CommOp1/Maps/Level1TileSet.png", "resources/CommOp1/Maps/Level1Type.csv" )
 
+    SoundEngine.Init()
     --
     table.insert( gNodes, 0)
-    
+
     gNodeA  = Node:New( "A",    Vector:New(     680,        600 ) )
     gNodeB  = Node:New( "B",    Vector:New(     680,        2440 ) )
     gNodeC  = Node:New( "C",    Vector:New(     4040,       2440 ) )
@@ -205,7 +208,7 @@ function  Level1:InitializeLevel1()
     table.insert( gNodes, gNodeAV )
 
     local result = VertexCover:FindPaths( gNodeA, gNodeAT )
- 
+
     for i=1, #result do
         local sum = VertexCover:ComputePathWeight( result[ i ] )
     end

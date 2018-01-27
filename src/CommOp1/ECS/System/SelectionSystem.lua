@@ -1,5 +1,6 @@
 local SystemBase    = require( "src/ECS/Systems/SystemBase" )
 local Point         = require("src/Math/Point")
+local  SoundEngine = require "src/CommOp1/SoundSystem/SoundMachine"
 
 local  SelectionSystem = {}
 setmetatable( SelectionSystem, SystemBase )
@@ -114,6 +115,7 @@ function SelectionSystem:MouseReleased( iX, iY, iButton, iIsTouch )
                 or (self.mRectangle:ContainsRectangleEntirely( rectangleSprite )) then
 
                     selectable.mSelected = true
+                    SoundEngine:PlaySelection()
                     table.insert( gSelection, entity )
 
             end
