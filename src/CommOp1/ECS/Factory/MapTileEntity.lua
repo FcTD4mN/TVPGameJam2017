@@ -17,6 +17,9 @@ end
 function MapTileEntity:New( iTile )
 
     local class = MapTileEntity.mTypes[ iTile.mTypeSetIndex ]
+    if not class then
+        return MapTileBasic:New( iTile )
+    end
     local entity = class:New( iTile )
 
     return  entity
