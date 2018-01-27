@@ -33,10 +33,11 @@ function CharacterController:Update( iDT )
 
     for i = 1, #self.mEntityGroup do
 
-        local entity = self.mEntityGroup[ i ]
-        local userinput = entity:GetComponentByName( "userinput" )
-        local position = entity:GetComponentByName( "position" )
-        local destination = entity:GetComponentByName( "destination" )
+        local entity        = self.mEntityGroup[ i ]
+        local userinput     = entity:GetComponentByName( "userinput" )
+        local position      = entity:GetComponentByName( "position" )
+        local destination   = entity:GetComponentByName( "destination" )
+        local sprite        = entity:GetComponentByName( "sprite" )
 
         --jump
         if( userinput.mActions[ "moverandom" ] ~= nil ) then
@@ -48,23 +49,28 @@ function CharacterController:Update( iDT )
         if( userinput.mActions[ "movetolocation" ] == "pending" ) then
             userinput.mActions[ "movetolocation" ] = nil
             if( destination ) then
-                destination.mActive = true
                 local x,y = gCamera:MapToWorld( love.mouse.getPosition() )
-                destination.mX = x
-                destination.mY = y
+                local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+
+                --ClearTable( destination.mX )
+                --ClearTable( destination.mY )
+
+                table.insert( destination.mX, x - w/2 )
+                table.insert( destination.mY, y - h/2 )
             end
         end
 
-        if destination.mActive then
+        if #destination.mX > 0 then
 
-            if math.abs( destination.mX - position.mX ) < 5 and math.abs( destination.mY - position.mY ) then
-                destination.mActive = false
-            end
-
-            local vector = Vector:New( destination.mX - position.mX, destination.mY - position.mY )
+            local vector = Vector:New( destination.mX[ 1 ] - position.mX, destination.mY[ 1 ] - position.mY )
             vector = vector:Normalized() -- SQRT !!
             position.mX = position.mX + vector.x
-            position.mX = position.mX + vector.y
+            position.mY = position.mY + vector.y
+
+            if ( math.abs( destination.mX[ 1 ] - position.mX ) < 5 ) and ( math.abs( destination.mY[ 1 ] - position.mY ) < 5 ) then
+                table.remove( destination.mX, 1 )
+                table.remove( destination.mY, 1 )
+            end
 
         end
 

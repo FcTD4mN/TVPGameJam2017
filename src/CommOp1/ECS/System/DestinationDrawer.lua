@@ -43,18 +43,43 @@ function  DestinationDrawer:Draw( iCamera )
         local sprite = entity:GetComponentByName( "sprite" )
         local destination = entity:GetComponentByName( "destination" )
 
-        local originX, originY = position.mX, position.mY
+        if #destination.mX > 0 then
 
-        if( destination.mActive ) then
+            local originX, originY = position.mX, position.mY
+            local destX, destY = destination.mX[ 1 ], destination.mY[ 1 ]
+
             if( sprite ) then
 
                 local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
                 originX = originX + w/2
                 originY = originY + h/2
+                destX = destX + w/2
+                destY = destY + h/2
 
             end
             love.graphics.setColor( 255, 0, 0 )
-            love.graphics.line( iCamera:MapToScreenMultiple( originX, originY, destination.mX, destination.mY ) )
+            love.graphics.line( iCamera:MapToScreenMultiple( originX, originY, destX, destY ) )
+
+
+            for i=2, #destination.mX do
+
+                originX, originY = destination.mX[ i-1 ], destination.mY[ i-1 ]
+                destX, destY = destination.mX[ i ], destination.mY[ i ]
+
+                if( sprite ) then
+
+                    local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+                    originX = originX + w/2
+                    originY = originY + h/2
+                    destX = destX + w/2
+                    destY = destY + h/2
+
+                end
+                love.graphics.setColor( 255, 0, 0 )
+                love.graphics.line( iCamera:MapToScreenMultiple( originX, originY, destX, destY ) )
+
+            end
+
         end
 
     end

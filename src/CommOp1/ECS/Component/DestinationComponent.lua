@@ -18,8 +18,9 @@ function DestinationComponent:New( iX, iY )
 
     newDestinationComponent.mName = "destination"
 
-    newDestinationComponent.mX = iX
-    newDestinationComponent.mY = iY
+    newDestinationComponent.mX = {}
+    newDestinationComponent.mY = {}
+    newDestinationComponent.mIndex = {}
     newDestinationComponent.mActive = false
 
     return  newDestinationComponent
