@@ -33,10 +33,7 @@ for i=1, #result do
     for j=1, #result[i] do
         Base:log( result[i][j].mName )
     end
-    local sum = 0;
-    for k=2, #result[i] do
-        --sum = sum + result[i][k]:GetWeightForNode( result[i][k-1] )
-    end
+    local sum = VertexCover:ComputePathWeight( result[ i ] )
     Base:log( "sum:" )
     Base:log( sum )
 end

@@ -22,6 +22,13 @@ function  Level1:InitializeLevel1()
 
     self:InitializeLevelBase( "resources/CommOp1/Maps/testmap.csv", "Level1" )
 
+    if not Shortcuts.mLoaded then
+        Shortcuts.Load();
+    end
+    Shortcuts.RegisterAllActions()
+
+    TestsPerso();
+
 end
 
 -- ==========================================Type
@@ -45,6 +52,16 @@ end
 function  Level1:Draw()
 
     self:DrawLevelBase()
+
+end
+
+
+
+-- ===========TEST============TEST============
+
+function TestsPerso()
+
+    LambdaCharacter:New( 10, 10 )
 
 end
 

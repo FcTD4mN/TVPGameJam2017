@@ -48,6 +48,15 @@ function deepCopy(object)
     return _copy(object)
 end
 
+function shallowCopy (t) -- shallow-copy a table
+    if type(t) ~= "table" then return t end
+    local meta = getmetatable(t)
+    local target = {}
+    for k, v in pairs(t) do target[k] = v end
+    setmetatable(target, meta)
+    return target
+end
+
 
 function VertexCover:FindPaths( iNodeA, iNodeB )
 
@@ -63,20 +72,18 @@ function VertexCover:FindPaths( iNodeA, iNodeB )
 end
 
 function VertexCover:ExplorePathRecursive( iCurrentNode, iDestinationNode, iNodeHistory, iSolutions )
-    
+
+    local nodeHistory = shallowCopy( iNodeHistory )
+    table.insert( nodeHistory, iCurrentNode )
 
     Base:separator()
     Base:log( "ExplorePathRecursive" .. iCurrentNode.mName .. " -> " .. iDestinationNode.mName )
-    Base:log( "History size at start " .. #iNodeHistory )
-
-    local nodeHistory = deepCopy( iNodeHistory )
+    Base:log( "History size at start " .. #nodeHistory )
 
     if( iCurrentNode == iDestinationNode ) then
         table.insert( iSolutions, nodeHistory )
         return
     end
-
-    table.insert( nodeHistory, iCurrentNode )
 
     for i = 1, #iCurrentNode.mConnections do
         local nextExploreNode = iCurrentNode.mConnections[i]
@@ -93,7 +100,7 @@ function VertexCover:AddConnection( iNodeA, iNodeB, iWeight )
     table.insert( iNodeA.mConnections, iNodeB )
     table.insert( iNodeA.mWeights, iWeight )
 
-    table.insert( iNodeB.mConnections, iNodeB )
+    table.insert( iNodeB.mConnections, iNodeA )
     table.insert( iNodeB.mWeights, iWeight )
 
 end
@@ -108,11 +115,23 @@ function VertexCover:RemoveConnection( iNodeA, iNodeB )
     table.remove( iNodeB.mConnections, indexB )
     table.remove( iNodeB.mWeights, indexB )
 
-end 
+end
 
 
 function VertexCover:Distance( iNodeA, iNodeB )
     return iNodeA.mProperty:SubstractionResult( iNodeB.mProperty ):LengthSquared()
+end
+
+function  VertexCover:ComputePathWeight( iPath )
+
+    local weight = 0
+    for i = 1, #iPath - 1 do
+
+        weight = weight + iPath[ i ]:GetWeightForNode( iPath[ i + 1 ] )
+
+    end
+    return  weight
+
 end
 
 

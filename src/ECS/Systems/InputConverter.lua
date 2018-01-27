@@ -75,4 +75,31 @@ function InputConverter:KeyReleased( iKey, iScancode )
 end
 
 
+function  InputConverter:MousePressed( iX, iY, iButton, iIsTouch )
+    if iButton == 2 then
+    end
+end
+
+
+function InputConverter:MouseMoved( iX, iY )
+end
+
+
+function InputConverter:MouseReleased( iX, iY, iButton, iIsTouch )
+
+    for i = 1, #self.mEntityGroup do
+
+        if iButton == 2 then
+
+            local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
+            local action = Shortcuts.GetActionForKey( "mouseright" )
+            userInput.mActions[ action ] = "pending"
+
+        end
+
+    end
+
+end
+
+
 return  InputConverter

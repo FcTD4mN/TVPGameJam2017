@@ -15,7 +15,7 @@ local LevelBase = {}
 function  LevelBase:InitializeLevelBase( iMapFile, iVisualType )
 
     self.mWorldECS              = ECSWorld
-    self.mCamera                = Camera:New( 0, 0, 800, 600, 1.0 )
+    gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
     self.mEditCamera            = false
     self.mEditCameraOrigin      = {}
     self.mEditCameraOrigin.mX   = 0
@@ -26,6 +26,9 @@ function  LevelBase:InitializeLevelBase( iMapFile, iVisualType )
     self.mMap                   = Map:NewFromFile( iMapFile, 80, 80 )
 
     self.mWorldECS:AddSystem( SpriteRenderer )
+    self.mWorldECS:AddSystem( InputConverter )
+    self.mWorldECS:AddSystem( CharacterController )
+    self.mWorldECS:AddSystem( DestinationDrawer )
 
     MapTileEntity:SetGlobalVisualType( iVisualType )
     self:GenerateMapEntities()
@@ -44,10 +47,10 @@ end
 
 
 function  LevelBase:UpdateLevelBase( iDT )
-    
+
     if self.mEditCamera then
-        self.mCamera.mX = self.mCamera.mX + self.mEditCameraDelta.mX * iDT
-        self.mCamera.mY = self.mCamera.mY + self.mEditCameraDelta.mY * iDT
+        gCamera.mX = gCamera.mX + self.mEditCameraDelta.mX * iDT
+        gCamera.mY = gCamera.mY + self.mEditCameraDelta.mY * iDT
     end
     self.mWorldECS:Update( iDT )
 
@@ -56,7 +59,7 @@ end
 
 function  LevelBase:DrawLevelBase()
 
-    self.mWorldECS:Draw( self.mCamera )
+    self.mWorldECS:Draw( gCamera )
 
 end
 
@@ -87,14 +90,14 @@ function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
         self.mEditCameraDelta.mX = 0
         self.mEditCameraDelta.mY = 0
     end
-    self.mWorldECS:MousePressed( iKey, iScancode )
+    self.mWorldECS:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
 function LevelBase:MouseMoved( iX, iY )
     if self.mEditCamera then
-        self.mEditCameraDelta.mX = ( iX - self.mEditCameraOrigin.mX ) / self.mCamera.mScale
-        self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / self.mCamera.mScale
+        self.mEditCameraDelta.mX = ( iX - self.mEditCameraOrigin.mX ) / gCamera.mScale
+        self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / gCamera.mScale
     end
     self.mWorldECS:MouseMoved( iX, iY )
 end
@@ -113,9 +116,9 @@ function LevelBase:WheelMoved( iX, iY )
     print( "===" )
     print( iX )
     print( iY )
-    print( self.mCamera.mScale )
-    self.mCamera.mScale = self.mCamera.mScale * math.pow( 1.05, iY )
-    print( self.mCamera.mScale )
+    print( gCamera.mScale )
+    gCamera.mScale = gCamera.mScale * math.pow( 1.05, iY )
+    print( gCamera.mScale )
     self.mWorldECS:WheelMoved( iX, iY )
 end
 

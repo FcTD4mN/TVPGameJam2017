@@ -9,7 +9,7 @@ function  Node:New( iParent )
     newNode = {}
     setmetatable( newNode, self )
     self.__index = self
- 
+
     newNode.mConnections = {}
     newNode.mWeights = {}
     newNode.mVisited = false
@@ -30,14 +30,14 @@ function Node:AddConnection( iNode, iWeight )
     table.insert( mConnections, iNode )
     table.insert( mWeights, iWeight )
 
-end 
+end
 
 function Node:GetWeightTo( iNode )
 
     local index = GetObjectIndexInTable( self.mConnections, iNode )
     return  self.mWeights[ index ]
 
-end 
+end
 
 function  Node:ComputePathWeight( iPath )
 
@@ -52,44 +52,44 @@ function  Node:ComputePathWeight( iPath )
 end
 
 function Node:GetShorterWayTo( iNode )
- 
+
     local allPaths = {}
 
     local path = {}
-    table.insert( path, self ) 
+    table.insert( path, self )
 
     for i = 1, #self.mConnections do
-        
+
         local pathCopy = DeepCopyTable( path )
         table.insert( allPaths, self.mConnections[ i ]:GetPathTo( iNode, pathCopy ) )
-       
+
     end
- 
+
 end
 
 
 function  Node:GetPathTo( iNode, iPath )
 
-    table.insert( iPath, self ) 
+    table.insert( iPath, self )
     local allPaths = {}
 
     for i = 1, #self.mConnections do
-        
+
         if( iNode == self.mConnections[ i ] ) then
 
-            table.insert( iPath, self.mConnections[ i ] )   
+            table.insert( iPath, self.mConnections[ i ] )
             return  iPath
 
         end
 
         if not TableContains( iPath, self.mConnections[ i ] ) then
- 
+
             local pathCopy = DeepCopyTable( iPath )
             table.insert( allPaths, self.mConnections[ i ]:GetPathTo( iNode, pathCopy ) )
 
         end
 
-    end 
+    end
 
     local lowestWeight = 0
     local index = 0
@@ -102,7 +102,7 @@ function  Node:GetPathTo( iNode, iPath )
         end
 
     end
- 
+
     if( index > 0 ) then
         return  allPaths[ index ]
     else

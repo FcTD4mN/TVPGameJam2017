@@ -135,7 +135,7 @@ function GetObjectIndexInTable( iTable, iObject )
 
     for i = 1, #iTable do
 
-        if iTable[i] == iObject then
+        if iTable[ i ] == iObject then
             return  i
         end
 
