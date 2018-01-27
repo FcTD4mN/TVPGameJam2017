@@ -35,7 +35,7 @@ function Level1:ActionGameSpeed3()
     gGameSpeed = 4
 end
 
-function Level1:ActionGameSpeed3()
+function Level1:ActionGameSpeed4()
     gGameSpeed = 8
 end
 
@@ -220,10 +220,10 @@ function  Level1:InitializeLevel1( iMode )
 
     local skillbar = SkillBar:New()
     local skilllist = skillbar:GetComponentByName( "skilllist" )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionPrint1 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionPrint2 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionPrint3 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionPrint4 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionGameSpeed1 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionGameSpeed2 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionGameSpeed3 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionGameSpeed4 ) )
 
     --Add characters ( 5-90-5 )%
     self.mMode = iMode
