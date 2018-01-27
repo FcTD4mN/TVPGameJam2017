@@ -21,7 +21,6 @@ VertexCover:AddConnection( nodeO, nodeD, VertexCover:Distance( nodeO, nodeD ) )
 VertexCover:AddConnection( nodeB, nodeD, VertexCover:Distance( nodeB, nodeD ) )
 VertexCover:AddConnection( nodeC, nodeD, VertexCover:Distance( nodeC, nodeD ) )
 local result = VertexCover:FindPaths( nodeA, nodeD )
-
 Base:log(#result)
 Base:separator()
 for i=1, #result do
