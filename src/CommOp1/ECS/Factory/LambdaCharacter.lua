@@ -12,7 +12,7 @@ function LambdaCharacter:New( iX, iY )
     LambdaCharacter.mId = LambdaCharacter.mId + 1
 
     -- Components
-    entity:AddComponent( SpriteComponent:New( "resources/CommOp1/RecherchesGraphiques/landaman.png" ) )
+    entity:AddComponent( SpriteComponent:NewFromFile( "resources/CommOp1/RecherchesGraphiques/landaman.png" ) )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( DestinationComponent:New( iX, iY ) )
     entity:AddComponent( UserInputComponent:New() )
