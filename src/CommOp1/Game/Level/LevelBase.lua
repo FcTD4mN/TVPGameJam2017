@@ -69,17 +69,17 @@ end
 
 
 function LevelBase:TextInput( iT )
-    self.mWorldECS:TextInput( iT )
+    return  self.mWorldECS:TextInput( iT )
 end
 
 
 function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
-    self.mWorldECS:KeyPressed( iKey, iScancode, iIsRepeat )
+    return  self.mWorldECS:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function LevelBase:KeyReleased( iKey, iScancode )
-    self.mWorldECS:KeyReleased( iKey, iScancode )
+    return  self.mWorldECS:KeyReleased( iKey, iScancode )
 end
 
 
