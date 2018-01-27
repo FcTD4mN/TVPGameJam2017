@@ -26,12 +26,37 @@ end
 -- EVENTS : =================================================================================
 
 
+function SystemBase:TextInput( iT )
+    --Nothing
+end
+
+
 function SystemBase:KeyPressed( iKey, iScancode, iIsRepeat )
     --Nothing
 end
 
 
 function SystemBase:KeyReleased( iKey, iScancode )
+    --Nothing
+end
+
+
+function SystemBase:MousePressed( iX, iY, iButton, iIsTouch )
+    --Nothing
+end
+
+
+function SystemBase:MouseMoved( iX, iY )
+    --Nothing
+end
+
+
+function SystemBase:MouseReleased( iX, iY, iButton, iIsTouch )
+    --Nothing
+end
+
+
+function SystemBase:WheelMoved( iX, iY )
     --Nothing
 end
 

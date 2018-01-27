@@ -66,7 +66,7 @@ function EditorScreen:MouseMoved( iX, iY )
 end
 
 
-function EditorScreen:mousepressed( iX, iY, iButton, iIsTouch )
+function EditorScreen:MousePressed( iX, iY, iButton, iIsTouch )
     Editor.MousePressed( iX, iY, iButton, iIsTouch )
 end
 

@@ -44,7 +44,7 @@ end
 function Screen:KeyReleased( key, scancode )
 end
 
-function Screen:mousepressed( iX, iY, iButton, iIsTouch )
+function Screen:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 -- In childs: Release resources before Screen Switch or App Close

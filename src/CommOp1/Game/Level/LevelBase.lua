@@ -53,22 +53,38 @@ end
 -- ==========================================Events
 
 
+function LevelBase:TextInput( iT )
+    self.mWorldECS:TextInput( iT )
+end
+
+
 function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
-
     self.mWorldECS:KeyPressed( iKey, iScancode, iIsRepeat )
-
 end
 
 
 function LevelBase:KeyReleased( iKey, iScancode )
-
     self.mWorldECS:KeyReleased( iKey, iScancode )
-
 end
 
 
 function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
-    --
+    self.mWorldECS:KeyReleased( iKey, iScancode )
+end
+
+
+function LevelBase:MouseMoved( iX, iY )
+    self.mWorldECS:MouseMoved( iX, iY )
+end
+
+
+function LevelBase:MouseReleased( iX, iY, iButton, iIsTouch )
+    self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
+end
+
+
+function LevelBase:WheelMoved( iX, iY )
+    self.mWorldECS:WheelMoved( iX, iY )
 end
 
 

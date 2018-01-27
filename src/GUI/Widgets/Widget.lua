@@ -119,7 +119,7 @@ end
 function Widget:KeyReleased( key, scancode )
 end
 
-function Widget:mousepressed( iX, iY, iButton, iIsTouch )
+function Widget:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 function Widget:Finalize()

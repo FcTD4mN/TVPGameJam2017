@@ -57,7 +57,7 @@ end
 
 
 function GameScreen:TextInput( iT )
-    --Nothing special
+    self.mLevel:TextInput( iT )
 end
 
 
@@ -71,23 +71,23 @@ function GameScreen:KeyReleased( iKey, iScancode )
 end
 
 
-function GameScreen:MouseMoved( iX, iY )
-    --Nothing special
-end
-
-
-function GameScreen:mousepressed( iX, iY, iButton, iIsTouch )
+function GameScreen:MousePressed( iX, iY, iButton, iIsTouch )
     self.mLevel:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
+function GameScreen:MouseMoved( iX, iY )
+    self.mLevel:MouseMoved( iX, iY )
+end
+
+
 function GameScreen:MouseReleased( iX, iY, iButton, iIsTouch )
-    --Nothing special
+    self.mLevel:MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 
 function GameScreen:WheelMoved( iX, iY )
-    --Nothing special
+    self.mLevel:WheelMoved( iX, iY )
 end
 
 

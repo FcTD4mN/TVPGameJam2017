@@ -102,8 +102,8 @@ function TestScreen:MouseMoved( iX, iY )
 end
 
 
-function TestScreen:mousepressed( iX, iY, iButton, iIsTouch )
-    MainMenu:mousepressed( iX, iY, iButton, iIsTouch )
+function TestScreen:MousePressed( iX, iY, iButton, iIsTouch )
+    MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 

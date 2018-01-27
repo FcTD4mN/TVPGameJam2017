@@ -163,7 +163,7 @@ function GameScreen:MouseMoved( iX, iY )
 end
 
 
-function GameScreen:mousepressed( iX, iY, iButton, iIsTouch )
+function GameScreen:MousePressed( iX, iY, iButton, iIsTouch )
     level1:MousePressed(  iX, iY, iButton, iIsTouch )
 end
 

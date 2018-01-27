@@ -85,6 +85,19 @@ end
 -- EVENTS : =================================================================================
 
 
+function ECSWorld:TextInput( iT )
+
+    for i = 1, #self.mSystems do
+
+        local system = self.mSystems[ i ]
+
+        system:TextInput( iT )
+
+    end
+
+end
+
+
 function ECSWorld:KeyPressed( iKey, iScancode, iIsRepeat )
 
     for i = 1, #self.mSystems do
@@ -104,6 +117,58 @@ function ECSWorld:KeyReleased( iKey, iScancode )
 
         local system = self.mSystems[ i ]
         system:KeyReleased( iKey, iScancode )
+
+    end
+
+end
+
+
+function ECSWorld:MousePressed( iX, iY, iButton, iIsTouch )
+
+    for i = 1, #self.mSystems do
+
+        local system = self.mSystems[ i ]
+
+        system:MousePressed( iX, iY, iButton, iIsTouch )
+
+    end
+
+end
+
+
+function ECSWorld:MouseMoved( iX, iY )
+
+    for i = 1, #self.mSystems do
+
+        local system = self.mSystems[ i ]
+
+        system:MouseMoved( iX, iY )
+
+    end
+
+end
+
+
+function ECSWorld:MouseReleased( iX, iY, iButton, iIsTouch )
+
+    for i = 1, #self.mSystems do
+
+        local system = self.mSystems[ i ]
+
+        system:MouseReleased( iX, iY, iButton, iIsTouch )
+
+    end
+
+end
+
+
+function ECSWorld:WheelMoved( iX, iY )
+
+    for i = 1, #self.mSystems do
+
+        local system = self.mSystems[ i ]
+
+        system:WheelMoved( iX, iY )
 
     end
 

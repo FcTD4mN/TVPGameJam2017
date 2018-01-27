@@ -66,8 +66,8 @@ function MenuScreen:MouseMoved( iX, iY )
 end
 
 
-function MenuScreen:mousepressed( iX, iY, iButton, iIsTouch )
-    MainMenu:mousepressed( iX, iY, iButton, iIsTouch )
+function MenuScreen:MousePressed( iX, iY, iButton, iIsTouch )
+    MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 

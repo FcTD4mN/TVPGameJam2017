@@ -49,7 +49,7 @@ end
 function TemplateScreen:KeyReleased( key, scancode )
 end
 
-function TemplateScreen:mousepressed( iX, iY, iButton, iIsTouch )
+function TemplateScreen:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 -- Release resources before Screen Switch or App Close

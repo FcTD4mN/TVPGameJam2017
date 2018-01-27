@@ -41,8 +41,8 @@ function SandBox:KeyReleased( key, scancode )
     Manager:KeyReleased( key, scancode );
 end
 
-function  SandBox:mousepressed( iX, iY, iButton, iIsTouch )
-    Manager:mousepressed( iX, iY, iButton, iIsTouch );
+function  SandBox:MousePressed( iX, iY, iButton, iIsTouch )
+    Manager:MousePressed( iX, iY, iButton, iIsTouch );
 end
 
 return SandBox

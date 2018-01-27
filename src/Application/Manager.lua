@@ -88,8 +88,8 @@ function Manager:MouseMoved( iX, iY )
 end
 
 
-function Manager:mousepressed( iX, iY, iButton, iIsTouch )
-    Manager.screens[ #Manager.screens ]:mousepressed( iX, iY, iButton, iIsTouch );
+function Manager:MousePressed( iX, iY, iButton, iIsTouch )
+    Manager.screens[ #Manager.screens ]:MousePressed( iX, iY, iButton, iIsTouch );
 end
 
 
