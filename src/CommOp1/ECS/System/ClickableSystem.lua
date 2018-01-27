@@ -54,29 +54,26 @@ function ClickableSystem:MousePressed( iX, iY, iButton, iIsTouch )
         if iX >= clickbox.mX and iY >= clickbox.mY and iX < clickbox.mX + clickbox.mW and iY < clickbox.mY + clickbox.mH then
             self.mClickbox = clickbox
             self.mAction = action
-            return
+            return  true
         end
     end
-
-end
-
-
-function ClickableSystem:MouseMoved( iX, iY )
-    --Nothing
+    return  false
 end
 
 
 function ClickableSystem:MouseReleased( iX, iY, iButton, iIsTouch )
     if not self.mClickbox or not self.mAction then
-        return
+        return  false
     end
 
     if iX >= self.mClickbox.mX and iY >= self.mClickbox.mY and iX < self.mClickbox.mX + self.mClickbox.mW and iY < self.mClickbox.mY + self.mClickbox.mH then
         self.mAction.mAction()
         self.mClickbox = nil
         self.mAction = nil
-        return
+        return  true
     end
+
+    return  false
 end
 
 

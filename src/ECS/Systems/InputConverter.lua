@@ -56,8 +56,13 @@ function InputConverter:KeyPressed( iKey, iScancode, iIsRepeat )
         local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
         local action = Shortcuts.GetActionForKey( iKey )
         userInput.mActions[ action ] = "pending"
-
+        --return  true  ???
     end
+
+    if #self.mEntityGroup > 0  then
+        return true
+    end
+    return  false
 
 end
 
@@ -72,16 +77,11 @@ function InputConverter:KeyReleased( iKey, iScancode )
 
     end
 
-end
-
-
-function  InputConverter:MousePressed( iX, iY, iButton, iIsTouch )
-    if iButton == 2 then
+    if #self.mEntityGroup > 0 then
+        return true
     end
-end
+    return  false
 
-
-function InputConverter:MouseMoved( iX, iY )
 end
 
 
@@ -98,6 +98,11 @@ function InputConverter:MouseReleased( iX, iY, iButton, iIsTouch )
         end
 
     end
+
+    if #self.mEntityGroup > 0 and iButton == 2 then
+        return true
+    end
+    return  false
 
 end
 

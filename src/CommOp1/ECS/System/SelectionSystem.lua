@@ -70,8 +70,9 @@ function  SelectionSystem:MousePressed( iX, iY, iButton, iIsTouch )
         self.mStartPoint = Point:New( iX, iY )
         self.mRectangle = Rectangle:New( iX, iY, 1, 1 )
         self.mState = "selecting"
+        return  true
     end
-
+    return  false
 end
 
 
@@ -82,8 +83,9 @@ function SelectionSystem:MouseMoved( iX, iY )
         self.mRectangle:SetY( self.mStartPoint.mY )
         self.mRectangle:SetX2( iX )
         self.mRectangle:SetY2( iY )
+        return  true
     end
-
+    return  false
 end
 
 
@@ -118,11 +120,15 @@ function SelectionSystem:MouseReleased( iX, iY, iButton, iIsTouch )
 
         end
 
+
+        self.mRectangle     = nil
+        self.mStartPoint    = nil
+        self.mState         = nil
+        return  true
+
     end
 
-    self.mRectangle     = nil
-    self.mStartPoint    = nil
-    self.mState         = nil
+    return  false
 
 end
 

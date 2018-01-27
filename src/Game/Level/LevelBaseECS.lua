@@ -165,14 +165,14 @@ end
 
 function LevelBaseECS:KeyPressed( iKey, iScancode, iIsRepeat )
 
-    self.mWorldECS:KeyPressed( iKey, iScancode, iIsRepeat )
+    return  self.mWorldECS:KeyPressed( iKey, iScancode, iIsRepeat )
 
 end
 
 
 function LevelBaseECS:KeyReleased( iKey, iScancode )
 
-    self.mWorldECS:KeyReleased( iKey, iScancode )
+    return  self.mWorldECS:KeyReleased( iKey, iScancode )
 
 end
 

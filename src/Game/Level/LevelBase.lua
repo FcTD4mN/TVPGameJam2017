@@ -156,11 +156,16 @@ function LevelBase:KeyPressed( iKey, iScancode, iIsRepeat )
         file = io.open( "Save/Level1.xml", "w" )
         -- file = io.open( "/home/damien/work2/Love2D/TVPGameJam2017/Save/Level1.xml", "w" )
         file:write( xmlData )
+        return  true
     end
 
     for k,v in pairs( self.mHeros ) do
-        v:KeyPressed( iKey, iScancode, iIsRepeat )
+        if v:KeyPressed( iKey, iScancode, iIsRepeat ) then
+            return true
+        end
     end
+
+    return  false
 
 end
 
@@ -168,9 +173,12 @@ end
 function LevelBase:KeyReleased( iKey, iScancode )
 
     for k,v in pairs( self.mHeros ) do
-        v:KeyReleased( iKey, iScancode )
+        if v:KeyReleased( iKey, iScancode ) then
+            return  true
+        end
     end
 
+    return  false
 end
 
 

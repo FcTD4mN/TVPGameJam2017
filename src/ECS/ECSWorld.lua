@@ -91,9 +91,13 @@ function ECSWorld:TextInput( iT )
 
         local system = self.mSystems[ i ]
 
-        system:TextInput( iT )
+        if system:TextInput( iT ) then
+            return  true
+        end
 
     end
+
+    return  false
 
 end
 
@@ -104,10 +108,12 @@ function ECSWorld:KeyPressed( iKey, iScancode, iIsRepeat )
 
         local system = self.mSystems[ i ]
 
-        system:KeyPressed( iKey, iScancode, iIsRepeat )
+        if system:KeyPressed( iKey, iScancode, iIsRepeat ) then
+            return  true
+        end
 
     end
-
+    return  false
 end
 
 
@@ -116,10 +122,12 @@ function ECSWorld:KeyReleased( iKey, iScancode )
     for i = 1, #self.mSystems do
 
         local system = self.mSystems[ i ]
-        system:KeyReleased( iKey, iScancode )
+        if system:KeyReleased( iKey, iScancode ) then
+            return  true
+        end
 
     end
-
+    return  false
 end
 
 
@@ -129,10 +137,12 @@ function ECSWorld:MousePressed( iX, iY, iButton, iIsTouch )
 
         local system = self.mSystems[ i ]
 
-        system:MousePressed( iX, iY, iButton, iIsTouch )
+        if system:MousePressed( iX, iY, iButton, iIsTouch ) then
+            return  true
+        end
 
     end
-
+    return  false
 end
 
 
@@ -142,9 +152,13 @@ function ECSWorld:MouseMoved( iX, iY )
 
         local system = self.mSystems[ i ]
 
-        system:MouseMoved( iX, iY )
+        if system:MouseMoved( iX, iY ) then
+            return  true
+        end
 
     end
+
+    return  false
 
 end
 
@@ -155,10 +169,12 @@ function ECSWorld:MouseReleased( iX, iY, iButton, iIsTouch )
 
         local system = self.mSystems[ i ]
 
-        system:MouseReleased( iX, iY, iButton, iIsTouch )
+        if system:MouseReleased( iX, iY, iButton, iIsTouch ) then
+            return  true
+        end
 
     end
-
+    return  false
 end
 
 
@@ -168,10 +184,12 @@ function ECSWorld:WheelMoved( iX, iY )
 
         local system = self.mSystems[ i ]
 
-        system:WheelMoved( iX, iY )
+        if system:WheelMoved( iX, iY ) then
+            return  true
+        end
 
     end
-
+    return  false
 end
 
 

@@ -106,7 +106,7 @@ function LevelBase:MouseMoved( iX, iY )
         self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / gCamera.mScale
         return  true
     end
-    
+
     if self.mWorldECS:MouseMoved( iX, iY ) then
         return  true
     end
@@ -116,19 +116,20 @@ end
 
 
 function LevelBase:MouseReleased( iX, iY, iButton, iIsTouch )
-
-    self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
-    if iButton == 2 then
+    if self.mEditCamera and iButton == 2 then
         self.mEditCamera = false
+        return  true
     end
+    self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 
 function LevelBase:WheelMoved( iX, iY )
-    print( gCamera.mScale )
+    if self.mWorldECS:WheelMoved( iX, iY ) then
+        return  true
+    end
     gCamera.mScale = gCamera.mScale * math.pow( 1.05, iY )
-    print( gCamera.mScale )
-    self.mWorldECS:WheelMoved( iX, iY )
+    return  true
 end
 
 
