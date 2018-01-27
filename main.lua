@@ -89,7 +89,7 @@ end
 
 
 function  love.mousepressed( iX, iY, iButton, iIsTouch )
-    Manager:mousepressed( iX, iY, iButton, iIsTouch )
+    Manager:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
