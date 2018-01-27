@@ -17,7 +17,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS              = ECSWorld
     gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
     gNodes                      = {}
-    self.mEditCamera            = false
+    self.mEditCameraState       = 0
     self.mEditCameraOrigin      = {}
     self.mEditCameraOrigin.mX   = 0
     self.mEditCameraOrigin.mY   = 0
@@ -26,13 +26,14 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mEditCameraDelta.mY    = 0
     self.mMap                   = Map:NewFromFile( iMapFile, iTileSetFile, iTypeSetFile, 80, 80 )
 
-    self.mWorldECS:AddSystem( SpriteRenderer )
-    self.mWorldECS:AddSystem( InputConverter )
-    self.mWorldECS:AddSystem( CharacterController )
-    self.mWorldECS:AddSystem( DestinationDrawer )
-    self.mWorldECS:AddSystem( SelectionSystem )
     self.mWorldECS:AddSystem( SkillBarLayoutSystem )
     self.mWorldECS:AddSystem( ClickableSystem )
+    self.mWorldECS:AddSystem( CharacterController )
+    
+    self.mWorldECS:AddSystem( SpriteRenderer )
+    self.mWorldECS:AddSystem( SelectionSystem ) --renders itself so it needs to be after Sprite renderer
+    self.mWorldECS:AddSystem( DestinationDrawer )
+    self.mWorldECS:AddSystem( SpriteRendererGUI )
     self:GenerateMapEntities()
 
 end
@@ -50,7 +51,7 @@ end
 
 function  LevelBase:UpdateLevelBase( iDT )
 
-    if self.mEditCamera then
+    if self.mEditCameraState > 0 then
         gCamera.mX = gCamera.mX + self.mEditCameraDelta.mX * iDT
         gCamera.mY = gCamera.mY + self.mEditCameraDelta.mY * iDT
     end
@@ -89,12 +90,11 @@ function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
         return  true
     end
     if iButton == 2 then
-        self.mEditCamera = true
+        self.mEditCameraState = 1
         self.mEditCameraOrigin.mX = iX
         self.mEditCameraOrigin.mY = iY
         self.mEditCameraDelta.mX = 0
         self.mEditCameraDelta.mY = 0
-        return  true
     end
     return  false
 end
@@ -102,10 +102,15 @@ end
 
 function LevelBase:MouseMoved( iX, iY )
     
-    if self.mEditCamera then
+    if self.mEditCameraState > 0 then
         self.mEditCameraDelta.mX = ( iX - self.mEditCameraOrigin.mX ) / gCamera.mScale
         self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / gCamera.mScale
-        return  true
+
+        if self.mEditCameraState > 1 or math.abs( self.mEditCameraDelta.mX ) > 5 or math.abs( self.mEditCameraDelta.mY ) > 5 then
+            self.mEditCameraState = 2 
+            return  true
+        end
+
     end
 
     if self.mWorldECS:MouseMoved( iX, iY ) then
@@ -117,11 +122,17 @@ end
 
 
 function LevelBase:MouseReleased( iX, iY, iButton, iIsTouch )
-    if self.mEditCamera and iButton == 2 then
-        self.mEditCamera = false
-        return  true
+    if self.mEditCameraState > 0 then
+        local shouldReturn = self.mEditCameraState > 1
+        if iButton == 2 then
+            self.mEditCameraState = 0
+        end
+
+        if shouldReturn then
+            return  true
+        end
     end
-    self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
+    return  self.mWorldECS:MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 

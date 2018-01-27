@@ -47,37 +47,37 @@ end
 
 
 function MenuScreen:TextInput( iT )
-    --Nothing special
+    return  false
 end
 
 
 function MenuScreen:KeyPressed( key, scancode, isrepeat )
-    MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
+    return  MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function MenuScreen:KeyReleased( key, scancode )
-    MainMenu:KeyReleased( iKey, iScancode )
+    return  MainMenu:KeyReleased( iKey, iScancode )
 end
 
 
 function MenuScreen:MouseMoved( iX, iY )
-    --Nothing special
+    return  false
 end
 
 
 function MenuScreen:MousePressed( iX, iY, iButton, iIsTouch )
-    MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
+    return  MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
 function MenuScreen:MouseReleased( iX, iY, iButton, iIsTouch )
-    --Nothing special
+    return  false
 end
 
 
 function MenuScreen:WheelMoved( iX, iY )
-    --Nothing special
+    return  false
 end
 
 

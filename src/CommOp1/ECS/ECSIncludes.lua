@@ -14,6 +14,7 @@ SkillListComponent     = require "src/CommOp1/ECS/Component/SkillListComponent"
 
 -- ====== SYSTEMS
 SpriteRenderer   = require "src/CommOp1/ECS/System/SpriteRenderer"
+SpriteRendererGUI   = require "src/CommOp1/ECS/System/SpriteRendererGUI"
 CharacterController   = require "src/CommOp1/ECS/System/CharacterController"
 InputConverter   = require "src/ECS/Systems/InputConverter"
 DestinationDrawer   = require "src/CommOp1/ECS/System/DestinationDrawer"

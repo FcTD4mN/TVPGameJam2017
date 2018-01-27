@@ -17,6 +17,7 @@ function Skill:New( iIconFile, iAction )
     entity:AddComponent( ClickBoxComponent:New( 0, 0, 80, 80 ) )
     entity:AddComponent( ActionComponent:New( iAction ) )
     entity:AddTag( "camerafree" )
+    entity:AddTag( "isGUI" )
     ECSWorld:AddEntity( entity )
 
     return  entity

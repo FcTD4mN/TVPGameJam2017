@@ -27,37 +27,37 @@ end
 
 
 function SystemBase:TextInput( iT )
-    --Nothing
+    return  false
 end
 
 
 function SystemBase:KeyPressed( iKey, iScancode, iIsRepeat )
-    --Nothing
+    return  false
 end
 
 
 function SystemBase:KeyReleased( iKey, iScancode )
-    --Nothing
+    return  false
 end
 
 
 function SystemBase:MousePressed( iX, iY, iButton, iIsTouch )
-    --Nothing
+    return  false
 end
 
 
 function SystemBase:MouseMoved( iX, iY )
-    --Nothing
+    return  false
 end
 
 
 function SystemBase:MouseReleased( iX, iY, iButton, iIsTouch )
-    --Nothing
+    return  false
 end
 
 
 function SystemBase:WheelMoved( iX, iY )
-    --Nothing
+    return  false
 end
 
 

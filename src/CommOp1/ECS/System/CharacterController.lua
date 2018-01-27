@@ -34,50 +34,8 @@ function CharacterController:Update( iDT )
     for i = 1, #self.mEntityGroup do
 
         local entity        = self.mEntityGroup[ i ]
-        local userinput     = entity:GetComponentByName( "userinput" )
         local position      = entity:GetComponentByName( "position" )
         local destination   = entity:GetComponentByName( "destination" )
-        local sprite        = entity:GetComponentByName( "sprite" )
-        local selectable        = entity:GetComponentByName( "selectable" )
-
-        --jump
-        if( userinput.mActions[ "moverandom" ] ~= nil ) then
-            position.mX = position.mX + 10
-            position.mY = position.mY + 10
-        end
-
-        --Move to clickLocation
-        if( ( userinput.mActions[ "movetolocation" ] == "pending" ) ) and  ( selectable.mSelected ) then
-
-            if( destination ) then
-                local x,y = gCamera:MapToWorld( love.mouse.getPosition() )
-                local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
-
-                ClearTable( destination.mX )
-                ClearTable( destination.mY )
-
-                table.insert( destination.mX, x - w/2 )
-                table.insert( destination.mY, y - h/2 )
-
-                if #gSelection > 1 then
-
-                    local ecart = 40
-                    local randomX = math.random( ecart ) - ecart/2
-                    local randomY = math.random( ecart ) - ecart/2
-
-                    for i=1, #destination.mX do
-
-                        destination.mX[ i ] = destination.mX[ i ] + randomX
-                        destination.mY[ i ] = destination.mY[ i ] + randomY
-
-                    end
-
-                end
-
-            end
-
-        end
-        userinput.mActions[ "movetolocation" ] = nil
 
         if #destination.mX > 0 then
 
@@ -96,6 +54,47 @@ function CharacterController:Update( iDT )
 
     end
 
+end
+
+
+function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
+    for i = 1, #self.mEntityGroup do
+
+        local entity        = self.mEntityGroup[ i ]
+        local position      = entity:GetComponentByName( "position" )
+        local destination   = entity:GetComponentByName( "destination" )
+        local sprite        = entity:GetComponentByName( "sprite" )
+        local selectable        = entity:GetComponentByName( "selectable" )
+
+        --Move to clickLocation
+        if iButton == 2 and  selectable.mSelected then
+            
+            local x,y = gCamera:MapToWorld( iX, iY )
+            local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+
+            ClearTable( destination.mX )
+            ClearTable( destination.mY )
+
+            table.insert( destination.mX, x - w/2 )
+            table.insert( destination.mY, y - h/2 )
+
+            if #gSelection > 1 then
+
+                local ecart = 40
+                local randomX = math.random( ecart ) - ecart/2
+                local randomY = math.random( ecart ) - ecart/2
+
+                for i=1, #destination.mX do
+
+                    destination.mX[ i ] = destination.mX[ i ] + randomX
+                    destination.mY[ i ] = destination.mY[ i ] + randomY
+
+                end
+
+            end
+
+        end
+    end
 end
 
 

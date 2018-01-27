@@ -39,12 +39,15 @@ function Screen:Draw()
 end
 
 function Screen:KeyPressed( key, scancode, isrepeat )
+    return  false
 end
 
 function Screen:KeyReleased( key, scancode )
+    return  false
 end
 
 function Screen:MousePressed( iX, iY, iButton, iIsTouch )
+    return  false
 end
 
 -- In childs: Release resources before Screen Switch or App Close

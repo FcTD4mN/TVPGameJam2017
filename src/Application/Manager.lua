@@ -69,42 +69,42 @@ end
 
 
 function Manager:TextInput( iT )
-    Manager.screens[ #Manager.screens ]:TextInput( iT );
+    return  Manager.screens[ #Manager.screens ]:TextInput( iT );
 end
 
 
 function Manager:KeyPressed( iKey, iScancode, iIsRepeat )
-    Manager.screens[ #Manager.screens ]:KeyPressed( iKey, iScancode, iIsRepeat );
+    return  Manager.screens[ #Manager.screens ]:KeyPressed( iKey, iScancode, iIsRepeat );
 end
 
 
 function Manager:KeyReleased( iKey, iScancode )
-    Manager.screens[ #Manager.screens ]:KeyReleased( iKey, iScancode );
+    return  Manager.screens[ #Manager.screens ]:KeyReleased( iKey, iScancode );
 end
 
 
 function Manager:MouseMoved( iX, iY )
-    Manager.screens[ #Manager.screens ]:MouseMoved( iX, iY );
+    return  Manager.screens[ #Manager.screens ]:MouseMoved( iX, iY );
 end
 
 
 function Manager:MousePressed( iX, iY, iButton, iIsTouch )
-    Manager.screens[ #Manager.screens ]:MousePressed( iX, iY, iButton, iIsTouch );
+    return  Manager.screens[ #Manager.screens ]:MousePressed( iX, iY, iButton, iIsTouch );
 end
 
 
 function Manager:MouseReleased( iX, iY, iButton, iIsTouch )
-    Manager.screens[ #Manager.screens ]:MouseReleased( iX, iY, iButton, iIsTouch );
+    return  Manager.screens[ #Manager.screens ]:MouseReleased( iX, iY, iButton, iIsTouch );
 end
 
 
 function Manager:WheelMoved( iX, iY )
-    Manager.screens[ #Manager.screens ]:WheelMoved( iX, iY );
+    return  Manager.screens[ #Manager.screens ]:WheelMoved( iX, iY );
 end
 
 
 function Manager:Finalize()
-    Manager.screens[ #Manager.screens ]:Finalize()
+    return  Manager.screens[ #Manager.screens ]:Finalize()
 
 end
 

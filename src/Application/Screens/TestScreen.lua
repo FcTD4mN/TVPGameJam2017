@@ -82,38 +82,38 @@ end
 
 
 function TestScreen:TextInput( iT )
-    --Nothing special
+    return  false
 end
 
 
 function TestScreen:KeyPressed( key, scancode, isrepeat )
 
-    -- MainMenu:KeyPressed( iKey, iScancode, iIsRepeat )
+    return  false
 end
 
 
 function TestScreen:KeyReleased( key, scancode )
-    -- MainMenu:KeyReleased( iKey, iScancode )
+    return  false
 end
 
 
 function TestScreen:MouseMoved( iX, iY )
-    --Nothing special
+    return  false
 end
 
 
 function TestScreen:MousePressed( iX, iY, iButton, iIsTouch )
-    MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
+    return  MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
 function TestScreen:MouseReleased( iX, iY, iButton, iIsTouch )
-    --Nothing special
+    return  false
 end
 
 
 function TestScreen:WheelMoved( iX, iY )
-    --Nothing special
+    return  false
 end
 
 

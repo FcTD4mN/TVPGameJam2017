@@ -143,11 +143,11 @@ end
 
 
 function MainMenu:KeyPressed( key, scancode, isrepeat )
-    return
+    return  false
 end
 
 function MainMenu:KeyReleased( key, scancode )
-    return
+    return  false
 end
 
 
@@ -155,7 +155,9 @@ function MainMenu:MousePressed( iX, iY, iButton, iIsTouch )
     itemUM = self.menuPages[ self.currentPage ]:GetItemUnderMouse()
     if( itemUM ~= "none" ) then
         itemUM:Click();
+        return  true
     end
+    return  false
 end
 
 

@@ -1,18 +1,18 @@
 local SystemBase = require( "src/ECS/Systems/SystemBase" )
 
-local  SpriteRenderer = {}
-setmetatable( SpriteRenderer, SystemBase )
+local  SpriteRendererGUI = {}
+setmetatable( SpriteRendererGUI, SystemBase )
 SystemBase.__index = SystemBase
 
 
-function  SpriteRenderer:Initialize()
+function  SpriteRendererGUI:Initialize()
 
     self.mEntityGroup = {}
 
 end
 
 
-function SpriteRenderer:IncomingEntity( iEntity )
+function SpriteRendererGUI:IncomingEntity( iEntity )
 
     -- Here we decide if we are interested by iEntity or not
     -- =====================================================
@@ -20,7 +20,7 @@ function SpriteRenderer:IncomingEntity( iEntity )
     local sprite = iEntity:GetComponentByName( "sprite" )
     local position = iEntity:GetComponentByName( "position" )
 
-    if position and sprite and iEntity:GetTagByName( "isGUI" ) == "0" then
+    if position and sprite and iEntity:GetTagByName( "isGUI" ) == "1" then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -28,12 +28,12 @@ function SpriteRenderer:IncomingEntity( iEntity )
 end
 
 
-function SpriteRenderer:Update( iDT )
+function SpriteRendererGUI:Update( iDT )
     --does nothing
 end
 
 
-function  SpriteRenderer:Draw( iCamera )
+function  SpriteRendererGUI:Draw( iCamera )
 
     for i = 1, #self.mEntityGroup do
 
@@ -93,9 +93,9 @@ end
 -- ==========================================Type
 
 
-function SpriteRenderer:Type()
-    return "SpriteRenderer"
+function SpriteRendererGUI:Type()
+    return "SpriteRendererGUI"
 end
 
 
-return  SpriteRenderer
+return  SpriteRendererGUI

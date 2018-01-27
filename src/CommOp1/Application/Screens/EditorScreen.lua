@@ -47,37 +47,37 @@ end
 
 
 function EditorScreen:TextInput( iT )
-    Editor.TextInput( iT )
+    return  Editor.TextInput( iT )
 end
 
 
 function EditorScreen:KeyPressed( iKey, iScancode, iIsRepeat )
-    Editor.KeyPressed( iKey, iScancode, iIsRepeat )
+    return  Editor.KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function EditorScreen:KeyReleased( iKey, iScancode )
-    Editor.KeyReleased( iKey, iScancode )
+    return  Editor.KeyReleased( iKey, iScancode )
 end
 
 
 function EditorScreen:MouseMoved( iX, iY )
-    Editor.MouseMoved( iX, iY )
+    return  Editor.MouseMoved( iX, iY )
 end
 
 
 function EditorScreen:MousePressed( iX, iY, iButton, iIsTouch )
-    Editor.MousePressed( iX, iY, iButton, iIsTouch )
+    return  Editor.MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
 function EditorScreen:MouseReleased( iX, iY, iButton, iIsTouch )
-    Editor.MouseReleased( iX, iY, iButton, iIsTouch )
+    return  Editor.MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 
 function EditorScreen:WheelMoved( iX, iY )
-    Editor.WheelMoved( iX, iY )
+    return  Editor.WheelMoved( iX, iY )
 end
 
 -- Release resources before Screen Switch or App Close

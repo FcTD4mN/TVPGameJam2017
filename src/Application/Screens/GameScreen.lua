@@ -144,37 +144,37 @@ end
 
 
 function GameScreen:TextInput( iT )
-    --Nothing special
+    return  false
 end
 
 
 function GameScreen:KeyPressed( iKey, iScancode, iIsRepeat )
-    level1:KeyPressed( iKey, iScancode, iIsRepeat )
+    return  level1:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function GameScreen:KeyReleased( iKey, iScancode )
-    level1:KeyReleased( iKey, iScancode )
+    return  level1:KeyReleased( iKey, iScancode )
 end
 
 
 function GameScreen:MouseMoved( iX, iY )
-    --Nothing special
+    return   false
 end
 
 
 function GameScreen:MousePressed( iX, iY, iButton, iIsTouch )
-    level1:MousePressed(  iX, iY, iButton, iIsTouch )
+    return  level1:MousePressed(  iX, iY, iButton, iIsTouch )
 end
 
 
 function GameScreen:MouseReleased( iX, iY, iButton, iIsTouch )
-    --Nothing special
+    return  false
 end
 
 
 function GameScreen:WheelMoved( iX, iY )
-    --Nothing special
+    return  false
 end
 
 

@@ -9,6 +9,8 @@ SystemBase.__index = SystemBase
 function  ClickableSystem:Initialize()
 
     self.mEntityGroup = {}
+    self.mClickbox = nil
+    self.mAction = nil
 
 end
 
@@ -34,9 +36,13 @@ function ClickableSystem:Update( iDT )
 end
 
 function  ClickableSystem:Draw( iCamera )
+    
+    print( "draw1" )
     if not self.mClickbox or not self.mAction then
         return
     end
+
+    print( "draw2" )
 
     love.graphics.setColor( 255, 255, 255, 50 )love.graphics.setColor( 255, 255, 255, 50 )
     love.graphics.rectangle( "fill", self.mClickbox.mX, self.mClickbox.mY, self.mClickbox.mW, self.mClickbox.mH )
@@ -61,6 +67,15 @@ function ClickableSystem:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
+function ClickableSystem:MouseMoved( iX, iY )
+    
+    if self.mClickbox and self.mAction then
+        return  true
+    end
+    return  false
+end
+
+
 function ClickableSystem:MouseReleased( iX, iY, iButton, iIsTouch )
     if not self.mClickbox or not self.mAction then
         return  false
@@ -68,12 +83,10 @@ function ClickableSystem:MouseReleased( iX, iY, iButton, iIsTouch )
 
     if iX >= self.mClickbox.mX and iY >= self.mClickbox.mY and iX < self.mClickbox.mX + self.mClickbox.mW and iY < self.mClickbox.mY + self.mClickbox.mH then
         self.mAction.mAction()
-        self.mClickbox = nil
-        self.mAction = nil
-        return  true
     end
-
-    return  false
+    self.mClickbox = nil
+    self.mAction = nil
+    return  true
 end
 
 

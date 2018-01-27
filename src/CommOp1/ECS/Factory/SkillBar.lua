@@ -16,6 +16,8 @@ function SkillBar:New( iX, iY )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( SkillListComponent:New() )
     entity:AddTag( "camerafree" )
+    entity:AddTag( "isGUI" )
+    
     ECSWorld:AddEntity( entity )
 
     return  entity

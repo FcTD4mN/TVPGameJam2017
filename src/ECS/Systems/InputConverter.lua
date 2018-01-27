@@ -56,13 +56,10 @@ function InputConverter:KeyPressed( iKey, iScancode, iIsRepeat )
         local userInput = self.mEntityGroup[ i ]:GetComponentByName( "userinput" )
         local action = Shortcuts.GetActionForKey( iKey )
         userInput.mActions[ action ] = "pending"
-        --return  true  ???
+        print( "pending:"..action)
     end
 
-    if #self.mEntityGroup > 0  then
-        return true
-    end
-    return  false
+    return  false --never returns true because it just sets values for other systems
 
 end
 
@@ -77,10 +74,7 @@ function InputConverter:KeyReleased( iKey, iScancode )
 
     end
 
-    if #self.mEntityGroup > 0 then
-        return true
-    end
-    return  false
+    return  false --never returns true because it just sets values for other systems
 
 end
 
@@ -99,10 +93,7 @@ function InputConverter:MouseReleased( iX, iY, iButton, iIsTouch )
 
     end
 
-    if #self.mEntityGroup > 0 and iButton == 2 then
-        return true
-    end
-    return  false
+    return  false --never returns true because it just sets values for other systems
 
 end
 

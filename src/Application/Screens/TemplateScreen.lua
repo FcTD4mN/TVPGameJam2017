@@ -44,12 +44,15 @@ function TemplateScreen:Draw()
 end
 
 function TemplateScreen:KeyPressed( key, scancode, isrepeat )
+    return  false
 end
 
 function TemplateScreen:KeyReleased( key, scancode )
+    return  false
 end
 
 function TemplateScreen:MousePressed( iX, iY, iButton, iIsTouch )
+    return  false
 end
 
 -- Release resources before Screen Switch or App Close

@@ -57,37 +57,37 @@ end
 
 
 function GameScreen:TextInput( iT )
-    self.mLevel:TextInput( iT )
+    return  self.mLevel:TextInput( iT )
 end
 
 
 function GameScreen:KeyPressed( iKey, iScancode, iIsRepeat )
-    self.mLevel:KeyPressed( iKey, iScancode, iIsRepeat )
+    return  self.mLevel:KeyPressed( iKey, iScancode, iIsRepeat )
 end
 
 
 function GameScreen:KeyReleased( iKey, iScancode )
-    self.mLevel:KeyReleased( iKey, iScancode )
+    return  self.mLevel:KeyReleased( iKey, iScancode )
 end
 
 
 function GameScreen:MousePressed( iX, iY, iButton, iIsTouch )
-    self.mLevel:MousePressed( iX, iY, iButton, iIsTouch )
+    return  self.mLevel:MousePressed( iX, iY, iButton, iIsTouch )
 end
 
 
 function GameScreen:MouseMoved( iX, iY )
-    self.mLevel:MouseMoved( iX, iY )
+    return  self.mLevel:MouseMoved( iX, iY )
 end
 
 
 function GameScreen:MouseReleased( iX, iY, iButton, iIsTouch )
-    self.mLevel:MouseReleased( iX, iY, iButton, iIsTouch )
+    return  self.mLevel:MouseReleased( iX, iY, iButton, iIsTouch )
 end
 
 
 function GameScreen:WheelMoved( iX, iY )
-    self.mLevel:WheelMoved( iX, iY )
+    return  self.mLevel:WheelMoved( iX, iY )
 end
 
 
