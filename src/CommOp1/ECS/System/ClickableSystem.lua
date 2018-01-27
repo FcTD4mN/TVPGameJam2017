@@ -37,12 +37,9 @@ end
 
 function  ClickableSystem:Draw( iCamera )
     
-    print( "draw1" )
     if not self.mClickbox or not self.mAction then
         return
     end
-
-    print( "draw2" )
 
     love.graphics.setColor( 255, 255, 255, 50 )love.graphics.setColor( 255, 255, 255, 50 )
     love.graphics.rectangle( "fill", self.mClickbox.mX, self.mClickbox.mY, self.mClickbox.mW, self.mClickbox.mH )

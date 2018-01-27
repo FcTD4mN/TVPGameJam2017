@@ -18,6 +18,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
     gNodes                      = {}
     self.mEditCameraState       = 0
+    self.mEditCameraDownTime    = 0
     self.mEditCameraOrigin      = {}
     self.mEditCameraOrigin.mX   = 0
     self.mEditCameraOrigin.mY   = 0
@@ -91,6 +92,7 @@ function  LevelBase:MousePressed( iX, iY, iButton, iIsTouch )
     end
     if iButton == 2 then
         self.mEditCameraState = 1
+        self.mEditCameraDownTime = love.timer.getTime()
         self.mEditCameraOrigin.mX = iX
         self.mEditCameraOrigin.mY = iY
         self.mEditCameraDelta.mX = 0
@@ -106,7 +108,7 @@ function LevelBase:MouseMoved( iX, iY )
         self.mEditCameraDelta.mX = ( iX - self.mEditCameraOrigin.mX ) / gCamera.mScale
         self.mEditCameraDelta.mY = ( iY - self.mEditCameraOrigin.mY ) / gCamera.mScale
 
-        if self.mEditCameraState > 1 or math.abs( self.mEditCameraDelta.mX ) > 5 or math.abs( self.mEditCameraDelta.mY ) > 5 then
+        if self.mEditCameraState > 1 or love.timer.getTime() - self.mEditCameraDownTime > 0.25 or math.abs( self.mEditCameraDelta.mX ) > 20 or math.abs( self.mEditCameraDelta.mY ) > 20 then
             self.mEditCameraState = 2 
             return  true
         end
@@ -123,7 +125,7 @@ end
 
 function LevelBase:MouseReleased( iX, iY, iButton, iIsTouch )
     if self.mEditCameraState > 0 then
-        local shouldReturn = self.mEditCameraState > 1
+        local shouldReturn = self.mEditCameraState > 1 or love.timer.getTime() - self.mEditCameraDownTime > 0.25
         if iButton == 2 then
             self.mEditCameraState = 0
         end
