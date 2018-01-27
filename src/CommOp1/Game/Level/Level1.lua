@@ -62,6 +62,10 @@ end
 function TestsPerso()
 
     LambdaCharacter:New( 10, 10 )
+    LambdaCharacter:New( 100, 100 )
+    LambdaCharacter:New( 100, 110 )
+    LambdaCharacter:New( 100, 120 )
+    LambdaCharacter:New( 110, 110 )
 
 end
 

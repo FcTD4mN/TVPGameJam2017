@@ -87,7 +87,6 @@ end
 
 function InputConverter:MouseReleased( iX, iY, iButton, iIsTouch )
 
-    print("NAN")
     for i = 1, #self.mEntityGroup do
 
         if iButton == 2 then
