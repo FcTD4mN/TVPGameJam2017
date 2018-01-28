@@ -86,7 +86,7 @@ function  Level1:InitializeLevel1( iMode )
     --Add characters ( 5-90-5 )%
     self.mMode = iMode
 
-    local nbpersos = 5000
+    local nbpersos = 1000
     local capitalists = math.ceil( nbpersos * 0.05 )
     local communists = math.ceil( nbpersos * 0.05 )
     local neutrals = nbpersos - capitalists - communists
