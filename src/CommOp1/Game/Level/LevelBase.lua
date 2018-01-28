@@ -19,6 +19,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     gNodes                      = {}
     gGameSpeed                  = 1
     gNodeList                   = {}
+    gConnections                = {}
     gPrecomputedNodeSequences   = {}
     gTileSize                   = 80
     self.mEditCameraState       = 0
