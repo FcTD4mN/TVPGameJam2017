@@ -127,16 +127,18 @@ end
 function Level1:AddCharacters( iCount, iType )
 
     math.randomseed( love.timer.getTime() )
-    local ecartx = self.mMap.mW - 1
-    local ecarty = self.mMap.mH - 1
-    for i=0, iCount do
-        local x = math.random( ecartx )
-        local y = math.random( ecarty )
-        Character:New( iType, x, y, self.mMode == iType )
-    end
-
-    for i=0, #gConnections do
-
+    local localCount = iCount / #gConnections
+    local spread = 1
+    local shift = 0
+    for i=1, #gConnections do
+        local normal = gConnections[i].mVector:NormalCustom()
+        for j=0, localCount do
+            local rnd1 = math.random()
+            local rnd2 = math.random()
+            local x = ( gConnections[i].mNodeA.mProperty.x + rnd1 * gConnections[i].mVector.x * gConnections[i].mNorm ) + ( rnd2 * normal.x * spread ) - shift
+            local y = ( gConnections[i].mNodeA.mProperty.y + rnd1 * gConnections[i].mVector.y * gConnections[i].mNorm ) + ( rnd2 * normal.y * spread ) - shift
+            Character:New( iType, x, y, self.mMode == iType )
+        end
     end
 end
 

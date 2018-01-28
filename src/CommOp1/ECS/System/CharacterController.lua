@@ -21,9 +21,9 @@ function CharacterController:IncomingEntity( iEntity )
 
     local userinput = iEntity:GetComponentByName( "userinput" )
     local position = iEntity:GetComponentByName( "position" )
-    local selectable = iEntity:GetComponentByName( "selectable" )
+    -- local selectable = iEntity:GetComponentByName( "selectable" )
 
-    if userinput and position and selectable then
+    if userinput and position then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -38,7 +38,7 @@ function CharacterController:Update( iDT )
         local entity        = self.mEntityGroup[ i ]
         local position      = entity:GetComponentByName( "position" )
         local destination   = entity:GetComponentByName( "destination" )
-        local speed      = entity:GetComponentByName( "speed" )
+        local speed         = entity:GetComponentByName( "speed" )
 
         if #destination.mX > 0 then
 
@@ -64,6 +64,12 @@ function CharacterController:Update( iDT )
                 end
             end
 
+        else
+
+            local theta = math.random() * 2 * math.pi 
+            local range = 10
+            destination.mX[ 1 ] = position.mX + math.cos( theta ) * range
+            destination.mY[ 1 ] = position.mY + math.sin( theta ) * range
         end
 
     end
@@ -78,10 +84,10 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
         local position      = entity:GetComponentByName( "position" )
         local destination   = entity:GetComponentByName( "destination" )
         local sprite        = entity:GetComponentByName( "sprite" )
-        local selectable        = entity:GetComponentByName( "selectable" )
+        local selectable    = entity:GetComponentByName( "selectable" )
 
         --Move to clickLocation
-        if iButton == 2 and  selectable.mSelected then
+        if iButton == 2 and  selectable ~= nil and selectable.mSelected then
 
             local x,y = gCamera:MapToWorld( iX, iY )
             local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()

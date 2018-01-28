@@ -1,5 +1,6 @@
 local SystemBase = require( "src/ECS/Systems/SystemBase" )
 local Shortcuts = require( "src/Application/Shortcuts" )
+ECSIncludes  = require "src/ECS/ECSIncludes"
 
 local  DestinationDrawer = {}
 setmetatable( DestinationDrawer, SystemBase )
@@ -20,8 +21,9 @@ function DestinationDrawer:IncomingEntity( iEntity )
 
     local position = iEntity:GetComponentByName( "position" )
     local destination = iEntity:GetComponentByName( "destination" )
+    local selectable = iEntity:GetComponentByName( "selectable" )
 
-    if destination and position then
+    if destination and position and selectable then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
