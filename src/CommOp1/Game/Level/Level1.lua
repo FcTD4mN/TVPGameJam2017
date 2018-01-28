@@ -58,11 +58,11 @@ function  Level1:InitializeLevel1( iMode )
 
     local skillbar = SkillBar:New()
     local skilllist = skillbar:GetComponentByName( "skilllist" )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/R1.png", self.ActionGameSpeed0 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionGameSpeed1 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionGameSpeed2 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionGameSpeed3 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionGameSpeed4 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Images/UI/ButtonPause.png", self.ActionGameSpeed0 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Images/UI/ButtonX1.png", self.ActionGameSpeed1 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Images/UI/ButtonX2.png", self.ActionGameSpeed2 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Images/UI/ButtonX4.png", self.ActionGameSpeed3 ) )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Images/UI/ButtonX8.png", self.ActionGameSpeed4 ) )
 
     self:InitializeNodePath()
 

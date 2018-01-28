@@ -12,7 +12,7 @@ function SkillBar:New( iX, iY )
     SkillBar.mId = SkillBar.mId + 1
 
     -- Components
-    entity:AddComponent( SpriteComponent:NewFromFile( "resources/CommOp1/RecherchesGraphiques/skillbar.png" ) )
+    entity:AddComponent( SpriteComponent:NewFromFile( "resources/CommOp1/Images/UI/BottomBar.png" ) )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( SkillListComponent:New() )
     entity:AddTag( "camerafree" )

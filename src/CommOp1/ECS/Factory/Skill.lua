@@ -12,9 +12,10 @@ function Skill:New( iIconFile, iAction )
     Skill.mId = Skill.mId + 1
 
     -- Components
-    entity:AddComponent( SpriteComponent:NewFromFile( iIconFile ) )
+    local sprite = SpriteComponent:NewFromFile( iIconFile )
+    entity:AddComponent( sprite )
     entity:AddComponent( PositionComponent:New( 0, 0 ) )
-    entity:AddComponent( ClickBoxComponent:New( 0, 0, 80, 80 ) )
+    entity:AddComponent( ClickBoxComponent:New( 0, 0, sprite.mW, sprite.mH ) )
     entity:AddComponent( ActionComponent:New( iAction ) )
     entity:AddTag( "camerafree" )
     entity:AddTag( "isGUI" )

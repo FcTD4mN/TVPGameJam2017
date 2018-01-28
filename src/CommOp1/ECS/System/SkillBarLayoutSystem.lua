@@ -41,9 +41,9 @@ function SkillBarLayoutSystem:Update( iDT )
         position.mX  = love.graphics.getWidth() / 2 - sprite.mW / 2
         position.mY = love.graphics.getHeight() - sprite.mH
 
-        local spacing = 5
-        local x = 5
-        local y = 5
+        local spacing = 0
+        local x = 4
+        local y = 0
         for k,v in pairs( skilllist.mSkills ) do
             local skillposition = v:GetComponentByName( "position" )
             local skillclickbox = v:GetComponentByName( "clickbox" )
