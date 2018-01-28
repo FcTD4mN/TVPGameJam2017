@@ -7,7 +7,7 @@ Press.mId = 0
 -- ==========================================Build/Destroy
 
 
-function Press:New( iFaction, iX, iY )
+function Press:New( iFaction, iX, iY, iW, iH )
     local entity = Entity:New( "Press"..Press.mId )
     Press.mId = Press.mId + 1
 
@@ -18,9 +18,9 @@ function Press:New( iFaction, iX, iY )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
-    entity:AddComponent( SizeComponent:New( gTileSize*5, gTileSize*3 ) )
+    entity:AddComponent( SizeComponent:New( iW, iH ) )
     entity:AddComponent( RadiusComponent:New( 50 ) )
-    entity:AddComponent( InfluencableRadiusComponent:New( 6 ) )
+    entity:AddComponent( InfluencableRadiusComponent:New( 10 ) )
     entity:AddComponent( SelectableComponent:New() )
 
     ECSWorld:AddEntity( entity )

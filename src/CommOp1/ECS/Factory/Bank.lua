@@ -18,7 +18,7 @@ function Bank:New( iFaction, iX, iY )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
-    entity:AddComponent( SizeComponent:New( gTileSize*5, gTileSize*3 ) )
+    entity:AddComponent( SizeComponent:New( gTileSize*4, gTileSize*4 ) )
     entity:AddComponent( RadiusComponent:New( 12 ) )
     entity:AddComponent( InfluencableRadiusComponent:New( 6 ) )
     entity:AddComponent( SelectableComponent:New() )

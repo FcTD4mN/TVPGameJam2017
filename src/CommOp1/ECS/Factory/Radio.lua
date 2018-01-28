@@ -7,19 +7,19 @@ Radio.mId = 0
 -- ==========================================Build/Destroy
 
 
-function Radio:New( iFaction, iX, iY )
+function Radio:New( iFaction, iX, iY, iW, iH, iPuissance, iDifficultToCap )
     local entity = Entity:New( "Radio"..Radio.mId )
     Radio.mId = Radio.mId + 1
 
 
 
     -- Components
-    local factionComponent = FactionComponent:New( iFaction, 20, 0.001 )
+    local factionComponent = FactionComponent:New( iFaction, iPuissance, iDifficultToCap )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
-    entity:AddComponent( SizeComponent:New( gTileSize*5, gTileSize*3 ) )
-    entity:AddComponent( RadiusComponent:New( 100 ) )
+    entity:AddComponent( SizeComponent:New( iW, iH ) )
+    entity:AddComponent( RadiusComponent:New( 120 ) )
     entity:AddComponent( InfluencableRadiusComponent:New( 6 ) )
     entity:AddComponent( SelectableComponent:New() )
 

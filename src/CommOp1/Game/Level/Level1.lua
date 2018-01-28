@@ -84,8 +84,36 @@ function  Level1:InitializeLevel1( iMode )
     self:AddCharacters( capitalistCount, "capitalist" )
     self:AddCharacters( communistCount, "communist" )
 
+    -- BUILDINGS
     WacDo:New( "neutral", 160, 400 )
-    Library:New( "neutral", 7*80, 80 )
+    WacDo:New( "neutral", 229*gTileSize,14*gTileSize )
+    WacDo:New( "neutral", 239*gTileSize,46*gTileSize )
+
+    Library:New( "neutral", 7*gTileSize, gTileSize )
+
+    Press:New( "neutral", 64*gTileSize, 66*gTileSize, gTileSize*12, gTileSize*6 )
+    Press:New( "neutral", 186*gTileSize, 10*gTileSize, gTileSize*6, gTileSize*7 )
+
+    GareSNCF:New( "neutral", 175*gTileSize, 91*gTileSize )
+
+    Mairie:New( "neutral", 100*gTileSize, 25*gTileSize )
+    Mairie:New( "neutral", 211*gTileSize, 24*gTileSize )
+
+    MilitaryCamp:New( "neutral", 191*gTileSize, 80*gTileSize )
+
+    Radio:New( "neutral", 64*gTileSize, 37*gTileSize, 12*gTileSize, 6*gTileSize, 5, 0.001 )
+    Radio:New( "neutral", 64*gTileSize, 37*gTileSize, 12*gTileSize, 6*gTileSize, 5, 0.001 )
+    Radio:New( "neutral", 261*gTileSize, 82*gTileSize, 11*gTileSize, 9*gTileSize, 10, 0.0001 )
+    Radio:New( "neutral", 72*gTileSize, 83*gTileSize, 4*gTileSize, 4*gTileSize, 2, 0.1 )
+
+    Bank:New( "neutral", 76*gTileSize, 24*gTileSize )
+    Bank:New( "neutral", 146*gTileSize, 59*gTileSize )
+
+    Eglise:New( "neutral", 277*gTileSize, 13*gTileSize, gTileSize*8, gTileSize*4 )
+    Eglise:New( "neutral", 254*gTileSize, 50*gTileSize, gTileSize*4, gTileSize*4 )
+    Eglise:New( "neutral", 194*gTileSize, 66*gTileSize, gTileSize*6, gTileSize*4 )
+    Eglise:New( "neutral", 128*gTileSize, 70*gTileSize, gTileSize*4, gTileSize*4 )
+
 end
 
 
