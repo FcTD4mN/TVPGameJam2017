@@ -34,6 +34,11 @@ function  Camera:BuildCamera( iX, iY, iW, iH, iScale )
     self.mW = iW
     self.mH = iH
 
+    -- Shear matrix
+    self.mShearM00 = 1  self.mShearM01 = 0
+    self.mShearM01 = 0  self.mShearM11 = 1
+    --
+
     self.mScale = iScale
 
 end
@@ -48,6 +53,19 @@ function  Camera:MapToScreen( iX, iY )
             ( iY * self.mScale ) - ( self.mY * self.mScale ) + deltaH
 
 end
+
+function  Camera:ApplyShear( iX, iY )
+    local x = self.mShearM00 * iX + self.mShearM01 * iY
+    local y = self.mShearM10 * iX + self.mShearM11 * iY
+    return x, y
+end
+
+function  Camera:ApplyInverseShear( iX, iY )
+    local x = self.mShearM00 * iX - self.mShearM01 * iY
+    local y = - self.mShearM10 * iX + self.mShearM11 * iY
+    return x, y
+end
+
 
 
 -- To interface Box2d

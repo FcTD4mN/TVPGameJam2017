@@ -121,10 +121,9 @@ function  Level1:Draw()
     Base:log( gCamera.mScale )
     local shearFactor = ( 1 - gCamera.mScale )
     local scaleFactor = ( 1 - gCamera.mScale ) * 0.5 + 0.5
-    local x = ( gCamera.mX / ( self.mMap.mW ) - 0.5 ) * shearFactor * shearFactor * shearFactor * 0.5
+    local x = ( gCamera.mX / ( self.mMap.mW ) - 0.5 ) * shearFactor * shearFactor * shearFactor * 0.25
 	
 	love.graphics.shear(x , 0)
-    love.graphics.scale(1 , scaleFactor)
     self:DrawLevelBase()
 
 end
