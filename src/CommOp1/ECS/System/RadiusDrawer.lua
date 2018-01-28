@@ -57,7 +57,8 @@ function  RadiusDrawer:Draw( iCamera )
             elseif size then
                 w,h = size.mW * gCamera.mScale, size.mH * gCamera.mScale
             end
-            local radiusValue = radius.mRadius * gCamera.mScale
+            x,y = x + w/2, y + h/2
+            local radiusValue = radius.mRadius * gTileSize * gCamera.mScale
 
             local r,g,b = 0,0,0
             if faction.mFaction == "neutral" then
@@ -69,9 +70,9 @@ function  RadiusDrawer:Draw( iCamera )
             end
 
             love.graphics.setColor( r, g, b, 90 )
-            love.graphics.circle( "fill", x + w/2, y + h/2, radiusValue )
+            love.graphics.rectangle( "fill", x - radiusValue, y- radiusValue, radiusValue*2, radiusValue*2 )
             love.graphics.setColor( r, g, b )
-            love.graphics.circle( "line", x + w/2, y + h/2, radiusValue )
+            love.graphics.rectangle( "line", x - radiusValue, y - radiusValue, radiusValue*2, radiusValue*2 )
 
         end
 

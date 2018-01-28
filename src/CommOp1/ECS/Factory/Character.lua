@@ -29,7 +29,7 @@ function Character:New( iFaction, iX, iY, iSelectable )
     end
     entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
 
-    entity:AddComponent( RadiusComponent:New( 50 ) )
+    entity:AddComponent( RadiusComponent:New( 1 ) )
     entity:AddTag( "character" )
 
     ECSWorld:AddEntity( entity )

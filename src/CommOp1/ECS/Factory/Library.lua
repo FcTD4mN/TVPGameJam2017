@@ -19,7 +19,7 @@ function Library:New( iFaction, iX, iY )
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( SizeComponent:New( gTileSize*4, gTileSize*4 ) )
-    entity:AddComponent( RadiusComponent:New( 1000 ) )
+    entity:AddComponent( RadiusComponent:New( 12 ) )
     entity:AddComponent( SelectableComponent:New() )
 
     ECSWorld:AddEntity( entity )
