@@ -87,7 +87,7 @@ function  AnimationRenderer:Draw( iCamera )
             end
 
             local currentQuad = animation.mQuads[ animation.mCurrentQuadIndex ]
-            love.graphics.draw( animation.mImage, currentQuad, x + animation.mQuadW / 2, y + animation.mQuadH / 2, 0, scaleX, scaleY, animation.mQuadW / 2, animation.mQuadH / 2 )
+            love.graphics.draw( animation.mImage, currentQuad, x, y, 0, scaleX, scaleY, 0, 0 )
         end
     end
 
