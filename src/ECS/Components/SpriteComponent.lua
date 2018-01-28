@@ -17,12 +17,18 @@ function SpriteComponent:New( iFileName )
     SpriteComponent.__index = SpriteComponent
     
     newSpriteComponent.mName = "sprite"
-
-    newSpriteComponent.mFileName = iFileName
-    newSpriteComponent.mImage = love.graphics.newImage( iFileName )
+    newSpriteComponent:LoadImage( iFileName )
 
     return  newSpriteComponent
 
+end
+
+
+function SpriteComponent:LoadImage( iFileName )
+    self.mFileName = iFileName
+    self.mImage = ImageLoader.LoadSimpleImage( iFileName )
+    self.mW = self.mImage:getWidth()
+    self.mH = self.mImage:getHeight()
 end
 
 

@@ -11,13 +11,26 @@ ComponentRegistry.Register( "FactionComponent", FactionComponent )
 -- ==========================================Constructor/Destructor
 
 
-function FactionComponent:New( iFaction )
+function FactionComponent:New( iFaction, iInfluence )
     local newFactionComponent = {}
     setmetatable( newFactionComponent, FactionComponent )
     FactionComponent.__index = FactionComponent
 
     newFactionComponent.mName = "faction"
     newFactionComponent.mFaction = iFaction --neutral/communist/capitalist
+    newFactionComponent.mFactionScore = nil --neutral/communist/capitalist
+    
+
+    if newFactionComponent.mFaction == "neutral" then
+        newFactionComponent.mFactionScore = 50
+    elseif newFactionComponent.mFaction == "capitalist" then
+        newFactionComponent.mFactionScore = 100
+    elseif newFactionComponent.mFaction == "communist" then
+        newFactionComponent.mFactionScore = 0
+    end
+
+    newFactionComponent.mInfluence = iInfluence --neutral/communist/capitalist
+    newFactionComponent.mInfluenceSign = newFactionComponent:InfluenceSign() --neutral/communist/capitalist
 
     return  newFactionComponent
 
@@ -35,6 +48,22 @@ function  FactionComponent:SpritePath()
     end
 
     return  path
+end
+
+function  FactionComponent:InfluenceSign()
+
+    if self.mFaction == "neutral" then
+        print( " InfluenceSign0 : "..self.mFaction )
+        return  0
+    elseif self.mFaction == "capitalist" then
+        print( " InfluenceSign1 : "..self.mFaction )
+        return  1
+    elseif self.mFaction == "communist" then
+        print( " InfluenceSign-1 : "..self.mFaction )
+        return  -1
+    end
+
+    return  0
 end
 
 

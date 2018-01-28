@@ -41,6 +41,7 @@ function  SpriteRenderer:Draw( iCamera )
         local sprite = self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
         local simpleT = self.mEntityGroup[ i ]:GetComponentByName( "simpletransformation" )
         local selectable = self.mEntityGroup[ i ]:GetComponentByName( "selectable" )
+        local faction = self.mEntityGroup[ i ]:GetComponentByName( "faction" )
 
         local isCameraFree = self.mEntityGroup[ i ]:GetTagByName( "camerafree" ) == "1"
 
@@ -69,6 +70,11 @@ function  SpriteRenderer:Draw( iCamera )
         sprite.mImage:setFilter( "nearest", "nearest" )
 
         love.graphics.draw( sprite.mImage, sprite.mQuad, x, y, rotation, scale, scale )
+
+        if faction then
+            love.graphics.setColor( 255, 0, 0 )
+            love.graphics.print( ""..faction.mFactionScore, x, y, rotation, scale, scale )
+        end
     end
 
 end

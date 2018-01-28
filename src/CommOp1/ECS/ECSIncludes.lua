@@ -27,6 +27,8 @@ ClickableSystem   = require "src/CommOp1/ECS/System/ClickableSystem"
 SkillBarLayoutSystem   = require "src/CommOp1/ECS/System/SkillBarLayoutSystem"
 RadiusDrawer   = require "src/CommOp1/ECS/System/RadiusDrawer"
 SelectionDrawer   = require "src/CommOp1/ECS/System/SelectionDrawer"
+FactionInfluenceSystem   = require "src/CommOp1/ECS/System/FactionInfluenceSystem"
+FactionConversionSystem   = require "src/CommOp1/ECS/System/FactionConversionSystem"
 
 
 -- ====== FACTORIES

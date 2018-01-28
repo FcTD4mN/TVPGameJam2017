@@ -39,6 +39,9 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS:AddSystem( ClickableSystem )
     self.mWorldECS:AddSystem( CharacterController )
 
+    self.mWorldECS:AddSystem( FactionInfluenceSystem )
+    self.mWorldECS:AddSystem( FactionConversionSystem )
+
     self.mWorldECS:AddSystem( SpriteRenderer )
     self.mWorldECS:AddSystem( SelectionDrawer )
     self.mWorldECS:AddSystem( RadiusDrawer )

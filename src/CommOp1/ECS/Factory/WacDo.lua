@@ -14,7 +14,7 @@ function WacDo:New( iFaction, iX, iY )
 
 
     -- Components
-    local factionComponent = FactionComponent:New( iFaction )
+    local factionComponent = FactionComponent:New( iFaction, 3 )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )

@@ -17,11 +17,7 @@ function SpriteComponent:NewFromFile( iFileName, iQuad )
     SpriteComponent.__index = SpriteComponent
     
     newSpriteComponent.mName = "sprite"
-    newSpriteComponent.mImage = love.graphics.newImage( iFileName )
-    newSpriteComponent.mQuad = iQuad
-    if not newSpriteComponent.mQuad then
-        newSpriteComponent.mQuad = love.graphics.newQuad( 0, 0, newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight(), newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight() )
-    end
+    newSpriteComponent:LoadFile( iFileName, iQuad )
 
     return  newSpriteComponent
 
@@ -35,14 +31,34 @@ function SpriteComponent:NewFromImage( iImage, iQuad )
     SpriteComponent.__index = SpriteComponent
     
     newSpriteComponent.mName = "sprite"
-    newSpriteComponent.mImage = iImage
-    newSpriteComponent.mQuad = iQuad
-    if not newSpriteComponent.mQuad then
-        newSpriteComponent.mQuad = love.graphics.newQuad( 0, 0, newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight(), newSpriteComponent.mImage:getWidth(), newSpriteComponent.mImage:getHeight() )
-    end
+    newSpriteComponent:LoadImage( iImage, iQuad )
 
     return  newSpriteComponent
 
+end
+
+
+function SpriteComponent:LoadFile( iFileName, iQuad )
+    self.mImage = ImageLoader.LoadSimpleImage( iFileName )
+    self.mW = self.mImage:getWidth()
+    self.mH = self.mImage:getHeight()
+    self.mQuad = iQuad
+
+    if not self.mQuad then
+        self.mQuad = love.graphics.newQuad( 0, 0, self.mImage:getWidth(), self.mImage:getHeight(), self.mImage:getWidth(), self.mImage:getHeight() )
+    end
+end
+
+
+function SpriteComponent:LoadImage( iImage, iQuad )
+    self.mImage = iImage
+    self.mW = self.mImage:getWidth()
+    self.mH = self.mImage:getHeight()
+    self.mQuad = iQuad
+
+    if not self.mQuad then
+        self.mQuad = love.graphics.newQuad( 0, 0, self.mImage:getWidth(), self.mImage:getHeight(), self.mImage:getWidth(), self.mImage:getHeight() )
+    end
 end
 
 function SpriteComponent:NewFromXML( iNode, iWorld, iEntity )
