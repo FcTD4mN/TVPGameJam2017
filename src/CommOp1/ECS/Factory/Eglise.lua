@@ -11,8 +11,6 @@ function Eglise:New( iFaction, iX, iY, iW, iH )
     local entity = Entity:New( "Eglise"..Eglise.mId )
     Eglise.mId = Eglise.mId + 1
 
-
-
     -- Components
     local factionComponent = FactionComponent:New( iFaction, 5, 0.10 )
 
@@ -20,7 +18,7 @@ function Eglise:New( iFaction, iX, iY, iW, iH )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( SizeComponent:New( iW, iH ) )
     entity:AddComponent( RadiusComponent:New( 6 ) )
-    entity:AddComponent( InfluencableRadiusComponent:New( 6 ) )
+    entity:AddComponent( InfluencableRadiusComponent:New( 12 ) )
     entity:AddComponent( SelectableComponent:New() )
 
     ECSWorld:AddEntity( entity )

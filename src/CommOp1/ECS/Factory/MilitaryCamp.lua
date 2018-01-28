@@ -14,13 +14,13 @@ function MilitaryCamp:New( iFaction, iX, iY )
 
 
     -- Components
-    local factionComponent = FactionComponent:New( iFaction, 80, 0.0001 )
+    local factionComponent = FactionComponent:New( iFaction, 80, 0.001 )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( SizeComponent:New( gTileSize*17, gTileSize*20 ) )
     entity:AddComponent( RadiusComponent:New( 50 ) )
-    entity:AddComponent( InfluencableRadiusComponent:New( 6 ) )
+    entity:AddComponent( InfluencableRadiusComponent:New( 20 ) )
     entity:AddComponent( SelectableComponent:New() )
 
     ECSWorld:AddEntity( entity )
