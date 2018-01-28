@@ -59,7 +59,7 @@ function  DestinationDrawer:Draw( iCamera )
                 destY = destY + h/2
 
             end
-            love.graphics.setColor( 255, 0, 0 )
+            love.graphics.setColor( 255, 0, 0, 150 )
             love.graphics.line( iCamera:MapToScreenMultiple( originX, originY, destX, destY ) )
 
 
@@ -77,7 +77,7 @@ function  DestinationDrawer:Draw( iCamera )
                     destY = destY + h/2
 
                 end
-                love.graphics.setColor( 255, 0, 0 )
+                love.graphics.setColor( 255, 0, 0, 150 )
                 love.graphics.line( iCamera:MapToScreenMultiple( originX, originY, destX, destY ) )
 
             end

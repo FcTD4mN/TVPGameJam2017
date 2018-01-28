@@ -70,11 +70,6 @@ function  SpriteRenderer:Draw( iCamera )
         sprite.mImage:setFilter( "nearest", "nearest" )
 
         love.graphics.draw( sprite.mImage, sprite.mQuad, x, y, rotation, scale, scale )
-
-        if faction then
-            love.graphics.setColor( 255, 0, 0 )
-            love.graphics.print( ""..faction.mFactionScore, x, y, rotation, scale, scale )
-        end
     end
 
 end
