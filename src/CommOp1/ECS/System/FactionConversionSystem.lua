@@ -29,11 +29,10 @@ end
 function FactionConversionSystem:Update( iDT )
 
     for i = 1, #self.mEntityGroup do
-
         local entity = self.mEntityGroup[ i ]
-        local faction = entity:GetComponentByName( "faction" )
-        local sprite =  entity:GetComponentByName( "sprite" )
-        local selectable =  entity:GetComponentByName( "selectable" )
+        local faction = entity.mEntityGroup[ i ]:GetComponentByName( "faction" )
+        local animations =  entity.mEntityGroup[ i ]:GetComponentByName( "animations" )
+        local selectable =  entity.mEntityGroup[ i ]:GetComponentByName( "selectable" )
 
         if faction.mFaction ~= "communist" and faction.mFactionScore <=  40 then
 
@@ -45,8 +44,9 @@ function FactionConversionSystem:Update( iDT )
             faction.mFaction = "communist"
             faction.mInfluenceSign = -1
 
-            if sprite then
-                sprite:LoadFile( faction:SpritePath() )
+            if animation then
+                animation.mAnimation["idle"] :LoadFile( faction:IdlePath() )
+                animation.mAnimation["move"] :LoadFile( faction:MovePath() )
             end
 
             if gFaction == faction.mFaction then
@@ -63,8 +63,10 @@ function FactionConversionSystem:Update( iDT )
 
             faction.mFaction = "capitalist"
             faction.mInfluenceSign = 1
-            if sprite then
-                sprite:LoadFile( faction:SpritePath() )
+            
+            if animation then
+                animation.mAnimation["idle"] :LoadFile( faction:IdlePath() )
+                animation.mAnimation["move"] :LoadFile( faction:MovePath() )
             end
 
             if gFaction == faction.mFaction then
@@ -82,8 +84,10 @@ function FactionConversionSystem:Update( iDT )
 
             faction.mFaction = "neutral"
             faction.mInfluenceSign = 0
-            if sprite then
-                sprite:LoadFile( faction:SpritePath() )
+
+            if animation then
+                animation.mAnimation["idle"] :LoadFile( faction:IdlePath() )
+                animation.mAnimation["move"] :LoadFile( faction:MovePath() )
             end
 
             if selectable then

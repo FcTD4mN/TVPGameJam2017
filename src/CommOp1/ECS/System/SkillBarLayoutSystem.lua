@@ -38,8 +38,8 @@ function SkillBarLayoutSystem:Update( iDT )
         local skilllist = entity:GetComponentByName( "skilllist" )
         local position = entity:GetComponentByName( "position" )
 
-        position.mX  = love.graphics.getWidth() / 2 - sprite.mImage:getWidth() / 2
-        position.mY = love.graphics.getHeight() - sprite.mImage:getHeight()
+        position.mX  = love.graphics.getWidth() / 2 - sprite.mW / 2
+        position.mY = love.graphics.getHeight() - sprite.mH
 
         local spacing = 5
         local x = 5

@@ -59,10 +59,10 @@ function  SpriteRendererGUI:Draw( iCamera )
         end
 
         local x, y = position.mX, position.mY
-        local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+        local w,h = sprite.mW, sprite.mH
         if not isCameraFree then
             x, y = iCamera:MapToScreen( position.mX, position.mY )
-            w,h = sprite.mImage:getWidth() * iCamera.mScale, sprite.mImage:getHeight() * iCamera.mScale
+            w,h = sprite.mW * iCamera.mScale, sprite.mH * iCamera.mScale
         end
 
         if selectable and selectable.mSelected then

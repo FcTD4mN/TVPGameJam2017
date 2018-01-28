@@ -22,10 +22,13 @@ function CharacterController:IncomingEntity( iEntity )
     -- Here we decide if we are interested by iEntity or not
     -- =====================================================
 
-    local userinput = iEntity:GetComponentByName( "userinput" )
-    local position = iEntity:GetComponentByName( "position" )
+    local position      = iEntity:GetComponentByName( "position" )
+    local destination   = iEntity:GetComponentByName( "destination" )
+    local speed         = iEntity:GetComponentByName( "speed" )
+    local animations         = iEntity:GetComponentByName( "animations" )
+    local size               = iEntity:GetComponentByName( "size" )
 
-    if userinput and position then
+    if position and destination and speed and animations and size then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -41,7 +44,8 @@ function CharacterController:Update( iDT )
         local position      = entity:GetComponentByName( "position" )
         local destination   = entity:GetComponentByName( "destination" )
         local speed         = entity:GetComponentByName( "speed" )
-        local sprite         = entity:GetComponentByName( "sprite" )
+        local animations         = entity:GetComponentByName( "animations" )
+        local size               = entity:GetComponentByName( "size" )
 
         if #destination.mX > 0 then
 
@@ -51,33 +55,43 @@ function CharacterController:Update( iDT )
                 table.remove( destination.mX, 1 )
                 table.remove( destination.mY, 1 )
                 entity:RemoveTag( "isPlayerOrder" )
+                animations:Play( "idle" )
                 goto skip
             end
 
-            local xspeed = vectorNorm.x * speed.mSpeed * iDT
-            local yspeed = vectorNorm.y * speed.mSpeed * iDT
+            local xspeed = vectorNorm.x * speed.mSpeed
+            local yspeed = vectorNorm.y * speed.mSpeed
 
-            if math.abs( xspeed ) >= math.abs( vector.x ) and math.abs( yspeed ) >= math.abs( vector.y ) then
+            if math.abs( xspeed * iDT ) >= math.abs( vector.x ) and math.abs( yspeed * iDT ) >= math.abs( vector.y ) then
                 position.mX = destination.mX[ 1 ]
                 position.mY = destination.mY[ 1 ]
                 table.remove( destination.mX, 1 )
                 table.remove( destination.mY, 1 )
                 entity:RemoveTag( "isPlayerOrder" )
+                animations:Play( "idle" )
             else
-                position.mX = position.mX + xspeed
-                position.mY = position.mY + yspeed
+                position.mX = position.mX + xspeed * iDT
+                position.mY = position.mY + yspeed * iDT
 
-                if math.abs( xspeed ) > math.abs( vector.x ) then
+                if math.abs( xspeed * iDT ) > math.abs( vector.x ) then
                     position.mX = destination.mX[ 1 ]
                 end
-                if math.abs( yspeed ) > math.abs( vector.y ) then
+                if math.abs( yspeed * iDT ) > math.abs( vector.y ) then
                     position.mY = destination.mY[ 1 ]
+                end
+
+                animations:Play( "move" )
+                local anim = animations.mAnimations[ animations.mCurrentAnimationIndex ]
+                if xspeed > 0.1 then
+                    anim.mFlipX = true
+                elseif xspeed < 0.1 then
+                    anim.mFlipX = false
                 end
             end
 
         else
             local destindex = math.floor( math.random() * ( #gNodeList - 0.001 ) ) + 1
-            local w,h = sprite.mW, sprite.mH
+            local w,h = size.mW, size.mH
             local charFound = false
             local connectionIndexChar = -1
             for i=1, #gConnections do
@@ -253,14 +267,14 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
         local entity        = self.mEntityGroup[ i ]
         local position      = entity:GetComponentByName( "position" )
         local destination   = entity:GetComponentByName( "destination" )
-        local sprite        = entity:GetComponentByName( "sprite" )
+        local size        = entity:GetComponentByName( "size" )
         local selectable    = entity:GetComponentByName( "selectable" )
 
         --Move to clickLocation
         if iButton == 2 and  selectable ~= nil and selectable.mSelected then
 
             local x,y = gCamera:MapToWorld( iX, iY )
-            local w,h = sprite.mW, sprite.mH
+            local w,h = size.mW, size.mH
 
             -- Clément: I was expecting to be able to read in a 2D array at the mouse coordinates but i can't seem to find such a thing in the data we retaine !
             -- my fallback solution is this: AABB collision check against all connections.

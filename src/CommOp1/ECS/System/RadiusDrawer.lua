@@ -45,7 +45,6 @@ function  RadiusDrawer:Draw( iCamera )
         local selectable = entity:GetComponentByName( "selectable" )
         local faction = entity:GetComponentByName( "faction" )
 
-        local sprite = entity:GetComponentByName( "sprite" )
         local size = entity:GetComponentByName( "size" )
         local faction = entity:GetComponentByName( "faction" )
 
@@ -53,9 +52,7 @@ function  RadiusDrawer:Draw( iCamera )
 
             local x, y = gCamera:MapToScreen( position.mX, position.mY )
             local w,h = 0, 0
-            if sprite then
-                w,h = sprite.mImage:getWidth() * gCamera.mScale, sprite.mImage:getHeight() * gCamera.mScale
-            elseif size then
+            if size then
                 w,h = size.mW * gCamera.mScale, size.mH * gCamera.mScale
             end
             x,y = x + w/2, y + h/2

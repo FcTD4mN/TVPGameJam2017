@@ -40,15 +40,15 @@ function  SelectionDrawer:Draw( iCamera )
         local entity = self.mEntityGroup[ i ]
         local position = entity:GetComponentByName( "position" )
         local selectable = entity:GetComponentByName( "selectable" )
+        local size = entity:GetComponentByName( "size" )
 
         if selectable.mSelected then
 
             local x,y = iCamera:MapToScreen( position.mX, position.mY )
             local w,h = 0, 0
 
-            local sprite = entity:GetComponentByName( "sprite" )
-            if sprite then
-                w,h = sprite.mImage:getWidth() * gCamera.mScale, sprite.mImage:getHeight() * gCamera.mScale
+            if size then
+                w,h = size.mW * gCamera.mScale, size.mH * gCamera.mScale
             end
             local size = entity:GetComponentByName( "size" )
             if size then

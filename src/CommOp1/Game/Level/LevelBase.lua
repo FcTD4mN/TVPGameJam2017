@@ -43,6 +43,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS:AddSystem( FactionConversionSystem )
 
     self.mWorldECS:AddSystem( SpriteRenderer )
+    self.mWorldECS:AddSystem( AnimationRenderer )
     self.mWorldECS:AddSystem( InfluenceDrawer )
     self.mWorldECS:AddSystem( BuildingFactionDrawer )
     self.mWorldECS:AddSystem( SelectionDrawer )

@@ -42,7 +42,7 @@ function  DestinationDrawer:Draw( iCamera )
 
         local entity = self.mEntityGroup[ i ]
         local position = entity:GetComponentByName( "position" )
-        local sprite = entity:GetComponentByName( "sprite" )
+        local size = entity:GetComponentByName( "size" )
         local destination = entity:GetComponentByName( "destination" )
 
         if #destination.mX > 0 and entity:GetTagByName( "isPlayerOrder" ) == "1" then
@@ -50,9 +50,9 @@ function  DestinationDrawer:Draw( iCamera )
             local originX, originY = position.mX, position.mY
             local destX, destY = destination.mX[ 1 ], destination.mY[ 1 ]
 
-            if( sprite ) then
+            if( size ) then
 
-                local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+                local w,h = size.mW, size.mH
                 originX = originX + w/2
                 originY = originY + h/2
                 destX = destX + w/2
@@ -68,9 +68,9 @@ function  DestinationDrawer:Draw( iCamera )
                 originX, originY = destination.mX[ i-1 ], destination.mY[ i-1 ]
                 destX, destY = destination.mX[ i ], destination.mY[ i ]
 
-                if( sprite ) then
+                if( size ) then
 
-                    w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
+                    w,h = size.mW, size.mH
                     originX = originX + w/2
                     originY = originY + h/2
                     destX = destX + w/2

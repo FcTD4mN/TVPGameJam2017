@@ -37,15 +37,32 @@ function FactionComponent:New( iFaction, iInfluence, iResistance )
 
 end
 
-function  FactionComponent:SpritePath()
+function  FactionComponent:IdlePath()
 
     local path = ""
     if self.mFaction == "neutral" then
-        path = "resources/CommOp1/RecherchesGraphiques/landaman.png"
+        path = 'resources/CommOp1/RecherchesGraphiques/landaman.png'
     elseif self.mFaction == "capitalist" then
         path = "resources/CommOp1/RecherchesGraphiques/capitaliste.png"
     elseif self.mFaction == "communist" then
         path = "resources/CommOp1/RecherchesGraphiques/communiste.png"
+    end
+
+    return  path
+
+end
+
+
+
+function  FactionComponent:MovePath()
+
+    local path = ""
+    if self.mFaction == "neutral" then
+        path = 'resources/CommOp1/RecherchesGraphiques/landaman_spritesheet.png'
+    elseif self.mFaction == "capitalist" then
+        path = "resources/CommOp1/RecherchesGraphiques/capitaliste_spritesheet.png"
+    elseif self.mFaction == "communist" then
+        path = "resources/CommOp1/RecherchesGraphiques/communiste_spritesheet.png"
     end
 
     return  path

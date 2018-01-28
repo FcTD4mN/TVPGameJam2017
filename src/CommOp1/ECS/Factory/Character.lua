@@ -1,4 +1,5 @@
 ECSIncludes  = require "src/ECS/ECSIncludes"
+Animation  = require "src/Image/Animation"
 
 local Character = {}
 Character.mId = 0
@@ -28,14 +29,20 @@ function Character:New( iFaction, iX, iY, iSelectable )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
     entity:AddComponent( DestinationComponent:New() )
     entity:AddComponent( UserInputComponent:New() )
+    entity:AddComponent( SizeComponent:New( 40, 64 ) )
 
     local minspeed = 30
     local maxspeed = 50
-    entity:AddComponent( SpeedComponent:New( math.random() * ( maxspeed - minspeed ) + minspeed ) )
+    local actualspeed = math.random() * ( maxspeed - minspeed ) + minspeed
+    entity:AddComponent( SpeedComponent:New( actualspeed ) )
     if gFaction == iFaction then
         entity:AddComponent( SelectableComponent:New() )
     end
-    entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
+    --entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
+    local animations = {}
+    animations[ "idle" ] = Animation:New( factionComponent:IdlePath(), 1, 1, false, false, false )
+    animations[ "move" ] = Animation:New( factionComponent:MovePath(), 12, 24 * actualspeed / maxspeed, true, false, false )
+    entity:AddComponent( AnimationsComponent:New( animations, "idle" ) )
 
     entity:AddComponent( RadiusComponent:New( 1 ) )
     entity:AddTag( "character" )

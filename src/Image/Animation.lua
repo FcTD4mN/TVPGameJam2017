@@ -5,7 +5,7 @@ function Animation:New( iFileName, iImageCount, iFPS, iLoop, iFlipX, iFlipY, iMa
     setmetatable( newAnimation, self )
     self.__index = self
 
-    newAnimation.mImage = love.graphics.newImage( iFileName )
+    newAnimation.mImage = ImageLoader.LoadSimpleImage( iFileName )
     newAnimation.mImageCount = iImageCount
     newAnimation.mQuadW = newAnimation.mImage:getWidth() / newAnimation.mImageCount
     newAnimation.mQuadH = newAnimation.mImage:getHeight()

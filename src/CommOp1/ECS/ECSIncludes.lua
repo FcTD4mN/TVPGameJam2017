@@ -2,6 +2,7 @@ require "src/ECS/ECSIncludes"
 
 
 -- ====== COMPONENTS
+AnimationsComponent   = require "src/CommOp1/ECS/Component/AnimationsComponent"
 PositionComponent   = require "src/CommOp1/ECS/Component/PositionComponent"
 SpriteComponent     = require "src/CommOp1/ECS/Component/SpriteComponent"
 UserInputComponent     = require "src/CommOp1/ECS/Component/UserInputComponent"
@@ -18,6 +19,7 @@ SizeComponent     = require "src/CommOp1/ECS/Component/SizeComponent"
 
 
 -- ====== SYSTEMS
+AnimationRenderer   = require "src/CommOp1/ECS/System/AnimationRenderer"
 SpriteRenderer   = require "src/CommOp1/ECS/System/SpriteRenderer"
 SpriteRendererGUI   = require "src/CommOp1/ECS/System/SpriteRendererGUI"
 CharacterController   = require "src/CommOp1/ECS/System/CharacterController"

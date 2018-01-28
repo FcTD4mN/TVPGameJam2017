@@ -36,7 +36,6 @@ function FactionInfluenceSystem:Update( iDT )
         local radius = self.mEntityGroup[ i ]:GetComponentByName( "radius" )
         local faction = self.mEntityGroup[ i ]:GetComponentByName( "faction" )
 
-        local sprite = self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
         local size = self.mEntityGroup[ i ]:GetComponentByName( "size" )
         local infradius = self.mEntityGroup[ i ]:GetComponentByName( "influencableradius" )
 
@@ -48,9 +47,7 @@ function FactionInfluenceSystem:Update( iDT )
 
 
         local w,h = 0, 0
-        if sprite then
-            w,h = sprite.mW, sprite.mH
-        elseif size then
+        if size then
             w,h = size.mW, size.mH
         end
         local x, y = position.mX + w/2, position.mY + h/2
@@ -61,7 +58,6 @@ function FactionInfluenceSystem:Update( iDT )
             local radius2 = self.mEntityGroup[ j ]:GetComponentByName( "radius" )
             local faction2 = self.mEntityGroup[ j ]:GetComponentByName( "faction" )
 
-            local sprite2 = self.mEntityGroup[ j ]:GetComponentByName( "sprite" )
             local size2 = self.mEntityGroup[ j ]:GetComponentByName( "size" )
             local infradius2 = self.mEntityGroup[ j ]:GetComponentByName( "influencableradius" )
             
@@ -71,9 +67,7 @@ function FactionInfluenceSystem:Update( iDT )
                 infrad2 = infradius2.mRadius * infradius2.mRadius * gTileSize *  gTileSize
             end
             local w2,h2 = 0, 0
-            if sprite2 then
-                w2,h2 = sprite2.mW, sprite2.mH
-            elseif size2 then
+            if size2 then
                 w2,h2 = size2.mW, size2.mH
             end
             local x2, y2 = position2.mX + w2/2, position2.mY + h2/2

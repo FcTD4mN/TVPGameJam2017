@@ -23,9 +23,8 @@ function InfluenceDrawer:IncomingEntity( iEntity )
     local faction = iEntity:GetComponentByName( "faction" )
     local selectable = iEntity:GetComponentByName( "selectable" )
     local size = iEntity:GetComponentByName( "size" )
-    local sprite = iEntity:GetComponentByName( "sprite" )
 
-    if position and faction and selectable and ( size or sprite ) then
+    if position and faction and selectable and size then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -47,7 +46,6 @@ function  InfluenceDrawer:Draw( iCamera )
         local faction = entity:GetComponentByName( "faction" )
         local selectable = entity:GetComponentByName( "selectable" )
         local size = entity:GetComponentByName( "size" )
-        local sprite = entity:GetComponentByName( "sprite" )
 
         if selectable.mSelected then
 
@@ -56,9 +54,7 @@ function  InfluenceDrawer:Draw( iCamera )
 
             local x, y = gCamera:MapToScreen( position.mX, position.mY )
             local w,h = 0, 0
-            if sprite then
-                w,h = sprite.mImage:getWidth() * gCamera.mScale, sprite.mImage:getHeight() * gCamera.mScale
-            elseif size then
+            if size then
                 w,h = size.mW * gCamera.mScale, size.mH * gCamera.mScale
             end
             x,y = x + w/2 - barWidth/2, y + h + barHeight/2 + 5
