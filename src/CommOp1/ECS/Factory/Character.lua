@@ -40,9 +40,15 @@ function Character:New( iFaction, iX, iY, iSelectable )
     end
     --entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
     local animations = {}
-    animations[ "idle" ] = Animation:New( factionComponent:IdlePath(), 1, 1, false, false, false )
-    animations[ "move" ] = Animation:New( factionComponent:MovePath(), 12, 24 * actualspeed / maxspeed, true, false, false )
-    entity:AddComponent( AnimationsComponent:New( animations, "idle" ) )
+    animations[ "idlecommunist" ] = Animation:New( "resources/CommOp1/RecherchesGraphiques/communiste.png", 1, 1, false, false, false )
+    animations[ "movecommunist" ] = Animation:New( "resources/CommOp1/RecherchesGraphiques/communiste_spritesheet.png", 12, 24 * actualspeed / maxspeed, true, false, false )
+
+    animations[ "idlecapitalist" ] = Animation:New( "resources/CommOp1/RecherchesGraphiques/capitaliste.png", 1, 1, false, false, false )
+    animations[ "movecapitalist" ] = Animation:New( "resources/CommOp1/RecherchesGraphiques/capitaliste_spritesheet.png", 12, 24 * actualspeed / maxspeed, true, false, false )
+    
+    animations[ "idleneutral" ] = Animation:New( 'resources/CommOp1/RecherchesGraphiques/landaman.png', 1, 1, false, false, false )
+    animations[ "moveneutral" ] = Animation:New( 'resources/CommOp1/RecherchesGraphiques/landaman_spritesheet.png', 12, 24 * actualspeed / maxspeed, true, false, false )
+    entity:AddComponent( AnimationsComponent:New( animations, "idle"..iFaction ) )
 
     entity:AddComponent( RadiusComponent:New( 1 ) )
     entity:AddTag( "character" )

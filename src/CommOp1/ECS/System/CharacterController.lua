@@ -46,6 +46,7 @@ function CharacterController:Update( iDT )
         local speed         = entity:GetComponentByName( "speed" )
         local animations         = entity:GetComponentByName( "animations" )
         local size               = entity:GetComponentByName( "size" )
+        local faction               = entity:GetComponentByName( "faction" )
 
         if #destination.mX > 0 then
 
@@ -55,7 +56,7 @@ function CharacterController:Update( iDT )
                 table.remove( destination.mX, 1 )
                 table.remove( destination.mY, 1 )
                 entity:RemoveTag( "isPlayerOrder" )
-                animations:Play( "idle" )
+                animations:Play( "idle"..faction.mFaction )
                 goto skip
             end
 
@@ -68,7 +69,7 @@ function CharacterController:Update( iDT )
                 table.remove( destination.mX, 1 )
                 table.remove( destination.mY, 1 )
                 entity:RemoveTag( "isPlayerOrder" )
-                animations:Play( "idle" )
+                animations:Play( "idle"..faction.mFaction )
             else
                 position.mX = position.mX + xspeed * iDT
                 position.mY = position.mY + yspeed * iDT
@@ -80,7 +81,7 @@ function CharacterController:Update( iDT )
                     position.mY = destination.mY[ 1 ]
                 end
 
-                animations:Play( "move" )
+                animations:Play( "move"..faction.mFaction )
                 local anim = animations.mAnimations[ animations.mCurrentAnimationIndex ]
                 if xspeed > 0.1 then
                     anim.mFlipX = true

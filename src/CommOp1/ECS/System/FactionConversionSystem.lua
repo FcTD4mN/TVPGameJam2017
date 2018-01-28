@@ -45,8 +45,7 @@ function FactionConversionSystem:Update( iDT )
             faction.mInfluenceSign = -1
 
             if animation then
-                animation.mAnimation["idle"] :LoadFile( faction:IdlePath() )
-                animation.mAnimation["move"] :LoadFile( faction:MovePath() )
+                animation:Play( "idle"..faction.mFaction )
             end
 
             if gFaction == faction.mFaction then
@@ -65,8 +64,7 @@ function FactionConversionSystem:Update( iDT )
             faction.mInfluenceSign = 1
 
             if animation then
-                animation.mAnimation["idle"] :LoadFile( faction:IdlePath() )
-                animation.mAnimation["move"] :LoadFile( faction:MovePath() )
+                animation:Play( "idle"..faction.mFaction )
             end
 
             if gFaction == faction.mFaction then
@@ -86,8 +84,7 @@ function FactionConversionSystem:Update( iDT )
             faction.mInfluenceSign = 0
 
             if animation then
-                animation.mAnimation["idle"] :LoadFile( faction:IdlePath() )
-                animation.mAnimation["move"] :LoadFile( faction:MovePath() )
+                animation:Play( "idle"..faction.mFaction )
             end
 
             if selectable then
