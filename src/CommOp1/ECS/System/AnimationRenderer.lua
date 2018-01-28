@@ -69,24 +69,20 @@ function  AnimationRenderer:Draw( iCamera )
 
             local scaleX = iCamera.mScale
             local scaleY = iCamera.mScale
+            local currentQuad = animation.mQuads[ animation.mCurrentQuadIndex ]
+            qx, qy, qw, qh = currentQuad:getViewport()
 
             if animation.mFlipX then
                 scaleX = -scaleX
+                x = x + qw * iCamera.mScale 
             end
             if animation.mFlipY then
                 scaleY = -scaleY
+                y = y + qh * iCamera.mScale
             end
 
-            if direction then
-                if direction.mDirectionH == "left" then
-                    scaleX = -scaleX
-                end
-                if direction.mDirectionV == "down" then
-                    scaleY = -scaleY
-                end
-            end
-
-            local currentQuad = animation.mQuads[ animation.mCurrentQuadIndex ]
+            
+            
             love.graphics.draw( animation.mImage, currentQuad, x, y, 0, scaleX, scaleY, 0, 0 )
         end
     end
