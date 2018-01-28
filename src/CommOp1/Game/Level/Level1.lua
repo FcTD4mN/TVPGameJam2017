@@ -48,6 +48,13 @@ function  Level1:InitializeLevel1( iMode )
 
     self:InitializeLevelBase( "resources/CommOp1/Maps/Level1Image.csv", "resources/CommOp1/Maps/Level1TileSet.png", "resources/CommOp1/Maps/Level1Type.csv" )
 
+    gCamera.mX = self.mMap.mW / 2
+    gCamera.mY = self.mMap.mH / 2
+    gCamera.mScale = 0.1
+
+    print( gCamera.mX )
+    print( gCamera.mY )
+
     gFaction = iMode
     SoundEngine.Init()
     --
