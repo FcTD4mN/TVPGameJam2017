@@ -80,7 +80,7 @@ function  RadiusDrawer:Draw( iCamera )
     end
 
 
-    
+
     for i=1, #gConnections do
         local connectionLineX1 = gConnections[i].mNodeA.mProperty.x
         local connectionLineX2 = gConnections[i].mNodeB.mProperty.x
@@ -90,13 +90,13 @@ function  RadiusDrawer:Draw( iCamera )
         local vector = gConnections[i].mVector:NormalCustom()
         local halfShiftVectorX = halfShift * vector.x
         local halfShiftVectorY = halfShift * vector.y
-        Base:log(  connectionLineX1  )
-        Base:log(  connectionLineX2  )
-        Base:log(  connectionLineY1  )
-        Base:log(  connectionLineY2  )
-        Base:log(  halfShift  )
-        Base:log(  halfShiftVectorX  )
-        Base:log(  halfShiftVectorY  )
+        --Base:log(  connectionLineX1  )
+        --Base:log(  connectionLineX2  )
+        --Base:log(  connectionLineY1  )
+        --Base:log(  connectionLineY2  )
+        --Base:log(  halfShift  )
+        --Base:log(  halfShiftVectorX  )
+        --Base:log(  halfShiftVectorY  )
         local boxX1, boxY1 = iCamera:MapToScreen( connectionLineX1 - halfShiftVectorX, connectionLineY1 - halfShiftVectorY  )
         local boxX2, boxY2 = iCamera:MapToScreen(  connectionLineX2 + halfShiftVectorX , connectionLineY2 + halfShiftVectorY)
 

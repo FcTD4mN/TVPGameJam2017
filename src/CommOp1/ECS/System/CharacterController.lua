@@ -55,7 +55,7 @@ function CharacterController:Update( iDT )
             local xspeed = vectorNorm.x * speed.mSpeed * gGameSpeed
             local yspeed = vectorNorm.y * speed.mSpeed * gGameSpeed
 
-            if math.abs( xspeed ) > math.abs( vector.x ) and math.abs( yspeed ) > math.abs( vector.y ) then 
+            if math.abs( xspeed ) > math.abs( vector.x ) and math.abs( yspeed ) > math.abs( vector.y ) then
                 position.mX = destination.mX[ 1 ]
                 position.mY = destination.mY[ 1 ]
                 table.remove( destination.mX, 1 )
@@ -67,21 +67,21 @@ function CharacterController:Update( iDT )
                 if math.abs( xspeed ) > math.abs( vector.x ) then
                     position.mX = destination.mX[ 1 ]
                 end
-                if math.abs( yspeed ) > math.abs( vector.y ) then 
+                if math.abs( yspeed ) > math.abs( vector.y ) then
                     position.mY = destination.mY[ 1 ]
                 end
             end
 
         else
 
-            local theta = math.random() * 2 * math.pi 
+            local theta = math.random() * 2 * math.pi
             local range = 2
             destination.mX[ 1 ] = position.mX + math.cos( theta ) * range
             destination.mY[ 1 ] = position.mY + math.sin( theta ) * range
         end
 
         ::skip::
-        
+
     end
 
 end
@@ -122,6 +122,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
                 local boxX2 = connectionLineX2 + halfShiftVectorX
                 local boxY1 = connectionLineY1 - halfShiftVectorY
                 local boxY2 = connectionLineY2 + halfShiftVectorY
+
                 if( x > boxX1 and x < boxX2 and y > boxY1 and y < boxY2 ) then
                     mouseFound = true
                     valid = true;
@@ -160,25 +161,49 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
 
             local dstMouse = {}
             local dstChar  = {}
+
             -- select the closest
-            if( dstDeltaMouseA < dstDeltaMouseB ) then
-                dstMouse = nodeAMouse
-            else
-                dstMouse = nodeBMouse
+            local dist1 = 0
+            local dist2 = 0
+            local dist3 = 0
+            local dist4 = 0
+            if nodeAChar.mName ~= nodeAMouse.mName then
+                dist1 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeAChar.mName.."-"..nodeAMouse.mName ] )
+            end
+            if nodeAChar.mName ~= nodeBMouse.mName then
+                dist2 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeAChar.mName.."-"..nodeBMouse.mName ] )
+            end
+            if nodeBChar.mName ~= nodeAMouse.mName then
+                dist3 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeBChar.mName.."-"..nodeAMouse.mName ] )
+            end
+            if nodeBChar.mName ~= nodeBMouse.mName then
+                dist4 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeBChar.mName.."-"..nodeBMouse.mName ] )
             end
 
-            if( dstDeltaCharA < dstDeltaCharB ) then
+            if dist1 < dist2 and dist1 < dist3 and dist1 < dist4 then
+                dstMouse = nodeAMouse
                 dstChar = nodeAChar
+            elseif dist2 < dist1 and dist2 < dist3 and dist2 < dist4 then
+                dstMouse = nodeBMouse
+                dstChar = nodeAChar
+            elseif dist3 < dist1 and dist3 < dist2 and dist3 < dist4 then
+                dstMouse = nodeAMouse
+                dstChar = nodeBChar
             else
+                dstMouse = nodeBMouse
                 dstChar = nodeBChar
             end
+
+            print("Char -> " .. dstChar.mName )
+            print( dstChar.mName .. " -> " .. dstMouse.mName )
+            print( dstMouse.mName .. " -> Mouse" )
 
             local stringKey = VertexCover:StringKey( dstChar, dstMouse )
             local nodeSequence = gPrecomputedNodeSequences[stringKey]
             ClearTable( destination.mX )
             ClearTable( destination.mY )
 
-            
+
             if( dstChar.mName == dstMouse.mName ) then
                     table.insert( destination.mX, x - w/2 )
                     table.insert( destination.mY, y - h/2 )
