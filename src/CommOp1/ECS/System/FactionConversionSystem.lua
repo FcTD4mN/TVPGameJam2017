@@ -17,11 +17,9 @@ function FactionConversionSystem:IncomingEntity( iEntity )
     -- Here we decide if we are interested by iEntity or not
     -- =====================================================
 
-    local sprite = iEntity:GetComponentByName( "sprite" )
-    local faction = iEntity:GetComponentByName( "faction" )
-    
+    local faction = iEntity:GetComponentByName( "faction" )    
 
-    if  faction and sprite  then
+    if  faction  then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -35,25 +33,40 @@ function FactionConversionSystem:Update( iDT )
         
         if faction.mFaction ~= "communist" and faction.mFactionScore <=  40 then
             faction.mFaction = "communist"
-            sprite:LoadFile( faction:SpritePath() )
             faction.mInfluenceSign = -1
 
-            print( "Convert to : "..faction.mFaction.."   sign : "..faction.mInfluenceSign )
+            if sprite then
+                sprite:LoadFile( faction:SpritePath() )
+            end
+
+            if gFaction == faction.mFaction then
+                self.mEntityGroup[ i ]:AddComponent( SelectableComponent:New() )
+            end
         end
         
         if faction.mFaction ~= "capitalist" and faction.mFactionScore >=  60 then
             faction.mFaction = "capitalist"
             faction.mInfluenceSign = 1
-            sprite:LoadFile( faction:SpritePath() )
-            print( "Convert to : "..faction.mFaction.."   sign : "..faction.mInfluenceSign )
+            if sprite then
+                sprite:LoadFile( faction:SpritePath() )
+            end
+
+            if gFaction == faction.mFaction then
+                self.mEntityGroup[ i ]:AddComponent( SelectableComponent:New() )
+            end
 
         end
 
         if faction.mFaction ~= "neutral" and faction.mFactionScore <  60 and faction.mFactionScore >  40  then
             faction.mFaction = "neutral"
             faction.mInfluenceSign = 0
-            sprite:LoadFile( faction:SpritePath() )
-            print( "Convert to : "..faction.mFaction.."   sign : "..faction.mInfluenceSign )
+            if sprite then
+                sprite:LoadFile( faction:SpritePath() )
+            end
+
+            if gFaction == faction.mFaction then
+                self.mEntityGroup[ i ]:AddComponent( SelectableComponent:New() )
+            end
         end
     end
 end

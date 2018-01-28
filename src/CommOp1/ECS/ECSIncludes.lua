@@ -13,6 +13,7 @@ FactionComponent     = require "src/CommOp1/ECS/Component/FactionComponent"
 ClickBoxComponent     = require "src/CommOp1/ECS/Component/ClickBoxComponent"
 SkillListComponent     = require "src/CommOp1/ECS/Component/SkillListComponent"
 RadiusComponent     = require "src/CommOp1/ECS/Component/RadiusComponent"
+InfluencableRadiusComponent     = require "src/CommOp1/ECS/Component/InfluencableRadiusComponent"
 SizeComponent     = require "src/CommOp1/ECS/Component/SizeComponent"
 
 

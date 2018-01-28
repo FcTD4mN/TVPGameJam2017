@@ -47,6 +47,7 @@ function  RadiusDrawer:Draw( iCamera )
 
         local sprite = entity:GetComponentByName( "sprite" )
         local size = entity:GetComponentByName( "size" )
+        local faction = entity:GetComponentByName( "faction" )
 
         if selectable.mSelected then
 
@@ -75,6 +76,11 @@ function  RadiusDrawer:Draw( iCamera )
             love.graphics.setColor( r, g, b )
             --love.graphics.rectangle( "line", x - radiusValue, y - radiusValue, radiusValue*2, radiusValue*2 )
             love.graphics.circle( "line", x, y, radiusValue )
+
+            if faction then
+                love.graphics.setColor( 255, 0, 0 )
+                love.graphics.print( ""..faction.mFactionScore, x, y )
+            end
 
         end
 

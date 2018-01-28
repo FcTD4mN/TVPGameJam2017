@@ -44,6 +44,7 @@ function  Level1:InitializeLevel1( iMode )
 
     self:InitializeLevelBase( "resources/CommOp1/Maps/Level1Image.csv", "resources/CommOp1/Maps/Level1TileSet.png", "resources/CommOp1/Maps/Level1Type.csv" )
 
+    gFaction = iMode
     SoundEngine.Init()
     --
     if not Shortcuts.mLoaded then
@@ -84,7 +85,6 @@ function  Level1:InitializeLevel1( iMode )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionPrint4 ) )
 
     --Add characters ( 5-90-5 )%
-    self.mMode = iMode
 
     local nbpersos = 1000
     local capitalists = math.ceil( nbpersos * 0.05 )
@@ -137,7 +137,7 @@ function Level1:AddCharacters( iCount, iType )
             local rnd2 = math.random()
             local x = ( gConnections[i].mNodeA.mProperty.x + rnd1 * gConnections[i].mVector.x * gConnections[i].mNorm ) + ( rnd2 * normal.x * spread ) - shift
             local y = ( gConnections[i].mNodeA.mProperty.y + rnd1 * gConnections[i].mVector.y * gConnections[i].mNorm ) + ( rnd2 * normal.y * spread ) - shift
-            Character:New( iType, x, y, self.mMode == iType )
+            Character:New( iType, x, y )
         end
     end
 end

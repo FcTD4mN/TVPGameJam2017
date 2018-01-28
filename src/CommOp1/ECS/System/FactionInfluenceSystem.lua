@@ -38,8 +38,15 @@ function FactionInfluenceSystem:Update( iDT )
 
         local sprite = self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
         local size = self.mEntityGroup[ i ]:GetComponentByName( "size" )
+        local infradius = self.mEntityGroup[ i ]:GetComponentByName( "influencableradius" )
 
         local rad = radius.mRadius * radius.mRadius * gTileSize *  gTileSize
+        local infrad = 0
+        if infradius then
+            infrad = infradius.mRadius * infradius.mRadius * gTileSize *  gTileSize
+        end
+
+
         local w,h = 0, 0
         if sprite then
             w,h = sprite.mW, sprite.mH
@@ -56,8 +63,13 @@ function FactionInfluenceSystem:Update( iDT )
 
             local sprite2 = self.mEntityGroup[ j ]:GetComponentByName( "sprite" )
             local size2 = self.mEntityGroup[ j ]:GetComponentByName( "size" )
+            local infradius2 = self.mEntityGroup[ j ]:GetComponentByName( "influencableradius" )
             
             local rad2 = radius2.mRadius * radius2.mRadius * gTileSize *  gTileSize
+            local infrad2 = 0
+            if infradius2 then
+                infrad2 = infradius2.mRadius * infradius2.mRadius * gTileSize *  gTileSize
+            end
             local w2,h2 = 0, 0
             if sprite2 then
                 w2,h2 = sprite2.mW, sprite2.mH
@@ -67,13 +79,13 @@ function FactionInfluenceSystem:Update( iDT )
             local x2, y2 = position2.mX + w2/2, position2.mY + h2/2
 
             local dist = ( x - x2 ) * ( x - x2 ) + ( y - y2 ) * ( y - y2 )
-            if dist < rad then
+            if dist < rad + infrad2 then
                 faction2.mFactionScore = faction2.mFactionScore + faction.mInfluenceSign * faction.mInfluence * iDT
 
                 --print( "apply1 : "..j.."  score : "..faction2.mFactionScore.." sign : "..faction.mInfluenceSign.."   inf :"..faction.mInfluence.."   DT : "..iDT )
             end
 
-            if dist < rad2 then
+            if dist < rad2 + infrad then
                 
                 faction.mFactionScore = faction.mFactionScore + faction2.mInfluenceSign * faction2.mInfluence * iDT
                 --print( "apply2 : "..j.."  score : "..faction.mFactionScore.." sign : "..faction2.mInfluenceSign.."   inf :"..faction2.mInfluence.."   DT : "..iDT )

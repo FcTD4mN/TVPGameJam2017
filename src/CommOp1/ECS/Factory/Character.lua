@@ -24,7 +24,7 @@ function Character:New( iFaction, iX, iY, iSelectable )
     local minspeed = 3
     local maxspeed = 5
     entity:AddComponent( SpeedComponent:New( math.random() * ( maxspeed - minspeed ) + minspeed ) )
-    if iSelectable then
+    if gFaction == iFaction then
         entity:AddComponent( SelectableComponent:New() )
     end
     entity:AddComponent( SpriteComponent:NewFromFile( factionComponent:SpritePath() ) )
