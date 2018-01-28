@@ -30,9 +30,9 @@ function FactionConversionSystem:Update( iDT )
 
     for i = 1, #self.mEntityGroup do
         local entity = self.mEntityGroup[ i ]
-        local faction = entity.mEntityGroup[ i ]:GetComponentByName( "faction" )
-        local animations =  entity.mEntityGroup[ i ]:GetComponentByName( "animations" )
-        local selectable =  entity.mEntityGroup[ i ]:GetComponentByName( "selectable" )
+        local faction = entity:GetComponentByName( "faction" )
+        local animations =  entity:GetComponentByName( "animations" )
+        local selectable =  entity:GetComponentByName( "selectable" )
 
         if faction.mFaction ~= "communist" and faction.mFactionScore <=  40 then
 
@@ -63,7 +63,7 @@ function FactionConversionSystem:Update( iDT )
 
             faction.mFaction = "capitalist"
             faction.mInfluenceSign = 1
-            
+
             if animation then
                 animation.mAnimation["idle"] :LoadFile( faction:IdlePath() )
                 animation.mAnimation["move"] :LoadFile( faction:MovePath() )
