@@ -45,7 +45,7 @@ function  DestinationDrawer:Draw( iCamera )
         local sprite = entity:GetComponentByName( "sprite" )
         local destination = entity:GetComponentByName( "destination" )
 
-        if #destination.mX > 0 then
+        if #destination.mX > 0 and entity:GetTagByName( "isPlayerOrder" ) == "1" then
 
             local originX, originY = position.mX, position.mY
             local destX, destY = destination.mX[ 1 ], destination.mY[ 1 ]

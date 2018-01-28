@@ -50,6 +50,7 @@ function CharacterController:Update( iDT )
             if( vector.x == 0 and vector.y == 0 ) then
                 table.remove( destination.mX, 1 )
                 table.remove( destination.mY, 1 )
+                entity:RemoveTag( "isPlayerOrder" )
                 goto skip
             end
 
@@ -61,6 +62,7 @@ function CharacterController:Update( iDT )
                 position.mY = destination.mY[ 1 ]
                 table.remove( destination.mX, 1 )
                 table.remove( destination.mY, 1 )
+                entity:RemoveTag( "isPlayerOrder" )
             else
                 position.mX = position.mX + xspeed
                 position.mY = position.mY + yspeed
@@ -338,6 +340,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
                 end
 
             end
+            entity:AddTag( "isPlayerOrder" )
             SoundEngine:PlayOrder()
 
         end
