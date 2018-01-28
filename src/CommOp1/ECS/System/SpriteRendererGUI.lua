@@ -35,6 +35,8 @@ end
 
 function  SpriteRendererGUI:Draw( iCamera )
 
+    love.graphics.push()
+    love.graphics.origin()
     for i = 1, #self.mEntityGroup do
 
         local position = self.mEntityGroup[ i ]:GetComponentByName( "position" )
@@ -87,6 +89,7 @@ function  SpriteRendererGUI:Draw( iCamera )
         love.graphics.draw( sprite.mImage, sprite.mQuad, x, y, rotation, scale, scale )
     end
 
+    love.graphics.pop()
 end
 
 

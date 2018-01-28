@@ -109,6 +109,10 @@ end
 
 function  Level1:Draw()
 
+    local x = gCamera.mX / ( self.mMap.mW ) - 0.5
+    local y = 1 - gCamera.mY / ( self.mMap.mH )
+	love.graphics.shear(x , 0)
+	love.graphics.scale(1 , y)
     self:DrawLevelBase()
 
 end

@@ -27,6 +27,10 @@ end
 
 function  GUITopBarDrawer:Draw( iCamera )
 
+    
+    love.graphics.push()
+    love.graphics.origin()
+
     local barWidth = 500
     local barHeight = 20
 
@@ -59,6 +63,8 @@ function  GUITopBarDrawer:Draw( iCamera )
     love.graphics.print( gCommunistCount,     x,                  10 + barHeight )
     love.graphics.print( gNeutralCount,       x + barWidth/2 - 5, 10 + barHeight )
     love.graphics.print( gCapitalistCount,    x+barWidth - 20,    10 + barHeight )
+
+    love.graphics.pop()
 
 end
 

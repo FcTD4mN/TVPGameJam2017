@@ -39,6 +39,8 @@ end
 
 function  InfluenceDrawer:Draw( iCamera )
 
+    
+
     for i = 1, #self.mEntityGroup do
 
         local entity = self.mEntityGroup[ i ]
@@ -75,6 +77,7 @@ function  InfluenceDrawer:Draw( iCamera )
 
     end
 
+    
 end
 
 
