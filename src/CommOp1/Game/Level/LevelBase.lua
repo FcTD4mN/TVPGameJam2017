@@ -17,12 +17,12 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS              = ECSWorld
     gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
     gNodes                      = {}
-    gGameSpeed                  = 1
     gNodeList                   = {}
     gConnections                = {}
     gPrecomputedNodeSequences   = {}
     gTileSize                   = 80
     gFaction                    = ""
+    gGameSpeed                  = 1
     self.mEditCameraState       = 0
     self.mEditCameraDownTime    = 0
 
@@ -71,7 +71,7 @@ function  LevelBase:UpdateLevelBase( iDT )
         gCamera.mX = self.mEditCameraOriginX - (self.mClickPosX - self.mClickOriginX ) / gCamera.mScale
         gCamera.mY = self.mEditCameraOriginY - (self.mClickPosY - self.mClickOriginY) / gCamera.mScale
     end
-    self.mWorldECS:Update( iDT )
+    self.mWorldECS:Update( iDT * gGameSpeed )
 
 end
 

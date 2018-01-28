@@ -21,8 +21,8 @@ function Character:New( iFaction, iX, iY, iSelectable )
     entity:AddComponent( DestinationComponent:New() )
     entity:AddComponent( UserInputComponent:New() )
 
-    local minspeed = 3
-    local maxspeed = 5
+    local minspeed = 30
+    local maxspeed = 50
     entity:AddComponent( SpeedComponent:New( math.random() * ( maxspeed - minspeed ) + minspeed ) )
     if gFaction == iFaction then
         entity:AddComponent( SelectableComponent:New() )

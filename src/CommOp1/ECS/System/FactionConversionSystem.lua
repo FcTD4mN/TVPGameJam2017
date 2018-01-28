@@ -30,6 +30,7 @@ function FactionConversionSystem:Update( iDT )
     for i = 1, #self.mEntityGroup do
         local faction = self.mEntityGroup[ i ]:GetComponentByName( "faction" )
         local sprite =  self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
+        local selectable =  self.mEntityGroup[ i ]:GetComponentByName( "selectable" )
         
         if faction.mFaction ~= "communist" and faction.mFactionScore <=  40 then
             faction.mFaction = "communist"
@@ -64,9 +65,10 @@ function FactionConversionSystem:Update( iDT )
                 sprite:LoadFile( faction:SpritePath() )
             end
 
-            if gFaction == faction.mFaction then
-                self.mEntityGroup[ i ]:AddComponent( SelectableComponent:New() )
+            if selectable then
+                self.mEntityGroup[ i ]:RemoveComponentByName( "selectable" )
             end
+
         end
     end
 end

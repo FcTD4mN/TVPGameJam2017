@@ -24,6 +24,10 @@ function  Level1:New( iMode )
     return  newLevel1
 end
 
+function Level1:ActionGameSpeed0()
+    gGameSpeed = 0
+end
+
 function Level1:ActionGameSpeed1()
     gGameSpeed = 1
 end
@@ -54,21 +58,11 @@ function  Level1:InitializeLevel1( iMode )
 
     local skillbar = SkillBar:New()
     local skilllist = skillbar:GetComponentByName( "skilllist" )
+    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/R1.png", self.ActionGameSpeed0 ) )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionGameSpeed1 ) )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionGameSpeed2 ) )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionGameSpeed3 ) )
     table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionGameSpeed4 ) )
-
-    --Add characters ( 5-90-5 )%
-    self.mMode = iMode
-
-    local nbpersos = 5000
-    local capitalists = math.ceil( nbpersos * 0.05 )
-    local communists = math.ceil( nbpersos * 0.05 )
-    local neutrals = nbpersos - capitalists - communists
-    self:AddCharacters( neutrals, "neutral" )
-    self:AddCharacters( capitalists, "capitalist" )
-    self:AddCharacters( communists, "communist" )
 
     self:InitializeNodePath()
 
@@ -76,13 +70,6 @@ function  Level1:InitializeLevel1( iMode )
         Shortcuts.Load();
     end
     Shortcuts.RegisterAllActions()
-
-    local skillbar = SkillBar:New()
-    local skilllist = skillbar:GetComponentByName( "skilllist" )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A1.png", self.ActionPrint1 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A3.png", self.ActionPrint2 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A7.png", self.ActionPrint3 ) )
-    table.insert( skilllist.mSkills, Skill:New( "resources/CommOp1/Tiles/Level1/A9.png", self.ActionPrint4 ) )
 
     --Add characters ( 5-90-5 )%
 

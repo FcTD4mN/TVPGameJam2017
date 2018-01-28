@@ -52,8 +52,8 @@ function CharacterController:Update( iDT )
                 goto skip
             end
 
-            local xspeed = vectorNorm.x * speed.mSpeed * gGameSpeed
-            local yspeed = vectorNorm.y * speed.mSpeed * gGameSpeed
+            local xspeed = vectorNorm.x * speed.mSpeed * iDT
+            local yspeed = vectorNorm.y * speed.mSpeed * iDT
 
             if math.abs( xspeed ) > math.abs( vector.x ) and math.abs( yspeed ) > math.abs( vector.y ) then
                 position.mX = destination.mX[ 1 ]
