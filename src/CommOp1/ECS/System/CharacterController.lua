@@ -174,7 +174,6 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
             end
 
             local stringKey = VertexCover:StringKey( dstChar, dstMouse )
-
             local nodeSequence = gPrecomputedNodeSequences[stringKey]
             ClearTable( destination.mX )
             ClearTable( destination.mY )
