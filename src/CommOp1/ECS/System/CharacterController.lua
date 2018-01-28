@@ -24,9 +24,8 @@ function CharacterController:IncomingEntity( iEntity )
 
     local userinput = iEntity:GetComponentByName( "userinput" )
     local position = iEntity:GetComponentByName( "position" )
-     local selectable = iEntity:GetComponentByName( "selectable" )
 
-    if userinput and position and selectable then
+    if userinput and position then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -42,7 +41,6 @@ function CharacterController:Update( iDT )
         local position      = entity:GetComponentByName( "position" )
         local destination   = entity:GetComponentByName( "destination" )
         local speed         = entity:GetComponentByName( "speed" )
-        local selectable         = entity:GetComponentByName( "selectable" )
 
         if #destination.mX > 0 then
 
@@ -51,14 +49,12 @@ function CharacterController:Update( iDT )
             if( vector.x == 0 and vector.y == 0 ) then
                 table.remove( destination.mX, 1 )
                 table.remove( destination.mY, 1 )
-                break
+                goto skip
             end
 
             local xspeed = vectorNorm.x * speed.mSpeed * gGameSpeed
             local yspeed = vectorNorm.y * speed.mSpeed * gGameSpeed
-            if( selectable.mSelected ) then
 
-            end
             if math.abs( xspeed ) > math.abs( vector.x ) and math.abs( yspeed ) > math.abs( vector.y ) then 
                 position.mX = destination.mX[ 1 ]
                 position.mY = destination.mY[ 1 ]
@@ -78,12 +74,14 @@ function CharacterController:Update( iDT )
 
         else
 
-            --local theta = math.random() * 2 * math.pi 
-            --local range = 2
-            --destination.mX[ 1 ] = position.mX + math.cos( theta ) * range
-            --destination.mY[ 1 ] = position.mY + math.sin( theta ) * range
+            local theta = math.random() * 2 * math.pi 
+            local range = 2
+            destination.mX[ 1 ] = position.mX + math.cos( theta ) * range
+            destination.mY[ 1 ] = position.mY + math.sin( theta ) * range
         end
 
+        ::skip::
+        
     end
 
 end
@@ -103,7 +101,6 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
 
             local x,y = gCamera:MapToWorld( iX, iY )
             local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
-            Base:log( 0 )
 
             -- Clément: I was expecting to be able to read in a 2D array at the mouse coordinates but i can't seem to find such a thing in the data we retaine !
             -- my fallback solution is this: AABB collision check against all connections.
@@ -141,10 +138,9 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
                 end
             end
 
-            Base:log( 1 )
             -- if we are in this case there is nothing we can do, so if a unit wanders around too far from a connection it is basically lost forever
             if( not mouseFound or not charFound ) then
-                break; -- break out of the outtermost loop of this function
+                goto continue
             end
 
             -- we're gonna check which node is closest to mouse and which node is closest to char/unit in order to process a path from gPrecomputedNodeSequence
@@ -196,6 +192,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
                 end
                 table.insert( destination.mX, x - w/2 )
                 table.insert( destination.mY, y - h/2 )
+
             end
 
             if #gSelection > 1 then
@@ -215,6 +212,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
             SoundEngine:PlayOrder()
 
         end
+        ::continue::
     end
 end
 
@@ -222,7 +220,6 @@ end
 function  CharacterController:Draw( iCamera )
 
 end
-
 
 -- ==========================================Type
 
