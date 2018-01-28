@@ -16,7 +16,6 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
 
     self.mWorldECS              = ECSWorld
     gCamera                     = Camera:New( 0, 0, 800, 600, 1.0 )
-    gNodes                      = {}
     gNodeList                   = {}
     gConnections                = {}
     gPrecomputedNodeSequences   = {}
