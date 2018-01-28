@@ -92,6 +92,35 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
             local x,y = gCamera:MapToWorld( iX, iY )
             local w,h = sprite.mImage:getWidth(), sprite.mImage:getHeight()
 
+            -- Clément: I was expecting to be able to read in a 2D array at the mouse coordinates but i can't seem to find such a thing in the data we retaine !
+            -- my fallback solution is this: AABB collision check against all connections.
+            local valid = false
+            for i=1, #gConnections do
+                local connectionLineX1 = gConnections[i].mNodeA.mProperty.x
+                local connectionLineX2 = gConnections[i].mNodeB.mProperty.x
+                local connectionLineY1 = gConnections[i].mNodeA.mProperty.y
+                local connectionLineY2 = gConnections[i].mNodeB.mProperty.y
+                local halfShift = 160 -- somewhat arbitrary value
+                local vector = gConnections[i].mVector:NormalCustom()
+                local halfShiftVectorX = halfShift * vector.x
+                local halfShiftVectorY = halfShift * vector.y
+                local boxX1 = connectionLineX1 - halfShiftVectorX
+                local boxX2 = connectionLineX2 + halfShiftVectorX
+                local boxY1 = connectionLineY1 - halfShiftVectorY
+                local boxY2 = connectionLineY2 + halfShiftVectorY
+
+                if( x > boxX1 and x < boxX2 and y > boxY1 and y < boxY2 ) then
+                    valid = true;
+                    break;
+                end
+
+            end
+
+            if( not valid ) then
+                return
+            end
+
+
             ClearTable( destination.mX )
             ClearTable( destination.mY )
 
