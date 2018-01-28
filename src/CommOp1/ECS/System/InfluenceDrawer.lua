@@ -47,7 +47,7 @@ function  InfluenceDrawer:Draw( iCamera )
         local selectable = entity:GetComponentByName( "selectable" )
         local size = entity:GetComponentByName( "size" )
 
-        if selectable.mSelected then
+        if selectable.mSelected and gCamera.mScale > 0.4 then
 
             local barWidth = 100
             local barHeight = 10
