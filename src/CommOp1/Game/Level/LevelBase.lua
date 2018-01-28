@@ -50,6 +50,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
     self.mWorldECS:AddSystem( SelectionSystem ) --renders itself so it needs to be after Sprite renderer
     self.mWorldECS:AddSystem( DestinationDrawer )
     self.mWorldECS:AddSystem( SpriteRendererGUI )
+    self.mWorldECS:AddSystem( GUITopBarDrawer )
     self:GenerateMapEntities()
 
 end

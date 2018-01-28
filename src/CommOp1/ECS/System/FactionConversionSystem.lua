@@ -17,7 +17,7 @@ function FactionConversionSystem:IncomingEntity( iEntity )
     -- Here we decide if we are interested by iEntity or not
     -- =====================================================
 
-    local faction = iEntity:GetComponentByName( "faction" )    
+    local faction = iEntity:GetComponentByName( "faction" )
 
     if  faction  then
         table.insert( self.mEntityGroup, iEntity )
@@ -31,9 +31,11 @@ function FactionConversionSystem:Update( iDT )
         local faction = self.mEntityGroup[ i ]:GetComponentByName( "faction" )
         local sprite =  self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
         local selectable =  self.mEntityGroup[ i ]:GetComponentByName( "selectable" )
-        
+
         if faction.mFaction ~= "communist" and faction.mFactionScore <=  40 then
+            self:DecreaseFactionCount( faction.mFaction )
             faction.mFaction = "communist"
+            gCommunistCount = gCommunistCount + 1
             faction.mInfluenceSign = -1
 
             if sprite then
@@ -44,9 +46,11 @@ function FactionConversionSystem:Update( iDT )
                 self.mEntityGroup[ i ]:AddComponent( SelectableComponent:New() )
             end
         end
-        
+
         if faction.mFaction ~= "capitalist" and faction.mFactionScore >=  60 then
+            self:DecreaseFactionCount( faction.mFaction )
             faction.mFaction = "capitalist"
+            gCapitalistCount = gCapitalistCount + 1
             faction.mInfluenceSign = 1
             if sprite then
                 sprite:LoadFile( faction:SpritePath() )
@@ -59,7 +63,9 @@ function FactionConversionSystem:Update( iDT )
         end
 
         if faction.mFaction ~= "neutral" and faction.mFactionScore <  60 and faction.mFactionScore >  40  then
+            self:DecreaseFactionCount( faction.mFaction )
             faction.mFaction = "neutral"
+            gNeutralCount = gNeutralCount + 1
             faction.mInfluenceSign = 0
             if sprite then
                 sprite:LoadFile( faction:SpritePath() )
@@ -75,6 +81,18 @@ end
 
 
 function  FactionConversionSystem:Draw( iCamera )
+
+end
+
+function  FactionConversionSystem:DecreaseFactionCount( iFaction )
+
+    if iFaction == "communist" then
+        gCommunistCount = gCommunistCount - 1
+    elseif iFaction == "capitalist" then
+        gCapitalistCount = gCapitalistCount - 1
+    else
+        gNeutralCount = gNeutralCount - 1
+    end
 
 end
 
