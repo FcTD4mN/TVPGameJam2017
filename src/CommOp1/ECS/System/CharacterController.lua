@@ -163,21 +163,26 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
             local dstChar  = {}
 
             -- select the closest
+            local zeroCount = 4 -- How many distN are equal to zero
             local dist1 = 0
             local dist2 = 0
             local dist3 = 0
             local dist4 = 0
             if nodeAChar.mName ~= nodeAMouse.mName then
                 dist1 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeAChar.mName.."-"..nodeAMouse.mName ] )
+                zeroCount = zeroCount - 1
             end
             if nodeAChar.mName ~= nodeBMouse.mName then
                 dist2 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeAChar.mName.."-"..nodeBMouse.mName ] )
+                zeroCount = zeroCount - 1
             end
             if nodeBChar.mName ~= nodeAMouse.mName then
                 dist3 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeBChar.mName.."-"..nodeAMouse.mName ] )
+                zeroCount = zeroCount - 1
             end
             if nodeBChar.mName ~= nodeBMouse.mName then
                 dist4 = VertexCover:ComputePathWeight( gPrecomputedNodeSequences[ nodeBChar.mName.."-"..nodeBMouse.mName ] )
+                zeroCount = zeroCount - 1
             end
 
             if dist1 < dist2 and dist1 < dist3 and dist1 < dist4 then
@@ -206,7 +211,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
             ClearTable( destination.mY )
 
 
-            if( 1 == 3 ) then
+            if( zeroCount > 1 ) then
                     table.insert( destination.mX, x - w/2 )
                     table.insert( destination.mY, y - h/2 )
             else
