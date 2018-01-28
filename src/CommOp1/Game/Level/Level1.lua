@@ -94,6 +94,7 @@ function  Level1:InitializeLevel1( iMode )
     self:AddCharacters( communists, "communist" )
 
     WacDo:New( "neutral", 160, 400 )
+    Library:New( "neutral", 7*80, 80 )
 end
 
 
@@ -309,7 +310,7 @@ function Level1:InitializeNodePath()
     --            local result = VertexCover:FindShortestPath( nodeA, nodeB )
     --            self:SubSplitResult( result )
     --        end
-    --        
+    --
     --    end
     --end
 --
@@ -330,8 +331,8 @@ function Level1:SubSplitResult( iResult )
         table.insert( localResultTable, iResult[i] )
 
         for j=i+1, #iResult do
-        
-            table.insert( localResultTable, iResult[j] ) 
+
+            table.insert( localResultTable, iResult[j] )
             local stringKeyAB = VertexCover:StringKey( localResultTable[1], localResultTable[#localResultTable] )
             local stringKeyBA = VertexCover:StringKey( localResultTable[#localResultTable], localResultTable[1] )
             gPrecomputedNodeSequences[ stringKeyAB ] = {}
@@ -353,9 +354,9 @@ function  Level1:SavePrecomputedNodeSequences()
             for j=1, #v do
                 fileData = fileData .. v[j].mName .. ","
             end
-            
+
             fileData = fileData .. "\n"
-            
+
         end
    local file = io.open( filePath, "w" )
    file:write( fileData )

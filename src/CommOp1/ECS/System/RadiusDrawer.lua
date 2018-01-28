@@ -20,8 +20,9 @@ function RadiusDrawer:IncomingEntity( iEntity )
     local position = iEntity:GetComponentByName( "position" )
     local radius = iEntity:GetComponentByName( "radius" )
     local selectable = iEntity:GetComponentByName( "selectable" )
+    local faction = iEntity:GetComponentByName( "faction" )
 
-    if position and radius and selectable then
+    if position and radius and selectable and faction then
         table.insert( self.mEntityGroup, iEntity )
         table.insert( iEntity.mObserverSystems, self )
     end
@@ -40,9 +41,12 @@ function  RadiusDrawer:Draw( iCamera )
 
         local entity = self.mEntityGroup[ i ]
         local position = entity:GetComponentByName( "position" )
-        local sprite = entity:GetComponentByName( "sprite" )
         local radius = entity:GetComponentByName( "radius" )
         local selectable = entity:GetComponentByName( "selectable" )
+        local faction = entity:GetComponentByName( "faction" )
+
+        local sprite = entity:GetComponentByName( "sprite" )
+        local size = entity:GetComponentByName( "size" )
 
         if selectable.mSelected then
 
@@ -50,12 +54,23 @@ function  RadiusDrawer:Draw( iCamera )
             local w,h = 0, 0
             if sprite then
                 w,h = sprite.mImage:getWidth() * gCamera.mScale, sprite.mImage:getHeight() * gCamera.mScale
+            elseif size then
+                w,h = size.mW * gCamera.mScale, size.mH * gCamera.mScale
             end
             local radiusValue = radius.mRadius * gCamera.mScale
 
-            love.graphics.setColor( 255, 50, 50, 90 )
+            local r,g,b = 0,0,0
+            if faction.mFaction == "neutral" then
+                r,g,b = 50,50,50
+            elseif faction.mFaction == "capitalist" then
+                r,g,b = 50,50,255
+            else
+                r,g,b = 255,50,50
+            end
+
+            love.graphics.setColor( r, g, b, 90 )
             love.graphics.circle( "fill", x + w/2, y + h/2, radiusValue )
-            love.graphics.setColor( 255, 50, 50 )
+            love.graphics.setColor( r, g, b )
             love.graphics.circle( "line", x + w/2, y + h/2, radiusValue )
 
         end

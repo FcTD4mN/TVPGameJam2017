@@ -1,15 +1,15 @@
 ECSIncludes  = require "src/ECS/ECSIncludes"
 
-local WacDo = {}
-WacDo.mId = 0
+local Library = {}
+Library.mId = 0
 
 
 -- ==========================================Build/Destroy
 
 
-function WacDo:New( iFaction, iX, iY )
-    local entity = Entity:New( "WacDo"..WacDo.mId )
-    WacDo.mId = WacDo.mId + 1
+function Library:New( iFaction, iX, iY )
+    local entity = Entity:New( "Library"..Library.mId )
+    Library.mId = Library.mId + 1
 
 
 
@@ -18,8 +18,8 @@ function WacDo:New( iFaction, iX, iY )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )
-    entity:AddComponent( SizeComponent:New( gTileSize*4, gTileSize*3 ) )
-    entity:AddComponent( RadiusComponent:New( 500 ) )
+    entity:AddComponent( SizeComponent:New( gTileSize*4, gTileSize*4 ) )
+    entity:AddComponent( RadiusComponent:New( 1000 ) )
     entity:AddComponent( SelectableComponent:New() )
 
     ECSWorld:AddEntity( entity )
@@ -28,4 +28,4 @@ function WacDo:New( iFaction, iX, iY )
 end
 
 
-return  WacDo
+return  Library
