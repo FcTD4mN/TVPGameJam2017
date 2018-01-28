@@ -11,7 +11,15 @@ function Character:New( iFaction, iX, iY, iSelectable )
     local entity = Entity:New( "Character"..Character.mId )
     Character.mId = Character.mId + 1
 
+    gTotalCount = gTotalCount + 1
 
+    if iFaction == "communist" then
+        gCommunistCount = gCommunistCount + 1
+    elseif iFaction == "neutral" then
+        gNeutralCount = gNeutralCount + 1
+    else
+        gCapitalistCount = gCapitalistCount + 1
+    end
 
     -- Components
     local factionComponent = FactionComponent:New( iFaction, 1, 1 )

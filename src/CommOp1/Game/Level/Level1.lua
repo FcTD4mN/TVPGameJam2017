@@ -73,14 +73,16 @@ function  Level1:InitializeLevel1( iMode )
 
     --Add characters ( 5-90-5 )%
 
-    gTotalCount = 1000
-    gCapitalistCount = math.ceil( gTotalCount * 0.05 )
-    gCommunistCount = math.ceil( gTotalCount * 0.05 )
-    gNeutralCount = gTotalCount - gCapitalistCount - gCommunistCount
+    gTotalCount, gCommunistCount, gNeutralCount, gCapitalistCount = 0,0,0,0
 
-    self:AddCharacters( gNeutralCount, "neutral" )
-    self:AddCharacters( gCapitalistCount, "capitalist" )
-    self:AddCharacters( gCommunistCount, "communist" )
+    local totalCount = 1000
+    local capitalistCount = math.ceil( totalCount * 0.05 )
+    local communistCount = math.ceil( totalCount * 0.05 )
+    local neutralCount = totalCount - capitalistCount - communistCount
+
+    self:AddCharacters( neutralCount, "neutral" )
+    self:AddCharacters( capitalistCount, "capitalist" )
+    self:AddCharacters( communistCount, "communist" )
 
     WacDo:New( "neutral", 160, 400 )
     Library:New( "neutral", 7*80, 80 )

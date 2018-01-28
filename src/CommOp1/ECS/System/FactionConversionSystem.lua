@@ -27,15 +27,22 @@ end
 
 
 function FactionConversionSystem:Update( iDT )
+
     for i = 1, #self.mEntityGroup do
-        local faction = self.mEntityGroup[ i ]:GetComponentByName( "faction" )
-        local sprite =  self.mEntityGroup[ i ]:GetComponentByName( "sprite" )
-        local selectable =  self.mEntityGroup[ i ]:GetComponentByName( "selectable" )
+
+        local entity = self.mEntityGroup[ i ]
+        local faction = entity:GetComponentByName( "faction" )
+        local sprite =  entity:GetComponentByName( "sprite" )
+        local selectable =  entity:GetComponentByName( "selectable" )
 
         if faction.mFaction ~= "communist" and faction.mFactionScore <=  40 then
-            self:DecreaseFactionCount( faction.mFaction )
+
+            if entity:GetTagByName( "character" ) ~= "0" then
+                self:DecreaseFactionCount( faction.mFaction )
+                gCommunistCount = gCommunistCount + 1
+            end
+
             faction.mFaction = "communist"
-            gCommunistCount = gCommunistCount + 1
             faction.mInfluenceSign = -1
 
             if sprite then
@@ -43,36 +50,44 @@ function FactionConversionSystem:Update( iDT )
             end
 
             if gFaction == faction.mFaction then
-                self.mEntityGroup[ i ]:AddComponent( SelectableComponent:New() )
+                entity:AddComponent( SelectableComponent:New() )
             end
         end
 
         if faction.mFaction ~= "capitalist" and faction.mFactionScore >=  60 then
-            self:DecreaseFactionCount( faction.mFaction )
+
+            if entity:GetTagByName( "character" ) ~= "0" then
+                self:DecreaseFactionCount( faction.mFaction )
+                gCapitalistCount = gCapitalistCount + 1
+            end
+
             faction.mFaction = "capitalist"
-            gCapitalistCount = gCapitalistCount + 1
             faction.mInfluenceSign = 1
             if sprite then
                 sprite:LoadFile( faction:SpritePath() )
             end
 
             if gFaction == faction.mFaction then
-                self.mEntityGroup[ i ]:AddComponent( SelectableComponent:New() )
+                entity:AddComponent( SelectableComponent:New() )
             end
 
         end
 
         if faction.mFaction ~= "neutral" and faction.mFactionScore <  60 and faction.mFactionScore >  40  then
-            self:DecreaseFactionCount( faction.mFaction )
+
+            if entity:GetTagByName( "character" ) ~= "0" then
+                self:DecreaseFactionCount( faction.mFaction )
+                gNeutralCount = gNeutralCount + 1
+            end
+
             faction.mFaction = "neutral"
-            gNeutralCount = gNeutralCount + 1
             faction.mInfluenceSign = 0
             if sprite then
                 sprite:LoadFile( faction:SpritePath() )
             end
 
             if selectable then
-                self.mEntityGroup[ i ]:RemoveComponentByName( "selectable" )
+                entity:RemoveComponentByName( "selectable" )
             end
 
         end
@@ -90,7 +105,7 @@ function  FactionConversionSystem:DecreaseFactionCount( iFaction )
         gCommunistCount = gCommunistCount - 1
     elseif iFaction == "capitalist" then
         gCapitalistCount = gCapitalistCount - 1
-    else
+    elseif iFaction == "neutral" then
         gNeutralCount = gNeutralCount - 1
     end
 
