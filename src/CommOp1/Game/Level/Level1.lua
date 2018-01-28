@@ -72,7 +72,6 @@ function  Level1:InitializeLevel1( iMode )
     Shortcuts.RegisterAllActions()
 
     --Add characters ( 5-90-5 )%
-<<<<<<< HEAD
 
     gTotalCount, gCommunistCount, gNeutralCount, gCapitalistCount = 0,0,0,0
 
@@ -84,17 +83,6 @@ function  Level1:InitializeLevel1( iMode )
     self:AddCharacters( neutralCount, "neutral" )
     self:AddCharacters( capitalistCount, "capitalist" )
     self:AddCharacters( communistCount, "communist" )
-=======
-Base:log( #gConnections )
-    gTotalCount = 1000
-    gCapitalistCount = math.ceil( gTotalCount * 0.05 )
-    gCommunistCount = math.ceil( gTotalCount * 0.05 )
-    gNeutralCount = gTotalCount - gCapitalistCount - gCommunistCount
-
-    self:AddCharacters( gNeutralCount, "neutral" )
-    self:AddCharacters( gCapitalistCount, "capitalist" )
-    self:AddCharacters( gCommunistCount, "communist" )
->>>>>>> whatever
 
     WacDo:New( "neutral", 160, 400 )
     Library:New( "neutral", 7*80, 80 )
@@ -121,10 +109,21 @@ end
 
 function  Level1:Draw()
 
-    --local x = gCamera.mX / ( self.mMap.mW ) - 0.5
-    --local y = 1 - gCamera.mY / ( self.mMap.mH )
-	--love.graphics.shear(x , 0)
-	--love.graphics.scale(1 , y)
+    -- clamp camera zoom
+    if( gCamera.mScale < 0.5 ) then
+        gCamera.mScale = 0.5
+    end
+
+    if( gCamera.mScale > 8 ) then
+        gCamera.mScale = 8
+    end
+
+    Base:log( gCamera.mScale )
+
+    local x = gCamera.mX / ( self.mMap.mW ) - 0.5
+    local y = 1 - gCamera.mY / ( self.mMap.mH )
+	love.graphics.shear(x , 0)
+	love.graphics.scale(1 , y)
     self:DrawLevelBase()
 
 end
