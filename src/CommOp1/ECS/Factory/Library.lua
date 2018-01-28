@@ -14,7 +14,7 @@ function Library:New( iFaction, iX, iY )
 
 
     -- Components
-    local factionComponent = FactionComponent:New( iFaction, 5 )
+    local factionComponent = FactionComponent:New( iFaction, 5, 0.1 )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )

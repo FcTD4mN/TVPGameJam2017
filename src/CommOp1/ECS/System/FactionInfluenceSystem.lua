@@ -80,7 +80,7 @@ function FactionInfluenceSystem:Update( iDT )
 
             local dist = ( x - x2 ) * ( x - x2 ) + ( y - y2 ) * ( y - y2 )
             if dist < rad + infrad2 then
-                faction2.mFactionScore = faction2.mFactionScore + faction.mInfluenceSign * faction.mInfluence * iDT
+                faction2.mFactionScore = faction2.mFactionScore + faction.mInfluenceSign * faction.mInfluence * faction2.mResistance * iDT
                 faction2.mFactionScore = math.max( faction2.mFactionScore, 0 )
                 faction2.mFactionScore = math.min( faction2.mFactionScore, 100 )
 
@@ -89,7 +89,7 @@ function FactionInfluenceSystem:Update( iDT )
 
             if dist < rad2 + infrad then
                 
-                faction.mFactionScore = faction.mFactionScore + faction2.mInfluenceSign * faction2.mInfluence * iDT
+                faction.mFactionScore = faction.mFactionScore + faction2.mInfluenceSign * faction2.mInfluence * faction.mResistance * iDT
                 faction.mFactionScore = math.max( faction.mFactionScore, 0 )
                 faction.mFactionScore = math.min( faction.mFactionScore, 100 )
                 --print( "apply2 : "..j.."  score : "..faction.mFactionScore.." sign : "..faction2.mInfluenceSign.."   inf :"..faction2.mInfluence.."   DT : "..iDT )

@@ -14,7 +14,7 @@ function Character:New( iFaction, iX, iY, iSelectable )
 
 
     -- Components
-    local factionComponent = FactionComponent:New( iFaction, 1 )
+    local factionComponent = FactionComponent:New( iFaction, 1, 1 )
 
     entity:AddComponent( factionComponent )
     entity:AddComponent( PositionComponent:New( iX, iY ) )

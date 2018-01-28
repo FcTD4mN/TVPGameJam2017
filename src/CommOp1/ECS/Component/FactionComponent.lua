@@ -11,7 +11,7 @@ ComponentRegistry.Register( "FactionComponent", FactionComponent )
 -- ==========================================Constructor/Destructor
 
 
-function FactionComponent:New( iFaction, iInfluence )
+function FactionComponent:New( iFaction, iInfluence, iResistance )
     local newFactionComponent = {}
     setmetatable( newFactionComponent, FactionComponent )
     FactionComponent.__index = FactionComponent
@@ -30,6 +30,7 @@ function FactionComponent:New( iFaction, iInfluence )
     end
 
     newFactionComponent.mInfluence = iInfluence --neutral/communist/capitalist
+    newFactionComponent.mResistance = iResistance --neutral/communist/capitalist
     newFactionComponent.mInfluenceSign = newFactionComponent:InfluenceSign() --neutral/communist/capitalist
 
     return  newFactionComponent
