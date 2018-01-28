@@ -194,17 +194,19 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
                 dstChar = nodeBChar
             end
 
-            print("Char -> " .. dstChar.mName )
-            print( dstChar.mName .. " -> " .. dstMouse.mName )
-            print( dstMouse.mName .. " -> Mouse" )
+            local stringKey, nodeSequence = nil,{}
+            if dstChar == dstMouse then
+                table.insert( nodeSequence, dstChar )
+            else
+                stringKey = VertexCover:StringKey( dstChar, dstMouse )
+                nodeSequence = gPrecomputedNodeSequences[stringKey]
+            end
 
-            local stringKey = VertexCover:StringKey( dstChar, dstMouse )
-            local nodeSequence = gPrecomputedNodeSequences[stringKey]
             ClearTable( destination.mX )
             ClearTable( destination.mY )
 
 
-            if( dstChar.mName == dstMouse.mName ) then
+            if( 1 == 3 ) then
                     table.insert( destination.mX, x - w/2 )
                     table.insert( destination.mY, y - h/2 )
             else
