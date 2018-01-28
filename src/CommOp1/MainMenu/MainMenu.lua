@@ -141,7 +141,7 @@ end
 function MainMenu:Draw()
     love.graphics.setColor( 255, 255, 255, 255 )
     love.graphics.draw( imageBG, 2 * love.graphics.getWidth() / 3 - imageBG:getWidth() /2, love.graphics.getHeight() / 2 - imageBG:getHeight() /2 )
-    love.graphics.draw( imageLOGO, love.graphics.getWidth() / 3 + love.graphics.getWidth() / 3 - imageLOGO:getWidth()/2 , love.graphics.getHeight() / 3 - imageLOGO:getHeight()/2 )
+    love.graphics.draw( imageLOGO, love.graphics.getWidth() / 2 - imageLOGO:getWidth()/2 , love.graphics.getHeight() / 3.5 - imageLOGO:getHeight()/2 )
 
 
     self.menuPages[ self.currentPage ]:Draw()
