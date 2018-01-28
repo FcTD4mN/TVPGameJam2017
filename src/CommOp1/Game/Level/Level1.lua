@@ -109,10 +109,10 @@ end
 
 function  Level1:Draw()
 
-    local x = gCamera.mX / ( self.mMap.mW ) - 0.5
-    local y = 1 - gCamera.mY / ( self.mMap.mH )
-	love.graphics.shear(x , 0)
-	love.graphics.scale(1 , y)
+    --local x = gCamera.mX / ( self.mMap.mW ) - 0.5
+    --local y = 1 - gCamera.mY / ( self.mMap.mH )
+	--love.graphics.shear(x , 0)
+	--love.graphics.scale(1 , y)
     self:DrawLevelBase()
 
 end
@@ -305,7 +305,7 @@ function Level1:InitializeNodePath()
     table.insert( gConnections,  Connection:New( gNodeAM,     gNodeAN,        dstAMAN    ) )
     table.insert( gConnections,  Connection:New( gNodeAO,     gNodeAP,        dstAOAP    ) )
     table.insert( gConnections,  Connection:New( gNodeAP,     gNodeAQ,        dstAPAQ    ) )
-    table.insert( gConnections,  Connection:New( gNodeAS,     gNodeAR,        dstASAR    ) )
+    table.insert( gConnections,  Connection:New( gNodeAR,     gNodeAS,        dstASAR    ) )
     table.insert( gConnections,  Connection:New( gNodeAS,     gNodeAT,        dstASAT    ) )
     table.insert( gConnections,  Connection:New( gNodeAS,     gNodeAV,        dstASAV    ) )
     table.insert( gConnections,  Connection:New( gNodeAR,     gNodeAU,        dstARAU    ) )
