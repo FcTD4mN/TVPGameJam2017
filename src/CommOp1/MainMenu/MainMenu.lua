@@ -18,23 +18,23 @@ function  MainMenu:Initialize()
     -- ============================ MAIN MAIN ===============================
     y = 300
     dz = 0
-    newGameCapi = MenuItem:New( "PLAY CAPITALISM", 2 * love.graphics.getWidth() / 3, y )
+    newGameCapi = MenuItem:New( "PLAY CAPITALISM", 2 * love.graphics.getWidth() / 3, y, 0, 0, 150, 2 )
     y = y + verticalSpacing
     newGameCapi.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newGameCapi.rectangle.w /2
 
-    newGameComm = MenuItem:New( "PLAY COMMUNISM", 2 * love.graphics.getWidth() / 3, y )
+    newGameComm = MenuItem:New( "PLAY COMMUNISM", 2 * love.graphics.getWidth() / 3, y, 150, 0, 0, 2 )
     y = y + verticalSpacing
     newGameComm.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newGameComm.rectangle.w /2
 
-    options = MenuItem:New( "Options", 2 * love.graphics.getWidth() / 3, y )
+    options = MenuItem:New( "Options", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     y = y + verticalSpacing
     options.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - options.rectangle.w /2
 
-    quit    = MenuItem:New( "Quit", 2 * love.graphics.getWidth() / 3, y )
+    quit    = MenuItem:New( "Quit", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     y = y + verticalSpacing
     quit.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - quit.rectangle.w /2
 
-    -- newSandBox    = MenuItem:New( "SandBox", 2 * love.graphics.getWidth() / 3, y )
+    -- newSandBox    = MenuItem:New( "SandBox", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20 )
     -- y = y + verticalSpacing
     -- newSandBox.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - newSandBox.rectangle.w /2
 
@@ -66,16 +66,16 @@ function  MainMenu:Initialize()
     -- ========================== MAIN OPTIONS =============================
     y = 300
     dz = 0
-    video = MenuItem:New( "Video", 2 * love.graphics.getWidth() / 3, y )
+    video = MenuItem:New( "Video", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     y = y + verticalSpacing
     video.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - video.rectangle.w /2
-    sound = MenuItem:New( "Sound", 2 * love.graphics.getWidth() / 3, y )
+    sound = MenuItem:New( "Sound", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     y = y + verticalSpacing
     sound.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - sound.rectangle.w /2
-    controls = MenuItem:New( "Controls", 2 * love.graphics.getWidth() / 3, y )
+    controls = MenuItem:New( "Controls", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     y = y + verticalSpacing
     controls.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - controls.rectangle.w /2
-    back    = MenuItem:New( "Back", 2 * love.graphics.getWidth() / 3, y )
+    back    = MenuItem:New( "Back", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     back.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - back.rectangle.w /2
 
     -- Callbacks
@@ -96,13 +96,13 @@ function  MainMenu:Initialize()
     -- ========================== VIDEO OPTIONS =============================
     y = 300
     dz = 0
-    local fullScreen = MenuItem:New( "FullScreen", 2 * love.graphics.getWidth() / 3, y )
+    local fullScreen = MenuItem:New( "FullScreen", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     y = y + verticalSpacing
     fullScreen.rectangle.x = dz +  2 * love.graphics.getWidth() / 3 - video.rectangle.w /2
-    local lowerRes  = MenuItem:New( "1200x720",  2 *love.graphics.getWidth() / 3, y )
+    local lowerRes  = MenuItem:New( "1200x720",  2 *love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     y = y + verticalSpacing
     lowerRes.rectangle.x = dz + 2 * love.graphics.getWidth() / 3 - video.rectangle.w /2
-    local back  = MenuItem:New( "Back", 2 * love.graphics.getWidth() / 3, y )
+    local back  = MenuItem:New( "Back", 2 * love.graphics.getWidth() / 3, y, 20, 20, 20, 2.5 )
     back.rectangle.x = dz+ 2 * love.graphics.getWidth() / 3 - back.rectangle.w /2
 
     -- Callbacks

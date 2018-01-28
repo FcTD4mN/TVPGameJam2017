@@ -6,7 +6,7 @@ local MenuItem = {}
 local sgHeight = 20
 
 
-function  MenuItem:New( iText, iX, iY )
+function  MenuItem:New( iText, iX, iY, iColorR, iColorG, iColorB, iHighlight )
     newMenuItem = {}
     setmetatable( newMenuItem, self )
     self.__index = self
@@ -18,6 +18,10 @@ function  MenuItem:New( iText, iX, iY )
     newMenuItem.rectangle = Rectangle:New( iX, iY, newMenuItem.font:getWidth( iText ), newMenuItem.font:getHeight() )
     newMenuItem.actionCB = nil
     newMenuItem.sound = 0
+    newMenuItem.mColorR = iColorR
+    newMenuItem.mColorG = iColorG
+    newMenuItem.mColorB = iColorB
+    newMenuItem.mHighlight = iHighlight
 
     return  newMenuItem
 end
@@ -26,9 +30,9 @@ end
 function MenuItem:Draw()
     love.graphics.setFont( self.font )
     if( self.isCurrent ) then
-        love.graphics.setColor( 50, 50, 50 )
+        love.graphics.setColor( self.mColorR * self.mHighlight, self.mColorG * self.mHighlight, self.mColorB * self.mHighlight )
     else
-        love.graphics.setColor( 20, 20, 20 )
+        love.graphics.setColor( self.mColorR, self.mColorG, self.mColorB )
     end
 
     love.graphics.print( self.text, self.rectangle.x, self.rectangle.y )
