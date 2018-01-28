@@ -45,6 +45,7 @@ function  LevelBase:InitializeLevelBase( iMapFile, iTileSetFile, iTypeSetFile )
 
     self.mWorldECS:AddSystem( SpriteRenderer )
     self.mWorldECS:AddSystem( InfluenceDrawer )
+    self.mWorldECS:AddSystem( BuildingFactionDrawer )
     self.mWorldECS:AddSystem( SelectionDrawer )
     self.mWorldECS:AddSystem( RadiusDrawer )
     self.mWorldECS:AddSystem( SelectionSystem ) --renders itself so it needs to be after Sprite renderer

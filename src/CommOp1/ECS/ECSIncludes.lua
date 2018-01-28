@@ -32,6 +32,7 @@ FactionInfluenceSystem   = require "src/CommOp1/ECS/System/FactionInfluenceSyste
 FactionConversionSystem   = require "src/CommOp1/ECS/System/FactionConversionSystem"
 InfluenceDrawer   = require "src/CommOp1/ECS/System/InfluenceDrawer"
 GUITopBarDrawer   = require "src/CommOp1/ECS/System/GUITopBarDrawer"
+BuildingFactionDrawer   = require "src/CommOp1/ECS/System/BuildingFactionDrawer"
 
 
 -- ====== FACTORIES
