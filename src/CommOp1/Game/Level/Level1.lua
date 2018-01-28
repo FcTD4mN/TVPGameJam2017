@@ -110,20 +110,21 @@ end
 function  Level1:Draw()
 
     -- clamp camera zoom
-    if( gCamera.mScale < 0.5 ) then
-        gCamera.mScale = 0.5
+    if( gCamera.mScale < 0.05 ) then
+        gCamera.mScale = 0.05
     end
 
-    if( gCamera.mScale > 8 ) then
-        gCamera.mScale = 8
+    if( gCamera.mScale > 1 ) then
+        gCamera.mScale = 1
     end
 
     Base:log( gCamera.mScale )
-
-    local x = gCamera.mX / ( self.mMap.mW ) - 0.5
-    local y = 1 - gCamera.mY / ( self.mMap.mH )
+    local shearFactor = ( 1 - gCamera.mScale )
+    local scaleFactor = ( 1 - gCamera.mScale ) * 0.5 + 0.5
+    local x = ( gCamera.mX / ( self.mMap.mW ) - 0.5 ) * shearFactor * shearFactor * shearFactor * 0.5
+	
 	love.graphics.shear(x , 0)
-	love.graphics.scale(1 , y)
+    love.graphics.scale(1 , scaleFactor)
     self:DrawLevelBase()
 
 end
