@@ -60,7 +60,7 @@ function  RadiusDrawer:Draw( iCamera )
 
             local r,g,b = 0,0,0
             if faction.mFaction == "neutral" then
-                r,g,b = 50,50,50
+                r,g,b = 200,200,200
             elseif faction.mFaction == "capitalist" then
                 r,g,b = 50,50,255
             else

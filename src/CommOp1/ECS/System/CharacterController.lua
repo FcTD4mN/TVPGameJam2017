@@ -320,7 +320,7 @@ function CharacterController:MouseReleased( iX, iY, iButton, iIsTouch )
             end
 
             -- we're gonna check which node is closest to mouse and which node is closest to char/unit in order to process a path from gPrecomputedNodeSequence
-            
+
             local nodeSequence, dstChar, zeroCount = self:GetNodeSequence( entity, connectionIndexMouse, connectionIndexChar )
 
             ClearTable( destination.mX )

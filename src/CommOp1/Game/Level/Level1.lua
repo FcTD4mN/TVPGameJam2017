@@ -52,8 +52,8 @@ function  Level1:InitializeLevel1( iMode )
     gCamera.mY = self.mMap.mH / 2
     gCamera.mScale = 0.1
 
-    print( gCamera.mX )
-    print( gCamera.mY )
+    -- print( gCamera.mX )
+    -- print( gCamera.mY )
 
     gFaction = iMode
     SoundEngine.Init()
@@ -153,11 +153,11 @@ function  Level1:Draw()
         gCamera.mScale = 1
     end
 
-    Base:log( gCamera.mScale )
+    -- Base:log( gCamera.mScale )
     local shearFactor = ( 1 - gCamera.mScale )
     local scaleFactor = ( 1 - gCamera.mScale ) * 0.5 + 0.5
     local x = ( gCamera.mX / ( self.mMap.mW ) - 0.5 ) * shearFactor * shearFactor * shearFactor * 0.25
-	
+
 	love.graphics.shear(x , 0)
     self:DrawLevelBase()
 
